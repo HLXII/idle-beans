@@ -22,7 +22,8 @@ describe('Game launch smoke test', () => {
             for (let i = 0; i < 100; i++) {
                 App.game.update();
             }
-            App.game.features.wallet.gainCurrency(new Currency(10, CurrencyType.Money))
+            // Modified due to not using
+            //App.game.features.wallet.gainCurrency(new Currency(10, CurrencyType.Money))
         }).not.toThrow();
     });
 });

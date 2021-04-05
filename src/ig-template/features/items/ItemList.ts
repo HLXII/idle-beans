@@ -6,6 +6,8 @@ import {ItemWithData} from "@/ig-template/features/items/instances/ItemWithData"
 import {EmptyItem} from "@/ig-template/features/items/instances/EmptyItem";
 import {RawFish} from "@/ig-template/features/items/instances/RawFish";
 import {CookedFish} from "@/ig-template/features/items/instances/CookedFish";
+// Modified due to not using
+import { Wallet } from "../wallet/Wallet";
 
 export class ItemList extends Feature {
 
@@ -26,7 +28,9 @@ export class ItemList extends Feature {
     }
 
     get moneyPouch(): MoneyPouch {
-        return new MoneyPouch(this._features.wallet)
+        // Modified due to not using
+        //return new MoneyPouch(this._features.wallet)
+        return new MoneyPouch(new Wallet([]));
     }
 
     get itemWithData(): ItemWithData {

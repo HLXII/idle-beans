@@ -27,6 +27,8 @@ export class SpecialEvents extends Feature {
     }
 
     initialize(features: Features) {
+        // Modified due to not using
+        /*
         // Schedule an event for a specific date and time.
         this.addEvent(
             new SpecialEvent(SpecialEventId.AllowButton, 'Example Event', 'Make the sacred button appear in the example feature',
@@ -51,6 +53,7 @@ export class SpecialEvents extends Feature {
                 },
             )
         );
+        */
     }
 
     /**

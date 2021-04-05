@@ -22,7 +22,8 @@ export abstract class UpgradesFeature extends Feature {
      * When overriding, make sure to call super.initialize() or you won't have access to the _wallet
      */
     initialize(features: Features) {
-        this._wallet = features.wallet;
+        // Modified due to not using
+        //this._wallet = features.wallet;
     }
 
     getUpgrade(id: UpgradeId): AbstractUpgrade | undefined {
