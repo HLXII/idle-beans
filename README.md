@@ -1,9 +1,7 @@
-# Incremental Game Template
-> A template project to quickly create incremental games with Typescript.
+# Bean Idle
+> For when you want to grow some beans
 
-[![Build Status](https://travis-ci.org/123ishaTest/incremental-game-template.svg?branch=master)](https://travis-ci.org/123ishaTest/incremental-game-template)
-
-[Please visit the actual Docs here](https://123ishatest.github.io/incremental-game-template-website)
+Uses the [Incremental Game Template](https://github.com/123ishaTest/incremental-game-template)
 
 ## Requirements
 - [Nodejs](https://nodejs.org/en/) >= v12.13.0.

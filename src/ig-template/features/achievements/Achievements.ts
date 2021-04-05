@@ -30,6 +30,7 @@ export class Achievements extends Feature {
 
     initialize(features: Features): void {
         // You can base achievements on statistics
+        /*
         this.registerAchievement(
             new Achievement(
                 AchievementId.TotalMoney100, "Gain 100 total money", 'Automatically triggered if you gain enough money',
@@ -37,6 +38,7 @@ export class Achievements extends Feature {
                 'logo.png',
             )
         );
+        */
 
         // Or have manual ones. You'll have to trigger them with `achievement.forceUnlock()`
         this.registerAchievement(

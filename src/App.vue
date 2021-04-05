@@ -1,89 +1,51 @@
 <template>
-  <div :class="{'dark': darkMode}">
+  <div class="grid grid-cols-3" :class="{'dark': darkMode}">
     <igt-notifications></igt-notifications>
-    <igt-sidebar title="Incremental Game Template">
-
-      <igt-sidebar-category name="Features"></igt-sidebar-category>
-
-      <igt-tab name="Example">
-        <igt-example-feature></igt-example-feature>
-      </igt-tab>
-
-      <igt-tab name="Inventory" :selected="true">
-        <igt-inventory></igt-inventory>
-      </igt-tab>
-
-      <igt-tab name="Wallet">
-        <igt-wallet></igt-wallet>
-      </igt-tab>
-
-      <igt-tab name="Key Items">
-        <igt-key-items></igt-key-items>
-      </igt-tab>
-
-      <igt-tab name="Special Events">
-        <igt-special-events></igt-special-events>
-      </igt-tab>
-
-      <igt-tab name="Achievements">
-        <igt-achievements :achievements-feature="game.features.achievements"></igt-achievements>
-      </igt-tab>
-
-      <igt-tab name="Redeemable Codes">
-        <igt-redeemable-codes></igt-redeemable-codes>
-      </igt-tab>
-
-      <igt-tab name="Settings">
-        <igt-settings></igt-settings>
-      </igt-tab>
-
-      <igt-sidebar-category name="Other"></igt-sidebar-category>
-
-      <igt-tab name="Developer Panel" v-if="showDevPanel">
-        <igt-developer-panel></igt-developer-panel>
-      </igt-tab>
-
-      <igt-sidebar-category name="Socials"></igt-sidebar-category>
-      <igt-sidebar-external-link name="Discord" link="https://discord.gg/WUYDqct2Ef"
-                                 image="socials/discord.png"></igt-sidebar-external-link>
-      <igt-sidebar-external-link name="Documentation"
-                                 link="https://123ishatest.github.io/incremental-game-template-website/"
-                                 image="socials/docusaurus.svg"></igt-sidebar-external-link>
-      <igt-sidebar-external-link name="GitHub" link="https://github.com/123ishaTest/incremental-game-template"
-                                 image="socials/github.png"></igt-sidebar-external-link>
-    </igt-sidebar>
-
+      <div id="left-column" style="max-width: 320px;">
+        <div class="d-flex flex-column" style="height: 100%;">
+            <div class="row m-0 justify-content-center align-content-end" style="height: 192px;">
+                <!-- Bean Power -->
+                <div class="p-1" style="text-align: center" v-on:click="changeToolTest()">
+                    Bean Power
+                </div>
+                <igt-progress-bar :percentage="25"></igt-progress-bar>
+                <!-- Tool Icons -->
+                <igt-tool-icons></igt-tool-icons>
+            </div>
+            <!-- Bean List -->
+            <bean-list></bean-list>
+        </div>
+      </div>
+      <div id="middle-column" class="p-0 col-12 col-sm-12 col-md-6 col-lg-6 order-sm-1 order-md-2" style="max-width: 640px;">
+          <!-- Farm -->
+          <farm>
+              <!-- Title -->
+              <div class="row m-0 align-content-center" 
+              style="height: 192px; position: absolute; top: 0; width:100%; pointer-events: none;">
+                  <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
+              </div>
+          </farm>
+      </div>
+      <div>1</div>
   </div>
 
 </template>
 
 <script>
 import {App} from "@/App.ts"
-import IgtSidebar from "@/components/util/sidebar/igt-sidebar-layout";
-import IgtTab from "@/components/util/igt-tab";
-import IgtAchievements from "@/components/features/achievements/igt-achievements";
-import IgtWallet from "@/components/features/wallet/igt-wallet";
 import IgtNotifications from "@/components/util/igt-notifications";
-import IgtDeveloperPanel from "@/components/developer-panel/igt-developer-panel";
-import IgtSidebarCategory from "@/components/util/sidebar/igt-sidebar-category";
-import IgtSidebarExternalLink from "@/components/util/sidebar/igt-sidebar-external-link";
-import IgtSettings from "@/components/features/settings/igt-settings";
-import IgtRedeemableCodes from "@/components/features/codes/igt-redeemable-codes";
-import IgtExampleFeature from "@/components/features/example/igt-example-feature";
-import IgtSpecialEvents from "@/components/features/special-events/igt-special-events";
-import IgtInventory from "@/components/features/inventory/igt-inventory";
-import IgtKeyItems from "@/components/features/key-items/igt-key-items";
+import IgtProgressBar from './components/util/igt-progress-bar.vue';
+import IgtToolIcons from './components/features/controller/tool-icons/igt-tool-icons.vue';
+import BeanList from './components/features/controller/beanlist/bean-list.vue';
+import Farm from '@/components/features/farm/farm.vue';
 
 export default {
   components: {
-    IgtKeyItems,
-    IgtInventory,
-    IgtSpecialEvents,
-    IgtExampleFeature,
-    IgtRedeemableCodes,
-    IgtSettings,
-    IgtSidebarExternalLink,
-    IgtSidebarCategory, IgtDeveloperPanel, IgtNotifications, IgtWallet, IgtAchievements, IgtTab, IgtSidebar
+    IgtNotifications,
+    IgtProgressBar,
+    IgtToolIcons,
+    BeanList,
+    Farm,
   },
   data() {
     return {

@@ -1,6 +1,5 @@
 import {GameState} from "./GameState";
 import {LocalStorage} from "@/ig-template/tools/saving/LocalStorage";
-import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Features} from "@/ig-template/Features";
 import {Feature} from "@/ig-template/features/Feature";
 import {DeveloperPanel} from "@/ig-template/developer-panel/DeveloperPanel";
@@ -105,14 +104,6 @@ export class Game {
             this.save();
             this._nextSave = this.SAVE_INTERVAL;
         }
-    }
-
-    public getTotalCurrencyMultiplier(type: CurrencyType): number {
-        let multiplier = 1;
-        for (const feature of this.featureList) {
-            multiplier *= feature.getTotalCurrencyMultiplier(type);
-        }
-        return multiplier;
     }
 
     /**

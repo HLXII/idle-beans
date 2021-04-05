@@ -18,7 +18,6 @@ declare global {
     }
 }
 
-
 /**
  * Start the application when all html elements are loaded.
  */
@@ -37,7 +36,6 @@ window.onload = function () {
     new Vue({
         render: h => h(VueApp),
     }).$mount('#app')
-
 
 };
 

@@ -1,6 +1,5 @@
 import {Saveable} from "@/ig-template/tools/saving/Saveable";
 import {SaveData} from "@/ig-template/tools/saving/SaveData";
-import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {Features} from "@/ig-template/Features";
 import {AbstractField} from "@/ig-template/developer-panel/fields/AbstractField";
 
@@ -52,14 +51,6 @@ export abstract class Feature implements Saveable {
      */
     canAccess(): boolean {
         return false;
-    }
-
-    /**
-     * Override in features if specified
-     * IMPORTANT: Make sure to always return 1 as the default
-     */
-    getTotalCurrencyMultiplier(type: CurrencyType) {
-        return 1;
     }
 
     /**

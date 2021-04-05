@@ -7,30 +7,32 @@ import {Feature} from "@/ig-template/features/Feature";
 import {AbstractStatistic} from "@/ig-template/features/statistics/AbstractStatistic";
 import {StatisticsSaveData} from "@/ig-template/features/statistics/StatisticsSaveData";
 import {Features} from "@/ig-template/Features";
-import {Currency} from "@/ig-template/features/wallet/Currency";
-import {CurrencyType} from "@/ig-template/features/wallet/CurrencyType";
 import {ArrayStatistic} from "@/ig-template/features/statistics/ArrayStatistic";
 
 export class Statistics extends Feature {
 
     list: Record<StatisticId, AbstractStatistic>
 
-    public totalMoneyGained: NumberStatistic;
+    //public totalMoneyGained: NumberStatistic;
 
     constructor() {
         super('statistics');
         this.list = {} as Record<StatisticId, AbstractStatistic>;
 
         // You can register statistics as attributes for easy access, but you don't have to.
+        /*
         this.totalMoneyGained = this.registerStatistic(new NumberStatistic(StatisticId.TotalMoneyGained, 'Total money'));
+        */
     }
 
     initialize(features: Features): void {
+        /*
         features.wallet.onCurrencyGain.subscribe((currency: Currency) => {
             if (currency.type === CurrencyType.Money) {
                 this.incrementNumberStatistic(StatisticId.TotalMoneyGained, currency.amount);
             }
         });
+        */
     }
 
     incrementNumberStatistic(id: StatisticId, amount = 1): void {
@@ -89,7 +91,6 @@ export class Statistics extends Feature {
             }
         }
     }
-
 
     save(): StatisticsSaveData {
         const data = new StatisticsSaveData();
