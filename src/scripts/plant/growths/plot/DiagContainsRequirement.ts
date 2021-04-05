@@ -1,6 +1,6 @@
 import { App } from "@/App";
-import Plot from "@/ig-template/features/farm/Plot";
-import GameHelper from "@/ig-template/util/GameHelper";
+import Plot from "@/scripts/farm/Plot";
+import GameHelper from "@/scripts/GameHelper";
 import { PlantType } from "../../PlantList";
 import DiagPlotsRequirement from "./DiagPlotsRequirement";
 

@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import Farm from "@/ig-template/features/farm/Farm";
-import GameController from "@/ig-template/features/GameController";
-import Plot from "@/ig-template/features/farm/Plot";
+import Farm from "@/scripts/farm/Farm";
+import GameController from "@/scripts/GameController";
+import Plot from "@/scripts/farm/Plot";
 
-import BeanBud from "@/components/features/plant/BeanBud";
+import BeanBud from "@/controls/plant/BeanBud";
 
 export default {
   name: "plant",

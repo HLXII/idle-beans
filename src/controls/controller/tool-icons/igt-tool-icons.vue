@@ -8,8 +8,8 @@
 
 <script>
 import {App} from "@/App.ts"
-import {ToolType} from "@/ig-template/features/GameController";
-import IgtToolIcon from "@/components/features/controller/tool-icons/igt-tool-icon";
+import {ToolType} from "@/scripts/GameController";
+import IgtToolIcon from "@/controls/controller/tool-icons/igt-tool-icon";
 
 export default {
   name: "igt-tool-icons",

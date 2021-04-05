@@ -1,10 +1,9 @@
 import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
 import { Features } from "@/ig-template/Features";
-import { Saveable } from "@/ig-template/tools/saving/Saveable";
+import { Feature } from "@/ig-template/features/Feature";
 import { SaveData } from "@/ig-template/tools/saving/SaveData";
-import { Feature } from "../Feature";
 import Bean, { BeanSaveData } from "./Bean";
-import { BeanList, BeanType } from "./BeanList";
+import { BeanType, BeanList } from "./BeanList";
 
 interface BeansSaveData extends SaveData {
     [key: string]: BeanSaveData;

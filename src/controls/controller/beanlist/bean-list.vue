@@ -8,7 +8,7 @@
 
 <script>
 import {App} from "@/App.ts"
-import {ToolType} from "@/ig-template/features/GameController";
+import {ToolType} from "@/scripts/GameController";
 import BeanEntry from './bean-entry.vue';
 
 export default {

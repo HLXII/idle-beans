@@ -1,13 +1,13 @@
-import { App } from '@/App';
-import { AbstractField } from '@/ig-template/developer-panel/fields/AbstractField';
-import { Features } from '@/ig-template/Features';
-import { SaveData } from '@/ig-template/tools/saving/SaveData';
-import GameHelper from '@/ig-template/util/GameHelper';
-import { BeanType } from '../bean/BeanList';
-import { isPlantable } from '../bean/Plantable';
-import { Feature } from '../Feature';
-import { PlantType } from '../plant/PlantList';
-import Plot, { PlotSaveData } from './Plot';
+import { App } from "@/App";
+import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
+import { Features } from "@/ig-template/Features";
+import { Feature } from "@/ig-template/features/Feature";
+import { SaveData } from "@/ig-template/tools/saving/SaveData";
+import { BeanType } from "../bean/BeanList";
+import { isPlantable } from "../bean/Plantable";
+import { PlantType } from "../plant/PlantList";
+import Plot, { PlotSaveData } from "./Plot";
+
 
 export interface FarmSaveData extends SaveData {
     plots: PlotSaveData[][];

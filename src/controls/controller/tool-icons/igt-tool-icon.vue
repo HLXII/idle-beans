@@ -8,8 +8,7 @@
 </template>
 
 <script>
-import {ToolType} from "@/ig-template/features/GameController";
-import GameController from "@/ig-template/features/GameController";
+import GameController, {ToolType} from "@/scripts/GameController";
 
 export default {
   name: "igt-tool-icons",

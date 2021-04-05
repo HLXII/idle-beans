@@ -1,12 +1,12 @@
 import { App } from "@/App";
-import { AbstractField } from "../developer-panel/fields/AbstractField";
-import { Features } from "../Features";
-import { SaveData } from "../tools/saving/SaveData";
+import { AbstractField } from "../ig-template/developer-panel/fields/AbstractField";
+import { Features } from "../ig-template/Features";
+import { SaveData } from "../ig-template/tools/saving/SaveData";
 import Bean from "./bean/Bean";
 import { BeanList, BeanType } from "./bean/BeanList";
 import Farm from "./farm/Farm";
 import Plot from "./farm/Plot";
-import { Feature } from "./Feature";
+import { Feature } from "../ig-template/features/Feature";
 
 export enum ToolType {
     'Cursor' = 0,

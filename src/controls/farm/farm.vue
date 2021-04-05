@@ -22,7 +22,7 @@
 
 <script>
 import {App} from "@/App.ts"
-import Plant from "@/components/features/farm/plant";
+import Plant from "@/controls/farm/plant";
 
 export default {
   name: "farm",

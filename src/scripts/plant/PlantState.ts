@@ -1,7 +1,7 @@
 import { App } from "@/App";
 import { Saveable } from "@/ig-template/tools/saving/Saveable";
 import { SaveData } from "@/ig-template/tools/saving/SaveData";
-import GameHelper from "@/ig-template/util/GameHelper";
+import GameHelper from "@/scripts/GameHelper";
 import { BeanType } from "../bean/BeanList";
 import Plot from "../farm/Plot";
 import Plant from "./Plant";

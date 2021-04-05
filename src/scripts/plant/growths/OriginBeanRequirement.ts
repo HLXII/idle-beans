@@ -1,5 +1,5 @@
 import { App } from "@/App";
-import GameHelper from "@/ig-template/util/GameHelper";
+import GameHelper from "@/scripts/GameHelper";
 import { BeanType } from "../../bean/BeanList";
 import Plot from "../../farm/Plot";
 import GrowthPlantState from "../GrowthPlantState";

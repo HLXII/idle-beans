@@ -2,7 +2,7 @@
 import { AbstractField } from '@/ig-template/developer-panel/fields/AbstractField';
 import { Features } from '@/ig-template/Features';
 import { SaveData } from '@/ig-template/tools/saving/SaveData';
-import { Feature } from '../Feature';
+import { Feature } from '../../ig-template/features/Feature';
 import Plant, { PlantSaveData } from './Plant';
 import { PlantList, PlantType } from './PlantList';
 

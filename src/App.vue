@@ -35,9 +35,9 @@
 import {App} from "@/App.ts"
 import IgtNotifications from "@/components/util/igt-notifications";
 import IgtProgressBar from './components/util/igt-progress-bar.vue';
-import IgtToolIcons from './components/features/controller/tool-icons/igt-tool-icons.vue';
-import BeanList from './components/features/controller/beanlist/bean-list.vue';
-import Farm from '@/components/features/farm/farm.vue';
+import IgtToolIcons from './controls/controller/tool-icons/igt-tool-icons.vue';
+import BeanList from '@/controls/controller/beanlist/bean-list.vue';
+import Farm from '@/controls/farm/farm.vue';
 
 export default {
   components: {

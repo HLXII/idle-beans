@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import GameController, {ToolType} from "@/ig-template/features/GameController";
-import Bean from "@/ig-template/features/bean/Bean";
+import GameController, {ToolType} from "@/scripts/GameController";
+import Bean from "@/scripts/bean/Bean";
 
 export default {
   name: "igt-tool-icons",

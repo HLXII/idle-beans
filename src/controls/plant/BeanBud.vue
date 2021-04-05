@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import GameController from "@/ig-template/features/GameController";
+import GameController from "@/scripts/GameController";
 
 export default {
     name: "beanbud",
