@@ -32,7 +32,8 @@ export class Inventory extends Feature {
 
     initialize(features: Features) {
         super.initialize(features);
-        this._itemList = features.itemList;
+        // Modified due to not using
+        //this._itemList = features.itemList;
     }
 
     interactIndices(indexFrom: number, indexTo: number) {
