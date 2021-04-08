@@ -15,7 +15,7 @@ export class RedeemableCodes extends Feature {
 
 
     initialize(features: Features) {
-        
+        return;
     }
 
     /**

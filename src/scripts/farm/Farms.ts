@@ -58,45 +58,35 @@ export default class Farms extends Feature {
 
     getFarm(farm?: FarmType): Farm {
         // Obtaining Farm if not given
-        if (farm === undefined) {
-            farm = this.activeFarm;
-        }
+        farm = farm ?? this.activeFarm;
 
         return this.farms[farm];
     }
 
     getPlot(row: number, col: number, farm?: FarmType): Plot {
         // Obtaining Farm if not given
-        if (farm === undefined) {
-            farm = this.activeFarm;
-        }
+        farm = farm ?? this.activeFarm;
 
         return this.getFarm(farm).getPlot(row, col);
     }
 
     getPlant(row: number, col: number, farm?: FarmType): PlantState | undefined {
         // Obtaining Farm if not given
-        if (farm === undefined) {
-            farm = this.activeFarm;
-        }
+        farm = farm ?? this.activeFarm;
 
         return this.getFarm(farm).getPlant(row, col);
     }
 
     addPlant(state: PlantState, row: number, col: number, farm?: FarmType) {
         // Obtaining Farm if not given
-        if (farm === undefined) {
-            farm = this.activeFarm;
-        }
+        farm = farm ?? this.activeFarm;
 
         this.getFarm(farm).addPlant(state, row, col);
     }
 
     removePlant(row: number, col: number, farm?: FarmType) {
         // Obtaining Farm if not given
-        if (farm === undefined) {
-            farm = this.activeFarm;
-        }
+        farm = farm ?? this.activeFarm;
 
         // Handling plant removal
         const plant = this.getPlant(row, col ,farm);
@@ -116,9 +106,7 @@ export default class Farms extends Feature {
         }
         
         // Obtaining Farm if not given
-        if (farm === undefined) {
-            farm = this.activeFarm;
-        }
+        farm = farm ?? this.activeFarm;
 
         const bean = App.game.features.beans.list[beanType];
         // Check if can plant bean

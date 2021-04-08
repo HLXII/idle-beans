@@ -7,7 +7,7 @@ import DiagContainsRequirement from '../growths/plot/DiagContainsRequirement';
 
 export default class BeanBud extends GrowthPlant {
 
-    public growthTime: number = 6000;
+    public growthTime: number = 5;
     public growths: Growth[] = [
         new Growth('Bean Vine', new DiagContainsRequirement({plant: 'Bean Plant', amount: 3})),
         new Growth('Blue Bean Sprout', new AnyGrowthRequirement(

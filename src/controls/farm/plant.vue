@@ -1,7 +1,7 @@
 <template>
     <div class="plant" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
-        <component v-bind:is=plant.image :row=plant.row :col=plant.col :controller=controller ></component>
+        <component v-bind:is=image :row=plant.row :col=plant.col :controller=controller ></component>
     </div>
 </template>
 
@@ -11,11 +11,25 @@ import GameController from "@/scripts/GameController";
 import PlantState from "@/scripts/plant/PlantState";
 
 import BeanBud from "@/controls/plant/BeanBud";
+import BeanPlant from "@/controls/plant/BeanPlant";
+import BeanSprout from "@/controls/plant/BeanSprout";
+import BeanStalk from "@/controls/plant/BeanStalk";
+import BeanVine from "@/controls/plant/BeanVine";
+import GreenBeanPlant from "@/controls/plant/GreenBeanPlant";
+import YellowBeanPlant from "@/controls/plant/YellowBeanPlant";
+import YellowBeanSprout from "@/controls/plant/YellowBeanSprout";
 
 export default {
   name: "plant",
   components: {
       BeanBud,
+      BeanPlant,
+      BeanSprout,
+      BeanStalk,
+      BeanVine,
+      GreenBeanPlant,
+      YellowBeanPlant,
+      YellowBeanSprout,
   },
   data() {
     return {

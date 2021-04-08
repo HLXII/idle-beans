@@ -57,7 +57,7 @@ export default class Plant implements Saveable {
     }
 
     get image(): string {
-        return this.name.toLowerCase().replace(' ','-');
+        return this.name.toLowerCase().replace(/ /g,'-');
     }
 
     get saveKey(): string {

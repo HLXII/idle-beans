@@ -26,12 +26,12 @@ export default class PlantableBean extends Bean implements Plantable {
         // Removing Bean
         App.game.features.beans.gain(this.name as BeanType, -1);
 
-        
-
+        // Creating new state
         const plant = App.game.features.plants.list[this.plantType];
         const newPlant = plant.state({farm: farm, row: row, col: col});
         newPlant.originBean = this.name as BeanType;
 
+        // Planting Bean
         App.game.features.farms.addPlant(newPlant, row, col, farm);
 
         // Unlocking state
