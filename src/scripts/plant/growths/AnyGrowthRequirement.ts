@@ -1,6 +1,4 @@
-import Plot from "../../farm/Plot";
 import GrowthPlantState from "../GrowthPlantState";
-import { PlantType } from "../PlantList";
 import GrowthRequirement from "./GrowthRequirement";
 
 export default class AnyGrowthRequirement extends GrowthRequirement {
@@ -9,8 +7,8 @@ export default class AnyGrowthRequirement extends GrowthRequirement {
         super(_description);
     }
 
-    public growthCheck(plot: Plot, state: GrowthPlantState): boolean {
-        return this.reqs.some((req) => req.growthCheck(plot, state));
+    public growthCheck(state: GrowthPlantState): boolean {
+        return this.reqs.some((req) => req.growthCheck(state));
     }
 
     public visible(): boolean {

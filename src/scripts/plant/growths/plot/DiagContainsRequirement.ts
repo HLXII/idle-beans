@@ -3,6 +3,7 @@ import Plot from "@/scripts/farm/Plot";
 import GameHelper from "@/scripts/GameHelper";
 import { PlantType } from "../../PlantList";
 import DiagPlotsRequirement from "./DiagPlotsRequirement";
+import PlotRequirement from "./PlotRequirement";
 
 export default class DiagContainsRequirement extends DiagPlotsRequirement {
 
@@ -26,7 +27,7 @@ export default class DiagContainsRequirement extends DiagPlotsRequirement {
     }
 
     plotConditions(plots: Plot[]): boolean {
-        return App.game.features.farm.containsAtLeast(plots, this.data);
+        return PlotRequirement.containsAtLeast(plots, this.data);
     }
 
     public visible(): boolean {

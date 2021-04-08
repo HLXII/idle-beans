@@ -3,6 +3,7 @@ import { Saveable } from '@/ig-template/tools/saving/Saveable';
 import { SaveData } from '@/ig-template/tools/saving/SaveData';
 import GameHelper from '@/scripts/GameHelper';
 import { BeanType } from '../bean/BeanList';
+import FarmLocation from '../farm/FarmLocation';
 import { PlantType } from './PlantList';
 import PlantState from './PlantState';
 
@@ -46,8 +47,8 @@ export default class Plant implements Saveable {
         }
     }
 
-    state(): PlantState {
-        return new (this.constructor as typeof Plant).state(this.name as PlantType);
+    state(location?: FarmLocation): PlantState {
+        return new (this.constructor as typeof Plant).state(this.name as PlantType, location);
     }
 
     // TODO: Update to work with webpack

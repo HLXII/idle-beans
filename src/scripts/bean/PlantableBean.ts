@@ -1,9 +1,10 @@
-import Plot from "../farm/Plot";
+import { App } from "@/App";
+import { FarmType } from "../farm/FarmType";
 import { PlantType } from "../plant/PlantList";
 import Bean, { BeanOptions } from "./Bean";
-import Plantable from "./Plantable";
 import { BeanType } from "./BeanList";
-import { App } from "@/App";
+import Plantable from "./Plantable";
+
 
 export default class PlantableBean extends Bean implements Plantable {
     
@@ -11,23 +12,27 @@ export default class PlantableBean extends Bean implements Plantable {
         super(name, option);
     }
 
-    plant(plot: Plot) {
+    plant(farm: FarmType, row: number, col: number) {
         // No Beans left
         if (!this.amount) {
             return false;
         }
         // Plot already has plant
-        if (plot.plant) {
+        const prevPlant = App.game.features.farms.getPlant(row, col, farm);
+        if (prevPlant) {
             return false;
         }
 
-        // Planting Bean
+        // Removing Bean
         App.game.features.beans.gain(this.name as BeanType, -1);
 
+        
+
         const plant = App.game.features.plants.list[this.plantType];
-        const newPlant = plant.state();
+        const newPlant = plant.state({farm: farm, row: row, col: col});
         newPlant.originBean = this.name as BeanType;
-        plot.plant = newPlant;
+
+        App.game.features.farms.addPlant(newPlant, row, col, farm);
 
         // Unlocking state
         plant.unlock();

@@ -1,5 +1,5 @@
 import { App } from "@/App";
-import Plot from "../farm/Plot";
+import FarmLocation from "../farm/FarmLocation";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
 import PlantState from "./PlantState";
@@ -8,8 +8,8 @@ export default class GrowthPlantState extends PlantState {
     
     public growthPlant: PlantType;
 
-    constructor(name: PlantType) {
-        super(name);
+    constructor(name: PlantType, location?: FarmLocation) {
+        super(name, location);
 
         this.growthPlant = 'Bean Plant';
     }   
@@ -18,16 +18,37 @@ export default class GrowthPlantState extends PlantState {
      * Updates the plant every game tick
      * @param delta The time passed (ms)
      */
-    update(delta: number, plot: Plot) {
-        super.update(delta, plot);
+    update(delta: number) {
+        super.update(delta);
 
-        const growth = (this.data as GrowthPlant).growthPlant(plot, this);
+        const growth = (this.data as GrowthPlant).growthPlant(this);
         this.growthPlant = growth;
-        console.log(this.stageAge);
-        if (this.stageAge >= (this.data as GrowthPlant).growthTime) {
+        if (this.age >= (this.data as GrowthPlant).growthTime) {
             //App.game.features.log.log(`A ${this.plant} has grown into a ${growth}.`);
-            this.grow(plot, growth);
+            this.grow(growth);
         }
+    }
+
+    /**
+     * Grows the plant into a new plant type
+     * @param plant The plant type
+     */
+    grow(plant: PlantType) {
+        // Generating new state
+        const newPlant = App.game.features.plants.list[plant];
+        const newState = newPlant.state();
+        const oldStateData = this.save();
+        oldStateData.type = plant;
+        newState.load(oldStateData);
+        
+        // Removing this plant
+        App.game.features.farms.removePlantByState(this);
+
+        // Adding new plant
+        App.game.features.farms.addPlant(newState, newState.row, newState.col, newState.farm);
+
+        // Unlocking plant
+        newPlant.unlock();
     }
 
 }

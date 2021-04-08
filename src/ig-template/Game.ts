@@ -20,7 +20,7 @@ export class Game {
 
 
     private readonly TICK_DURATION = 0.05;
-    private readonly SAVE_INTERVAL = 30;
+    private readonly SAVE_INTERVAL = 2;
     private _nextSave = this.SAVE_INTERVAL;
 
     private gameSpeed = 1;
@@ -30,7 +30,7 @@ export class Game {
      * TODO Make sure this key is unique to your game.
      * Otherwise you might run into loading conflicts when multiple games are hosted on the same domain (such as <username.github.io/game)
      */
-    private readonly SAVE_KEY = "unique-key-for-your-game";
+    private readonly SAVE_KEY = "idle-beans";
 
     constructor(features: Features) {
         this.features = features;

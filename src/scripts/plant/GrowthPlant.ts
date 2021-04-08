@@ -29,18 +29,18 @@ export default abstract class GrowthPlant extends Plant {
 
     /**
      * Handles checking growth requirements
-     * @param plot The plot
      * @param state The current plant state
      */
-    growthPlant(plot: Plot, state: GrowthPlantState): PlantType {
+    growthPlant(state: GrowthPlantState): PlantType {
+
         for (const growth of this.growths) {
-            if (growth.req.growthCheck(plot, state)) {
+            if (growth.req.growthCheck(state)) {
                 return growth.plant;
             }
         }
 
         // Sanity check. Growth requirements should always return a value
-        console.error('Error - Could not find growth requirement', plot, state);
+        console.error('Error - Could not find growth requirement', state);
         return 'Bean Bud';
     }
 

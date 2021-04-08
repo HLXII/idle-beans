@@ -1,12 +1,13 @@
 import { App } from "@/App";
-import { AbstractField } from "../ig-template/developer-panel/fields/AbstractField";
-import { Features } from "../ig-template/Features";
-import { SaveData } from "../ig-template/tools/saving/SaveData";
+import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
+import { Features } from "@/ig-template/Features";
+import { Feature } from "@/ig-template/features/Feature";
+import { SaveData } from "@/ig-template/tools/saving/SaveData";
 import Bean from "./bean/Bean";
-import { BeanList, BeanType } from "./bean/BeanList";
-import Farm from "./farm/Farm";
+import { BeanType, BeanList } from "./bean/BeanList";
+import Farms from "./farm/Farms";
 import Plot from "./farm/Plot";
-import { Feature } from "../ig-template/features/Feature";
+
 
 export enum ToolType {
     'Cursor' = 0,
@@ -14,27 +15,29 @@ export enum ToolType {
     'Sickle',
 }
 
-export default class GameController implements Feature {
+export default class GameController extends Feature {
 
-    public tool: ToolType;
+    private farms!: Farms;
 
-    public bean: BeanType;
+    public tool!: ToolType;
+
+    public bean!: BeanType;
 
     public plot?: Plot;
 
-    private farm?: Farm;
-
     constructor() {
-        this.tool = ToolType.Cursor;
-        this.bean = 'Bean';
-        this.plot = undefined;
+        super('controller');
     }
 
     getDeveloperPanelFields(): AbstractField[] {
         return [];
     }
     initialize(features: Features): void {
-        this.farm = features.farm;
+        this.farms = features.farms;
+
+        this.tool = ToolType.Cursor;
+        this.bean = 'Bean';
+        this.plot = undefined;
     }
     start(): void {
         return;
@@ -70,11 +73,11 @@ export default class GameController implements Feature {
                 break;
             }
             case ToolType.Bean: {
-                this.farm?.plantBean(this.bean, row, col);
+                this.farms.plantBean(this.bean, row, col);
                 break;
             }
             case ToolType.Sickle: {
-                this.farm?.removePlant([row, col]);
+                this.farms.removePlant(row, col);
                 break;
             }
         }
@@ -90,7 +93,6 @@ export default class GameController implements Feature {
         });
     }
 
-    saveKey = 'controller';
     load(data: SaveData): void {
         return;
     }
@@ -100,8 +102,8 @@ export default class GameController implements Feature {
 
     openPlotModal(row: number, col: number) {
         // Retrieving plot
-        const plot = this.farm?.plots[row][col];
-        this.plot = plot;
+        //const plot = this.farms.plots[row][col];
+        //this.plot = plot;
         // Opening modal
         //const myModal = new Modal(document.getElementById('plotModal'));
         //myModal.show();

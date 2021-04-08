@@ -3,24 +3,71 @@ import { Saveable } from "@/ig-template/tools/saving/Saveable";
 import { SaveData } from "@/ig-template/tools/saving/SaveData";
 import GameHelper from "@/scripts/GameHelper";
 import { BeanType } from "../bean/BeanList";
+import FarmLocation from "../farm/FarmLocation";
+import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
 import Plant from "./Plant";
 import { PlantType } from './PlantList';
 
-export interface PlantStateSaveData extends SaveData {
+export interface PlantStateSaveData extends SaveData, FarmLocation {
     stateClass: string;
-    plant: PlantType;
+    type: PlantType;
     originBean: BeanType;
     age: number;
-    stageAge: number;
 }
 
-export default class PlantState implements Saveable {
+export default class PlantState implements Saveable, FarmLocation {
 
+    /** Type of Plant for this state */
+    public type: PlantType;
+
+    /** Position in the Farm */
+    public farm!: FarmType;
+    public row!: number;
+    public col!: number;
+
+    /** Original Bean used to grow this Plant */
     public originBean: BeanType;
 
+    /** Age (in milliseconds) */
     public age: number;
-    public stageAge: number;
+
+    constructor(type: PlantType, location?: FarmLocation) {
+        this.type = type;
+
+        if (location) {
+            this.farm = location.farm;
+            this.row = location.row;
+            this.col = location.col;
+        }
+
+        this.originBean = 'Bean';
+        this.age = 0;
+    }
+
+    /**
+     * Updates the plant every game tick
+     * @param delta The time passed (ms)
+     */
+    update(delta: number) {
+        this.age += delta;
+    }
+
+    /**
+     * Handles harvesting this plant
+     */
+    handleRemove() {
+        // Gaining harvest cost
+        const harvestGain = this.harvestGain;
+        console.log(harvestGain);
+        for (const bean in harvestGain) {
+            App.game.features.beans.gain(bean as BeanType, harvestGain[bean as BeanType]);
+        }
+        // Logging harvest
+        // TODO
+        //const gainedBeans = Object.entries(harvestGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
+        //App.game.log.log(`Removed a ${this.plant}. Gained: ${gainedBeans}.`);
+    }
 
     get harvestGain(): {[bean in BeanType]?: number} {
         return this.data.harvestGain(this);
@@ -37,69 +84,23 @@ export default class PlantState implements Saveable {
         return message.join('<br>');
     }
 
-    constructor(public plant: PlantType) {
-        this.originBean = 'Bean';
-        this.age = 0;
-        this.stageAge = 0;
-    }
-
     /**
-     * Updates the plant every game tick
-     * @param delta The time passed (ms)
+     * Returns the Plant object associated with this PlantState
      */
-    update(delta: number, plot: Plot) {
-        this.age += delta;
-        this.stageAge += delta;
-    }
-
-    /**
-     * Grows the plant into a new plant type
-     * @param plot The plot whose plant is growing
-     * @param plant The plant type
-     */
-    grow(plot: Plot, plant: PlantType) {
-        const oldState = plot.plant;
-        // Sanity check
-        if (!oldState) {
-            console.error(`Error: - Attempting to grow plant that does not exist - ${this} - ${plot}, ${plant}`);
-            return;
-        }
-
-        // Generating new state
-        const newPlant = App.game.features.plants.list[plant];
-        const newState = newPlant.state();
-        const oldStateData = oldState.save();
-        oldStateData.plant = plant;
-        oldStateData.stageAge = 0;
-        newState.load(oldStateData);
-        plot.plant = newState;
-
-        // Unlocking plant
-        newPlant.unlock();
-    }
-
-    /**
-     * Handles removing this plant
-     * @param plot The plant's plot
-     */
-    handleRemove(plot: Plot) {
-        // Gaining harvest cost
-        const harvestGain = this.harvestGain;
-        for (const bean in harvestGain) {
-            App.game.features.beans.gain(bean as BeanType, harvestGain[bean as BeanType]);
-        }
-        const gainedBeans = Object.entries(harvestGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
-        //App.game.log.log(`Removed a ${this.plant}. Gained: ${gainedBeans}.`);
-    }
-
     get data(): Plant {
-        if (this.plant) {
-            return App.game.features.plants.list[this.plant];
-        } else {
-            return App.game.features.plants.list['Bean Bud'];
-        }
+         return App.game.features.plants.list[this.type];
     }
 
+    /**
+     * Obtains the Plot the Plant is on
+     */
+    get plot(): Plot {
+        return App.game.features.farms.farms[this.farm].plots[this.row][this.col];
+    }
+
+    /**
+     * Returns the Plant image component name
+     */
     get image(): string {
         return this.data.image;
     }
@@ -108,22 +109,27 @@ export default class PlantState implements Saveable {
         return this.constructor.name;
     }
 
-    // TODO: Not sure if need one
+    //#region Save
     saveKey = '';
     save(): PlantStateSaveData {
         return {
             stateClass: this.constructor.name,
-            plant: this.plant,
+            type: this.type,
+            farm: this.farm,
+            row: this.row,
+            col: this.col,
             originBean: this.originBean,
             age: this.age,
-            stageAge: this.stageAge,
         };
     }
     load(data: PlantStateSaveData): void {
-        this.plant = data.plant ?? 'Bean Bud';
+        this.type = data.type ?? 'Bean Bud';
+        this.farm = data.farm ?? FarmType.farm;
+        this.row = data.row ?? 0;
+        this.col = data.col ?? 0;
         this.originBean = data.originBean ?? 'Bean';
         this.age = data.age ?? 0;
-        this.stageAge = data.stageAge ?? 0;
     }
+    //#endregion
 
 }

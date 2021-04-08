@@ -1,16 +1,14 @@
 <template>
-    <div class="plant" style="position: absolute; pointer-events: none;" v-if="plot.plant"
+    <div class="plant" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
-        <div v-if="plot.plant">
-            <component v-bind:is="image" :row=plot.row :col=plot.col :controller=controller></component>
-        </div>
+        <component v-bind:is=plant.image :row=plant.row :col=plant.col :controller=controller ></component>
     </div>
 </template>
 
 <script>
-import Farm from "@/scripts/farm/Farm";
+import AbstractFarm from "@/scripts/farm/AbstractFarm";
 import GameController from "@/scripts/GameController";
-import Plot from "@/scripts/farm/Plot";
+import PlantState from "@/scripts/plant/PlantState";
 
 import BeanBud from "@/controls/plant/BeanBud";
 
@@ -25,31 +23,31 @@ export default {
   },
     props: {
         farm: {
-            type: Farm,
+            type: AbstractFarm,
             required: true,
         },
         controller: {
             type: GameController,
             required: true,
         },
-        plot: {
-            type: Plot,
+        plant: {
+            type: PlantState,
         }
     },
   computed: {
       width() {
-          return `${100 / this.farm.plots.length}%`;
+          return `${100 / this.farms.plots.length}%`;
       },
       style() {
           return {
               bottom: '0%',
-              'padding-bottom': `${((this.farm.plots.length - this.plot.row - 1) * 100 / this.farm.plots.length)}%`,
-              left: `${this.plot.col * 100 / this.farm.plots.length}%`,
+              'padding-bottom': `${((this.farm.plots.length - this.plant.row - 1) * 100 / this.farm.plots.length)}%`,
+              left: `${this.plant.col * 100 / this.farm.plots.length}%`,
               width: `${100 / this.farm.plots.length}%`,
           };
       },
       image() {
-          return this.plot.plant.image;
+          return this.plant.image;
       }
   }
 }
@@ -57,6 +55,9 @@ export default {
 
 <style scoped>
     .plot:hover {
+        filter: brightness(.5);
+    }
+    .plantImage:hover {
         filter: brightness(.5);
     }
 </style>

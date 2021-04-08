@@ -6,7 +6,7 @@ import {RedeemableCodes} from "@/ig-template/features/codes/RedeemableCodes";
 import Plants from "./scripts/plant/Plants";
 import GameController from "./scripts/GameController";
 import Beans from "./scripts/bean/Beans";
-import Farm from "./scripts/farm/Farm";
+import Farms from "./scripts/farm/Farms";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -33,7 +33,7 @@ export class App {
                 controller: new GameController(),
                 beans: new Beans(),
                 plants: new Plants(),
-                farm: new Farm(),
+                farms: new Farms(),
             }
         );
     }

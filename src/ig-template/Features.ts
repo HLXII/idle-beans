@@ -5,7 +5,7 @@ import {RedeemableCodes} from "@/ig-template/features/codes/RedeemableCodes";
 import Plants from "@/scripts/plant/Plants";
 import GameController from "@/scripts/GameController";
 import Beans from "@/scripts/bean/Beans";
-import Farm from "@/scripts/farm/Farm";
+import Farms from "@/scripts/farm/Farms";
 
 export interface Features {
     settings: Settings;
@@ -15,5 +15,5 @@ export interface Features {
     controller: GameController;
     beans: Beans;
     plants: Plants;
-    farm: Farm;
+    farms: Farms;
 }

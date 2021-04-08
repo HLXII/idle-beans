@@ -1,11 +1,11 @@
-import Plot from '../farm/Plot';
+import { FarmType } from '../farm/FarmType';
 import { PlantType } from '../plant/PlantList';
 
 export default interface Plantable {
 
     plantType: PlantType;
 
-    plant: (plot: Plot) => void;
+    plant: (farm: FarmType, row: number, col: number) => void;
 
 }
 

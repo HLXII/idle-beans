@@ -2,7 +2,7 @@
     <div style="position: relative;">
         <!-- Dirt Layer -->
         <div class="farm" style="padding-top:192px;">
-            <div class="farm-row flex" v-for="(row, yIdx) in farm.plots" :key="yIdx">
+            <div class="farm-row flex" v-for="(row, yIdx) in plots" :key="yIdx">
                 <div class="plot" div v-for="(plot, xIdx) in row" :key="xIdx"
                     v-bind:style="{width: width}"
                     v-on:click="controller.clickDirt(yIdx, xIdx)">
@@ -13,7 +13,7 @@
     
         <!-- Plant Layer -->
         <div class="plants">
-            <plant v-for="(plot, idx) in flatPlots" :key="idx" :plot=plot :farm=farm :controller=controller></plant>
+            <plant v-for="plant in plants" :key="plant.id" :plant=plant :farm=farm :controller=controller></plant>
         </div>
         
         <slot></slot>
@@ -31,17 +31,21 @@ export default {
   },
   data() {
     return {
-      farm: App.game.features.farm,
+      farms: App.game.features.farms,
       controller: App.game.features.controller,
+      farm: App.game.features.farms.farms[App.game.features.farms.activeFarm]
     }
   },
   computed: {
       width() {
           return `${100 / this.farm.plots.length}%`;
       },
-      flatPlots() {
-          return this.farm.plots.flat();
+      plants() {
+          return this.farm.plants.filter(plant => plant);
       },
+      plots() {
+          return this.farm.plots;
+      }
   }
 }
 </script>

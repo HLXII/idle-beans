@@ -1,57 +1,49 @@
 import { App } from "@/App";
 import { Saveable } from "@/ig-template/tools/saving/Saveable";
 import { SaveData } from "@/ig-template/tools/saving/SaveData";
-import { PlantType } from "../plant/PlantList";
-import PlantState, { PlantStateSaveData } from "../plant/PlantState";
+import PlantState from "../plant/PlantState";
+import FarmLocation from "./FarmLocation";
+import { FarmType } from "./FarmType";
 
-export interface PlotSaveData extends SaveData {
-    plant?: PlantStateSaveData;
+export interface PlotSaveData extends SaveData, FarmLocation {
+
 }
 
-export default class Plot implements Saveable {
+export default class Plot implements Saveable, FarmLocation {
 
-    public plant?: PlantState;
+    public farm: FarmType;
+    public row: number;
+    public col: number;
 
-    constructor(public row: number, public col: number) {
-
+    constructor(farm: FarmType, row: number, col: number) {
+        this.farm = farm;
+        this.row = row;
+        this.col = col;
     }
 
     update(delta: number) {
-        // Update plant
-        if (this.plant) {
-            this.plant.update(delta, this);
-        }
-
-        // Update dirt?
+        return;
     }
 
     /**
-     * Handles removing the plant
+     * Obtains a reference to the Plant on this Plot, if one exists
      */
-    removePlant() {
-        // No plant to remove
-        if (!this.plant) {
-            return;
-        }
-
-        // Handle plant removal
-        this.plant.handleRemove(this);
-        this.plant = undefined;
+    get plant(): PlantState | undefined {
+        return App.game.features.farms.getPlant(this.row, this.col, this.farm);
     }
 
-    // TODO: Not sure if save key is necessary
     saveKey = '';
     save(): PlotSaveData {
         return {
-            plant: this.plant?.save(),
-        }
+            farm: this.farm,
+            row: this.row,
+            col: this.col,
+        };
     }
     load(data: PlotSaveData): void {
-        if (data.plant) {
-            const plantState = App.game.features.plants.list[data.plant.plant as PlantType].state();
-            plantState.load(data.plant);
-            this.plant = plantState;
-        }
+        this.farm = data?.farm ?? FarmType.farm;
+        this.row = data?.row ?? 0;
+        this.col = data?.col ?? 0;
     }
 
 }

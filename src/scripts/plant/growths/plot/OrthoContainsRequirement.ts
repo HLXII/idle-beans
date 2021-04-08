@@ -3,6 +3,7 @@ import Plot from "@/scripts/farm/Plot";
 import GameHelper from "@/scripts/GameHelper";
 import { PlantType } from "../../PlantList";
 import OrthoPlotsRequirement from "./OrthoPlotsRequirement";
+import PlotRequirement from "./PlotRequirement";
 
 export default class OrthoContainsRequirement extends OrthoPlotsRequirement {
 
@@ -26,7 +27,7 @@ export default class OrthoContainsRequirement extends OrthoPlotsRequirement {
     }
 
     plotConditions(plots: Plot[]): boolean {
-        return App.game.features.farm.containsAtLeast(plots, this.data);
+        return PlotRequirement.containsAtLeast(plots, this.data);
     }
 
     public visible(): boolean {

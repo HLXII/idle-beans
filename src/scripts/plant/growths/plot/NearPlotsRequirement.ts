@@ -5,7 +5,28 @@ import PlotRequirement from "./PlotRequirement";
 export default abstract class NearPlotsRequirement extends PlotRequirement {
 
     getPlots(plot: Plot): Plot[] {
-        return App.game.features.farm.nearPlots(plot);
+
+        const farms = App.game.features.farms;
+
+        const farm = plot.farm;
+        const row = plot.row;
+        const col = plot.col;
+
+        const plots = [];
+        for (let r = row - 1; r <= row + 1; r++) {
+            for (let c = col - 1; c <= col + 1; c++) {
+                if (!farms.getFarm(farm).isValidCoord(r, c)) {
+                    continue;
+                }
+                if (r === row && c === col) {
+                    continue;
+                }
+
+                plots.push(farms.getPlot(r, c, farm));
+            }
+        }
+
+        return plots;
     }
 
     get description(): string {

@@ -1,10 +1,9 @@
-import Plot from "../../farm/Plot";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";
 
 export default class DefaultRequirement extends GrowthRequirement {
 
-    public growthCheck(plot: Plot, state: GrowthPlantState): boolean {
+    public growthCheck(state: GrowthPlantState): boolean {
         return true;
     }
 

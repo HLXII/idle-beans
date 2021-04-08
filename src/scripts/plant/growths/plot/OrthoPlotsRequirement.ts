@@ -5,7 +5,17 @@ import PlotRequirement from "./PlotRequirement";
 export default abstract class OrthoPlotsRequirement extends PlotRequirement {
 
     getPlots(plot: Plot): Plot[] {
-        return App.game.features.farm.orthoPlots(plot);
+
+        const farms = App.game.features.farms;
+
+        const farm = plot.farm;
+        const row = plot.row;
+        const col = plot.col;
+
+        const plotIndices = [[row - 1, col], [row, col - 1], [row, col + 1], [row + 1, col]];
+        
+        return plotIndices.filter(([r, c]) => farms.getFarm(farm).isValidCoord(r, c))
+            .map(([r, c]) => farms.getPlot(r, c, farm));
     }
 
     get description(): string {

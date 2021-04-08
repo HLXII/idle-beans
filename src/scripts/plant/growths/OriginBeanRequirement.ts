@@ -1,7 +1,6 @@
 import { App } from "@/App";
 import GameHelper from "@/scripts/GameHelper";
 import { BeanType } from "../../bean/BeanList";
-import Plot from "../../farm/Plot";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";
 
@@ -20,7 +19,7 @@ export default class OriginBeanRequirement extends GrowthRequirement {
         this.bean = bean;
     }
 
-    public growthCheck(plot: Plot, state: GrowthPlantState): boolean {
+    public growthCheck(state: GrowthPlantState): boolean {
         return this.bean.includes(state.originBean);
     }
 
