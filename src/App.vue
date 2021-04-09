@@ -1,9 +1,9 @@
 <template>
-  <div class="grid grid-cols-3" :class="{'dark': darkMode}">
+  <div class="grid grid-cols-4" :class="{'dark': darkMode}">
     <igt-notifications></igt-notifications>
-      <div id="left-column" style="max-width: 320px;">
-        <div class="d-flex flex-column" style="height: 100%;">
-            <div class="row m-0 justify-content-center align-content-end" style="height: 192px;">
+      <div id="left-column">
+        <div class="flex flex-col" style="height: 100%;">
+            <div style="height: 192px;">
                 <!-- Bean Power -->
                 <div class="p-1" style="text-align: center" v-on:click="changeToolTest()">
                     Bean Power
@@ -16,7 +16,7 @@
             <bean-list></bean-list>
         </div>
       </div>
-      <div id="middle-column" class="p-0 col-12 col-sm-12 col-md-6 col-lg-6 order-sm-1 order-md-2" style="max-width: 640px;">
+      <div id="middle-column" class="col-span-2">
           <!-- Farm -->
           <farm>
               <!-- Title -->
@@ -26,7 +26,24 @@
               </div>
           </farm>
       </div>
-      <div>1</div>
+      <div id="right-column">
+          <div class="flex flex-col" style="height: 100%;">
+              <div style="height: 192px;">
+                  <!-- Additional Icons -->
+                  <div class="d-flex justify-content-center p-1">
+                      <div class="p-1" data-bind="click: function() { controller.openWikiModal(); }">
+                          <img data-bind="attr: { src: 'assets/images/Wiki Icon.png' }" width="32px" />
+                      </div>
+                      <div class="p-1" data-bind="click: function() { controller.openSettingsModal(); }">
+                          <img data-bind="attr: { src: 'assets/images/Settings Icon.png' }" width="32px" />
+                      </div>
+                      <button type="button" class="btn btn-primary" data-bind="click: function() { testFunction(); }">Test</button>
+                  </div>
+              </div>
+              <!-- Log -->
+              <log></log>
+          </div>
+      </div>
   </div>
 
 </template>
@@ -38,6 +55,7 @@ import IgtProgressBar from './components/util/igt-progress-bar.vue';
 import IgtToolIcons from './controls/controller/tool-icons/igt-tool-icons.vue';
 import BeanList from '@/controls/controller/beanlist/bean-list.vue';
 import Farm from '@/controls/farm/farm.vue';
+import Log from '@/controls/log/log.vue';
 
 export default {
   components: {
@@ -46,6 +64,7 @@ export default {
     IgtToolIcons,
     BeanList,
     Farm,
+    Log,
   },
   data() {
     return {

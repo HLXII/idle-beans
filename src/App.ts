@@ -7,6 +7,7 @@ import Plants from "./scripts/plant/Plants";
 import GameController from "./scripts/GameController";
 import Beans from "./scripts/bean/Beans";
 import Farms from "./scripts/farm/Farms";
+import Log from "./scripts/log/Log";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -25,7 +26,6 @@ export class App {
     public static getDefaultGame(): Game {
         return new Game(
             {
-                // TODO Add more currencies here
                 settings: new Settings(),
                 codes: new RedeemableCodes(),
                 statistics: new Statistics(),
@@ -34,6 +34,7 @@ export class App {
                 beans: new Beans(),
                 plants: new Plants(),
                 farms: new Farms(),
+                log: new Log(),
             }
         );
     }

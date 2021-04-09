@@ -24,7 +24,7 @@ export default class GrowthPlantState extends PlantState {
         const growth = (this.data as GrowthPlant).growthPlant(this);
         this.growthPlant = growth;
         if (this.age >= (this.data as GrowthPlant).growthTime) {
-            //App.game.features.log.log(`A ${this.plant} has grown into a ${growth}.`);
+            App.game.features.log.log(`A ${this.type} has grown into a ${growth}.`);
             this.grow(growth);
         }
     }

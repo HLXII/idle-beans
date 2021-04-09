@@ -6,6 +6,7 @@ import Plants from "@/scripts/plant/Plants";
 import GameController from "@/scripts/GameController";
 import Beans from "@/scripts/bean/Beans";
 import Farms from "@/scripts/farm/Farms";
+import Log from "@/scripts/log/Log";
 
 export interface Features {
     settings: Settings;
@@ -16,4 +17,5 @@ export interface Features {
     beans: Beans;
     plants: Plants;
     farms: Farms;
+    log: Log;
 }

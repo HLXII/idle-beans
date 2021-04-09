@@ -42,7 +42,7 @@ export default class Plant implements Saveable {
 
         if (!this.unlocked) {
             // TODO: Add setting to filter this message
-            //App.game.log.log(`You have discovered a new plant: ${this.name}`);
+            App.game.features.log.log(`You have discovered a new plant: ${this.name}`);
             this.unlocked = true;
         }
     }
