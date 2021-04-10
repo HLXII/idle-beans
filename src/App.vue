@@ -1,42 +1,41 @@
 <template>
   <div>
-    <div class="grid grid-cols-4" style="margin: auto; max-width: 1280px;" :class="{'dark': darkMode}">
+    <div class="grid grid-cols-4" style="margin: auto; max-width: 1600px;" :class="{'dark': darkMode}">
       <igt-notifications></igt-notifications>
       <div id="left-column">
         <div class="flex flex-col" style="height: 100%;">
-            <div style="height: 192px;">
+            <div class="flex flex-col-reverse" style="height: 192px;">
                 <!-- Tool Icons -->
-                <tool-icons></tool-icons>
+                <tool-icons class="flex justify-center m-1" style="height: 32px;"></tool-icons>
             </div>
             <!-- Bean List -->
             <bean-list></bean-list>
         </div>
       </div>
-      <div id="middle-column" class="col-span-2 justify-self-center" style="width:100%; max-width: 640px; padding: 0 20px;">
-          <!-- Farm -->
-          <farm>
+      <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
+          <div class="border2">
               <!-- Title -->
-              <div class="row m-0 align-content-center" 
-              style="height: 192px; position: absolute; top: 0; width:100%; pointer-events: none;">
+              <div style="height: 192px; pointer-events: none; margin: 0;">
                   <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
               </div>
-          </farm>
+              <!-- Farm -->
+              <farm></farm>
+          </div>
           <!-- Farm Info -->
+          <farm-control></farm-control>
+          <!-- Dev Panel -->
           <!-- TODO -->
       </div>
       <div id="right-column">
           <div class="flex flex-col" style="height: 100%;">
-              <div style="height: 192px;">
-
-                  <button type="button" class="border2"  @click="game.features.controller.showPlotModal = true">Test</button>
-                  <div class="btn btn-blue">TEST</div>
+              <div class="flex flex-col-reverse" style="height: 192px;">
                   <!-- Additional Icons -->
-                  <div class="flex justify-content-center p-1">
-                      <div class="p-1" @click="openWikiModal">
-                          <img :src="require(`@/assets/images/Wiki Icon.png`)" width="32px" />
+                  <div class="flex justify-center m-1" style="height: 32px;">
+                      <div class="px-1" @click="openWikiModal">
+                          <icon class="btn" :image="require(`@/assets/images/icons/Wiki Icon.png`)"></icon>
                       </div>
-                      <div class="p-1" data-bind="click: function() { controller.openSettingsModal(); }">
-                          <img :src="require(`@/assets/images/Settings Icon.png`)" width="32px" />
+                      <div class="px-1" @click="openSettingsModal">
+                          <icon class="btn" :image="require(`@/assets/images/icons/Settings Icon.png`)"></icon>
                       </div>
                   </div>
               </div>
@@ -61,6 +60,8 @@ import Log from '@/controls/log/log.vue';
 import PlotModal from '@/controls/farm/plot-modal/plot-modal';
 import WikiModal from '@/controls/wiki/wiki-modal';
 import {ModalType} from '@/scripts/GameController';
+import Icon from "@/controls/icon";
+import FarmControl from "@/controls/farm/farm-control";
 
 export default {
   components: {
@@ -71,6 +72,8 @@ export default {
     Log,
     PlotModal,
     WikiModal,
+    Icon,
+    FarmControl,
   },
   data() {
     return {
@@ -89,6 +92,9 @@ export default {
   methods: {
     openWikiModal() {
       this.game.features.controller.openWikiModal();
+    },
+    openSettingsModal() {
+      this.game.features.controller.openSettingsModal();
     },
     closeModal() {
       this.game.features.controller.closeModal();

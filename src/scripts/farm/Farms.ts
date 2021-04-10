@@ -6,7 +6,7 @@ import { SaveData } from "@/ig-template/tools/saving/SaveData";
 import { BeanType } from "../bean/BeanList";
 import { isPlantable } from "../bean/Plantable";
 import PlantState from "../plant/PlantState";
-import { FarmSaveData } from "./AbstractFarm";
+import AbstractFarm, { FarmSaveData } from "./AbstractFarm";
 import Farm from "./Farm";
 import { FarmType } from "./FarmType";
 import Plot from "./Plot";
@@ -19,11 +19,9 @@ export interface FarmsSaveData extends SaveData {
 
 export default class Farms extends Feature {
 
-    public farms!: Record<FarmType, Farm>;
+    public farms!: Record<FarmType, AbstractFarm>;
 
     public activeFarm!: FarmType;
-
-    public readonly defaultPlotSize: number = 5;
 
     constructor() {
         super('farms');
@@ -113,6 +111,14 @@ export default class Farms extends Feature {
         if (isPlantable(bean)) {
             bean.plant(farm, row, col);
         }
+    }
+
+    get availableFarms(): AbstractFarm[] {
+        return Object.values(this.farms).filter(farm => farm.canAccess());
+    }
+
+    get hasMultipleFarms(): boolean {
+        return this.availableFarms.length > 1;
     }
 
     //#region Save

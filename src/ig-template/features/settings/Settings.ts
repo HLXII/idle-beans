@@ -30,13 +30,7 @@ export class Settings extends Feature {
     initialize() {
         this.darkMode = this.registerSetting(new BooleanSetting(SettingId.DarkMode, "Dark Mode", true));
 
-        this.registerSetting(
-            new MultipleChoiceSetting(SettingId.ExampleMultipleChoiceSetting, "Example setting", [
-                new SettingOption("Option 1", 1),
-                new SettingOption("Option 2", 2),
-                new SettingOption("Option 3", 3),
-            ], 2)
-        )
+        this.registerSetting(new BooleanSetting(SettingId.DisplayPlantIcons, 'Display Plant Icons', false));
     }
 
     setSetting(id: SettingId, value: SettingsValue) {

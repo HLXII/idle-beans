@@ -1,4 +1,4 @@
 export enum SettingId {
     DarkMode = 'dark-mode',
-    ExampleMultipleChoiceSetting = 'multiple-choice',
+    DisplayPlantIcons = 'display-plant-icons',
 }

@@ -20,17 +20,38 @@ export enum ModalType {
     Settings,
 }
 
+export enum BeanListFilterType {
+    Unlocked,
+    All,
+}
+
+export interface GameControllerSaveData extends SaveData {
+    tool: ToolType;
+    bean: BeanType;
+    beanListFilter: BeanListFilterType;
+    beanListSearch: string;
+}
+
 export default class GameController extends Feature {
 
+    /**Internal reference to Farms Feature */
     private farms!: Farms;
 
+    //#region Selectors
     public tool!: ToolType;
 
     public bean!: BeanType;
 
     public plot!: {row: number; col: number};
+    //#endregion
 
+    /**Modal handler */
     public openedModal!: ModalType;
+
+    /**Bean List Filter Status */
+    public beanListFilter!: BeanListFilterType;
+    /**Bean List Search Filter */
+    public beanListSearch!: string;
 
     constructor() {
         super('controller');
@@ -47,6 +68,9 @@ export default class GameController extends Feature {
         this.plot = {row: 0, col: 0};
 
         this.openedModal = ModalType.None;
+   
+        this.beanListFilter = BeanListFilterType.All;
+        this.beanListSearch = '';
     }
     start(): void {
         return;
@@ -96,17 +120,62 @@ export default class GameController extends Feature {
         this.clickDirt(row, col);
     }
 
+    toggleBeanFilter() {
+        console.log(Object.keys(BeanListFilterType).length);
+        this.beanListFilter = ((this.beanListFilter as number) + 1) % 2;
+    }
+
+    get beanfilterDescription(): string {
+        switch(this.beanListFilter) {
+            case BeanListFilterType.Unlocked:
+                return 'Only display Beans unlocked in this playthrough';
+            case BeanListFilterType.All:
+                return 'Display all unlocked beans';
+            default:
+                return 'Error - Invalid Bean Filter';
+        }
+    }
+
     get filteredList(): Bean[] {
         return Object.values(BeanList).filter((bean: Bean) => {
+            switch(this.beanListFilter) {
+                case BeanListFilterType.Unlocked: {
+                    if (!bean.unlocked) {
+                        return false;
+                    }
+                    break;
+                }
+                case BeanListFilterType.All: {
+                    if (!bean.globalUnlocked) {
+                        return false;
+                    }
+                    break;
+                }
+                default:
+                    break;
+            }
+
+            if (this.beanListSearch && !bean.name.toLowerCase().includes(this.beanListSearch.toLowerCase())) {
+                return false;
+            }
+
             return true;
         });
     }
 
-    load(data: SaveData): void {
-        return;
+    load(data: GameControllerSaveData): void {
+        this.tool = data?.tool ?? ToolType.Cursor;
+        this.bean = data?.bean ?? 'Bean';
+        this.beanListFilter = data?.beanListFilter ?? BeanListFilterType.Unlocked;
+        this.beanListSearch = data?.beanListSearch ?? '';
     }
-    save(): SaveData {
-        return {};
+    save(): GameControllerSaveData {
+        return {
+            tool: this.tool,
+            bean: this.bean,
+            beanListFilter: this.beanListFilter,
+            beanListSearch: this.beanListSearch,
+        };
     }
 
     openPlotModal(row: number, col: number) {
