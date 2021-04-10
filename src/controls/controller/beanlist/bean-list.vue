@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-fill overflow-auto" style="height: 320px;">
+    <div class="overflow-auto" style="flex-grow: 1; height: 0px; min-height: 320px;">
         <div class="list-group" v-for="bean in filteredList" :key="bean.name">
             <bean-entry :bean=bean :controller=controller></bean-entry>
         </div>

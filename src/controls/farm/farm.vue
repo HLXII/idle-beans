@@ -1,7 +1,7 @@
 <template>
     <div style="position: relative;">
         <!-- Dirt Layer -->
-        <div class="farm" style="padding-top:192px;">
+        <div class="farm" style="padding-top:192px; max-width: 640px;">
             <div class="farm-row flex" v-for="(row, yIdx) in plots" :key="yIdx">
                 <div class="plot" div v-for="(plot, xIdx) in row" :key="xIdx"
                     v-bind:style="{width: width}"

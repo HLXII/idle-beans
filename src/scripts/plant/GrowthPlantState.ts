@@ -29,6 +29,10 @@ export default class GrowthPlantState extends PlantState {
         }
     }
 
+    get growthPercent(): number {
+        return this.age / (this.data as GrowthPlant).growthTime;
+    }
+
     /**
      * Grows the plant into a new plant type
      * @param plant The plant type

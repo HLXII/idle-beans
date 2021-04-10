@@ -1,7 +1,12 @@
 <template>
-    <div class="overflow-auto flex flex-col-reverse" style="flex-grow: 1; height: 320px;">
-        <div> <!-- Additional div used to reverse the entries correctly -->
-            <log-entry v-for="(entry, idx) in log.entries" :key=idx :message=entry.logMessage :color=entry.color ></log-entry>
+    <div class="flex flex-col" style="flex-grow: 1; height: 0px; min-height: 320px;">
+        <div class="mb-1" v-on:click="clearLog">
+            <div class="btn border2 text-center">Clear Log</div>
+        </div>
+        <div class="overflow-auto flex flex-col-reverse" style="flex-grow: 1;">
+            <div> <!-- Additional div used to reverse the entries correctly -->
+                <log-entry v-for="(entry, idx) in log.entries" :key=idx :message=entry.logMessage :color=entry.color ></log-entry>
+            </div>
         </div>
     </div>
 </template>
@@ -22,6 +27,11 @@ export default {
   },
   computed: {
 
+  },
+  methods: {
+      clearLog() {
+          this.log.clearLog();
+      },
   }
 }
 </script>

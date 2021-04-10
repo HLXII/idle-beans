@@ -1,22 +1,18 @@
 <template>
-  <div class="grid grid-cols-4" :class="{'dark': darkMode}">
-    <igt-notifications></igt-notifications>
+  <div>
+    <div class="grid grid-cols-4" style="margin: auto; max-width: 1280px;" :class="{'dark': darkMode}">
+      <igt-notifications></igt-notifications>
       <div id="left-column">
         <div class="flex flex-col" style="height: 100%;">
             <div style="height: 192px;">
-                <!-- Bean Power -->
-                <div class="p-1" style="text-align: center" v-on:click="changeToolTest()">
-                    Bean Power
-                </div>
-                <igt-progress-bar :percentage="25"></igt-progress-bar>
                 <!-- Tool Icons -->
                 <igt-tool-icons></igt-tool-icons>
             </div>
             <!-- Bean List -->
-            <bean-list></bean-list>
+            <bean-list class="border2"></bean-list>
         </div>
       </div>
-      <div id="middle-column" class="col-span-2">
+      <div id="middle-column" class="col-span-2 justify-self-center" style="width:100%; max-width: 640px; padding: 0 20px;">
           <!-- Farm -->
           <farm>
               <!-- Title -->
@@ -25,50 +21,56 @@
                   <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
               </div>
           </farm>
+          <!-- Farm Info -->
+          <!-- TODO -->
       </div>
       <div id="right-column">
           <div class="flex flex-col" style="height: 100%;">
               <div style="height: 192px;">
+
+                  <button type="button" class="border2"  @click="game.features.controller.showPlotModal = true">Test</button>
+                  <div class="btn btn-blue">TEST</div>
                   <!-- Additional Icons -->
-                  <div class="d-flex justify-content-center p-1">
+                  <div class="flex justify-content-center p-1">
                       <div class="p-1" data-bind="click: function() { controller.openWikiModal(); }">
-                          <img data-bind="attr: { src: 'assets/images/Wiki Icon.png' }" width="32px" />
+                          <img :src="require(`@/assets/images/Wiki Icon.png`)" width="32px" />
                       </div>
                       <div class="p-1" data-bind="click: function() { controller.openSettingsModal(); }">
-                          <img data-bind="attr: { src: 'assets/images/Settings Icon.png' }" width="32px" />
+                          <img :src="require(`@/assets/images/Settings Icon.png`)" width="32px" />
                       </div>
-                      <button type="button" class="btn btn-primary" data-bind="click: function() { testFunction(); }">Test</button>
                   </div>
               </div>
               <!-- Log -->
-              <log></log>
+              <log class="border2"></log>
           </div>
       </div>
+      <plot-modal :show="game.features.controller.showPlotModal" @close="game.features.controller.showPlotModal = false"></plot-modal>
+    </div>
   </div>
-
 </template>
 
 <script>
 import {App} from "@/App.ts"
 import IgtNotifications from "@/components/util/igt-notifications";
-import IgtProgressBar from './components/util/igt-progress-bar.vue';
 import IgtToolIcons from './controls/controller/tool-icons/igt-tool-icons.vue';
 import BeanList from '@/controls/controller/beanlist/bean-list.vue';
 import Farm from '@/controls/farm/farm.vue';
 import Log from '@/controls/log/log.vue';
+import PlotModal from '@/controls/farm/plot-modal/plot-modal';
 
 export default {
   components: {
     IgtNotifications,
-    IgtProgressBar,
     IgtToolIcons,
     BeanList,
     Farm,
     Log,
+    PlotModal,
   },
   data() {
     return {
-      game: App.game
+      game: App.game,
+      showTestModal: false,
     }
   },
   computed: {
@@ -83,4 +85,24 @@ export default {
 </script>
 
 <style>
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(138, 120, 86, 0.705); 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    margin: 5px 0;
+    border: solid;
+    border-width: 10px 0 10px 15px;
+  background: rgba(255,0,0,0.4); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(255,0,0,0.4); 
+}
 </style>

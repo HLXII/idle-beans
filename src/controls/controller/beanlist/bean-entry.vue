@@ -1,10 +1,7 @@
 <template>
     <div class="flex" v-bind:class="{active: active}"
         v-on:click="changeBean(bean.name)">
-        <div style="position: relative;">
-            <img style="position: absolute;" width="32px" :src="require(`@/assets/images/back.png`)"/>
-            <img style="position: relative;" width="32px" :src="require(`@/${bean.image}`)"/>
-        </div>
+        <bean-icon :bean=bean></bean-icon>
         <span class="p-1 align-self-center">{{bean.name}}</span>
         <small class="align-self-center flex-fill text-end">{{bean.amount}}</small>
     </div>
@@ -13,6 +10,7 @@
 <script>
 import GameController, {ToolType} from "@/scripts/GameController";
 import Bean from "@/scripts/bean/Bean";
+import BeanIcon from "@/controls/controller/beanlist/bean-icon";
 
 export default {
   name: "igt-tool-icons",
@@ -20,6 +18,9 @@ export default {
       return {
         ToolType,
       }
+  },
+  components: {
+    BeanIcon,
   },
   props: {
     bean: {

@@ -10,4 +10,13 @@ export default class GameHelper {
         return `${firsts.join(', ')} ${conjunction} ${last}`;
     }
 
+    public static importImages(r: __WebpackModuleApi.RequireContext) {
+        const images: {[key: string]: any} = {};
+        r.keys().map((item, index) => { 
+            const name = item.replace('./', '').replace('.png', '');
+            return images[name] = r(item); 
+        });
+        return images;
+    }
+
 }

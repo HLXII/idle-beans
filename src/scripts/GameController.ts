@@ -1,4 +1,3 @@
-import { App } from "@/App";
 import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
 import { Features } from "@/ig-template/Features";
 import { Feature } from "@/ig-template/features/Feature";
@@ -6,7 +5,6 @@ import { SaveData } from "@/ig-template/tools/saving/SaveData";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Farms from "./farm/Farms";
-import Plot from "./farm/Plot";
 
 
 export enum ToolType {
@@ -23,7 +21,9 @@ export default class GameController extends Feature {
 
     public bean!: BeanType;
 
-    public plot?: Plot;
+    public plot!: {row: number; col: number};
+
+    public showPlotModal!: boolean;
 
     constructor() {
         super('controller');
@@ -37,7 +37,9 @@ export default class GameController extends Feature {
 
         this.tool = ToolType.Cursor;
         this.bean = 'Bean';
-        this.plot = undefined;
+        this.plot = {row: 0, col: 0};
+
+        this.showPlotModal = false;
     }
     start(): void {
         return;
@@ -101,12 +103,13 @@ export default class GameController extends Feature {
     }
 
     openPlotModal(row: number, col: number) {
-        // Retrieving plot
-        //const plot = this.farms.plots[row][col];
-        //this.plot = plot;
+        this.plot = {row: row, col: col};
+
+        // Closing other modals
+        this.closeModals();
+
         // Opening modal
-        //const myModal = new Modal(document.getElementById('plotModal'));
-        //myModal.show();
+        this.showPlotModal = true;
     }
 
     openWikiModal() {
@@ -119,6 +122,10 @@ export default class GameController extends Feature {
         // Opening modal
         //const myModal = new Modal(document.getElementById('settingsModal'));
         //myModal.show();
+    }
+
+    closeModals() {
+        this.showPlotModal = false;
     }
 
 }

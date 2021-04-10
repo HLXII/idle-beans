@@ -1,5 +1,6 @@
 import { Saveable } from "@/ig-template/tools/saving/Saveable";
 import { SaveData } from "@/ig-template/tools/saving/SaveData";
+import { BeanImages } from "./BeanList";
 
 export interface BeanOptions {
     unlocked?: boolean;
@@ -28,8 +29,8 @@ export default class Bean implements Saveable {
         this.amount = option?.amount ?? 0;
     }
 
-    get image(): string {
-        return `assets/images/beans/${this.name}.png`;
+    get image(): any {
+        return BeanImages[this.name];
     }
 
     get tooltip(): string {

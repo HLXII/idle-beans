@@ -4,6 +4,7 @@ import BeanSprout from './species/BeanSprout';
 import BeanPlant from './species/BeanPlant';
 import YellowBeanSprout from './species/YellowBeanSprout';
 import BlueBeanSprout from './species/BlueBeanSprout';
+import GameHelper from '../GameHelper';
 
 /**
  * Internal Plant List
@@ -39,3 +40,6 @@ export type PlantType = keyof typeof InternalPlantList;
  * Typeguarded reference to InternalPlantList
  */
 export const PlantList: Record<PlantType, Plant> = InternalPlantList;
+
+export const PlantIcons = GameHelper.importImages(require.context('/src/assets/images/plants/icons/', false, /\.(png|jpe?g|svg)$/));
+

@@ -1,10 +1,9 @@
 import { App } from '@/App';
 import { Saveable } from '@/ig-template/tools/saving/Saveable';
 import { SaveData } from '@/ig-template/tools/saving/SaveData';
-import GameHelper from '@/scripts/GameHelper';
 import { BeanType } from '../bean/BeanList';
 import FarmLocation from '../farm/FarmLocation';
-import { PlantType } from './PlantList';
+import { PlantIcons, PlantType } from './PlantList';
 import PlantState from './PlantState';
 
 export interface PlantSaveData extends SaveData {
@@ -51,9 +50,8 @@ export default class Plant implements Saveable {
         return new (this.constructor as typeof Plant).state(this.name as PlantType, location);
     }
 
-    // TODO: Update to work with webpack
-    get icon(): string {
-        return `assets/images/plants/icons/${this.name}.png`;
+    get icon(): any {
+        return PlantIcons[this.name];
     }
 
     get image(): string {

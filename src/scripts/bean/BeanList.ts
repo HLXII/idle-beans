@@ -1,3 +1,4 @@
+import GameHelper from '../GameHelper';
 import Bean from './Bean';
 import PlantableBean from './PlantableBean';
 
@@ -38,3 +39,5 @@ export type BeanType = keyof typeof InternalBeanList;
  * Typeguarded reference to InternalBeanList
  */
 export const BeanList: Record<BeanType, Bean> = InternalBeanList;
+
+export const BeanImages = GameHelper.importImages(require.context('/src/assets/images/beans/', false, /\.(png|jpe?g|svg)$/));

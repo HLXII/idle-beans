@@ -4,6 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
+.border2 {
+    margin: 2px;
+
+    background: #eae4a2;
+
+    border-width: 4px;
+    border-style: solid;
+    border-image: url('~@/assets/images/border.png');
+    border-image-slice: 32;
+    border-image-outset: 2px;
+}
+
+.border4 {
+    margin: 4px;
+
+    background: #eae4a2;
+
+    border-width: 8px;
+    border-style: solid;
+    border-image: url('~@/assets/images/border.png');
+    border-image-slice: 32;
+    border-image-outset: 4px;
+}
+
 .hover-highlight {
     @apply transition duration-300 ease-out transform hover:-translate-y-1 hover:scale-105;
 }
@@ -14,7 +38,7 @@
 }
 
 .has-tooltip:hover .tooltip {
-    @apply block z-50 border-4 rounded-md bg-gray-900 p-2
+    @apply block z-50
 }
 
 
@@ -33,7 +57,7 @@ img {
 }
 
 .btn {
-    @apply mx-1 my-1 py-2 px-4 font-semibold rounded-lg shadow-md disabled:opacity-50 text-sm sm:text-lg;
+    @apply disabled:opacity-50 transition duration-300 ease-out transform hover:scale-105;
 }
 
 @layer utilities {
