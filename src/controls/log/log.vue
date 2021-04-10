@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col" style="flex-grow: 1; height: 0px; min-height: 320px;">
+    <div class="flex flex-col border2 bg-generic" style="flex-grow: 1; height: 0px; min-height: 320px;">
         <div class="mb-1" v-on:click="clearLog">
-            <div class="btn border2 text-center">Clear Log</div>
+            <div class="btn border2 bg-white text-center">Clear Log</div>
         </div>
         <div class="overflow-auto flex flex-col-reverse" style="flex-grow: 1;">
             <div> <!-- Additional div used to reverse the entries correctly -->

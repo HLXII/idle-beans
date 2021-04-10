@@ -9,13 +9,13 @@
                     <div class="plantName">{{plant.type}}</div>
                     
                     <div class="flex-grow text-right" style="height: 32px;" >
-                        <bean-icon :bean=originBean class="has-tooltip" >
+                        <icon :image=originBean.image class="has-tooltip" >
                             <div class="tooltip right-0 w-56">
                                 <div class="mt-1">
                                     <div class="border2 text-center">Planted using a {{plant.originBean}}</div>
                                 </div>
                             </div>
-                        </bean-icon>
+                        </icon>
                     </div>
                 </div>
                 <div class="d-flex">
@@ -41,7 +41,7 @@
 <script>
 import {App} from "@/App.ts";
 import PlantState from "@/scripts/plant/PlantState";
-import BeanIcon from '@/controls/controller/beanlist/bean-icon.vue';
+import Icon from '@/controls/icon';
 
 export default {
     name: "plant-details",
@@ -51,7 +51,7 @@ export default {
         }; 
     },
     components: {
-        BeanIcon
+        Icon
     },
     props: {
         plant: {

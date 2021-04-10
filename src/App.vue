@@ -6,10 +6,10 @@
         <div class="flex flex-col" style="height: 100%;">
             <div style="height: 192px;">
                 <!-- Tool Icons -->
-                <igt-tool-icons></igt-tool-icons>
+                <tool-icons></tool-icons>
             </div>
             <!-- Bean List -->
-            <bean-list class="border2"></bean-list>
+            <bean-list></bean-list>
         </div>
       </div>
       <div id="middle-column" class="col-span-2 justify-self-center" style="width:100%; max-width: 640px; padding: 0 20px;">
@@ -32,7 +32,7 @@
                   <div class="btn btn-blue">TEST</div>
                   <!-- Additional Icons -->
                   <div class="flex justify-content-center p-1">
-                      <div class="p-1" data-bind="click: function() { controller.openWikiModal(); }">
+                      <div class="p-1" @click="openWikiModal">
                           <img :src="require(`@/assets/images/Wiki Icon.png`)" width="32px" />
                       </div>
                       <div class="p-1" data-bind="click: function() { controller.openSettingsModal(); }">
@@ -41,10 +41,12 @@
                   </div>
               </div>
               <!-- Log -->
-              <log class="border2"></log>
+              <log></log>
           </div>
       </div>
-      <plot-modal :show="game.features.controller.showPlotModal" @close="game.features.controller.showPlotModal = false"></plot-modal>
+      <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"></plot-modal>
+      <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"></wiki-modal>
+
     </div>
   </div>
 </template>
@@ -52,25 +54,28 @@
 <script>
 import {App} from "@/App.ts"
 import IgtNotifications from "@/components/util/igt-notifications";
-import IgtToolIcons from './controls/controller/tool-icons/igt-tool-icons.vue';
+import ToolIcons from './controls/controller/tool-icons/tool-icons.vue';
 import BeanList from '@/controls/controller/beanlist/bean-list.vue';
 import Farm from '@/controls/farm/farm.vue';
 import Log from '@/controls/log/log.vue';
 import PlotModal from '@/controls/farm/plot-modal/plot-modal';
+import WikiModal from '@/controls/wiki/wiki-modal';
+import {ModalType} from '@/scripts/GameController';
 
 export default {
   components: {
     IgtNotifications,
-    IgtToolIcons,
+    ToolIcons,
     BeanList,
     Farm,
     Log,
     PlotModal,
+    WikiModal,
   },
   data() {
     return {
       game: App.game,
-      showTestModal: false,
+      ModalType,
     }
   },
   computed: {
@@ -79,6 +84,14 @@ export default {
     },
     darkMode() {
       return App.game.features.settings.darkMode.value;
+    },
+  },
+  methods: {
+    openWikiModal() {
+      this.game.features.controller.openWikiModal();
+    },
+    closeModal() {
+      this.game.features.controller.closeModal();
     }
   },
 }

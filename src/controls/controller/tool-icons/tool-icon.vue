@@ -1,17 +1,20 @@
 <template>
     <div class="p-1" v-on:click="changeTool(toolType)">
-        <img :src="require(`@/assets/images/${ToolType[toolType]} Icon.png`)"
-        v-bind:class="{selected: selected, 
-            unselected: !selected}"
-            width="32px" />
+        <icon :image=image 
+            v-bind:class="{selected: selected, 
+            unselected: !selected}"></icon>
     </div>
 </template>
 
 <script>
 import GameController, {ToolType} from "@/scripts/GameController";
+import Icon from "@/controls/icon";
 
 export default {
-  name: "igt-tool-icons",
+  name: "tool-icons",
+  components: {
+    Icon,
+  },
   data() {
       return {
         ToolType,
@@ -30,6 +33,9 @@ export default {
   computed: {
     selected() {
       return this.toolType === this.controller.tool;
+    },
+    image() {
+      return require(`@/assets/images/${this.ToolType[this.toolType]} Icon.png`);
     },
   },
   methods: {

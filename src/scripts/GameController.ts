@@ -13,6 +13,13 @@ export enum ToolType {
     'Sickle',
 }
 
+export enum ModalType {
+    None = 0,
+    Plot,
+    Wiki,
+    Settings,
+}
+
 export default class GameController extends Feature {
 
     private farms!: Farms;
@@ -23,7 +30,7 @@ export default class GameController extends Feature {
 
     public plot!: {row: number; col: number};
 
-    public showPlotModal!: boolean;
+    public openedModal!: ModalType;
 
     constructor() {
         super('controller');
@@ -39,7 +46,7 @@ export default class GameController extends Feature {
         this.bean = 'Bean';
         this.plot = {row: 0, col: 0};
 
-        this.showPlotModal = false;
+        this.openedModal = ModalType.None;
     }
     start(): void {
         return;
@@ -106,26 +113,34 @@ export default class GameController extends Feature {
         this.plot = {row: row, col: col};
 
         // Closing other modals
-        this.closeModals();
+        this.closeModal();
 
         // Opening modal
-        this.showPlotModal = true;
+        this.openedModal = ModalType.Plot;
     }
 
     openWikiModal() {
+        // Closing other modals
+        this.closeModal();
+
         // Opening modal
-        //const myModal = new Modal(document.getElementById('wikiModal'));
-        //myModal.show();
+        this.openedModal = ModalType.Wiki;
     }
 
     openSettingsModal() {
+        // Closing other modals
+        this.closeModal();
+
         // Opening modal
-        //const myModal = new Modal(document.getElementById('settingsModal'));
-        //myModal.show();
+        this.openedModal = ModalType.Settings;
     }
 
-    closeModals() {
-        this.showPlotModal = false;
+    closeModal(nextModal?: ModalType) {
+        // If next modal to open is already opened, do nothing.
+        if (this.openedModal == nextModal) {
+            return;
+        }
+        this.openedModal = ModalType.None;
     }
 
 }

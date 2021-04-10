@@ -7,8 +7,6 @@
 .border2 {
     margin: 2px;
 
-    background: #eae4a2;
-
     border-width: 4px;
     border-style: solid;
     border-image: url('~@/assets/images/border.png');
@@ -19,13 +17,15 @@
 .border4 {
     margin: 4px;
 
-    background: #eae4a2;
-
     border-width: 8px;
     border-style: solid;
     border-image: url('~@/assets/images/border.png');
     border-image-slice: 32;
     border-image-outset: 4px;
+}
+
+.bg-generic {
+    background-color: #eae4a2;
 }
 
 .hover-highlight {

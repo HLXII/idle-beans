@@ -1,7 +1,7 @@
 <template>
     <div class="flex" v-bind:class="{active: active}"
         v-on:click="changeBean(bean.name)">
-        <bean-icon :bean=bean></bean-icon>
+        <icon :image=bean.image></icon>
         <span class="p-1 align-self-center">{{bean.name}}</span>
         <small class="align-self-center flex-fill text-end">{{bean.amount}}</small>
     </div>
@@ -10,7 +10,7 @@
 <script>
 import GameController, {ToolType} from "@/scripts/GameController";
 import Bean from "@/scripts/bean/Bean";
-import BeanIcon from "@/controls/controller/beanlist/bean-icon";
+import Icon from "@/controls/icon";
 
 export default {
   name: "igt-tool-icons",
@@ -20,7 +20,7 @@ export default {
       }
   },
   components: {
-    BeanIcon,
+    Icon,
   },
   props: {
     bean: {

@@ -1,6 +1,6 @@
 <template>
     <modal v-if=plot :show="show" @close="close">
-        <div class="modal-content" data-bind="if: plot()">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5>Plot</h5>
                 <button type="button" class="btn-close" aria-label="Close" @click=close></button>
