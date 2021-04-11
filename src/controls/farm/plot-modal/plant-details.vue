@@ -8,9 +8,9 @@
                     
                     <div class="flex-grow text-right" style="height: 32px;" >
                         <icon :image=originBean.image class="has-tooltip" >
-                            <div class="tooltip right-0 w-56">
-                                <div class="border2 mt-1 text-center">Planted using a {{plant.originBean}}</div>
-                            </div>
+                            <tooltip position="bottom-left" :interactable="false" width=56>
+                                <div class="text-center">Planted using a {{plant.originBean}}</div>
+                            </tooltip>
                         </icon>
                     </div>
                 </div>
@@ -20,13 +20,13 @@
             </div>
         </div>
         <div class="flex p-1">
-            <div class="has-tooltip">
+            <div class="has-tooltip" style="position:relative;">
                 <button type="button" class="btn btn-red border2" style="width: 84px;" v-on:click="harvest">
                     Harvest
                 </button>
-                <div class="tooltip w-60">
-                    <div class="border2 mt-1 text-center" v-html="harvestGainMessage"></div>
-                </div>
+                <tooltip width=60>
+                    <div v-html="harvestGainMessage"></div>
+                </tooltip>
             </div>
         </div>
     </div>
@@ -36,6 +36,7 @@
 import {App} from "@/App.ts";
 import PlantState from "@/scripts/plant/PlantState";
 import Icon from '@/controls/icon';
+import Tooltip from "@/controls/tooltip";
 
 export default {
     name: "plant-details",
@@ -45,7 +46,8 @@ export default {
         }; 
     },
     components: {
-        Icon
+        Icon,
+        Tooltip,
     },
     props: {
         plant: {

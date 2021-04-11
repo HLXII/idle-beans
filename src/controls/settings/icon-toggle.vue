@@ -1,25 +1,23 @@
 <template>
     <div class="btn" @click="toggle">
         <icon :image=icon v-bind:class="{'has-tooltip': 'hasTooltip'}" >
-            <div class="tooltip left-0 w-56 mt-1">
-                <div>
-                    <div class="border2 bg-generic text-center">{{tooltip}}</div>
-                </div>
-            </div>
+            <tooltip v-if="hasTooltip" position="top-right" width=56>
+                <div class="text-center">{{tooltip}}</div>
+            </tooltip>
         </icon>
     </div>
-
-
 </template>
 
 <script>
 import {BooleanSetting} from "@/ig-template/features/settings/BooleanSetting";
 import Icon from '@/controls/icon';
+import Tooltip from '@/controls/tooltip';
 
 export default {
     name: "icon-toggle",
     components: {
         Icon,
+        Tooltip,
     },
     props: {
         setting: {

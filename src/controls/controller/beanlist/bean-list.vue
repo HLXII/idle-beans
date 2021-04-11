@@ -4,11 +4,9 @@
             <input class="border2 bg-white flex-1" style="min-width: 0;" v-model="controller.beanListSearch" placeholder="Filter Beans">
             <div v-if="false" class="ml-1" @click="toggleBeanFilter">
                 <icon :image=beanFilterIcon class="has-tooltip" >
-                    <div class="tooltip left-0 w-56 mb-1" style="bottom: 100%;">
-                        <div class="">
+                    <tooltip position="top-right" :interactable="false">
                             <div class="border2 bg-generic text-center">{{beanfilterDescription}}</div>
-                        </div>
-                    </div>
+                    </tooltip>
                 </icon>
             </div>
         </div>
@@ -24,12 +22,14 @@ import {App} from "@/App.ts"
 import {ToolType, BeanListFilterType } from "@/scripts/GameController";
 import BeanEntry from './bean-entry.vue';
 import Icon from "@/controls/icon";
+import Tooltip from "@/controls/tooltip";
 
 export default {
     name: "bean-list",
     components: {
         BeanEntry,
         Icon,
+        Tooltip,
     },
     data() {
         return {
