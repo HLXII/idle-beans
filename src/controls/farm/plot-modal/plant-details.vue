@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="flex">
-            <div class="p-1" style="position: relative;">
-                <div class="border4"><img width="64px" :src=plant.data.icon /></div>
-            </div>
+            <div class="border4 m-2" style="position: relative;"><img width="64px" :src=plant.data.icon /></div>
             <div class="flex-grow">
                 <div class="flex">
                     <div class="plantName">{{plant.type}}</div>
@@ -11,9 +9,7 @@
                     <div class="flex-grow text-right" style="height: 32px;" >
                         <icon :image=originBean.image class="has-tooltip" >
                             <div class="tooltip right-0 w-56">
-                                <div class="mt-1">
-                                    <div class="border2 text-center">Planted using a {{plant.originBean}}</div>
-                                </div>
+                                <div class="border2 mt-1 text-center">Planted using a {{plant.originBean}}</div>
                             </div>
                         </icon>
                     </div>
@@ -29,9 +25,7 @@
                     Harvest
                 </button>
                 <div class="tooltip w-60">
-                    <div class="mt-1">
-                        <div class="border2 text-center" v-html="harvestGainMessage"></div>
-                    </div>
+                    <div class="border2 mt-1 text-center" v-html="harvestGainMessage"></div>
                 </div>
             </div>
         </div>

@@ -1,8 +1,6 @@
 <template>
     <div class="flex flex-col border2 bg-generic" style="flex-grow: 1; height: 0px; min-height: 320px;">
-        <div class="mb-1" v-on:click="clearLog">
-            <span class="btn border2 bg-white flex justify-center text-center">Clear Log</span>
-        </div>
+        <span class="btn bg-white flex text-center justify-center border2 mb-1">Clear Log</span>
         <div class="flex flex-col-reverse logContainer">
             <div> <!-- Additional div used to reverse the entries correctly -->
                 <log-entry v-for="(entry, idx) in log.entries" :key=idx :message=entry.logMessage :color=entry.color ></log-entry>

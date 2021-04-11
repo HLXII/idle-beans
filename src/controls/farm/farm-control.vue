@@ -1,25 +1,23 @@
 <template>
-    <div class="mt-4">
-        <div class="border2 bg-generic">
-            <!-- Farm Selector -->
-            <div class="flex" v-if="hasMultipleFarms">
-                <div class="mr-1">
-                    Farms:
-                </div>
-                <div class="flex-1">
-                    <!-- TODO -->
-                </div>
+    <div class="border2 bg-generic mt-4">
+        <!-- Farm Selector -->
+        <div class="flex" v-if="hasMultipleFarms">
+            <div class="mr-1">
+                Farms:
             </div>
-            <!-- Farm Controls -->
-            <div class="flex">
-                <icon-toggle :setting="displayPlantIconsSetting"
-                    :trueIcon="require(`@/assets/images/icons/Wiki Icon.png`)"
-                    :falseIcon="require(`@/assets/images/icons/Settings Icon.png`)"
-                    :trueTooltip="`Displaying Plants using icons.`"
-                    :falseTooltip="`Displaying Plants using images.`"></icon-toggle>
+            <div class="flex-1">
+                <!-- TODO -->
             </div>
-            <!-- Farm Status -->
         </div>
+        <!-- Farm Controls -->
+        <div class="flex">
+            <icon-toggle :setting="displayPlantIconsSetting"
+                :trueIcon="require(`@/assets/images/icons/Wiki Icon.png`)"
+                :falseIcon="require(`@/assets/images/icons/Settings Icon.png`)"
+                :trueTooltip="`Displaying Plants using icons.`"
+                :falseTooltip="`Displaying Plants using images.`"></icon-toggle>
+        </div>
+        <!-- Farm Status -->
     </div>
 </template>
 

@@ -1,8 +1,5 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 .border2 {
     margin: 2px;
@@ -23,6 +20,11 @@
     border-image-slice: 32;
     border-image-outset: 4px;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 .bg-generic {
     background-color: #eae4a2;
