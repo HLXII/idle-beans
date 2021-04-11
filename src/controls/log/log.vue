@@ -3,7 +3,7 @@
         <div class="mb-1" v-on:click="clearLog">
             <span class="btn border2 bg-white flex justify-center text-center">Clear Log</span>
         </div>
-        <div class="overflow-auto flex flex-col-reverse" style="flex-grow: 1;">
+        <div class="flex flex-col-reverse logContainer">
             <div> <!-- Additional div used to reverse the entries correctly -->
                 <log-entry v-for="(entry, idx) in log.entries" :key=idx :message=entry.logMessage :color=entry.color ></log-entry>
             </div>
@@ -37,5 +37,13 @@ export default {
 </script>
 
 <style scoped>
+.logContainer {
+    overflow-y: scroll;
+    flex-grow: 1;
+    scroll-snap-type: y proximity;
+}
 
+.logContainer > div > div:last-child {
+    scroll-snap-align: end;
+}
 </style>
