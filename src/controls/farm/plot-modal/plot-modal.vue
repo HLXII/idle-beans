@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body p-0">
                 <!-- Plant Data -->
-                <component v-if=plant v-bind:is=plant.template :plant=plant :controller=controller ></component>
+                <component v-if=plant v-bind:is=plant.modalTemplate :plant=plant :controller=controller ></component>
                 <!-- Dirt Data -->
                 <!-- TODO -->
                 <div>

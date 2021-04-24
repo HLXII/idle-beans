@@ -46,7 +46,6 @@ export default {
             return require(`@/assets/images/icons/${this.BeanListFilterType[this.controller.beanListFilter]} Icon.png`);
         },
         beanfilterDescription() {
-            console.log('des', this.controller.beanfilterDescription);
             return this.controller.beanfilterDescription;
         }
     },

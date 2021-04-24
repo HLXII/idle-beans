@@ -41,6 +41,10 @@ export default class Bean implements Saveable {
         return this.name;
     }
 
+    get elementName(): string {
+        return this.name.toLowerCase().replace(/ /, '-');
+    }
+
     save(): BeanSaveData {
         return {
             unlocked: this.unlocked,

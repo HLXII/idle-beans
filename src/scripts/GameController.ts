@@ -1,3 +1,4 @@
+import { App } from "@/App";
 import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
 import { Features } from "@/ig-template/Features";
 import { Feature } from "@/ig-template/features/Feature";
@@ -53,6 +54,15 @@ export default class GameController extends Feature {
     /**Bean List Search Filter */
     public beanListSearch!: string;
 
+    //#region Wiki Modal properties
+    /**Wiki Tab */
+    public wikiTab!: number;
+    /**Plant Wiki  Tab */
+    public plantTab!: number;
+    /**Opened Bean */
+    public wikiBean!: BeanType;
+    //#endregion
+
     constructor() {
         super('controller');
     }
@@ -71,6 +81,11 @@ export default class GameController extends Feature {
    
         this.beanListFilter = BeanListFilterType.All;
         this.beanListSearch = '';
+
+        this.wikiTab = 0;
+        this.plantTab = 0;
+
+        this.wikiBean = 'Bean';
     }
     start(): void {
         return;
@@ -188,6 +203,7 @@ export default class GameController extends Feature {
         this.openedModal = ModalType.Plot;
     }
 
+    //#region Wiki
     openWikiModal() {
         // Closing other modals
         this.closeModal();
@@ -195,6 +211,48 @@ export default class GameController extends Feature {
         // Opening modal
         this.openedModal = ModalType.Wiki;
     }
+
+    changeTab(tab: number) {
+        this.wikiTab = tab ?? 0;
+    }
+
+    goToBean(beanType: BeanType) {
+        // Sanity Check
+        if (!beanType) {
+            console.error("Error - Cannot open empty Bean.");
+            return;
+        }
+        const bean = App.game.features.beans.list[beanType];
+        if (!bean) {
+            console.error("Error - Could not retrieve Bean from list.", beanType);
+        }
+        if (!bean.globalUnlocked) {
+            console.error("Error - Cannot open locked Bean.", beanType);
+            return;
+        }
+        const beanElement = document.getElementById(bean.elementName);
+        if (!beanElement) {
+            console.error("Error - Could not find Bean element.", beanType);
+        }
+
+        // Open Wiki modal
+        this.openWikiModal();
+
+        // Switch to Bean tab
+        this.wikiTab = 0;
+
+        // Open Bean
+        this.wikiBean = beanType;
+
+        // Make sure Bean is visible
+        beanElement?.scrollIntoView(true);
+    }
+
+    get wikiBeanList(): Bean[] {
+        return Object.values(BeanList).filter((bean: Bean) => bean.globalUnlocked);
+    }
+
+    //#endregion
 
     openSettingsModal() {
         // Closing other modals

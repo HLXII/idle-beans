@@ -15,7 +15,7 @@ export default {
             default: true,
         },
         width: {
-            type: Number,
+            type: String,
         },
         position: {
             type: String,

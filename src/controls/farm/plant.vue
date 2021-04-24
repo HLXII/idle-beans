@@ -1,10 +1,15 @@
 <template>
     <div class="plant" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
-        <component v-if="!displayIcons" v-bind:is=image :row=plant.row :col=plant.col :controller=controller ></component>
-        <img v-if="displayIcons" :src="plant.data.icon"
-            class="plantImage" style="width: 100%; pointer-events: auto;"
-            v-on:click="controller.clickPlant(plant.row, plant.col)"/>
+        <component v-if="!displayIcons" v-bind:is=image :row=plant.row :col=plant.col :controller=controller>
+            <plant-statuses :statuses="plant.statuses"></plant-statuses>
+        </component>
+        <div v-if="displayIcons" class="plantContainer">
+            <plant-statuses :statuses="plant.statuses"></plant-statuses>
+            <img class="plantImage" :src="plant.data.icon"
+                style="width: 100%; pointer-events: auto;"
+                v-on:click="controller.clickPlant(plant.row, plant.col)"/>
+        </div>
     </div>
 </template>
 
@@ -12,6 +17,8 @@
 import AbstractFarm from "@/scripts/farm/AbstractFarm";
 import GameController from "@/scripts/GameController";
 import PlantState from "@/scripts/plant/PlantState";
+
+import PlantStatuses from "@/controls/farm/plant-statuses";
 
 import BeanBud from "@/controls/plant/BeanBud";
 import BeanPlant from "@/controls/plant/BeanPlant";
@@ -25,6 +32,7 @@ import YellowBeanSprout from "@/controls/plant/YellowBeanSprout";
 export default {
     name: "plant",
     components: {
+        PlantStatuses,
         BeanBud,
         BeanPlant,
         BeanSprout,
@@ -70,9 +78,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .plot:hover {
         filter: brightness(.5);
+    }
+    .plantContainer {
+        position: relative;
     }
     .plantImage:hover {
         filter: brightness(.5);

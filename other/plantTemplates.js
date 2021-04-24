@@ -119,7 +119,7 @@ function convertImage(plantName, img, tabs){
   const colors = getColors(img);
   const paths = colorsToPaths(colors);
   const output = [];
-  output.push(`\t<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 ${img.width} ${img.height}" shape-rendering="crispEdges" v-on:click="clickPlant()">`);
+  output.push(`\t<svg class="plantImage" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 ${img.width} ${img.height}" shape-rendering="crispEdges" v-on:click="clickPlant()">`);
   output.push('\t\t<metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>');
   output.push(...paths);
   output.push('\t</svg>');

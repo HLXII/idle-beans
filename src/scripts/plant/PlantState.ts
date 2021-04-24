@@ -8,12 +8,14 @@ import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
 import Plant from "./Plant";
 import { PlantType } from './PlantList';
+import PlantStatus from "./PlantStatus";
 
 export interface PlantStateSaveData extends SaveData, FarmLocation {
     stateClass: string;
     type: PlantType;
     originBean: BeanType;
     age: number;
+    stageAge: number;
 }
 
 export default class PlantState implements Saveable, FarmLocation {
@@ -31,6 +33,7 @@ export default class PlantState implements Saveable, FarmLocation {
 
     /** Age (in milliseconds) */
     public age: number;
+    public stageAge: number;
 
     constructor(type: PlantType, location?: FarmLocation) {
         this.type = type;
@@ -43,18 +46,27 @@ export default class PlantState implements Saveable, FarmLocation {
 
         this.originBean = 'Bean';
         this.age = 0;
+        this.stageAge = 0;
     }
 
     /**
-     * Updates the plant every game tick
+     * Updates the Plant every game tick
      * @param delta The time passed (ms)
      */
     update(delta: number) {
         this.age += delta;
+        this.stageAge += delta;
     }
 
     /**
-     * Handles harvesting this plant
+     * Returns the PlantStatuses affecting this Plant
+     */
+    get statuses(): PlantStatus[] {
+        return [];
+    }
+
+    /**
+     * Handles harvesting this Plant
      */
     handleRemove() {
         // Gaining harvest cost
@@ -105,7 +117,10 @@ export default class PlantState implements Saveable, FarmLocation {
         return this.data.image;
     }
 
-    get template(): string {
+    /**
+     * Returns the name for the component to display in the modal
+     */
+    get modalTemplate(): string {
         return this.constructor.name;
     }
 
@@ -120,6 +135,7 @@ export default class PlantState implements Saveable, FarmLocation {
             col: this.col,
             originBean: this.originBean,
             age: this.age,
+            stageAge: this.stageAge,
         };
     }
     load(data: PlantStateSaveData): void {
@@ -129,6 +145,7 @@ export default class PlantState implements Saveable, FarmLocation {
         this.col = data.col ?? 0;
         this.originBean = data.originBean ?? 'Bean';
         this.age = data.age ?? 0;
+        this.stageAge = data.stageAge ?? 0;
     }
     //#endregion
 

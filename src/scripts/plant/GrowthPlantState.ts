@@ -3,6 +3,7 @@ import FarmLocation from "../farm/FarmLocation";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
 import PlantState from "./PlantState";
+import PlantStatus from "./PlantStatus";
 
 export default class GrowthPlantState extends PlantState {
     
@@ -23,14 +24,30 @@ export default class GrowthPlantState extends PlantState {
 
         const growth = (this.data as GrowthPlant).growthPlant(this);
         this.growthPlant = growth;
-        if (this.age >= (this.data as GrowthPlant).growthTime) {
+        if (this.stageAge >= (this.data as GrowthPlant).growthTime) {
             App.game.features.log.log(`A ${this.type} has grown into a ${growth}.`);
             this.grow(growth);
         }
     }
 
     get growthPercent(): number {
-        return this.age / (this.data as GrowthPlant).growthTime;
+        return this.stageAge / (this.data as GrowthPlant).growthTime;
+    }
+
+    get growthText(): string {
+        return `Growing into ${(this.data as GrowthPlant).growthPlant(this)}`;
+    }
+
+    get statuses(): PlantStatus[] {
+        const statuses = super.statuses;
+
+        // Including growth status
+        const growthStatus: PlantStatus = {
+            percent: this.growthPercent,
+            tooltip: this.growthText,
+        }
+        statuses.push(growthStatus);
+        return statuses;
     }
 
     /**
@@ -43,6 +60,7 @@ export default class GrowthPlantState extends PlantState {
         const newState = newPlant.state();
         const oldStateData = this.save();
         oldStateData.type = plant;
+        oldStateData.stageAge = 0;
         newState.load(oldStateData);
         
         // Removing this plant

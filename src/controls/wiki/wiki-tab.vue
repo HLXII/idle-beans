@@ -1,7 +1,6 @@
 <template>
-    <div class="plantContainer">
+    <div v-if="active">
         <slot></slot>
-        {{{SVG}}}
     </div>
 </template>
 
@@ -9,25 +8,21 @@
 import GameController from "@/scripts/GameController";
 
 export default {
-    name: "{{COMPONENTNAME}}",
+    name: "wiki-tab",
     props: {
-        row: {
-            type: Number,
-            required: true,
-        },
-        col: {
+        tabType: {
             type: Number,
             required: true,
         },
         controller: {
             type: GameController,
             required: true,
-        },
-    },
-    methods: {
-        clickPlant() {
-            this.controller.clickPlant(this.row, this.col);
         }
+    },
+    computed: {
+        active() {
+            return this.tabType == this.controller.wikiTab;
+        },
     },
 }
 </script>

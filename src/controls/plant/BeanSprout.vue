@@ -1,6 +1,7 @@
 <template>
-    <div class="plantImage">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges" v-on:click="clickPlant()">
+    <div class="plantContainer">
+        <slot></slot>
+                <svg class="plantImage" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 16" shape-rendering="crispEdges" v-on:click="clickPlant()">
             <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
             <path pointer-events="painted" stroke="#c6c95f" d="M7 2h2M7 3h1M7 4h1" />
             <path pointer-events="painted" stroke="#9ea142" d="M8 3h1" />
