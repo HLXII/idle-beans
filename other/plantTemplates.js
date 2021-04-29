@@ -163,6 +163,11 @@ async function convertPlantImages() {
   const path = '../src/assets/images/plants/images/';
   const dir = await fs.promises.opendir(path);
   for await (const dirent of dir) {
+    // Ignoring non-image files
+    if (dirent.name.slice(dirent.name.length - 4) != '.png') {
+      continue;
+    }
+
     console.log(`Converting ${dirent.name}`);
 
     const plantName = dirent.name.slice(0,-4);
@@ -171,8 +176,6 @@ async function convertPlantImages() {
 
     const plantID = plantName.replace(/ /g,'');
     const componentName = plantName.replace(/ /g, '-').toLowerCase();
-
-    console.log(plantName, plantID, componentName);
 
     const contents = template({SVG: plantTemplate, COMPONENTNAME: componentName});
 

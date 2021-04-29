@@ -3,10 +3,10 @@
         <slot></slot>
                 <svg class="plantImage" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 16 32" shape-rendering="crispEdges" v-on:click="clickPlant()">
             <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-            <path pointer-events="painted" stroke="#b3c189" d="M4 13h3M11 13h3M6 14h9M6 15h3M11 15h1M13 15h2M4 16h4M14 16h1M3 17h3M9 17h1M14 17h1M9 18h1M9 19h1M9 20h1M9 21h1M8 22h1M7 23h2M6 24h2M9 24h1M7 25h1" />
-            <path pointer-events="painted" stroke="#99b051" d="M5 14h1M9 15h2M12 15h1M8 16h2M13 16h1M6 17h1M10 17h1M3 18h3M10 18h1M10 19h1M10 20h1M10 21h1M9 22h1M9 23h1M8 24h1M9 25h1" />
-            <path pointer-events="painted" stroke="#508f26" d="M11 16h1M11 17h1M6 18h2M7 19h1M7 20h1M6 21h1" />
-            <path pointer-events="painted" stroke="#5bb91d" d="M12 17h1M11 18h1M6 19h1M5 20h2M5 21h1" />
+            <path pointer-events="painted" stroke="#b3c189" d="M9 13h2M8 14h2M13 14h1M4 15h3M8 15h2M12 15h2M6 16h7M8 17h1M7 18h1M9 19h1M9 20h1M8 21h2M8 22h1M7 23h2M6 24h2M9 24h1M7 25h1" />
+            <path pointer-events="painted" stroke="#508f26" d="M10 14h1M5 17h1M12 17h1M6 18h1M11 18h1M6 19h1M12 19h1M5 20h1" />
+            <path pointer-events="painted" stroke="#5bb91d" d="M10 15h1M5 18h1M12 18h2M4 19h2M13 19h1M4 20h1" />
+            <path pointer-events="painted" stroke="#99b051" d="M5 16h1M13 16h1M6 17h2M9 17h3M8 18h2M10 19h1M10 20h1M10 21h1M9 22h1M9 23h1M8 24h1M9 25h1" />
         </svg>
     </div>
 </template>
