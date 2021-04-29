@@ -23,10 +23,6 @@ export default abstract class GrowthPlant extends Plant {
      */
     public abstract growths: Growth[];
 
-    constructor(name: string) {
-        super(name);
-    }
-
     /**
      * Handles checking growth requirements
      * @param state The current plant state

@@ -31,6 +31,7 @@ export class Settings extends Feature {
         this.darkMode = this.registerSetting(new BooleanSetting(SettingId.DarkMode, "Dark Mode", true));
 
         this.registerSetting(new BooleanSetting(SettingId.DisplayPlantIcons, 'Display Plant Icons', false));
+        this.registerSetting(new BooleanSetting(SettingId.DisplayPlantStatus, 'Display Plant Status', true));
     }
 
     setSetting(id: SettingId, value: SettingsValue) {

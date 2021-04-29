@@ -12,10 +12,15 @@
         <!-- Farm Controls -->
         <div class="flex">
             <icon-toggle :setting="displayPlantIconsSetting"
-                :trueIcon="require(`@/assets/images/icons/Wiki Icon.png`)"
-                :falseIcon="require(`@/assets/images/icons/Settings Icon.png`)"
+                :trueIcon="require(`@/assets/images/icons/Plant Icon Icon.png`)"
+                :falseIcon="require(`@/assets/images/icons/Plant Icon.png`)"
                 :trueTooltip="`Displaying Plants using icons.`"
                 :falseTooltip="`Displaying Plants using images.`"></icon-toggle>
+            <icon-toggle :setting="displayPlantStatusSetting"
+                :trueIcon="require(`@/assets/images/icons/Status Bar Icon.png`)"
+                :falseIcon="require(`@/assets/images/icons/No Status Bar Icon.png`)"
+                :trueTooltip="`Displaying Plant statuses.`"
+                :falseTooltip="`Not displaying Plants statuses.`"></icon-toggle>
         </div>
         <!-- Farm Status -->
     </div>
@@ -49,6 +54,9 @@ export default {
         },
         displayPlantIconsSetting() {
             return this.settings.getSetting(SettingId.DisplayPlantIcons);
+        },
+        displayPlantStatusSetting() {
+            return this.settings.getSetting(SettingId.DisplayPlantStatus);
         }
     },
     methods: {

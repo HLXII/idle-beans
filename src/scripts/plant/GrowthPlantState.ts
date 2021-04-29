@@ -2,17 +2,30 @@ import { App } from "@/App";
 import FarmLocation from "../farm/FarmLocation";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
-import PlantState from "./PlantState";
+import PlantState, { PlantStateSaveData } from "./PlantState";
 import PlantStatus from "./PlantStatus";
+
+export interface GrowthPlantStateSaveData extends PlantStateSaveData {
+    stageAge: number;
+}
 
 export default class GrowthPlantState extends PlantState {
     
+    /**
+     * The Plant that this Plant will grow into
+     */
     public growthPlant: PlantType;
+
+    /**
+     * The current age of this stage of plant
+     */
+    public stageAge: number;
 
     constructor(name: PlantType, location?: FarmLocation) {
         super(name, location);
 
         this.growthPlant = 'Bean Plant';
+        this.stageAge = 0;
     }   
 
     /**
@@ -21,6 +34,8 @@ export default class GrowthPlantState extends PlantState {
      */
     update(delta: number) {
         super.update(delta);
+
+        this.stageAge += delta;
 
         const growth = (this.data as GrowthPlant).growthPlant(this);
         this.growthPlant = growth;
@@ -72,5 +87,15 @@ export default class GrowthPlantState extends PlantState {
         // Unlocking plant
         newPlant.unlock();
     }
-
+    
+    save(): GrowthPlantStateSaveData {
+        return {
+            ...super.save(),
+            stageAge: this.stageAge,
+        };
+    }
+    load(data: GrowthPlantStateSaveData): void {
+        super.load(data);
+        this.stageAge = data.stageAge ?? 0;
+    }
 }

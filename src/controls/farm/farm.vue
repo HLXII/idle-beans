@@ -15,7 +15,8 @@
         <div class="plants">
             <plant v-for="plant in plants" :key="plant.id" :plant=plant 
                 :farm=farm :controller=controller
-                :displayIcons="displayIcons"></plant>
+                :displayIcons="displayIcons"
+                :displayStatus="displayStatus"></plant>
         </div>
         
         <slot></slot>
@@ -53,7 +54,10 @@ export default {
         },
         displayIcons() {
             return this.settings.getSetting(SettingId.DisplayPlantIcons).value;
-        }
+        },
+        displayStatus() {
+            return this.settings.getSetting(SettingId.DisplayPlantStatus).value;
+        },
     }
 }
 </script>

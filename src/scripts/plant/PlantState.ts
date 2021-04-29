@@ -15,7 +15,6 @@ export interface PlantStateSaveData extends SaveData, FarmLocation {
     type: PlantType;
     originBean: BeanType;
     age: number;
-    stageAge: number;
 }
 
 export default class PlantState implements Saveable, FarmLocation {
@@ -33,7 +32,6 @@ export default class PlantState implements Saveable, FarmLocation {
 
     /** Age (in milliseconds) */
     public age: number;
-    public stageAge: number;
 
     constructor(type: PlantType, location?: FarmLocation) {
         this.type = type;
@@ -46,7 +44,6 @@ export default class PlantState implements Saveable, FarmLocation {
 
         this.originBean = 'Bean';
         this.age = 0;
-        this.stageAge = 0;
     }
 
     /**
@@ -55,7 +52,6 @@ export default class PlantState implements Saveable, FarmLocation {
      */
     update(delta: number) {
         this.age += delta;
-        this.stageAge += delta;
     }
 
     /**
@@ -135,7 +131,6 @@ export default class PlantState implements Saveable, FarmLocation {
             col: this.col,
             originBean: this.originBean,
             age: this.age,
-            stageAge: this.stageAge,
         };
     }
     load(data: PlantStateSaveData): void {
@@ -145,7 +140,6 @@ export default class PlantState implements Saveable, FarmLocation {
         this.col = data.col ?? 0;
         this.originBean = data.originBean ?? 'Bean';
         this.age = data.age ?? 0;
-        this.stageAge = data.stageAge ?? 0;
     }
     //#endregion
 

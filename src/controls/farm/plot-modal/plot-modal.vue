@@ -26,6 +26,7 @@ import Modal from "@/controls/modal/modal";
 import {App} from "@/App.ts"
 import PlantState from "@/controls/farm/plot-modal/PlantState";
 import GrowthPlantState from "@/controls/farm/plot-modal/GrowthPlantState";
+import ProducePlantState from "@/controls/farm/plot-modal/ProducePlantState";
 
 export default {
     name: "plot-modal",
@@ -41,6 +42,7 @@ export default {
         Modal,
         PlantState,
         GrowthPlantState,
+        ProducePlantState,
     },
     props: {
         show: {

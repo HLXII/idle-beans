@@ -2,10 +2,10 @@
     <div class="plant" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
         <component v-if="!displayIcons" v-bind:is=image :row=plant.row :col=plant.col :controller=controller>
-            <plant-statuses :statuses="plant.statuses"></plant-statuses>
+            <plant-statuses v-if="displayStatus" :statuses="plant.statuses"></plant-statuses>
         </component>
         <div v-if="displayIcons" class="plantContainer">
-            <plant-statuses :statuses="plant.statuses"></plant-statuses>
+            <plant-statuses v-if="displayStatus" :statuses="plant.statuses"></plant-statuses>
             <img class="plantImage" :src="plant.data.icon"
                 style="width: 100%; pointer-events: auto;"
                 v-on:click="controller.clickPlant(plant.row, plant.col)"/>
@@ -55,6 +55,10 @@ export default {
                 type: PlantState,
             },
             displayIcons: {
+                type: Boolean,
+                required: true,
+            },
+            displayStatus: {
                 type: Boolean,
                 required: true,
             },
