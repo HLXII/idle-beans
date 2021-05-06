@@ -3,9 +3,7 @@ import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
-import NearContainsRequirement from "../growths/plot/NearContainsRequirement";
-import OrthoContainsRequirement from "../growths/plot/OrthoContainsRequirement";
-
+import { NearContainsRequirement, OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
 
 export default class BeanSprout extends GrowthPlant {
 

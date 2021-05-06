@@ -2,7 +2,7 @@ import { App } from "@/App";
 import Plot from "../../../farm/Plot";
 import PlotRequirement from "./PlotRequirement";
 
-export default abstract class OrthoPlotsRequirement extends PlotRequirement {
+export default class OrthoPlotsRequirement extends PlotRequirement {
 
     getPlots(plot: Plot): Plot[] {
 
@@ -20,6 +20,13 @@ export default abstract class OrthoPlotsRequirement extends PlotRequirement {
 
     get description(): string {
         return 'The plant has nearby orthogonal plots';
+    }
+
+    plotConditions(plots: Plot[]): boolean {
+        throw new Error("Abstract method called.");
+    }
+    public visible(): boolean {
+        throw new Error("Abstract method called.");
     }
 
 }

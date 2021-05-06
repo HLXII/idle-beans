@@ -3,7 +3,7 @@ import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
-import OrthoContainsRequirement from "../growths/plot/OrthoContainsRequirement";
+import { OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
 
 export default class YellowBeanSprout extends GrowthPlant {
 

@@ -3,7 +3,7 @@ import Growth from "../growths/Growth";
 import DefaultRequirement from '../growths/DefaultRequirement';
 import AnyGrowthRequirement from '../growths/AnyGrowthRequirement';
 import OriginBeanRequirement from '../growths/OriginBeanRequirement';
-import DiagContainsRequirement from '../growths/plot/DiagContainsRequirement';
+import { DiagContainsRequirement } from "../growths/plot/PlotRequirements";
 
 export default class BeanBud extends GrowthPlant {
 

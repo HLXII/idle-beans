@@ -2,7 +2,7 @@ import { App } from "@/App";
 import Plot from "../../../farm/Plot";
 import PlotRequirement from "./PlotRequirement";
 
-export default abstract class NearPlotsRequirement extends PlotRequirement {
+export default class NearPlotsRequirement extends PlotRequirement {
 
     getPlots(plot: Plot): Plot[] {
 
@@ -31,6 +31,13 @@ export default abstract class NearPlotsRequirement extends PlotRequirement {
 
     get description(): string {
         return 'The plant has nearby plots';
+    }
+
+    plotConditions(plots: Plot[]): boolean {
+        throw new Error("Abstract method called.");
+    }
+    public visible(): boolean {
+        throw new Error("Abstract method called.");
     }
 
 }

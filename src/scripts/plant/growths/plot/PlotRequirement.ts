@@ -72,3 +72,5 @@ export default abstract class PlotRequirement extends GrowthRequirement {
     }
     
 }
+
+export type MinimalPlot = ConstructorImplementing<PlotRequirement, 'getPlots'>;
