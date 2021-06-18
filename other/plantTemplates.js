@@ -55,7 +55,7 @@ function convertImage(plantName, img, tabs){
 
   // Optimized for horizontal lines
   function makePathData(x,y,w) { return ('M'+x+' '+y+'h'+w+''); }
-  function makePath(color,data) { return '\t\t<path pointer-events="painted" stroke="'+color+'" d="'+data+'" />'; }
+  function makePath(color,data) { return '\t\t{ stroke: "'+color+'", d: "'+data+'" },'; }
 
   function colorsToPaths(colors){
 
@@ -72,7 +72,7 @@ function convertImage(plantName, img, tabs){
       let w = 1;
 
       // Loops through each color's pixels to optimize paths
-      each(values,function(){
+      each(values,function() {  
 
         if ( curPath && this[1] === curPath[1] && this[0] === (curPath[0] + w) ) {
           w++;
@@ -119,10 +119,12 @@ function convertImage(plantName, img, tabs){
   const colors = getColors(img);
   const paths = colorsToPaths(colors);
   const output = [];
-  output.push(`\t<svg class="plantImage" xmlns="http://www.w3.org/2000/svg" viewBox="0 -0.5 ${img.width} ${img.height}" shape-rendering="crispEdges" v-on:click="clickPlant()">`);
-  output.push('\t\t<metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>');
+  output.push(`"${plantName}": {`);
+  output.push(`\tviewBox: "0 -0.5 ${img.width} ${img.height}",`);
+  output.push(`\tpaths: [`);
   output.push(...paths);
-  output.push('\t</svg>');
+  output.push(`\t],`);
+  output.push(`},`);
 
   const tabStr = Array(tabs).fill('\t').join('');
   const outputWithTabs = output.map((line) => tabStr + line);
@@ -156,8 +158,10 @@ async function convertPlantImages() {
   console.log('Converting plant images...');
 
   // Loading template
-  const templateString = fs.readFileSync('./plantComponent.vue', 'utf8');
+  const templateString = fs.readFileSync('./PlantImages.ts', 'utf8');
   const template = handlebars.compile(templateString);
+
+  const content = [];
 
   // Going over all plant images
   const path = '../src/assets/images/plants/images/';
@@ -172,19 +176,18 @@ async function convertPlantImages() {
 
     const plantName = dirent.name.slice(0,-4);
     const fullPath = path + dirent.name;
-    const plantTemplate = await convert(plantName, fullPath, 1);
+    const plantImage = await convert(plantName, fullPath, 1);
 
-    const plantID = plantName.replace(/ /g,'');
-    const componentName = plantName.replace(/ /g, '-').toLowerCase();
-
-    const contents = template({SVG: plantTemplate, COMPONENTNAME: componentName});
-
-    // Writing to file
-    fs.writeFile(`../src/controls/plant/${plantID}.vue`, contents, function(err) {
-      if (err) throw err;
-      console.log('Succesfully wrote file!');
-    });
+    content.push(plantImage);
   }
+
+  const contents = template({IMAGES: content.join('\n')});
+
+  // Writing to file
+  fs.writeFile(`../src/scripts/plant/PlantImages.ts`, contents, function(err) {
+    if (err) throw err;
+    console.log('Succesfully wrote file!');
+  });
 }
 
 convertPlantImages().catch(console.error);

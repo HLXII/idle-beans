@@ -110,7 +110,7 @@ export default class PlantState implements Saveable, FarmLocation {
      * Returns the Plant image component name
      */
     get image(): string {
-        return this.data.image;
+        return this.data.name;
     }
 
     /**
