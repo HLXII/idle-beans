@@ -1,5 +1,5 @@
 
-import { PlotsContain } from "./ContainsRequirement";
+import PlotsContain from "./ContainsRequirement";
 import DiagPlotsRequirement from "./DiagPlotsRequirement";
 import NearPlotsRequirement from "./NearPlotsRequirement";
 import OrthoPlotsRequirement from "./OrthoPlotsRequirement";

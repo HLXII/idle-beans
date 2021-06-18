@@ -56,6 +56,6 @@ type ContainsReq<T extends Constructor<any>> =
         )
     => InstanceType<T>
 
-export function PlotsContain<T extends Constructor<any>>(Base: T): ContainsReq<T> {
+export default function PlotsContain<T extends Constructor<any>>(Base: T): ContainsReq<T> {
     return ContainReq(Base);
 }
