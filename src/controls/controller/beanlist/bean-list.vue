@@ -10,7 +10,7 @@
                 </icon>
             </div>
         </div>
-        <div class="overflow-auto" >
+        <div class="overflow-auto">
             <bean-entry v-for="bean in filteredList" :key="bean.name" :bean=bean :controller=controller></bean-entry>
         </div>
     </div>

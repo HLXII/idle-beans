@@ -1,9 +1,9 @@
 <template>
-    <div class="flex" v-bind:class="{active: active}"
+    <div class="flex mb-1" v-bind:class="{active: active}"
         v-on:click="changeBean(bean.name)">
         <icon :image=bean.image></icon>
-        <span class="p-1 align-self-center">{{bean.name}}</span>
-        <small class="align-self-center flex-fill text-end">{{bean.amount}}</small>
+        <div class="px-1"><span class="align-middle">{{bean.name}}</span></div>
+        <div class="flex-1 text-right"><small class="align-middle">{{bean.amount}}</small></div>
     </div>
 </template>
 
