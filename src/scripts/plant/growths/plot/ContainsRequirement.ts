@@ -37,7 +37,7 @@ function ContainReq<GReqClass extends MinimalPlot>(Base: GReqClass) {
         }
     
         public visible(): boolean {
-            return this.data.some((datum) => App.game.features.plants.list[datum.plant].globalUnlocked);
+            return this.data.some((datum) => App.game.features.plants.list[datum.plant].unlocked);
         }
      
         get description(): string {

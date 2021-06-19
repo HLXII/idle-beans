@@ -7,18 +7,15 @@ import PlantState from './PlantState';
 
 export interface PlantSaveData extends SaveData {
     unlocked: boolean;
-    globalUnlocked: boolean;
 }
 
 export default class Plant implements Saveable {
     public static state = PlantState;
 
     public unlocked: boolean;
-    public globalUnlocked: boolean;
 
     constructor(public name: string) {
         this.unlocked = false;
-        this.globalUnlocked = false;
     }
 
     /**
@@ -31,11 +28,11 @@ export default class Plant implements Saveable {
     }
 
     unlock() {
-        if (!this.globalUnlocked) {
-            // TODO: Handle global unlock message?
+        if (!this.unlocked) {
+            // TODO: Handle unlock message?
             // TODO: Handle updating plant wiki
             // TODO: Handle adding wiki notification
-            this.globalUnlocked = true;
+            this.unlocked = true;
         }
 
         if (!this.unlocked) {
@@ -59,12 +56,10 @@ export default class Plant implements Saveable {
     save(): PlantSaveData {
         return {
             unlocked: this.unlocked,
-            globalUnlocked: this.globalUnlocked,
         };
     }
     load(data: PlantSaveData): void {
         this.unlocked = data.unlocked ?? false;
-        this.globalUnlocked = data.globalUnlocked ?? false;
     }
 
 }

@@ -4,27 +4,23 @@ import { BeanImages } from "./BeanList";
 
 export interface BeanOptions {
     unlocked?: boolean;
-    globalUnlocked?: boolean;
 
     amount?: number;
 }
 
 export interface BeanSaveData extends SaveData {
     unlocked: boolean;
-    globalUnlocked: boolean;
     amount: number;
 }
 
 export default class Bean implements Saveable {
 
     public unlocked: boolean;
-    public globalUnlocked: boolean;
 
     public amount: number;
 
     constructor(public name: string, option?: BeanOptions) {
         this.unlocked = option?.unlocked ?? false;
-        this.globalUnlocked = option?.globalUnlocked ?? false;
     
         this.amount = option?.amount ?? 0;
     }
@@ -48,15 +44,12 @@ export default class Bean implements Saveable {
     save(): BeanSaveData {
         return {
             unlocked: this.unlocked,
-            globalUnlocked: this.globalUnlocked,
-
             amount: this.amount,
         }
     }
 
     load(data: BeanSaveData): void {
         this.unlocked = data.unlocked ?? false;
-        this.globalUnlocked = data.globalUnlocked ?? false;
         this.amount = data.amount ?? 0;
     }
 

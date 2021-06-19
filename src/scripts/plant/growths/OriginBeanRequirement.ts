@@ -24,7 +24,7 @@ export default class OriginBeanRequirement extends GrowthRequirement {
     }
 
     public visible(): boolean {
-        return this.bean.some((bean) => App.game.features.beans.list[bean].globalUnlocked);
+        return this.bean.some((bean) => App.game.features.beans.list[bean].unlocked);
     }
 
     get description(): string {

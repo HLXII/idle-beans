@@ -7,7 +7,7 @@ import PlantableBean from './PlantableBean';
  * Used to store all Bean data. This isn't typed so that we can pull the keys into BeanType
  */
 const InternalBeanList = {
-    'Bean': new PlantableBean('Bean', undefined, { unlocked: true, globalUnlocked: true, amount: 1 }),
+    'Bean': new PlantableBean('Bean', undefined, { unlocked: true, amount: 1 }),
     'Green Bean': new PlantableBean('Green Bean'),
     'Red Bean': new PlantableBean('Red Bean'),
     'Yellow Bean': new PlantableBean('Yellow Bean'),

@@ -19,15 +19,9 @@ export enum ModalType {
     Settings,
 }
 
-export enum BeanListFilterType {
-    Unlocked,
-    All,
-}
-
 export interface GameControllerSaveData extends SaveData {
     tool: ToolType;
     bean: BeanType;
-    beanListFilter: BeanListFilterType;
     beanListSearch: string;
 }
 
@@ -47,8 +41,6 @@ export default class GameController extends IgtFeature {
     /**Modal handler */
     public openedModal!: ModalType;
 
-    /**Bean List Filter Status */
-    public beanListFilter!: BeanListFilterType;
     /**Bean List Search Filter */
     public beanListSearch!: string;
 
@@ -77,7 +69,6 @@ export default class GameController extends IgtFeature {
 
         this.openedModal = ModalType.None;
    
-        this.beanListFilter = BeanListFilterType.All;
         this.beanListSearch = '';
 
         this.wikiTab = 0;
@@ -98,7 +89,7 @@ export default class GameController extends IgtFeature {
         return;
     }
 
-    public changeTool(tool: ToolType) {
+    changeTool(tool: ToolType) {
         console.log(`Changing Tool to ${ToolType[tool]}`);
         this.tool = tool;
     }
@@ -133,41 +124,15 @@ export default class GameController extends IgtFeature {
         this.clickDirt(row, col);
     }
 
-    toggleBeanFilter() {
-        console.log(Object.keys(BeanListFilterType).length);
-        this.beanListFilter = ((this.beanListFilter as number) + 1) % 2;
-    }
-
-    get beanfilterDescription(): string {
-        switch(this.beanListFilter) {
-            case BeanListFilterType.Unlocked:
-                return 'Only display Beans unlocked in this playthrough';
-            case BeanListFilterType.All:
-                return 'Display all unlocked beans';
-            default:
-                return 'Error - Invalid Bean Filter';
-        }
-    }
-
     get filteredList(): Bean[] {
         return Object.values(BeanList).filter((bean: Bean) => {
-            switch(this.beanListFilter) {
-                case BeanListFilterType.Unlocked: {
-                    if (!bean.unlocked) {
-                        return false;
-                    }
-                    break;
-                }
-                case BeanListFilterType.All: {
-                    if (!bean.globalUnlocked) {
-                        return false;
-                    }
-                    break;
-                }
-                default:
-                    break;
+
+            // Don't display if there are no beans in inventory of this type
+            if (bean.amount <= 0) {
+                return false;
             }
 
+            // Check search filter
             if (this.beanListSearch && !bean.name.toLowerCase().includes(this.beanListSearch.toLowerCase())) {
                 return false;
             }
@@ -179,14 +144,12 @@ export default class GameController extends IgtFeature {
     load(data: GameControllerSaveData): void {
         this.tool = data?.tool ?? ToolType.Cursor;
         this.bean = data?.bean ?? 'Bean';
-        this.beanListFilter = data?.beanListFilter ?? BeanListFilterType.Unlocked;
         this.beanListSearch = data?.beanListSearch ?? '';
     }
     save(): GameControllerSaveData {
         return {
             tool: this.tool,
             bean: this.bean,
-            beanListFilter: this.beanListFilter,
             beanListSearch: this.beanListSearch,
         };
     }
@@ -223,14 +186,16 @@ export default class GameController extends IgtFeature {
         const bean = App.game.features.beans.list[beanType];
         if (!bean) {
             console.error("Error - Could not retrieve Bean from list.", beanType);
+            return;
         }
-        if (!bean.globalUnlocked) {
+        if (!bean.unlocked) {
             console.error("Error - Cannot open locked Bean.", beanType);
             return;
         }
         const beanElement = document.getElementById(bean.elementName);
         if (!beanElement) {
             console.error("Error - Could not find Bean element.", beanType);
+            return;
         }
 
         // Open Wiki modal
@@ -247,7 +212,7 @@ export default class GameController extends IgtFeature {
     }
 
     get wikiBeanList(): Bean[] {
-        return Object.values(BeanList).filter((bean: Bean) => bean.globalUnlocked);
+        return Object.values(BeanList).filter((bean: Bean) => bean.unlocked);
     }
 
     //#endregion

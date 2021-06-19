@@ -42,7 +42,6 @@ export default class Beans extends IgtFeature {
 
         if (amount > 0) {
             bean.unlocked = true;
-            bean.globalUnlocked = true;
         }
     }
 
