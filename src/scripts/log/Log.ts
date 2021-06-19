@@ -1,14 +1,12 @@
-import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
-import { Features } from "@/ig-template/Features";
-import { Feature } from "@/ig-template/features/Feature";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
+import { Features } from "@/Features";
+import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import LogEntry, { LogEntrySaveData } from "./LogEntry";
 
 export interface LogSaveData extends SaveData {
     entries: LogEntrySaveData[];
 }
 
-export default class Log extends Feature {
+export default class Log extends IgtFeature {
 
     public entries: LogEntry[];
     public readonly defaultMaxEntries = 100;

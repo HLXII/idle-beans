@@ -1,6 +1,4 @@
-import { Saveable } from "@/ig-template/tools/saving/Saveable";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
-
+import { SaveData, Saveable } from "incremental-game-template";
 
 export interface LogEntrySaveData extends SaveData {
     message: string;

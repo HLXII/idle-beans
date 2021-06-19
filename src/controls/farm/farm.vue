@@ -26,7 +26,6 @@
 <script>
 import {App} from "@/App.ts"
 import Plant from "@/controls/farm/plant";
-import {SettingId} from "@/ig-template/features/settings/SettingId";
 
 export default {
     name: "farm",
@@ -39,7 +38,6 @@ export default {
         controller: App.game.features.controller,
         farm: App.game.features.farms.farms[App.game.features.farms.activeFarm],
         settings: App.game.features.settings,
-        SettingId,
         }
     },
     computed: {
@@ -53,10 +51,10 @@ export default {
             return this.farm.plots;
         },
         displayIcons() {
-            return this.settings.getSetting(SettingId.DisplayPlantIcons).value;
+            return this.settings.getSetting('displayPlantIcons').value;
         },
         displayStatus() {
-            return this.settings.getSetting(SettingId.DisplayPlantStatus).value;
+            return this.settings.getSetting('displayPlantStatus').value;
         },
     }
 }

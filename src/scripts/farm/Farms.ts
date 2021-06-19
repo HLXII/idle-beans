@@ -1,8 +1,6 @@
 import { App } from "@/App";
-import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
-import { Features } from "@/ig-template/Features";
-import { Feature } from "@/ig-template/features/Feature";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
+import { Features } from "@/Features";
+import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import { BeanType } from "../bean/BeanList";
 import { isPlantable } from "../bean/Plantable";
 import PlantState from "../plant/PlantState";
@@ -17,7 +15,7 @@ export interface FarmsSaveData extends SaveData {
     activeFarm: FarmType;
 }
 
-export default class Farms extends Feature {
+export default class Farms extends IgtFeature {
 
     public farms!: Record<FarmType, AbstractFarm>;
 

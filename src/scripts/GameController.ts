@@ -1,8 +1,6 @@
 import { App } from "@/App";
-import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
-import { Features } from "@/ig-template/Features";
-import { Feature } from "@/ig-template/features/Feature";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
+import { Features } from "@/Features";
+import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Farms from "./farm/Farms";
@@ -33,7 +31,7 @@ export interface GameControllerSaveData extends SaveData {
     beanListSearch: string;
 }
 
-export default class GameController extends Feature {
+export default class GameController extends IgtFeature {
 
     /**Internal reference to Farms Feature */
     private farms!: Farms;

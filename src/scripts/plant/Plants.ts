@@ -1,8 +1,6 @@
 
-import { AbstractField } from '@/ig-template/developer-panel/fields/AbstractField';
-import { Features } from '@/ig-template/Features';
-import { SaveData } from '@/ig-template/tools/saving/SaveData';
-import { Feature } from '../../ig-template/features/Feature';
+import { Features } from '@/Features';
+import { SaveData, IgtFeature, AbstractField } from 'incremental-game-template';
 import Plant, { PlantSaveData } from './Plant';
 import { PlantList, PlantType } from './PlantList';
 
@@ -10,9 +8,13 @@ export interface PlantsSaveData extends SaveData {
     [key: string]: PlantSaveData;
 }
 
-export default class Plants implements Feature {
+export default class Plants extends IgtFeature {
 
     public list: Record<PlantType, Plant> = PlantList;
+
+    constructor() {
+        super('plants');
+    }
 
     getDeveloperPanelFields(): AbstractField[] {
         // TODO:

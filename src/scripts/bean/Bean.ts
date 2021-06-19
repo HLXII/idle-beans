@@ -1,5 +1,5 @@
-import { Saveable } from "@/ig-template/tools/saving/Saveable";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
+
+import { SaveData, Saveable } from "incremental-game-template";
 import { BeanImages } from "./BeanList";
 
 export interface BeanOptions {

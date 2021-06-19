@@ -1,7 +1,5 @@
 import { App } from "@/App";
-import { Saveable } from "@/ig-template/tools/saving/Saveable";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
-import GameHelper from "@/scripts/GameHelper";
+import { SaveData, Saveable } from "incremental-game-template";
 import { BeanType } from "../bean/BeanList";
 import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";

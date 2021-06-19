@@ -32,7 +32,6 @@ import {App} from "@/App.ts"
 import WikiNavTab from "@/controls/wiki/wiki-nav-tab";
 import WikiTab from '../wiki/wiki-tab.vue';
 import IconToggle from '@/controls/settings/icon-toggle';
-import {SettingId} from "@/ig-template/features/settings/SettingId";
 
 export default {
     name: "wiki-modal",
@@ -40,7 +39,6 @@ export default {
         return {
             controller: App.game.features.controller,
             settings: App.game.features.settings,
-            SettingId,
         }
     },
     components: {
@@ -62,7 +60,7 @@ export default {
     },
     computed: {
         darkMode() {
-            return this.settings.getSetting(SettingId.DarkMode);
+            return this.settings.getSetting('darkMode');
         }
     },
 }

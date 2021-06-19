@@ -1,7 +1,6 @@
-import { AbstractField } from "@/ig-template/developer-panel/fields/AbstractField";
-import { Features } from "@/ig-template/Features";
-import { Feature } from "@/ig-template/features/Feature";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
+
+import { Features } from "@/Features";
+import { SaveData, AbstractField, IgtFeature } from "incremental-game-template";
 import Bean, { BeanSaveData } from "./Bean";
 import { BeanType, BeanList } from "./BeanList";
 
@@ -9,9 +8,13 @@ interface BeansSaveData extends SaveData {
     [key: string]: BeanSaveData;
 }
 
-export default class Beans implements Feature {
+export default class Beans extends IgtFeature {
 
     public list: Record<BeanType, Bean> = BeanList;
+
+    constructor() {
+        super('beans');
+    }
 
     getDeveloperPanelFields(): AbstractField[] {
         // TODO

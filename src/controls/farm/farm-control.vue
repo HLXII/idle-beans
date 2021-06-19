@@ -29,7 +29,6 @@
 <script>
 import {App} from "@/App.ts"
 import IconToggle from '@/controls/settings/icon-toggle';
-import {SettingId} from "@/ig-template/features/settings/SettingId";
 
 export default {
     name: "farm-control",
@@ -42,7 +41,6 @@ export default {
             controller: App.game.features.controller,
             settings: App.game.features.settings,
             farm: App.game.features.farms.farms[App.game.features.farms.activeFarm],
-            SettingId,
         }
     },
     computed: {
@@ -53,10 +51,10 @@ export default {
             return this.farms.hasMultipleFarms;
         },
         displayPlantIconsSetting() {
-            return this.settings.getSetting(SettingId.DisplayPlantIcons);
+            return this.settings.getSetting('displayPlantIcons');
         },
         displayPlantStatusSetting() {
-            return this.settings.getSetting(SettingId.DisplayPlantStatus);
+            return this.settings.getSetting('displayPlantStatus');
         }
     },
     methods: {

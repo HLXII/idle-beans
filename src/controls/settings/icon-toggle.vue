@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {BooleanSetting} from "@/ig-template/features/settings/BooleanSetting";
+import {BooleanSetting} from "incremental-game-template";
 import Icon from '@/controls/icon';
 import Tooltip from '@/controls/tooltip';
 

@@ -1,7 +1,5 @@
 import { App } from "@/App";
-import { Saveable } from "@/ig-template/tools/saving/Saveable";
-import { SaveData } from "@/ig-template/tools/saving/SaveData";
-import Plants from "../plant/Plants";
+import { SaveData, Saveable } from "incremental-game-template";
 import PlantState, { PlantStateSaveData } from "../plant/PlantState";
 import { FarmType } from "./FarmType";
 import Plot, { PlotSaveData } from "./Plot";
