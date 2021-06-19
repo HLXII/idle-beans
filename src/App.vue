@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grid grid-cols-4" style="margin: auto; max-width: 1600px;" :class="{'dark': darkMode}">
+    <div class="grid grid-cols-4" style="margin: auto; max-width: 1600px;">
       <igt-notifications></igt-notifications>
       <div id="left-column">
         <div class="flex flex-col" style="height: 100%;">
@@ -45,6 +45,7 @@
       </div>
       <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"></plot-modal>
       <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"></wiki-modal>
+      <settings-modal :show="game.features.controller.openedModal == ModalType.Settings" @close="closeModal"></settings-modal>
 
     </div>
   </div>
@@ -59,6 +60,7 @@ import Farm from '@/controls/farm/farm.vue';
 import Log from '@/controls/log/log.vue';
 import PlotModal from '@/controls/farm/plot-modal/plot-modal';
 import WikiModal from '@/controls/wiki/wiki-modal';
+import SettingsModal from '@/controls/settings/settings-modal';
 import {ModalType} from '@/scripts/GameController';
 import Icon from "@/controls/icon";
 import FarmControl from "@/controls/farm/farm-control";
@@ -72,6 +74,7 @@ export default {
     Log,
     PlotModal,
     WikiModal,
+    SettingsModal,
     Icon,
     FarmControl,
   },
@@ -84,9 +87,6 @@ export default {
   computed: {
     showDevPanel() {
       return !App.inProduction;
-    },
-    darkMode() {
-      return App.game.features.settings.darkMode.value;
     },
   },
   methods: {

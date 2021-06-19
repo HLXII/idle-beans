@@ -2,6 +2,7 @@ import {Setting} from "@/ig-template/features/settings/Setting";
 import {SettingId} from "@/ig-template/features/settings/SettingId";
 import {Requirement} from "@/ig-template/tools/requirements/Requirement";
 import {SettingOption} from "@/ig-template/features/settings/SettingOption";
+import { SettingsValue } from "./SettingsValueType";
 
 /**
  * A setting that can only be on or off.
@@ -9,14 +10,14 @@ import {SettingOption} from "@/ig-template/features/settings/SettingOption";
  */
 export class BooleanSetting extends Setting {
 
-    constructor(id: SettingId, displayName: string, defaultValue: boolean, requirement?: Requirement) {
+    constructor(id: SettingId, displayName: string, defaultValue: boolean, requirement?: Requirement, changeHandler?: (value: SettingsValue) => void) {
         super(id, displayName, [
             new SettingOption("On", true),
             new SettingOption("Off", false)
-        ], defaultValue, requirement);
+        ], defaultValue, requirement, changeHandler);
     }
 
     public toggle(): void {
-        this.value = !this.value;
+        this.set(!this.value);
     }
 }

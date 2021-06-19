@@ -1,5 +1,23 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+:root {
+    --background: white;
+    --test: #eae4a2;
+ }
+
+[data-theme="darkMode"] {
+    --background: black;
+    --test: #4a473f;
+    --fontColor: white;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--fontColor);
+}
 
 .border2 {
     margin: 2px;
@@ -21,13 +39,8 @@
     border-image-outset: 4px;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 .bg-generic {
-    background-color: #eae4a2;
+    background-color: var(--test);
 }
 
 .hover-highlight {

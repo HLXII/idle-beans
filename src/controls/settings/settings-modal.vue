@@ -9,12 +9,14 @@
             </div>
             <div class="modal-body">
                 <wiki-tab :tabType="0" :controller="controller">
-                    <div class="overflow-auto" >
-                        <bean-entry v-for="bean in filteredList" :key="bean.name" :bean=bean :controller=controller></bean-entry>
-                    </div>
+                    <icon-toggle :setting="darkMode"
+                    :trueIcon="require(`@/assets/images/icons/Status Bar Icon.png`)"
+                    :falseIcon="require(`@/assets/images/icons/No Status Bar Icon.png`)"
+                    :trueTooltip="`Dark Mode`"
+                    :falseTooltip="`Light Mode`"></icon-toggle>
                 </wiki-tab>
                 <wiki-tab :tabType="1" :controller="controller">
-                    Plants
+
                 </wiki-tab>
             </div>
             <div class="modal-footer">
@@ -28,23 +30,24 @@
 import Modal from "@/controls/modal/modal";
 import {App} from "@/App.ts"
 import WikiNavTab from "@/controls/wiki/wiki-nav-tab";
-import WikiTab from './wiki-tab.vue';
-import BeanEntry from '@/controls/controller/beanlist/bean-entry';
+import WikiTab from '../wiki/wiki-tab.vue';
+import IconToggle from '@/controls/settings/icon-toggle';
+import {SettingId} from "@/ig-template/features/settings/SettingId";
 
 export default {
     name: "wiki-modal",
     data() {
         return {
-            plants: App.game.features.plants,
-            beans: App.game.features.beans,
             controller: App.game.features.controller,
+            settings: App.game.features.settings,
+            SettingId,
         }
     },
     components: {
         Modal,
         WikiNavTab,
         WikiTab,
-        BeanEntry,
+        IconToggle
     },
     props: {
         show: {
@@ -58,8 +61,8 @@ export default {
         },
     },
     computed: {
-        filteredList() {
-            return this.controller.wikiBeanList;
+        darkMode() {
+            return this.settings.getSetting(SettingId.DarkMode);
         }
     },
 }

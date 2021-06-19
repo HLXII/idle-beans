@@ -28,7 +28,9 @@ export class Settings extends Feature {
     }
 
     initialize() {
-        this.darkMode = this.registerSetting(new BooleanSetting(SettingId.DarkMode, "Dark Mode", true));
+        this.darkMode = this.registerSetting(new BooleanSetting(SettingId.DarkMode, "Dark Mode", true, undefined, (value: SettingsValue) => {
+            document.documentElement.setAttribute('data-theme', value ? 'darkMode' : '');
+        }));
 
         this.registerSetting(new BooleanSetting(SettingId.DisplayPlantIcons, 'Display Plant Icons', false));
         this.registerSetting(new BooleanSetting(SettingId.DisplayPlantStatus, 'Display Plant Status', true));

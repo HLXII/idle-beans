@@ -31,7 +31,7 @@ export default class ProducePlantState extends PlantState {
         this.productionTime += delta;
         if (this.productionTime >= plant.produceTime) {
             App.game.features.beans.gain(plant.produceBean, plant.produceAmount);
-            this.productionTime = 0;
+            this.productionTime -= plant.produceTime;
         }
 
     }

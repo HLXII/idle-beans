@@ -1,7 +1,7 @@
 <template>
     <transition name="modal">
         <div class="modal-mask" @click="close" v-show="show">
-            <div class="modal-container" @click.stop>
+            <div class="modal-container border2" @click.stop>
               <slot></slot>
             </div>
         </div>
@@ -48,7 +48,7 @@ export default {
 .modal-container {
     max-width: 680px;
     margin: 40px auto 0;
-    padding: 20px 30px;
+    padding: 4px;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
