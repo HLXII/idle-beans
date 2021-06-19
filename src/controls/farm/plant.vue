@@ -1,14 +1,14 @@
 <template>
     <div class="plant" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
-        <div v-if="!displayIcons" class="plantContainer">
+        <div v-show="!displayIcons" class="plantContainer">
             <plant-statuses v-if="displayStatus" :statuses="plant.statuses"></plant-statuses>
             <svg class="plantImage" xmlns="http://www.w3.org/2000/svg" :viewBox="image.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickPlant(plant.row, plant.col)">
                 <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                 <path v-for="path in image.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
             </svg>
         </div>
-        <div v-if="displayIcons" class="plantContainer">
+        <div v-show="displayIcons" class="plantContainer">
             <plant-statuses v-if="displayStatus" :statuses="plant.statuses"></plant-statuses>
             <img class="plantImage" :src="plant.data.icon"
                 style="width: 100%; pointer-events: auto;"

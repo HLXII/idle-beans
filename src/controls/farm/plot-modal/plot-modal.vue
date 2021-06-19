@@ -1,5 +1,5 @@
 <template>
-    <modal v-if=plot :show="show" @close="close">
+    <modal v-show=plot :show="show" @close="close">
         <div class="modal-content">
             <div class="modal-header">
                 <h5>Plot</h5>
