@@ -1,5 +1,5 @@
 <template>
-    <div class="border2 bg-generic mt-4">
+    <div class="border2 bg-generic">
         <!-- Farm Selector -->
         <div class="flex" v-if="hasMultipleFarms">
             <div class="mr-1">

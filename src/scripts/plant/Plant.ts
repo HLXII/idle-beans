@@ -2,7 +2,8 @@ import { App } from '@/App';
 import { SaveData, Saveable } from 'incremental-game-template';
 import { BeanType } from '../bean/BeanList';
 import FarmLocation from '../farm/FarmLocation';
-import { PlantIcons, PlantType } from './PlantList';
+import { PlantIcons, SVGData } from './PlantImages';
+import { PlantType } from './PlantList';
 import PlantState from './PlantState';
 
 export interface PlantSaveData extends SaveData {
@@ -46,8 +47,18 @@ export default class Plant implements Saveable {
         return new (this.constructor as typeof Plant).state(this.name as PlantType, location);
     }
 
-    get icon(): any {
-        return PlantIcons[this.name];
+    /**
+     * Returns the Plant Icon SVG Data
+     */
+    get icon(): SVGData {
+        return PlantIcons[this.name] ?? PlantIcons['Missing Plant'];
+    }
+
+    /**
+     * Return the element ID name in the Wiki
+     */
+    get elementName(): string {
+        return this.name.toLowerCase().replace(/ /, '-');
     }
 
     get saveKey(): string {

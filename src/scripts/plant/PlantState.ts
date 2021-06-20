@@ -5,6 +5,7 @@ import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
 import Plant from "./Plant";
+import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from './PlantList';
 import PlantStatus from "./PlantStatus";
 
@@ -105,10 +106,17 @@ export default class PlantState implements Saveable, FarmLocation {
     }
 
     /**
-     * Returns the Plant image component name
+     * Returns the Plant image SVGData
      */
-    get image(): string {
-        return this.data.name;
+    get image(): SVGData {
+        return getImage(this.data.name);
+    }
+
+    /**
+     * Returns the Plant Icon SVGData
+     */
+    get icon(): SVGData {
+        return this.data.icon;
     }
 
     /**

@@ -12,7 +12,7 @@
 
 <script>
 import {App} from "@/App.ts"
-import {ToolType, BeanListFilterType } from "@/scripts/GameController";
+import {ToolType } from "@/scripts/GameController";
 import BeanEntry from './bean-entry.vue';
 
 export default {
@@ -24,7 +24,6 @@ export default {
         return {
             controller: App.game.features.controller,
             ToolType,
-            BeanListFilterType,
         }
     },
     computed: {

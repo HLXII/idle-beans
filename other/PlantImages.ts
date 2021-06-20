@@ -1,14 +1,22 @@
 
-interface PlantImage {
+export interface SVGData {
     viewBox: string;
-    paths: PlantPath[];
+    paths: SVGPath[];
 }
 
-interface PlantPath {
+interface SVGPath {
     stroke: string;
     d: string;
 }
 
-export const PlantImages: Record<string, PlantImage> = {
+export const PlantImages: Record<string, SVGData> = {
 {{{IMAGES}}}
+}
+
+export function getImage(name: string) {
+    return PlantImages[name] ?? PlantImages['Missing Plant'];
+}
+
+export const PlantIcons: Record<string, SVGData> = {
+{{{ICONS}}}
 }

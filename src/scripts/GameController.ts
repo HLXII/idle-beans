@@ -4,6 +4,8 @@ import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Farms from "./farm/Farms";
+import Plant from "./plant/Plant";
+import { PlantList, PlantType } from "./plant/PlantList";
 
 
 export enum ToolType {
@@ -51,6 +53,8 @@ export default class GameController extends IgtFeature {
     public plantTab!: number;
     /**Opened Bean */
     public wikiBean!: BeanType;
+    /**Opened Plant */
+    public wikiPlant!: PlantType;
     //#endregion
 
     constructor() {
@@ -75,6 +79,7 @@ export default class GameController extends IgtFeature {
         this.plantTab = 0;
 
         this.wikiBean = 'Bean';
+        this.wikiPlant = 'Bean Bud';
     }
     start(): void {
         return;
@@ -177,6 +182,14 @@ export default class GameController extends IgtFeature {
         this.wikiTab = tab ?? 0;
     }
 
+    changeWikiBean(beanType: BeanType) {
+        this.wikiBean = beanType;
+    }
+
+    changeWikiPlant(plantType: PlantType) {
+        this.wikiPlant = plantType;
+    }
+
     goToBean(beanType: BeanType) {
         // Sanity Check
         if (!beanType) {
@@ -205,14 +218,52 @@ export default class GameController extends IgtFeature {
         this.wikiTab = 0;
 
         // Open Bean
-        this.wikiBean = beanType;
+        this.changeWikiBean(beanType);
 
         // Make sure Bean is visible
         beanElement?.scrollIntoView(true);
     }
 
+    goToPlant(plantType: PlantType) {
+        // Sanity Check
+        if (!plantType) {
+            console.error("Error - Cannot open empty Plant.");
+            return;
+        }
+        const plant = App.game.features.plants.list[plantType];
+        if (!plant) {
+            console.error("Error - Could not retrieve Plant from list.", plantType);
+            return;
+        }
+        if (!plant.unlocked) {
+            console.error("Error - Cannot open locked Plant.", plantType);
+            return;
+        }
+        const plantElement = document.getElementById(plant.elementName);
+        if (!plantElement) {
+            console.error("Error - Could not find Plant element.", plantType);
+            return;
+        }
+
+        // Open Wiki modal
+        this.openWikiModal();
+
+        // Switch to Plant tab
+        this.wikiTab = 1;
+
+        // Open Bean
+        this.changeWikiPlant(plantType);
+
+        // Make sure Plant is visible
+        plantElement?.scrollIntoView(true);
+    }
+
     get wikiBeanList(): Bean[] {
         return Object.values(BeanList).filter((bean: Bean) => bean.unlocked);
+    }
+
+    get wikiPlantList(): Plant[] {
+        return Object.values(PlantList).filter((plant: Plant) => plant.unlocked);
     }
 
     //#endregion

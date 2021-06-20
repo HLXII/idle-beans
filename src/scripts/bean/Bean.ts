@@ -19,7 +19,7 @@ export default class Bean implements Saveable {
 
     public amount: number;
 
-    constructor(public name: string, option?: BeanOptions) {
+    constructor(public name: string, public description: string, option?: BeanOptions) {
         this.unlocked = option?.unlocked ?? false;
     
         this.amount = option?.amount ?? 0;
@@ -37,7 +37,10 @@ export default class Bean implements Saveable {
         return this.name;
     }
 
-    get elementName(): string {
+    /**
+     * Return the element ID name in the Wiki
+     */
+     get elementName(): string {
         return this.name.toLowerCase().replace(/ /, '-');
     }
 

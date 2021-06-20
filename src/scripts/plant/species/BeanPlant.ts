@@ -5,13 +5,16 @@ import ProducePlant from "../ProducePlant";
 
 export default class BeanPlant extends ProducePlant {
 
+    produceBean: BeanType;
+
     constructor(name: string, public bean: string) {
         super(name);
+        
+        this.produceBean = this.bean as BeanType;
     }
 
     // TODO: Update to handle upgrades/different plants
     produceAmount = 1;
-    produceBean = this.bean as BeanType;
     produceTime = 10;
 
     /**

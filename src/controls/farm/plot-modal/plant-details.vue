@@ -1,7 +1,12 @@
 <template>
     <div>
         <div class="flex">
-            <div class="border4 m-2" style="position: relative;"><img width="64px" :src=plant.data.icon /></div>
+            <div class="border4 m-2">
+                <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges">
+                    <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
+                    <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
+                </svg>
+            </div>
             <div class="flex-grow">
                 <div class="flex">
                     <div class="plantName">{{plant.type}}</div>
@@ -61,6 +66,9 @@ export default {
         },
         harvestGainMessage() {
             return this.plant.harvestGainMessage;
+        },
+        icon() {
+            return this.plant.icon;
         }
     },
     methods: {

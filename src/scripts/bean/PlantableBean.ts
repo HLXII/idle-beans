@@ -8,8 +8,8 @@ import Plantable from "./Plantable";
 
 export default class PlantableBean extends Bean implements Plantable {
     
-    constructor(name: string, public plantType: PlantType = 'Bean Bud', option?: BeanOptions) {
-        super(name, option);
+    constructor(name: string, description: string, public plantType: PlantType = 'Bean Bud', option?: BeanOptions) {
+        super(name, description, option);
     }
 
     plant(farm: FarmType, row: number, col: number) {

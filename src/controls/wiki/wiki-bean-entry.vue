@@ -3,22 +3,16 @@
         v-on:click="changeBean(bean.name)">
         <icon :image=bean.image></icon>
         <div class="px-1"><span class="align-middle">{{bean.name}}</span></div>
-        <div class="flex-1 text-right"><small class="align-middle">{{bean.amount}}</small></div>
     </div>
 </template>
 
 <script>
-import GameController, {ToolType} from "@/scripts/GameController";
+import GameController from "@/scripts/GameController";
 import Bean from "@/scripts/bean/Bean";
 import Icon from "@/controls/icon";
 
 export default {
-  name: "bean-entry",
-  data() {
-      return {
-        ToolType,
-      }
-  },
+  name: "wiki-bean-entry",
   components: {
     Icon,
   },
@@ -34,12 +28,12 @@ export default {
   },
   computed: {
     active() {
-        return (this.controller.bean == this.bean.name) && (this.controller.tool == ToolType.Bean) 
+        return (this.controller.wikiBean == this.bean.name)
     },
   },
   methods: {
       changeBean(bean) {
-        this.controller.changeBean(bean);
+        this.controller.changeWikiBean(bean);
       }
   },
 }

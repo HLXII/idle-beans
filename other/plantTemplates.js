@@ -154,17 +154,10 @@ async function convert(plantName, fileName, tabs){
 
 //#endregion
 
-async function convertPlantImages() {
-  console.log('Converting plant images...');
+async function convertDirectory(path) {
+  const images = [];
 
-  // Loading template
-  const templateString = fs.readFileSync('./PlantImages.ts', 'utf8');
-  const template = handlebars.compile(templateString);
-
-  const content = [];
-
-  // Going over all plant images
-  const path = '../src/assets/images/plants/images/';
+  // Going over all images
   const dir = await fs.promises.opendir(path);
   for await (const dirent of dir) {
     // Ignoring non-image files
@@ -174,14 +167,29 @@ async function convertPlantImages() {
 
     console.log(`Converting ${dirent.name}`);
 
-    const plantName = dirent.name.slice(0,-4);
+    const name = dirent.name.slice(0,-4);
     const fullPath = path + dirent.name;
-    const plantImage = await convert(plantName, fullPath, 1);
+    const image = await convert(name, fullPath, 1);
 
-    content.push(plantImage);
+    images.push(image);
   }
 
-  const contents = template({IMAGES: content.join('\n')});
+  return images.join('\n');
+}
+
+async function buildImages() {
+  console.log('Converting plant images...');
+
+  // Loading template
+  const templateString = fs.readFileSync('./PlantImages.ts', 'utf8');
+  const template = handlebars.compile(templateString);
+
+  // Going over all plant images
+  const plantImages = await convertDirectory('../src/assets/images/plants/images/');
+  // Going over all plant icons
+  const plantIcons = await convertDirectory('../src/assets/images/plants/icons/');
+
+  const contents = template({IMAGES: plantImages, ICONS: plantIcons});
 
   // Writing to file
   fs.writeFile(`../src/scripts/plant/PlantImages.ts`, contents, function(err) {
@@ -190,5 +198,5 @@ async function convertPlantImages() {
   });
 }
 
-convertPlantImages().catch(console.error);
+buildImages().catch(console.error);
 

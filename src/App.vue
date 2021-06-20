@@ -22,7 +22,9 @@
               <farm></farm>
           </div>
           <!-- Farm Info -->
-          <farm-control></farm-control>
+          <div class="mt-3">
+            <farm-control></farm-control>
+          </div>
           <!-- Dev Panel -->
           <!-- TODO -->
       </div>
@@ -43,11 +45,10 @@
               <log></log>
           </div>
       </div>
+    </div>
       <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"></plot-modal>
       <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"></wiki-modal>
       <settings-modal :show="game.features.controller.openedModal == ModalType.Settings" @close="closeModal"></settings-modal>
-
-    </div>
   </div>
 </template>
 

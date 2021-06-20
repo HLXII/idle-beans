@@ -4,7 +4,8 @@ import BeanSprout from './species/BeanSprout';
 import BeanPlant from './species/BeanPlant';
 import YellowBeanSprout from './species/YellowBeanSprout';
 import BlueBeanSprout from './species/BlueBeanSprout';
-import GameHelper from '../GameHelper';
+import BeanVine from './species/BeanVine';
+import BeanStalk from './species/BeanStalk';
 
 /**
  * Internal Plant List
@@ -26,7 +27,8 @@ const InternalPlantList = {
     'White Bean Plant': new BeanPlant('White Bean Plant', 'White Bean'),
     'Black Bean Plant': new BeanPlant('Black Bean Plant', 'Black Bean'),
     'Rainbow Bean Plant': new BeanPlant('Rainbow Bean Plant', 'Rainbow Bean'),
-    'Bean Vine': new Plant('Bean Vine'),
+    'Bean Vine': new BeanVine('Bean Vine'),
+    'Bean Stalk': new BeanStalk('Bean Stalk'),
     'Peanut Vine': new Plant('Peanut Vine'),
     'Bean Bush': new Plant('Bean Bush'),
 };
@@ -40,6 +42,3 @@ export type PlantType = keyof typeof InternalPlantList;
  * Typeguarded reference to InternalPlantList
  */
 export const PlantList: Record<PlantType, Plant> = InternalPlantList;
-
-export const PlantIcons = GameHelper.importImages(require.context('/src/assets/images/plants/icons/', false, /\.(png|jpe?g|svg)$/));
-

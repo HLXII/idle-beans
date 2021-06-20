@@ -9,12 +9,43 @@
             </div>
             <div class="modal-body">
                 <wiki-tab :tabType="0" :controller="controller">
-                    <div class="overflow-auto" >
-                        <bean-entry v-for="bean in filteredList" :key="bean.name" :bean=bean :controller=controller></bean-entry>
+                    <div class="grid grid-cols-3 gap-2" style="height: 640px;">
+                        <div class="border2">
+                            <wiki-bean-entry v-for="bean in beanList" :key="bean.name" :id="bean.elementName" :bean=bean :controller=controller></wiki-bean-entry>
+                        </div>
+                        <div class="border2 col-span-2 p-1">
+                            <div>
+                                <div class="float-left mb-2 mr-2">
+                                    <div class="border4">
+                                        <img :src="bean.image" width=64px />
+                                    </div>
+                                </div>
+                                <div class="beanName">{{bean.name}}</div>
+                                <div class="beanDescription">{{bean.description}}</div>
+                            </div>
+                        </div>
                     </div>
                 </wiki-tab>
                 <wiki-tab :tabType="1" :controller="controller">
-                    Plants
+                    <div class="grid grid-cols-3 gap-2" style="height: 640px;">
+                        <div class="border2">
+                            <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller></wiki-plant-entry>
+                        </div>
+                        <div class="border2 col-span-2 p-1">
+                            <div>
+                                <div class="float-left mb-2 mr-2">
+                                    <div class="border4">
+                                        <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="plant.icon.viewBox" shape-rendering="crispEdges">
+                                            <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
+                                            <path v-for="path in plant.icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
+                                        </svg>    
+                                    </div>
+                                </div>
+                                <div class="plantName">{{plant.name}}</div>
+                                <div class="plantDescription">{{plant.description}}</div>
+                            </div>
+                        </div>
+                    </div>
                 </wiki-tab>
             </div>
             <div class="modal-footer">
@@ -25,11 +56,12 @@
 </template>
 
 <script>
-import Modal from "@/controls/modal/modal";
+import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
-import WikiNavTab from "@/controls/wiki/wiki-nav-tab";
-import WikiTab from './wiki-tab.vue';
-import BeanEntry from '@/controls/controller/beanlist/bean-entry';
+import WikiNavTab from "@/controls/wiki/wiki-nav-tab.vue";
+import WikiTab from '@/controls/wiki/wiki-tab.vue';
+import WikiBeanEntry from '@/controls/wiki/wiki-bean-entry.vue';
+import WikiPlantEntry from '@/controls/wiki/wiki-plant-entry.vue';
 
 export default {
     name: "wiki-modal",
@@ -44,7 +76,8 @@ export default {
         Modal,
         WikiNavTab,
         WikiTab,
-        BeanEntry,
+        WikiBeanEntry,
+        WikiPlantEntry,
     },
     props: {
         show: {
@@ -58,13 +91,21 @@ export default {
         },
     },
     computed: {
-        filteredList() {
+        beanList() {
             return this.controller.wikiBeanList;
-        }
+        },
+        bean() {
+            return this.beans.list[this.controller.wikiBean];
+        },
+        plantList() {
+            return this.controller.wikiPlantList;
+        },
+        plant() {
+            return this.plants.list[this.controller.wikiPlant];
+        },
     },
 }
 </script>
 
 <style scoped>
-
 </style>
