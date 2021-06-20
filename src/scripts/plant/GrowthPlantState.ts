@@ -37,20 +37,20 @@ export default class GrowthPlantState extends PlantState {
 
         this.stageAge += delta;
 
-        const growth = (this.data as GrowthPlant).growthPlant(this);
+        const growth = this.data.growthPlant(this);
         this.growthPlant = growth;
-        if (this.stageAge >= (this.data as GrowthPlant).growthTime) {
+        if (this.stageAge >= this.data.growthTime) {
             App.game.features.log.log(`A ${this.type} has grown into a ${growth}.`);
             this.grow(growth);
         }
     }
 
     get growthPercent(): number {
-        return this.stageAge / (this.data as GrowthPlant).growthTime;
+        return this.stageAge / this.data.growthTime;
     }
 
     get growthText(): string {
-        return `Growing into ${(this.data as GrowthPlant).growthPlant(this)}`;
+        return `Growing into ${this.data.growthPlant(this)}`;
     }
 
     get statuses(): PlantStatus[] {
@@ -88,6 +88,10 @@ export default class GrowthPlantState extends PlantState {
         newPlant.unlock();
     }
     
+    get data(): GrowthPlant {
+        return super.data as GrowthPlant;
+    }
+
     save(): GrowthPlantStateSaveData {
         return {
             ...super.save(),

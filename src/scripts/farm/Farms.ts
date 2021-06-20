@@ -4,6 +4,7 @@ import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import { BeanType } from "../bean/BeanList";
 import { isPlantable } from "../bean/Plantable";
 import PlantState from "../plant/PlantState";
+import ProducePlantState from "../plant/ProducePlantState";
 import AbstractFarm, { FarmSaveData } from "./AbstractFarm";
 import Farm from "./Farm";
 import { FarmType } from "./FarmType";
@@ -93,6 +94,20 @@ export default class Farms extends IgtFeature {
 
     removePlantByState(state: PlantState) {
         this.getFarm(state.farm).removePlant(state.row, state.col);
+    }
+
+    harvestPlant(row: number, col: number, farm?: FarmType) {
+        // Obtaining Farm if not given
+        farm = farm ?? this.activeFarm;
+
+        // Checking if this is a harvestable plant
+        const plant = this.getPlant(row, col ,farm);
+        if (plant instanceof ProducePlantState) {
+            plant.harvest();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     plantBean(beanType: BeanType, row: number, col: number, farm?: FarmType) {

@@ -1,6 +1,6 @@
 import { App } from "@/App";
 import { Features } from "@/Features";
-import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
+import { SaveData, IgtFeature, AbstractField, HotKeys, KeyBind, KeyEventType } from "incremental-game-template";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Farms from "./farm/Farms";
@@ -57,6 +57,12 @@ export default class GameController extends IgtFeature {
     public wikiPlant!: PlantType;
     //#endregion
 
+    //#region Modifier Key booleans
+    public ctrlKey = false;
+    public shiftKey = false;
+    public altKey = false;
+    //#endregion
+
     constructor() {
         super('controller');
     }
@@ -80,6 +86,14 @@ export default class GameController extends IgtFeature {
 
         this.wikiBean = 'Bean';
         this.wikiPlant = 'Bean Bud';
+
+        // Adding modifier key bindings
+        HotKeys.addKeyBind(new KeyBind('ctrl', 'Ctrl Modifier Down', () => { this.ctrlKey = true; }, undefined, KeyEventType.KeyDown));
+        HotKeys.addKeyBind(new KeyBind('ctrl', 'Ctrl Modifier Up', () => { this.ctrlKey = false; }, undefined, KeyEventType.KeyUp));
+        HotKeys.addKeyBind(new KeyBind('shift', 'Shift Modifier Down', () => { this.shiftKey = true; }, undefined, KeyEventType.KeyDown));
+        HotKeys.addKeyBind(new KeyBind('shift', 'Shift Modifier Up', () => { this.shiftKey = false; }, undefined, KeyEventType.KeyUp));
+        HotKeys.addKeyBind(new KeyBind('alt', 'Alt Modifier Down', () => { this.altKey = true; }, undefined, KeyEventType.KeyDown));
+        HotKeys.addKeyBind(new KeyBind('alt', 'Alt Modifier Up', () => { this.altKey = false; }, undefined, KeyEventType.KeyUp));
     }
     start(): void {
         return;
@@ -119,7 +133,11 @@ export default class GameController extends IgtFeature {
                 break;
             }
             case ToolType.Sickle: {
-                this.farms.removePlant(row, col);
+                if (this.ctrlKey) {
+                    this.farms.removePlant(row, col);
+                } else {
+                    this.farms.harvestPlant(row, col);
+                }
                 break;
             }
         }

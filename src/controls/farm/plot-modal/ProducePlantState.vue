@@ -2,7 +2,8 @@
     <div>
         <plant-details :plant=plant></plant-details>
         <div class="flex">
-            <div class="col align-self-center">{{plant.produceText}}</div>
+            <div>{{plant.produceText}}</div>
+            <div class="flex-1 text-right">{{plant.storageText}}</div>
         </div>
         <igt-progress-bar :percentage="plant.producePercent" ></igt-progress-bar>
     </div>

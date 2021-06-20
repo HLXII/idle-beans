@@ -7,8 +7,8 @@
                     <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
                 </svg>
             </div>
-            <div class="flex-grow">
-                <div class="flex">
+            <div class="flex-1">
+                <div class="flex p-1">
                     <div class="plantName">{{plant.type}}</div>
                     
                     <div class="flex-grow text-right" style="height: 32px;" >
@@ -19,19 +19,19 @@
                         </icon>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="col text-end" data-bind="text: 'Age: ' + plant.age()">Age: {{plant.age}}</div>
+                <div class="p-1">
+                    <div class="float-right">
+                        <div class="has-tooltip" style="position:relative;">
+                        <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="harvest">
+                            Remove
+                        </button>
+                        <tooltip width=60 position="bottom-left" :interactable="false">
+                            <div v-html="harvestGainMessage"></div>
+                        </tooltip>
+                        </div>
+                    </div>
+                    <div>Age: {{plant.age}}</div>
                 </div>
-            </div>
-        </div>
-        <div class="flex p-1">
-            <div class="has-tooltip" style="position:relative;">
-                <button type="button" class="btn btn-red border2" style="width: 84px;" v-on:click="harvest">
-                    Harvest
-                </button>
-                <tooltip width=60>
-                    <div v-html="harvestGainMessage"></div>
-                </tooltip>
             </div>
         </div>
     </div>
@@ -40,8 +40,8 @@
 <script>
 import {App} from "@/App.ts";
 import PlantState from "@/scripts/plant/PlantState";
-import Icon from '@/controls/icon';
-import Tooltip from "@/controls/tooltip";
+import Icon from '@/controls/icon.vue';
+import Tooltip from "@/controls/tooltip.vue";
 
 export default {
     name: "plant-details",

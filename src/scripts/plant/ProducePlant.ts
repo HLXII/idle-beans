@@ -22,4 +22,9 @@ export default abstract class ProducePlant extends Plant {
      */
     public abstract produceTime: number;
 
+    /**
+     * Total Beans that can be stored on the plant
+     */
+    public abstract holdCap: number;
+
 }

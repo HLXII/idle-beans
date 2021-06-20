@@ -1,9 +1,9 @@
 import { BeanType } from "../../bean/BeanList";
-import Plant from "../Plant";
 import PlantState from "../PlantState";
 import ProducePlant from "../ProducePlant";
 
 export default class BeanPlant extends ProducePlant {
+    
 
     produceBean: BeanType;
 
@@ -16,7 +16,8 @@ export default class BeanPlant extends ProducePlant {
     // TODO: Update to handle upgrades/different plants
     produceAmount = 1;
     produceTime = 10;
-
+    holdCap = 15;
+    
     /**
      * Determines the beans returned from removing the plant
      * To be overriden in sub classes.
