@@ -1,11 +1,15 @@
 import GrowthPlant from "../GrowthPlant";
-import GrowthPlantState from "../GrowthPlantState";
 import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
+import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
 
 export default class YellowBeanSprout extends GrowthPlant {
+
+    upgrades: PlantUpgradeId[] = [
+        'Stronger Roots',
+    ];
 
     public growthTime: number = 12000;
     public growths: Growth[] = [

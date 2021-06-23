@@ -5,18 +5,29 @@ import FarmLocation from '../farm/FarmLocation';
 import { PlantIcons, SVGData } from './PlantImages';
 import { PlantType } from './PlantList';
 import PlantState from './PlantState';
+import AbstractUpgrade from './upgrades/AbstractUpgrade';
+import { PlantUpgradeId } from './upgrades/PlantUpgrades';
 
 export interface PlantSaveData extends SaveData {
     unlocked: boolean;
+    purchasedUpgrades: PlantUpgradeId[];
 }
 
-export default class Plant implements Saveable {
+export default abstract class Plant implements Saveable {
     public static state = PlantState;
 
     public unlocked: boolean;
 
+    /**
+     * Available Plant Upgrades
+     */
+    abstract upgrades: PlantUpgradeId[];
+
+    public purchasedUpgrades: PlantUpgradeId[];
+
     constructor(public name: string) {
         this.unlocked = false;
+        this.purchasedUpgrades = [];
     }
 
     /**
@@ -67,10 +78,12 @@ export default class Plant implements Saveable {
     save(): PlantSaveData {
         return {
             unlocked: this.unlocked,
+            purchasedUpgrades: this.purchasedUpgrades,
         };
     }
     load(data: PlantSaveData): void {
         this.unlocked = data.unlocked ?? false;
+        this.purchasedUpgrades = data.purchasedUpgrades.length ? data.purchasedUpgrades.filter((upgrade) => this.upgrades.includes(upgrade)) : [];
     }
 
 }

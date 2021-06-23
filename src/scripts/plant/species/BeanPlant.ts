@@ -1,9 +1,13 @@
 import { BeanType } from "../../bean/BeanList";
 import PlantState from "../PlantState";
 import ProducePlant from "../ProducePlant";
+import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
 
 export default class BeanPlant extends ProducePlant {
     
+    upgrades: PlantUpgradeId[] = [
+        'Stronger Roots',
+    ];
 
     produceBean: BeanType;
 

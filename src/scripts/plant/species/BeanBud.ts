@@ -4,8 +4,13 @@ import DefaultRequirement from '../growths/DefaultRequirement';
 import AnyGrowthRequirement from '../growths/AnyGrowthRequirement';
 import OriginBeanRequirement from '../growths/OriginBeanRequirement';
 import { DiagContainsRequirement } from "../growths/plot/PlotRequirements";
+import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
 
 export default class BeanBud extends GrowthPlant {
+    
+    upgrades: PlantUpgradeId[] = [
+        'Stronger Roots',
+    ];
 
     public growthTime: number = 5;
     public growths: Growth[] = [

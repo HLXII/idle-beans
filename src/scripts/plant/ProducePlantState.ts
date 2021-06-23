@@ -105,10 +105,11 @@ export default class ProducePlantState extends PlantState {
         return statuses;
     }
 
-    harvest(): void {
+    harvest(amount?: number): void {
         const plant = this.data;
-        App.game.features.beans.gain(plant.produceBean, this.storage);
-        this.storage = 0;
+        amount = amount ?? this.storage;
+        App.game.features.beans.gain(plant.produceBean, amount);
+        this.storage -= amount;
     }
 
     get data(): ProducePlant {

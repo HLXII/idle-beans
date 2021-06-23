@@ -4,8 +4,13 @@ import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
 import { NearContainsRequirement, OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
+import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
 
 export default class BeanSprout extends GrowthPlant {
+
+    upgrades: PlantUpgradeId[] = [
+        'Stronger Roots',
+    ];
 
     public growthTime: number = 10;
     public growths: Growth[] = [

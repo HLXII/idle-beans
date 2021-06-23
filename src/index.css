@@ -1,7 +1,5 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 :root {
     --background: white;
@@ -38,6 +36,11 @@ body {
     border-image-slice: 32;
     border-image-outset: 4px;
 }
+
+/* Importing Tailwind css here so that border# has lower priority */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .bg-generic {
     background-color: var(--test);

@@ -29,8 +29,6 @@ const InternalPlantList = {
     'Rainbow Bean Plant': new BeanPlant('Rainbow Bean Plant', 'Rainbow Bean'),
     'Bean Vine': new BeanVine('Bean Vine'),
     'Bean Stalk': new BeanStalk('Bean Stalk'),
-    'Peanut Vine': new Plant('Peanut Vine'),
-    'Bean Bush': new Plant('Bean Bush'),
 };
 
 /**
