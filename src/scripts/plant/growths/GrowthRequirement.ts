@@ -1,14 +1,15 @@
+import { GameText } from "@/scripts/controls/GameText";
 import GrowthPlantState from "../GrowthPlantState";
 
 export interface GrowthRequirementInterface {
     growthCheck: (state: GrowthPlantState) => boolean;
     visible: () => boolean;
-    description: string;
+    description: GameText[];
 }
 
 export default abstract class GrowthRequirement implements GrowthRequirementInterface {
 
-    constructor(private _description?: string) { }
+    constructor(private _description?: GameText[]) { }
 
     /**
      * The growth check to run
@@ -18,8 +19,8 @@ export default abstract class GrowthRequirement implements GrowthRequirementInte
 
     public abstract visible(): boolean;
 
-    get description(): string {
-        return this._description ?? '';
+    get description(): GameText[] {
+        return this._description ?? [];
     }
 
 }

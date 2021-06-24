@@ -1,9 +1,10 @@
+import { GameText } from "@/scripts/controls/GameText";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";
 
 export default class AnyGrowthRequirement extends GrowthRequirement {
 
-    constructor(public reqs: GrowthRequirement[], _description?: string) {
+    constructor(public reqs: GrowthRequirement[], _description?: GameText[]) {
         super(_description);
     }
 
@@ -15,9 +16,18 @@ export default class AnyGrowthRequirement extends GrowthRequirement {
         return this.reqs.some((req) => req.visible());
     }
 
-    get description(): string {
+    get description(): GameText[] {
         // TODO: Check if this formatting works well (might need 'or'?)
-        return this.reqs.filter((req) => req.visible()).map((req) => req.description).join('<br>OR<br>');
+        const description = [];
+        const descs = this.reqs.filter((req) => req.visible()).map((req) => req.description);
+        const firsts = descs.slice(0, descs.length - 1);
+        const last = descs[descs.length - 1];
+        for (const desc of firsts) {
+            description.push(...desc);
+            description.push('<br>OR</br>');
+        }
+        description.push(...last);
+        return description;
     }
 
 }

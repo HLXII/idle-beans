@@ -1,4 +1,5 @@
 import { App } from "@/App";
+import { GameText } from "@/scripts/controls/GameText";
 import Plot from "../../../farm/Plot";
 import PlotRequirement from "./PlotRequirement";
 
@@ -33,8 +34,8 @@ export default class NearPlotsRequirement extends PlotRequirement {
         return getNearPlots(plot);
     }
 
-    get description(): string {
-        return 'The plant has nearby plots';
+    get description(): GameText[] {
+        return ['The plant has nearby plots'];
     }
 
     plotConditions(plots: Plot[]): boolean {

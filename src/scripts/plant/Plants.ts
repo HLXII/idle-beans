@@ -3,6 +3,7 @@ import { Features } from '@/Features';
 import { SaveData, IgtFeature, AbstractField } from 'incremental-game-template';
 import Plant, { PlantSaveData } from './Plant';
 import { PlantList, PlantType } from './PlantList';
+import { PlantUpgradeId } from './upgrades/PlantUpgrades';
 
 export interface PlantsSaveData extends SaveData {
     [key: string]: PlantSaveData;
@@ -47,7 +48,12 @@ export default class Plants extends IgtFeature {
     }
     load(data: PlantsSaveData): void {
         Object.entries(data).map(([plantType, plantData]) => {
-            this.list[plantType as PlantType].load(plantData);
+            const plant = this.list[plantType as PlantType];
+            if (!plant) {
+                console.error(`Error - Attempting to load invalid Plant = ${plantType}`);
+                return;
+            }
+            plant.load(plantData);
         });
     }
 

@@ -1,5 +1,5 @@
+import { GameText } from "@/scripts/controls/GameText";
 import PlantUnlock from "../../wiki/PlantUnlock";
-import Plant from "../Plant";
 import { PlantType } from "../PlantList";
 import { GrowthRequirementInterface } from "./GrowthRequirement";
 
@@ -11,7 +11,7 @@ export default class Growth implements PlantUnlock {
         return this.req.visible();
     }
 
-    get description(): string {
+    get description(): GameText[] {
         return this.req.description;
     }
     

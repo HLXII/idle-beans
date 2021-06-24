@@ -1,4 +1,5 @@
 import { App } from "@/App";
+import { GameText, LinkType } from "@/scripts/controls/GameText";
 import Plot from "@/scripts/farm/Plot";
 import GameHelper from "@/scripts/GameHelper";
 import { PlantType } from "../../PlantList";
@@ -40,9 +41,19 @@ function ContainReq<GReqClass extends MinimalPlot>(Base: GReqClass) {
             return this.data.some((datum) => App.game.features.plants.list[datum.plant].unlocked);
         }
      
-        get description(): string {
-            const data = this.data.map((datum) => `${datum.amount} ${datum.plant}${datum.amount > 1 ? 's' : ''}`);
-            return `${super.description} that contain at least ${GameHelper.listString(data, 'and')}`;
+        get description(): GameText[] {
+            const data: GameText[][] = this.data.map((datum) => {
+                return [
+                    `${datum.amount} `,
+                    {text: `${datum.plant}${datum.amount > 1 ? 's' : ''}`, type: LinkType.Plant, id: datum.plant},
+                ]
+            });
+            
+            return [
+                ...super.description,
+                ' that contain at least ',
+                ...GameHelper.gameTextList(data, 'and'),
+            ];
         }
 
     };

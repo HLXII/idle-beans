@@ -32,7 +32,7 @@
                             <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller></wiki-plant-entry>
                         </div>
                         <div class="border2 col-span-2 p-1">
-                            <div>
+                            <div class="overflow-auto">
                                 <div class="float-left mb-2 mr-2">
                                     <div class="border4">
                                         <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="plant.icon.viewBox" shape-rendering="crispEdges">
@@ -43,6 +43,10 @@
                                 </div>
                                 <div class="plantName">{{plant.name}}</div>
                                 <div class="plantDescription">{{plant.description}}</div>
+                            </div>
+                            <div v-if="plant.growths">
+                                <h1>Growths</h1>
+                                <wiki-growth v-for="growth in plant.visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :controller="controller"/>
                             </div>
                         </div>
                     </div>
@@ -62,6 +66,7 @@ import WikiNavTab from "@/controls/wiki/wiki-nav-tab.vue";
 import WikiTab from '@/controls/wiki/wiki-tab.vue';
 import WikiBeanEntry from '@/controls/wiki/wiki-bean-entry.vue';
 import WikiPlantEntry from '@/controls/wiki/wiki-plant-entry.vue';
+import WikiGrowth from './wiki-growth.vue';
 
 export default {
     name: "wiki-modal",
@@ -78,6 +83,7 @@ export default {
         WikiTab,
         WikiBeanEntry,
         WikiPlantEntry,
+        WikiGrowth,
     },
     props: {
         show: {

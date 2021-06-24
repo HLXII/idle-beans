@@ -23,6 +23,10 @@ export default abstract class GrowthPlant extends Plant {
      */
     public abstract growths: Growth[];
 
+    get visibleGrowths(): Growth[] {
+        return this.growths.filter((growth) => growth.visible);
+    }
+
     /**
      * Handles checking growth requirements
      * @param state The current plant state

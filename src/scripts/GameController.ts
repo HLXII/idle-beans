@@ -3,6 +3,7 @@ import { Features } from "@/Features";
 import { SaveData, IgtFeature, AbstractField, HotKeys, KeyBind, KeyEventType } from "incremental-game-template";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
+import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
 import Plant from "./plant/Plant";
 import { PlantList, PlantType } from "./plant/PlantList";
@@ -49,7 +50,7 @@ export default class GameController extends IgtFeature {
     //#region Wiki Modal properties
     /**Wiki Tab */
     public wikiTab!: number;
-    /**Plant Wiki  Tab */
+    /**Plant Wiki Tab */
     public plantTab!: number;
     /**Opened Bean */
     public wikiBean!: BeanType;
@@ -206,6 +207,23 @@ export default class GameController extends IgtFeature {
 
     changeWikiPlant(plantType: PlantType) {
         this.wikiPlant = plantType;
+    }
+
+    openWiki(type: LinkType, id: string) {
+        switch(type) {
+            case LinkType.Bean: {
+                this.goToBean(id as BeanType);
+                break;
+            }
+            case LinkType.Plant: {
+                this.goToPlant(id as PlantType);
+                break;
+            }
+            default: {
+                console.error(`Error - Could not open invalid wiki - ${type}, ${id}.`);
+                break;
+            }
+        }
     }
 
     goToBean(beanType: BeanType) {

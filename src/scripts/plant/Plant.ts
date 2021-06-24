@@ -83,7 +83,11 @@ export default abstract class Plant implements Saveable {
     }
     load(data: PlantSaveData): void {
         this.unlocked = data.unlocked ?? false;
-        this.purchasedUpgrades = data.purchasedUpgrades.length ? data.purchasedUpgrades.filter((upgrade) => this.upgrades.includes(upgrade)) : [];
+        if (data.purchasedUpgrades && data.purchasedUpgrades.length) {
+            this.purchasedUpgrades = data.purchasedUpgrades.filter((upgrade) => this.upgrades.includes(upgrade));
+        } else {
+            this.purchasedUpgrades = [];
+        }
     }
 
 }

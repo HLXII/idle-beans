@@ -1,3 +1,5 @@
+import { BeanType } from "./bean/BeanList";
+import { GameText, LinkType } from "./controls/GameText";
 
 export default class GameHelper {
 
@@ -8,6 +10,24 @@ export default class GameHelper {
         const firsts = str.slice(0, str.length - 1);
         const last = str[str.length - 1];
         return `${firsts.join(', ')} ${conjunction} ${last}`;
+    }
+
+    public static gameTextList(gameTexts: GameText[][], conjunction: string = 'or'): GameText[] {
+        if (gameTexts.length === 1) {
+            return gameTexts[0];
+        }
+
+        const firsts = gameTexts.slice(0, gameTexts.length - 1);
+        const last = gameTexts[gameTexts.length - 1];
+        const gameText: GameText[] = [];
+        for (const text of firsts) {
+            gameText.push(...text);
+            gameText.push(', ');
+        }
+        gameText.push(`${conjunction} `);
+        gameText.push(...last);
+
+        return gameText;
     }
 
     public static importImages(r: __WebpackModuleApi.RequireContext) {

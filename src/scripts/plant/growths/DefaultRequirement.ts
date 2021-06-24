@@ -1,3 +1,4 @@
+import { GameText } from "@/scripts/controls/GameText";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";
 
@@ -11,8 +12,8 @@ export default class DefaultRequirement extends GrowthRequirement {
         return true;
     }
 
-    get description(): string {
-        return 'The plant will grow into this plant by default.';
+    get description(): GameText[] {
+        return ['The plant will grow into this plant by default.'];
     }
 
 }

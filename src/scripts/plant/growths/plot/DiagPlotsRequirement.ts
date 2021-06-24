@@ -1,4 +1,5 @@
 import { App } from "@/App";
+import { GameText } from "@/scripts/controls/GameText";
 import Plot from "../../../farm/Plot";
 import PlotRequirement from "./PlotRequirement";
 
@@ -22,8 +23,8 @@ export default class DiagPlotsRequirement extends PlotRequirement {
         return getDiagPlots(plot);
     }
 
-    get description(): string {
-        return 'The plant has nearby diagonal plots';
+    get description(): GameText[] {
+        return ['The plant has nearby diagonal plots'];
     }
 
     plotConditions(plots: Plot[]): boolean {

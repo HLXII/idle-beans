@@ -1,4 +1,5 @@
 import { App } from "@/App";
+import { GameText, LinkType } from "@/scripts/controls/GameText";
 import GameHelper from "@/scripts/GameHelper";
 import { BeanType } from "../../bean/BeanList";
 import GrowthPlantState from "../GrowthPlantState";
@@ -9,7 +10,7 @@ export default class OriginBeanRequirement extends GrowthRequirement {
 
     public bean: BeanType[];
 
-    constructor(bean: BeanType | BeanType[], _description?: string) {
+    constructor(bean: BeanType | BeanType[], _description?: GameText[]) {
         super(_description);
 
         // Collapsing bean parameter
@@ -27,8 +28,16 @@ export default class OriginBeanRequirement extends GrowthRequirement {
         return this.bean.some((bean) => App.game.features.beans.list[bean].unlocked);
     }
 
-    get description(): string {
-        return `The plant grew from a ${GameHelper.listString(this.bean)}`;
+    get description(): GameText[] {
+
+        const beanText: GameText[][] = this.bean.map((bean) => {
+            return [{text: `${bean}`, type: LinkType.Bean, id: bean}]
+        });
+
+        return [
+            'The plant grew from a ',
+            ...GameHelper.gameTextList(beanText),
+        ]
     }
 
 }
