@@ -343,6 +343,26 @@ export default class GameController extends IgtFeature {
         });    
     }
 
+    linkActive(type: LinkType, id: string): boolean {
+        switch(type) {
+            case LinkType.Bean: {
+                const bean = this.beans.list[id as BeanType];
+                if (!bean) {
+                    return false;
+                }
+                return bean.unlocked;
+            }
+            case LinkType.Plant: {
+                const plant = this.plants.list[id as PlantType];
+                if (!plant) {
+                    return false;
+                }
+                return plant.unlocked;
+            }
+        }
+        return false;
+    }
+
     //#endregion
 
     openSettingsModal() {

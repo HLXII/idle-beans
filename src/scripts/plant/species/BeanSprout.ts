@@ -1,3 +1,4 @@
+import { GameText } from "@/scripts/controls/GameText";
 import GrowthPlant from "../GrowthPlant";
 import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
@@ -7,6 +8,10 @@ import { NearContainsRequirement, OrthoContainsRequirement } from "../growths/pl
 import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
 
 export default class BeanSprout extends GrowthPlant {
+
+    description: GameText[] = [
+        'Just a Bean trying to grow.',
+    ];
 
     upgrades: PlantUpgradeId[] = [
         'Stronger Roots',

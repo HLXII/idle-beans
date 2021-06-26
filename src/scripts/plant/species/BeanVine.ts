@@ -5,8 +5,15 @@ import AnyGrowthRequirement from '../growths/AnyGrowthRequirement';
 import OriginBeanRequirement from '../growths/OriginBeanRequirement';
 import { DiagContainsRequirement } from "../growths/plot/PlotRequirements";
 import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
+import { GameText } from "@/scripts/controls/GameText";
 
 export default class BeanVine extends GrowthPlant {
+
+    get description(): GameText[] {
+        return [
+            'A more robust Bean growth.',
+        ];
+    }
 
     upgrades: PlantUpgradeId[] = [
         'Stronger Roots',

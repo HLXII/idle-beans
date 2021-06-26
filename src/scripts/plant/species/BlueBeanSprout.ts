@@ -1,3 +1,4 @@
+import { GameText, LinkType } from "@/scripts/controls/GameText";
 import GrowthPlant from "../GrowthPlant";
 import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
@@ -5,7 +6,15 @@ import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
 import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
 
-export default class YellowBeanSprout extends GrowthPlant {
+export default class BlueBeanSprout extends GrowthPlant {
+
+    get description(): GameText[] {
+        return [
+            'A rare blue variant of the ',
+            {text: 'Bean Sprout', type: LinkType.Plant, id: 'Bean Sprout'},
+            '.',
+        ];
+    }
 
     upgrades: PlantUpgradeId[] = [
         'Stronger Roots',

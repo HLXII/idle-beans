@@ -48,11 +48,11 @@
                                     </div>
                                 </div>
                                 <div class="plantName">{{plant.name}}</div>
-                                <div class="plantDescription">{{plant.description}}</div>
+                                <game-text :text="plant.description" :controller="controller"/>
                             </div>
                             <div v-if="visibleGrowths.length > 0">
                                 <h1>Growths</h1>
-                                <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :controller="controller"/>
+                                <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :controller="controller"/>
                             </div>
                         </div>
                     </div>
@@ -76,6 +76,7 @@ import WikiGrowth from './wiki-growth.vue';
 
 import { BeanCategory } from "@/scripts/bean/BeanList";
 import { PlantCategory } from "@/scripts/plant/PlantList";
+import GameText from '../game-text.vue';
 
 export default {
     name: "wiki-modal",
@@ -95,6 +96,7 @@ export default {
         WikiBeanEntry,
         WikiPlantEntry,
         WikiGrowth,
+        GameText,
     },
     props: {
         show: {

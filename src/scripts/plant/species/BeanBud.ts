@@ -5,8 +5,13 @@ import AnyGrowthRequirement from '../growths/AnyGrowthRequirement';
 import OriginBeanRequirement from '../growths/OriginBeanRequirement';
 import { DiagContainsRequirement } from "../growths/plot/PlotRequirements";
 import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
+import { GameText } from "@/scripts/controls/GameText";
 
 export default class BeanBud extends GrowthPlant {
+
+    description: GameText[] = [
+        'Just a Bean in the ground.',
+    ];
     
     upgrades: PlantUpgradeId[] = [
         'Stronger Roots',

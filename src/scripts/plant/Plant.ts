@@ -1,12 +1,16 @@
 import { App } from '@/App';
 import { SaveData, Saveable } from 'incremental-game-template';
 import { BeanType } from '../bean/BeanList';
+import { GameText } from '../controls/GameText';
 import FarmLocation from '../farm/FarmLocation';
 import { PlantIcons, SVGData } from './PlantImages';
 import { PlantCategory, PlantType } from './PlantList';
 import PlantState from './PlantState';
-import AbstractUpgrade from './upgrades/AbstractUpgrade';
 import { PlantUpgradeId } from './upgrades/PlantUpgrades';
+
+export interface PlantOptions {
+    unlocked?: boolean;
+}
 
 export interface PlantSaveData extends SaveData {
     unlocked: boolean;
@@ -18,15 +22,15 @@ export default abstract class Plant implements Saveable {
 
     public unlocked: boolean;
 
-    /**
-     * Available Plant Upgrades
-     */
+    /**Available Plant Upgrades */
     abstract upgrades: PlantUpgradeId[];
+    /**Plant Description */
+    abstract description: GameText[];
 
     public purchasedUpgrades: PlantUpgradeId[];
 
-    constructor(public name: string, public category: PlantCategory) {
-        this.unlocked = false;
+    constructor(public name: string, public category: PlantCategory, option?: PlantOptions) {
+        this.unlocked = option?.unlocked ?? false;
         this.purchasedUpgrades = [];
     }
 
@@ -41,13 +45,7 @@ export default abstract class Plant implements Saveable {
 
     unlock() {
         if (!this.unlocked) {
-            // TODO: Handle unlock message?
-            // TODO: Handle updating plant wiki
             // TODO: Handle adding wiki notification
-            this.unlocked = true;
-        }
-
-        if (!this.unlocked) {
             // TODO: Add setting to filter this message
             App.game.features.log.log(`You have discovered a new plant: ${this.name}`);
             this.unlocked = true;

@@ -1,4 +1,3 @@
-import Plot from '../farm/Plot';
 import GrowthPlantState from './GrowthPlantState';
 import Plant from './Plant';
 import { PlantType } from './PlantList';
