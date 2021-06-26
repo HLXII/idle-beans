@@ -20,20 +20,8 @@ export default class Beans extends IgtFeature {
         // TODO
         return [];
     }
-    initialize(features: Features): void {
-        return;   
-    }
-    start(): void {
-        return;
-    }
-    stop(): void {
-        return;
-    }
     canAccess(): boolean {
         return true;
-    }
-    update(delta: number): void {
-        return;
     }
 
     gain(beanType: BeanType, amount: number = 1) {

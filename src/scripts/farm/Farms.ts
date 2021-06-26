@@ -36,12 +36,6 @@ export default class Farms extends IgtFeature {
         ];
         this.activeFarm = FarmType.farm;
     }
-    start(): void {
-        return;
-    }
-    stop(): void {
-        return;
-    }
     canAccess(): boolean {
         return true;
     }

@@ -21,20 +21,8 @@ export default class Plants extends IgtFeature {
         // TODO:
         return [];
     }
-    initialize(features: Features): void {
-        return;
-    }
-    start(): void {
-        return;
-    }
-    stop(): void {
-        return;
-    }
     canAccess(): boolean {
         return true;
-    }
-    update(delta: number): void {
-        return;
     }
 
     catIsVisible(category: PlantCategory) {

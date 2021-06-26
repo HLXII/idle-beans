@@ -1,6 +1,5 @@
-import { App } from "@/App";
 import { Features } from "@/Features";
-import { SaveData, IgtFeature, AbstractField, HotKeys, KeyBind, KeyEventType } from "incremental-game-template";
+import { SaveData, IgtFeature, HotKeys, KeyBind, KeyEventType } from "incremental-game-template";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Beans from "./bean/Beans";
@@ -76,9 +75,6 @@ export default class GameController extends IgtFeature {
         super('controller');
     }
 
-    getDeveloperPanelFields(): AbstractField[] {
-        return [];
-    }
     initialize(features: Features): void {
         this.farms = features.farms;
         this.beans = features.beans;
@@ -113,17 +109,8 @@ export default class GameController extends IgtFeature {
         HotKeys.addKeyBind(new KeyBind('3', 'Three', () => { this.changeTool(ToolType.Sickle); }));
 
     }
-    start(): void {
-        return;
-    }
-    stop(): void {
-        return;
-    }
     canAccess(): boolean {
         return true;
-    }
-    update(delta: number): void {
-        return;
     }
 
     changeTool(tool: ToolType) {

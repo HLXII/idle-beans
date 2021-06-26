@@ -16,24 +16,9 @@ export default class Log extends IgtFeature {
         super('log');
         this.entries = [];
     }
-
-    getDeveloperPanelFields(): AbstractField[] {
-        return [];
-    }
-    initialize(features: Features): void {
-        return;
-    }
-    start(): void {
-        return;
-    }
-    stop(): void {
-        return;
-    }
+    
     canAccess(): boolean {
         return true;
-    }
-    update(delta: number): void {
-        return;
     }
 
     load(data: LogSaveData): void {
