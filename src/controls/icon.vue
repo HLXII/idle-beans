@@ -1,5 +1,5 @@
 <template>
-    <div style="display: inline-block; position: relative;">
+    <div style="display: inline-block; position: relative;" v-bind:style="{minWidth: sizeStyle}">
         <div class="border2" v-bind:class="bg"
             v-bind:style="{width: borderSize, height: borderSize}" style="position: absolute;" />
         <img style="position: relative;" :style="{width: sizeStyle, height: sizeStyle}" :src="image"/>

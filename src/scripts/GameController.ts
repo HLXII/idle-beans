@@ -22,6 +22,8 @@ export enum ModalType {
     Plot,
     Wiki,
     Settings,
+    Achievements,
+    Prestige,
 }
 
 export interface GameControllerSaveData extends SaveData {
@@ -150,7 +152,8 @@ export default class GameController extends IgtFeature {
         console.log(`Clicked Plot - ${row},${col} - ${ToolType[this.tool]}`);
         switch(this.tool) {
             case ToolType.Cursor: {
-                this.openPlotModal(row, col);
+                this.plot = {row: row, col: col};
+                this.openModal(ModalType.Plot);
                 break;
             }
             case ToolType.Bean: {
@@ -208,25 +211,23 @@ export default class GameController extends IgtFeature {
         };
     }
 
-    openPlotModal(row: number, col: number) {
-        this.plot = {row: row, col: col};
-
+    openModal(modalType: ModalType) {
         // Closing other modals
         this.closeModal();
 
         // Opening modal
-        this.openedModal = ModalType.Plot;
+        this.openedModal = modalType;
+    }
+
+    closeModal(nextModal?: ModalType) {
+        // If next modal to open is already opened, do nothing.
+        if (this.openedModal == nextModal) {
+            return;
+        }
+        this.openedModal = ModalType.None;
     }
 
     //#region Wiki
-    openWikiModal() {
-        // Closing other modals
-        this.closeModal();
-
-        // Opening modal
-        this.openedModal = ModalType.Wiki;
-    }
-
     changeTab(tab: number) {
         this.wikiTab = tab ?? 0;
     }
@@ -283,7 +284,7 @@ export default class GameController extends IgtFeature {
         }
 
         // Open Wiki modal
-        this.openWikiModal();
+        this.openModal(ModalType.Wiki);
 
         // Switch to Bean tab
         this.wikiTab = 0;
@@ -323,7 +324,7 @@ export default class GameController extends IgtFeature {
         }
 
         // Open Wiki modal
-        this.openWikiModal();
+        this.openModal(ModalType.Wiki);
 
         // Switch to Plant tab
         this.wikiTab = 1;
@@ -385,21 +386,4 @@ export default class GameController extends IgtFeature {
     }
 
     //#endregion
-
-    openSettingsModal() {
-        // Closing other modals
-        this.closeModal();
-
-        // Opening modal
-        this.openedModal = ModalType.Settings;
-    }
-
-    closeModal(nextModal?: ModalType) {
-        // If next modal to open is already opened, do nothing.
-        if (this.openedModal == nextModal) {
-            return;
-        }
-        this.openedModal = ModalType.None;
-    }
-
 }

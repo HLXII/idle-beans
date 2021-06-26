@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center">
+    <div class="flex flex-wrap justify-center">
         <tool-icon :toolType=ToolType.Cursor :controller=controller></tool-icon>
         <tool-icon :toolType=ToolType.Bean :controller=controller></tool-icon>
         <tool-icon :toolType=ToolType.Sickle :controller=controller></tool-icon>
@@ -9,7 +9,7 @@
 <script>
 import {App} from "@/App.ts"
 import {ToolType} from "@/scripts/GameController";
-import ToolIcon from "@/controls/controller/tool-icons/tool-icon";
+import ToolIcon from "@/controls/controller/tool-icons/tool-icon.vue";
 
 export default {
   name: "tool-icons",

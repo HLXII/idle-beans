@@ -6,7 +6,7 @@
         <div class="flex flex-col" style="height: 100%;">
             <div class="flex flex-col-reverse" style="height: 192px;">
                 <!-- Tool Icons -->
-                <tool-icons class="flex justify-center m-1" style="height: 32px;"></tool-icons>
+                <tool-icons></tool-icons>
             </div>
             <!-- Bean List -->
             <bean-list></bean-list>
@@ -32,12 +32,18 @@
           <div class="flex flex-col" style="height: 100%;">
               <div class="flex flex-col-reverse" style="height: 192px;">
                   <!-- Additional Icons -->
-                  <div class="flex justify-center m-1" style="height: 32px;">
-                      <div class="px-1" @click="openWikiModal">
-                          <icon class="btn" :image="require(`@/assets/images/icons/Wiki Icon.png`)"></icon>
+                  <div class="flex flex-wrap justify-center">
+                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Wiki)">
+                          <icon :image="require(`@/assets/images/icons/Wiki Icon.png`)"></icon>
                       </div>
-                      <div class="px-1" @click="openSettingsModal">
-                          <icon class="btn" :image="require(`@/assets/images/icons/Settings Icon.png`)"></icon>
+                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Achievements)">
+                          <icon :image="require(`@/assets/images/icons/Achievement Icon.png`)"></icon>
+                      </div>
+                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Prestige)">
+                          <icon :image="require(`@/assets/images/icons/Prestige Icon.png`)"></icon>
+                      </div>
+                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Settings)">
+                          <icon :image="require(`@/assets/images/icons/Settings Icon.png`)"></icon>
                       </div>
                   </div>
               </div>
@@ -46,25 +52,30 @@
           </div>
       </div>
     </div>
-      <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"></plot-modal>
-      <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"></wiki-modal>
-      <settings-modal :show="game.features.controller.openedModal == ModalType.Settings" @close="closeModal"></settings-modal>
+      <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"/>
+      <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"/>
+      <settings-modal :show="game.features.controller.openedModal == ModalType.Settings" @close="closeModal"/>
+      <achievements-modal :show="game.features.controller.openedModal == ModalType.Achievements" @close="closeModal"/>
+      <prestige-modal :show="game.features.controller.openedModal == ModalType.Prestige" @close="closeModal"/>
   </div>
 </template>
 
 <script>
 import {App} from "@/App.ts"
-import IgtNotifications from "@/components/util/igt-notifications";
+import {ModalType} from '@/scripts/GameController';
+
+import IgtNotifications from "@/components/util/igt-notifications.vue";
 import ToolIcons from './controls/controller/tool-icons/tool-icons.vue';
 import BeanList from '@/controls/controller/beanlist/bean-list.vue';
 import Farm from '@/controls/farm/farm.vue';
 import Log from '@/controls/log/log.vue';
-import PlotModal from '@/controls/farm/plot-modal/plot-modal';
-import WikiModal from '@/controls/wiki/wiki-modal';
-import SettingsModal from '@/controls/settings/settings-modal';
-import {ModalType} from '@/scripts/GameController';
-import Icon from "@/controls/icon";
-import FarmControl from "@/controls/farm/farm-control";
+import PlotModal from '@/controls/farm/plot-modal/plot-modal.vue';
+import WikiModal from '@/controls/wiki/wiki-modal.vue';
+import SettingsModal from '@/controls/settings/settings-modal.vue';
+import Icon from "@/controls/icon.vue";
+import FarmControl from "@/controls/farm/farm-control.vue";
+import AchievementsModal from './controls/achievements/achievements-modal.vue';
+import PrestigeModal from './controls/prestige/prestige-modal.vue';
 
 export default {
   components: {
@@ -78,6 +89,8 @@ export default {
     SettingsModal,
     Icon,
     FarmControl,
+    AchievementsModal,
+    PrestigeModal,
   },
   data() {
     return {
@@ -91,11 +104,8 @@ export default {
     },
   },
   methods: {
-    openWikiModal() {
-      this.game.features.controller.openWikiModal();
-    },
-    openSettingsModal() {
-      this.game.features.controller.openSettingsModal();
+    openModal(modalType) {
+      this.game.features.controller.openModal(modalType);
     },
     closeModal() {
       this.game.features.controller.closeModal();
