@@ -1,7 +1,7 @@
 <template>
     <div class="btn" @click="toggle">
         <icon :image=icon v-bind:class="{'has-tooltip': 'hasTooltip'}" >
-            <tooltip v-if="hasTooltip" position="top-right" width=56>
+            <tooltip v-if="hasTooltip" position="top-right" :interactable="false" width=56>
                 <div class="text-center">{{tooltip}}</div>
             </tooltip>
         </icon>
@@ -10,8 +10,8 @@
 
 <script>
 import {BooleanSetting} from "incremental-game-template";
-import Icon from '@/controls/icon';
-import Tooltip from '@/controls/tooltip';
+import Icon from '@/controls/icon.vue';
+import Tooltip from '@/controls/tooltip.vue';
 
 export default {
     name: "icon-toggle",

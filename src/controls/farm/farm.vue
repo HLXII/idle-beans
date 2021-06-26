@@ -1,5 +1,5 @@
 <template>
-    <div class="m-12" style="position: relative;">
+    <div class="m-2 sm:m-4 md:m-6 lg:m-8" style="position: relative;">
         <!-- Dirt Layer -->
         <div class="farm">
             <div class="farm-row flex" v-for="(row, yIdx) in plots" :key="yIdx">

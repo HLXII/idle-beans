@@ -2,6 +2,7 @@
     <modal :show="show" @close="close">
         <div class="modal-content">
             <div class="modal-header">
+                Achievements - TODO
             </div>
             <div class="modal-body">
             </div>

@@ -28,7 +28,7 @@
 
 <script>
 import {App} from "@/App.ts"
-import IconToggle from '@/controls/settings/icon-toggle';
+import IconToggle from '@/controls/settings/icon-toggle.vue';
 
 export default {
     name: "farm-control",

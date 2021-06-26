@@ -34,16 +34,32 @@
                   <!-- Additional Icons -->
                   <div class="flex flex-wrap justify-center">
                       <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Wiki)">
-                          <icon :image="require(`@/assets/images/icons/Wiki Icon.png`)"></icon>
+                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
+                            <tooltip position="top-left" :interactable="false">
+                              <div class="text-center">Wiki</div>
+                            </tooltip>
+                          </icon>
                       </div>
                       <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Achievements)">
-                          <icon :image="require(`@/assets/images/icons/Achievement Icon.png`)"></icon>
+                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
+                            <tooltip position="top-left" :interactable="false">
+                              <div class="text-center">Achievements</div>
+                            </tooltip>
+                          </icon>
                       </div>
                       <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Prestige)">
-                          <icon :image="require(`@/assets/images/icons/Prestige Icon.png`)"></icon>
+                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
+                            <tooltip position="top-left" :interactable="false">
+                              <div class="text-center">Prestige</div>
+                            </tooltip>
+                          </icon>
                       </div>
                       <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Settings)">
-                          <icon :image="require(`@/assets/images/icons/Settings Icon.png`)"></icon>
+                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
+                            <tooltip position="top-left" :interactable="false">
+                              <div class="text-center">Settings</div>
+                            </tooltip>
+                          </icon>
                       </div>
                   </div>
               </div>
@@ -76,6 +92,7 @@ import Icon from "@/controls/icon.vue";
 import FarmControl from "@/controls/farm/farm-control.vue";
 import AchievementsModal from './controls/achievements/achievements-modal.vue';
 import PrestigeModal from './controls/prestige/prestige-modal.vue';
+import Tooltip from '@/controls/tooltip.vue';
 
 export default {
   components: {
@@ -91,6 +108,7 @@ export default {
     FarmControl,
     AchievementsModal,
     PrestigeModal,
+    Tooltip,
   },
   data() {
     return {

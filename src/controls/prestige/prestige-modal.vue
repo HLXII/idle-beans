@@ -2,6 +2,7 @@
     <modal :show="show" @close="close">
         <div class="modal-content">
             <div class="modal-header">
+                Prestige
             </div>
             <div class="modal-body">
             </div>
