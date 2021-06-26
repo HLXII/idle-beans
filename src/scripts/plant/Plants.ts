@@ -2,7 +2,7 @@
 import { Features } from '@/Features';
 import { SaveData, IgtFeature, AbstractField } from 'incremental-game-template';
 import Plant, { PlantSaveData } from './Plant';
-import { PlantList, PlantType } from './PlantList';
+import { PlantCategory, PlantList, PlantType } from './PlantList';
 import { PlantUpgradeId } from './upgrades/PlantUpgrades';
 
 export interface PlantsSaveData extends SaveData {
@@ -37,8 +37,16 @@ export default class Plants extends IgtFeature {
         return;
     }
 
-    saveKey = 'plants';
+    catIsVisible(category: PlantCategory) {
+        return Object.values(this.list).filter((plant) => {
+            if (plant.category !== category) {
+                return false;
+            }
+            return plant.unlocked;
+        }).length > 0;
+    }
 
+    saveKey = 'plants';
     save(): PlantsSaveData {
         const data: PlantsSaveData = {};
         Object.values(this.list).map((plant) => {

@@ -1,4 +1,5 @@
 import { BeanType } from "../../bean/BeanList";
+import { PlantCategory } from "../PlantList";
 import PlantState from "../PlantState";
 import ProducePlant from "../ProducePlant";
 import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
@@ -11,8 +12,8 @@ export default class BeanPlant extends ProducePlant {
 
     produceBean: BeanType;
 
-    constructor(name: string, public bean: string) {
-        super(name);
+    constructor(name: string, category: PlantCategory, public bean: string) {
+        super(name, category);
         
         this.produceBean = this.bean as BeanType;
     }

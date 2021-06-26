@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import GameController from "@/scripts/GameController";
 
 export default {
     name: "wiki-tab",
@@ -14,14 +13,14 @@ export default {
             type: Number,
             required: true,
         },
-        controller: {
-            type: GameController,
+        activeTab: {
+            type: Number,
             required: true,
-        }
+        },
     },
     computed: {
         active() {
-            return this.tabType == this.controller.wikiTab;
+            return this.activeTab == this.tabType;
         },
     },
 }

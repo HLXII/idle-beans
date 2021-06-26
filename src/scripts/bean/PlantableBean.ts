@@ -2,14 +2,14 @@ import { App } from "@/App";
 import { FarmType } from "../farm/FarmType";
 import { PlantType } from "../plant/PlantList";
 import Bean, { BeanOptions } from "./Bean";
-import { BeanType } from "./BeanList";
+import { BeanCategory, BeanType } from "./BeanList";
 import Plantable from "./Plantable";
 
 
 export default class PlantableBean extends Bean implements Plantable {
     
-    constructor(name: string, description: string, public plantType: PlantType = 'Bean Bud', option?: BeanOptions) {
-        super(name, description, option);
+    constructor(name: string, description: string, category: BeanCategory, public plantType: PlantType = 'Bean Bud', option?: BeanOptions) {
+        super(name, description, category, option);
     }
 
     plant(farm: FarmType, row: number, col: number) {

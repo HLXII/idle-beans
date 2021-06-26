@@ -1,5 +1,4 @@
-import { BeanType } from "./bean/BeanList";
-import { GameText, LinkType } from "./controls/GameText";
+import { GameText } from "./controls/GameText";
 
 export default class GameHelper {
 

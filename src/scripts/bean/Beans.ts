@@ -2,7 +2,7 @@
 import { Features } from "@/Features";
 import { SaveData, AbstractField, IgtFeature } from "incremental-game-template";
 import Bean, { BeanSaveData } from "./Bean";
-import { BeanType, BeanList } from "./BeanList";
+import { BeanType, BeanList, BeanCategory } from "./BeanList";
 
 interface BeansSaveData extends SaveData {
     [key: string]: BeanSaveData;
@@ -43,6 +43,15 @@ export default class Beans extends IgtFeature {
         if (amount > 0) {
             bean.unlocked = true;
         }
+    }
+
+    catIsVisible(category: BeanCategory) {
+        return Object.values(this.list).filter((bean) => {
+            if (bean.category !== category) {
+                return false;
+            }
+            return bean.unlocked;
+        }).length > 0;
     }
 
     saveKey = 'beans';

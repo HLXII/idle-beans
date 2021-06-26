@@ -1,10 +1,9 @@
 
 import { SaveData, Saveable } from "incremental-game-template";
-import { BeanImages } from "./BeanList";
+import { BeanCategory, BeanImages } from "./BeanList";
 
 export interface BeanOptions {
     unlocked?: boolean;
-
     amount?: number;
 }
 
@@ -16,10 +15,9 @@ export interface BeanSaveData extends SaveData {
 export default class Bean implements Saveable {
 
     public unlocked: boolean;
-
     public amount: number;
 
-    constructor(public name: string, public description: string, option?: BeanOptions) {
+    constructor(public name: string, public description: string, public category: BeanCategory, option?: BeanOptions) {
         this.unlocked = option?.unlocked ?? false;
     
         this.amount = option?.amount ?? 0;

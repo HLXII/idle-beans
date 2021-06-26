@@ -3,7 +3,7 @@ import { SaveData, Saveable } from 'incremental-game-template';
 import { BeanType } from '../bean/BeanList';
 import FarmLocation from '../farm/FarmLocation';
 import { PlantIcons, SVGData } from './PlantImages';
-import { PlantType } from './PlantList';
+import { PlantCategory, PlantType } from './PlantList';
 import PlantState from './PlantState';
 import AbstractUpgrade from './upgrades/AbstractUpgrade';
 import { PlantUpgradeId } from './upgrades/PlantUpgrades';
@@ -25,7 +25,7 @@ export default abstract class Plant implements Saveable {
 
     public purchasedUpgrades: PlantUpgradeId[];
 
-    constructor(public name: string) {
+    constructor(public name: string, public category: PlantCategory) {
         this.unlocked = false;
         this.purchasedUpgrades = [];
     }

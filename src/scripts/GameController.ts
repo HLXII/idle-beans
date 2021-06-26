@@ -3,10 +3,12 @@ import { Features } from "@/Features";
 import { SaveData, IgtFeature, AbstractField, HotKeys, KeyBind, KeyEventType } from "incremental-game-template";
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
+import Beans from "./bean/Beans";
 import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
 import Plant from "./plant/Plant";
 import { PlantList, PlantType } from "./plant/PlantList";
+import Plants from "./plant/Plants";
 
 
 export enum ToolType {
@@ -30,8 +32,10 @@ export interface GameControllerSaveData extends SaveData {
 
 export default class GameController extends IgtFeature {
 
-    /**Internal reference to Farms Feature */
+    /**Internal reference to Features */
     private farms!: Farms;
+    private beans!: Beans;
+    private plants!: Plants;
 
     //#region Selectors
     public tool!: ToolType;
@@ -52,6 +56,8 @@ export default class GameController extends IgtFeature {
     public wikiTab!: number;
     /**Plant Wiki Tab */
     public plantTab!: number;
+    /**Bean Wiki Tab */
+    public beanTab!: number;
     /**Opened Bean */
     public wikiBean!: BeanType;
     /**Opened Plant */
@@ -73,6 +79,8 @@ export default class GameController extends IgtFeature {
     }
     initialize(features: Features): void {
         this.farms = features.farms;
+        this.beans = features.beans;
+        this.plants = features.plants;
 
         this.tool = ToolType.Cursor;
         this.bean = 'Bean';
@@ -84,6 +92,7 @@ export default class GameController extends IgtFeature {
 
         this.wikiTab = 0;
         this.plantTab = 0;
+        this.beanTab = 0;
 
         this.wikiBean = 'Bean';
         this.wikiPlant = 'Bean Bud';
@@ -201,6 +210,16 @@ export default class GameController extends IgtFeature {
         this.wikiTab = tab ?? 0;
     }
 
+    changePlantTab(tab: number) {
+        this.plantTab = tab ?? 0;
+        this.changeWikiPlant(this.wikiPlantList[0].name as PlantType);
+    }
+
+    changeBeanTab(tab: number) {
+        this.beanTab = tab ?? 0;
+        this.changeWikiBean(this.wikiBeanList[0].name as BeanType);
+    }
+
     changeWikiBean(beanType: BeanType) {
         this.wikiBean = beanType;
     }
@@ -232,18 +251,13 @@ export default class GameController extends IgtFeature {
             console.error("Error - Cannot open empty Bean.");
             return;
         }
-        const bean = App.game.features.beans.list[beanType];
+        const bean = this.beans.list[beanType];
         if (!bean) {
             console.error("Error - Could not retrieve Bean from list.", beanType);
             return;
         }
         if (!bean.unlocked) {
             console.error("Error - Cannot open locked Bean.", beanType);
-            return;
-        }
-        const beanElement = document.getElementById(bean.elementName);
-        if (!beanElement) {
-            console.error("Error - Could not find Bean element.", beanType);
             return;
         }
 
@@ -253,11 +267,22 @@ export default class GameController extends IgtFeature {
         // Switch to Bean tab
         this.wikiTab = 0;
 
+        // Switching to correct category tab
+        this.changeBeanTab(this.beans.list[beanType].category);
+
         // Open Bean
         this.changeWikiBean(beanType);
+        
+        /*
+        const beanElement = document.getElementById(bean.elementName);
+        if (!beanElement) {
+            console.error("Error - Could not find Bean element.", beanType);
+            return;
+        }
 
         // Make sure Bean is visible
-        beanElement?.scrollIntoView(true);
+        beanElement?.scrollIntoView(true);]
+        */
     }
 
     goToPlant(plantType: PlantType) {
@@ -266,18 +291,13 @@ export default class GameController extends IgtFeature {
             console.error("Error - Cannot open empty Plant.");
             return;
         }
-        const plant = App.game.features.plants.list[plantType];
+        const plant = this.plants.list[plantType];
         if (!plant) {
             console.error("Error - Could not retrieve Plant from list.", plantType);
             return;
         }
         if (!plant.unlocked) {
             console.error("Error - Cannot open locked Plant.", plantType);
-            return;
-        }
-        const plantElement = document.getElementById(plant.elementName);
-        if (!plantElement) {
-            console.error("Error - Could not find Plant element.", plantType);
             return;
         }
 
@@ -287,19 +307,40 @@ export default class GameController extends IgtFeature {
         // Switch to Plant tab
         this.wikiTab = 1;
 
+        // Switching to correct category tab
+        this.changePlantTab(this.plants.list[plantType].category);
+
         // Open Bean
         this.changeWikiPlant(plantType);
 
+        /*
+        const plantElement = document.getElementById(plant.elementName);
+        if (!plantElement) {
+            console.error("Error - Could not find Plant element.", plantType);
+            return;
+        }
+
         // Make sure Plant is visible
         plantElement?.scrollIntoView(true);
+        */
     }
 
     get wikiBeanList(): Bean[] {
-        return Object.values(BeanList).filter((bean: Bean) => bean.unlocked);
+        return Object.values(BeanList).filter((bean: Bean) => {
+            if (bean.category !== this.beanTab) {
+                return false;
+            }
+            return bean.unlocked;
+        });
     }
 
     get wikiPlantList(): Plant[] {
-        return Object.values(PlantList).filter((plant: Plant) => plant.unlocked);
+        return Object.values(PlantList).filter((plant: Plant) => {
+            if (plant.category !== this.plantTab) {
+                return false;
+            }
+            return plant.unlocked;
+        });    
     }
 
     //#endregion

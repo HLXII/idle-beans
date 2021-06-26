@@ -3,19 +3,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <nav class="flex flex-col sm:flex-row mb-2">
-                    <wiki-nav-tab tabName="Beans" :tabType=0 :controller="controller"></wiki-nav-tab>
-                    <wiki-nav-tab tabName="Plants" :tabType=1 :controller="controller"></wiki-nav-tab>
+                    <wiki-nav-tab tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="controller.wikiTab"></wiki-nav-tab>
+                    <wiki-nav-tab tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.wikiTab"></wiki-nav-tab>
                 </nav>
             </div>
             <div class="modal-body">
-                <wiki-tab :tabType="0" :controller="controller">
+                <wiki-tab :tabType="0" :activeTab="controller.wikiTab">
                     <icon-toggle :setting="darkMode"
                     :trueIcon="require(`@/assets/images/icons/Status Bar Icon.png`)"
                     :falseIcon="require(`@/assets/images/icons/No Status Bar Icon.png`)"
                     :trueTooltip="`Dark Mode`"
                     :falseTooltip="`Light Mode`"></icon-toggle>
                 </wiki-tab>
-                <wiki-tab :tabType="1" :controller="controller">
+                <wiki-tab :tabType="1" :activeTab="controller.wikiTab">
 
                 </wiki-tab>
             </div>
@@ -56,6 +56,9 @@ export default {
     methods: {
         close: function() {
             this.$emit('close');
+        },
+        changeTab: function(tabType) {
+            this.controller.changeTab(tabType);
         },
     },
     computed: {

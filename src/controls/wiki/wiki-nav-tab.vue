@@ -1,9 +1,8 @@
 <template>
-    <button v-bind:class="['nav-button', 'border2', active ? 'nav-button-active': '']" @click="changeTab">{{tabName}}</button>
+    <button v-bind:class="['nav-button', 'border2', active ? 'nav-button-active': '']" @click="clickTab">{{tabName}}</button>
 </template>
 
 <script>
-import GameController from "@/scripts/GameController";
 
 export default {
     name: "wiki-nav-tab",
@@ -16,19 +15,23 @@ export default {
             type: Number,
             required: true,
         },
-        controller: {
-            type: GameController,
+        activeTab: {
+            type: Number,
             required: true,
-        }
-    },
-    methods: {
-        changeTab() {
-            this.controller.changeTab(this.tabType);
-        }
+        },
+        changeTab: {
+            type: Function,
+            required: true,
+        },
     },
     computed: {
         active() {
-            return this.tabType == this.controller.wikiTab;
+            return this.activeTab === this.tabType;
+        },
+    },
+    methods: {
+        clickTab() {
+            this.changeTab(this.tabType);
         },
     },
 }
