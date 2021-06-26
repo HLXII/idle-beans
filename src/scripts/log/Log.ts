@@ -1,5 +1,6 @@
 import { Features } from "@/Features";
 import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
+import { GameText } from "../controls/GameText";
 import LogEntry, { LogEntrySaveData } from "./LogEntry";
 
 export interface LogSaveData extends SaveData {
@@ -52,22 +53,16 @@ export default class Log extends IgtFeature {
         this.entries.splice(0, this.entries.length);
     }
 
-    log(message: string, color?: string) {
+    log(message: GameText[], color?: string) {
         // Creating entry
         const entry = new LogEntry(message, color);
 
-        // Checking for duplicate entry
-        const lastEntry = this.entries[this.entries.length-1];
-        if (lastEntry && lastEntry.message.includes(entry.message)) {
-            lastEntry.amount += 1;
-        } else {
-            // TODO: Add max entry setting
-            // Removing extra entries
-            while (this.entries.length >= this.defaultMaxEntries) {
-                this.entries.shift();
-            }
-            this.entries.push(entry);
+        // TODO: Add max entry setting
+        // Removing extra entries
+        while (this.entries.length >= this.defaultMaxEntries) {
+            this.entries.shift();
         }
+        this.entries.push(entry);
     }
 
 }

@@ -1,4 +1,5 @@
 import { App } from "@/App";
+import { LinkType } from "../controls/GameText";
 import FarmLocation from "../farm/FarmLocation";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
@@ -40,7 +41,12 @@ export default class GrowthPlantState extends PlantState {
         const growth = this.data.growthPlant(this);
         this.growthPlant = growth;
         if (this.stageAge >= this.data.growthTime) {
-            App.game.features.log.log(`A ${this.type} has grown into a ${growth}.`);
+            App.game.features.log.log([
+                'A ',
+                {text: this.type, type: LinkType.Plant, id: this.type},
+                ' has grown into a ',
+                {text: growth, type: LinkType.Plant, id: growth},
+            ]);
             this.grow(growth);
         }
     }

@@ -1,6 +1,7 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
 import { BeanType } from "../bean/BeanList";
+import { LinkType } from "../controls/GameText";
 import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
@@ -73,7 +74,12 @@ export default class PlantState implements Saveable, FarmLocation {
         // Logging harvest
         // TODO
         const gainedBeans = Object.entries(harvestGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
-        App.game.features.log.log(`Removed a ${this.type}. Gained: ${gainedBeans}.`);
+        App.game.features.log.log([
+            `Removed a `,
+            {text: this.type, type: LinkType.Plant, id: this.type},
+            '. Gained: ',
+            gainedBeans,
+        ]);
     }
 
     get harvestGain(): {[bean in BeanType]?: number} {

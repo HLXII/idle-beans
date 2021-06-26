@@ -1,17 +1,23 @@
 <template>
-    <div v-bind:class="color">{{message}}</div>
+    <div v-bind:class="entry.color">
+        <game-text :text="entry.message" :controller="controller"/>
+    </div>
 </template>
 
 <script>
+import GameController from '@/scripts/GameController'
+import gameText from '../game-text.vue'
 
 export default {
+  components: { gameText },
   name: "log-entry",
   props: {
-      color: {
-          type: String,
+      entry: {
+          type: Object,
+          required: true,
       },
-      message: {
-          type: String,
+      controller: {
+          type: GameController,
           required: true,
       }
   },

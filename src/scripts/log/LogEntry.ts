@@ -1,33 +1,30 @@
 import { SaveData, Saveable } from "incremental-game-template";
+import { GameText } from "../controls/GameText";
 
 export interface LogEntrySaveData extends SaveData {
-    message: string;
+    message: GameText[];
     color: string;
-    amount: number;
     time: number;
 }
 
 export default class LogEntry implements Saveable {
 
-    public message: string;
+    public message: GameText[];
     public color: string;
-    public amount: number;
-    public time: number;
+    public time: Date;
 
-    constructor(message: string = '', color: string = 'dark', amount: number = 1) {
+    constructor(message: GameText[] = [], color: string = 'dark') {
         this.message = message;
         this.color = color;
-        this.amount = amount;
-        this.time = Date.now();
+        this.time = new Date();
     }
 
     // TODO: Add setting to remove time from message
-    get logMessage(): string {
-        if (this.amount > 1) {
-            return `${(new Date(this.time)).toString()} ${this.message} (${this.amount}x)`;
-        } else {
-            return `${(new Date(this.time)).toString()} ${this.message}`;
-        }
+    get logMessage(): GameText[] {
+        return [
+            `${(new Date(this.time)).toString()} `,
+            ...this.message,
+        ];
     }
 
     saveKey = '';
@@ -35,15 +32,13 @@ export default class LogEntry implements Saveable {
         return {
             message: this.message,
             color: this.color,
-            amount: this.amount,
-            time: this.time,
+            time: this.time.getTime(),
         }    
     }
     load(data: LogEntrySaveData): void {
-        this.message = data?.message ?? '';
+        this.message = data?.message ?? [];
         this.color = data?.color ?? '';
-        this.amount = data?.amount ?? 0;
-        this.time = data?.time ?? Date.now();
+        this.time = new Date(data?.time);
     }
     
 }

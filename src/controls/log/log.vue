@@ -3,7 +3,7 @@
         <span class="btn bg-white flex text-center justify-center border2 mb-1" @click="clearLog">Clear Log</span>
         <div class="flex flex-col-reverse logContainer">
             <div> <!-- Additional div used to reverse the entries correctly -->
-                <log-entry v-for="(entry, idx) in log.entries" :key=idx :message=entry.logMessage :color=entry.color ></log-entry>
+                <log-entry v-for="(entry, idx) in log.entries" :key=idx :entry="entry" :controller="controller"></log-entry>
             </div>
         </div>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
 import {App} from "@/App.ts"
-import LogEntry from "@/controls/log/log-entry"
+import LogEntry from "@/controls/log/log-entry.vue"
 
 export default {
   name: "log",
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       log: App.game.features.log,
+      controller: App.game.features.controller,
     }
   },
   computed: {

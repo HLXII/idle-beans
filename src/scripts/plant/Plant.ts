@@ -1,7 +1,7 @@
 import { App } from '@/App';
 import { SaveData, Saveable } from 'incremental-game-template';
 import { BeanType } from '../bean/BeanList';
-import { GameText } from '../controls/GameText';
+import { GameText, LinkType } from '../controls/GameText';
 import FarmLocation from '../farm/FarmLocation';
 import { PlantIcons, SVGData } from './PlantImages';
 import { PlantCategory, PlantType } from './PlantList';
@@ -47,7 +47,10 @@ export default abstract class Plant implements Saveable {
         if (!this.unlocked) {
             // TODO: Handle adding wiki notification
             // TODO: Add setting to filter this message
-            App.game.features.log.log(`You have discovered a new plant: ${this.name}`);
+            App.game.features.log.log([
+                `You have discovered a new plant: `,
+                {text: this.name, type: LinkType.Plant, id: this.name},
+            ]);
             this.unlocked = true;
         }
     }
