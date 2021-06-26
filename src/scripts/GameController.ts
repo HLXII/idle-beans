@@ -104,6 +104,12 @@ export default class GameController extends IgtFeature {
         HotKeys.addKeyBind(new KeyBind('shift', 'Shift Modifier Up', () => { this.shiftKey = false; }, undefined, KeyEventType.KeyUp));
         HotKeys.addKeyBind(new KeyBind('alt', 'Alt Modifier Down', () => { this.altKey = true; }, undefined, KeyEventType.KeyDown));
         HotKeys.addKeyBind(new KeyBind('alt', 'Alt Modifier Up', () => { this.altKey = false; }, undefined, KeyEventType.KeyUp));
+    
+        // Adding tool hotkeys
+        HotKeys.addKeyBind(new KeyBind('1', 'One', () => { this.changeTool(ToolType.Cursor); }));
+        HotKeys.addKeyBind(new KeyBind('2', 'Two', () => { this.changeTool(ToolType.Bean); }));
+        HotKeys.addKeyBind(new KeyBind('3', 'Three', () => { this.changeTool(ToolType.Sickle); }));
+
     }
     start(): void {
         return;
@@ -121,11 +127,20 @@ export default class GameController extends IgtFeature {
     changeTool(tool: ToolType) {
         console.log(`Changing Tool to ${ToolType[tool]}`);
         this.tool = tool;
+
+        // Switch to visible bean
+        if (this.tool === ToolType.Bean) {
+            if (!this.beanIsVisibleInList(this.bean)) {
+                if (this.filteredList.length) {
+                    this.bean = this.filteredList[0].name as BeanType;
+                }
+            }
+        }
     }
 
     changeBean(bean: BeanType) {
         if (this.tool !== ToolType.Bean) {
-            return;
+            this.changeTool(ToolType.Bean);
         }
         console.log(`Changing Bean to ${bean}`);
         this.bean = bean;
@@ -139,7 +154,9 @@ export default class GameController extends IgtFeature {
                 break;
             }
             case ToolType.Bean: {
-                this.farms.plantBean(this.bean, row, col);
+                if (this.beanIsVisibleInList(this.bean)) {
+                    this.farms.plantBean(this.bean, row, col);
+                }
                 break;
             }
             case ToolType.Sickle: {
@@ -172,6 +189,10 @@ export default class GameController extends IgtFeature {
 
             return true;
         });
+    }
+
+    beanIsVisibleInList(beanType: BeanType) {
+        return this.filteredList.map((bean) => bean.name).includes(beanType);
     }
 
     load(data: GameControllerSaveData): void {
