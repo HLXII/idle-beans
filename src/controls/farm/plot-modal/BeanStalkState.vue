@@ -2,27 +2,27 @@
     <div>
         <plant-details :plant=plant></plant-details>
         <div class="flex">
-            <div class="col align-self-center">Consume Cooldown</div>
+            <div class="col align-self-center"></div>
         </div>
-        <igt-progress-bar :percentage="plant.consumptionPercent" ></igt-progress-bar>
-        <div class="flex">
-            <div class="col align-self-center">Height</div>
-        </div>
-        <igt-progress-bar :percentage="plant.consumptionPercent" ></igt-progress-bar>
-        <div>{{plant.consumed}}</div>
+        <status-table>
+            <status label="Consume Cooldown:" :percent="plant.consumptionPercent"/>
+            <status :label="plant.heightLabel" :percent="plant.heightPercent" :text="plant.heightText"/>
+        </status-table>
     </div>
 </template>
 
 <script>
 import PlantDetails from "@/controls/farm/plot-modal/plant-details";
 import BeanStalkState from "@/scripts/plant/species/BeanStalkState";
-import IgtProgressBar from '@/components/util/igt-progress-bar.vue';
+import StatusTable from './status-table.vue';
+import Status from './status.vue';
 
 export default {
     name: "BeanStalkState",
     components: {
         PlantDetails,
-        IgtProgressBar,
+        StatusTable,
+        Status,
     },
     props: {
         plant: {

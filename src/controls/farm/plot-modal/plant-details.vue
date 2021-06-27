@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="flex">
-            <div class="border4 m-2">
+            <div class="border4 mr-2">
                 <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                     <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
                 </svg>
             </div>
             <div class="flex-1">
-                <div class="flex p-1">
+                <div class="flex py-1">
                     <div class="plantName">{{plant.type}}</div>
                     
                     <div class="flex-grow text-right" style="height: 32px;" >
@@ -19,15 +19,15 @@
                         </icon>
                     </div>
                 </div>
-                <div class="p-1">
+                <div class="py-1">
                     <div class="float-right">
                         <div class="has-tooltip" style="position:relative;">
-                        <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="harvest">
-                            Remove
-                        </button>
-                        <tooltip width=60 position="bottom-left" :interactable="false">
-                            <div v-html="harvestGainMessage"></div>
-                        </tooltip>
+                            <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="remove">
+                                Remove
+                            </button>
+                            <tooltip width=60 position="bottom-left" :interactable="false">
+                                <div v-html="harvestGainMessage"></div>
+                            </tooltip>
                         </div>
                     </div>
                     <div>Age: {{plant.age}}</div>
@@ -72,7 +72,7 @@ export default {
         }
     },
     methods: {
-        harvest() {
+        remove() {
             this.farms.removePlant(this.plant.row, this.plant.col);
         },
     }

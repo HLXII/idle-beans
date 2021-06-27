@@ -1,24 +1,28 @@
 <template>
     <div>
         <plant-details :plant=plant></plant-details>
-        <div class="flex">
-            <div>{{plant.produceText}}</div>
-            <div class="flex-1 text-right">{{plant.storageText}}</div>
-        </div>
-        <igt-progress-bar :percentage="plant.producePercent" ></igt-progress-bar>
+        <status-table>
+            <status label="Ripe Beans:" :percent="plant.storagePercent" :text="plant.storageText"/>
+            <status :label="plant.produceText" :percent="plant.producePercent"/>
+        </status-table>
+        <!--
+        <td style="width:1%;padding-right:10px;"><game-button style="height: 24px;" text="Harvest" :onClick="harvest" /></td>
+        -->
     </div>
 </template>
 
 <script>
-import PlantDetails from "@/controls/farm/plot-modal/plant-details";
-import IgtProgressBar from '@/components/util/igt-progress-bar.vue';
+import PlantDetails from "@/controls/farm/plot-modal/plant-details.vue";
 import ProducePlantState from "@/scripts/plant/ProducePlantState";
+import StatusTable from './status-table.vue';
+import Status from './status.vue';
 
 export default {
     name: "ProducePlantState",
     components: {
         PlantDetails,
-        IgtProgressBar,
+        StatusTable,
+        Status,
     },
     props: {
         plant: {
@@ -27,7 +31,9 @@ export default {
         }
     },
     methods: {
-
+        harvest() {
+            this.plant.harvest();
+        },
     },
     computed: {
 

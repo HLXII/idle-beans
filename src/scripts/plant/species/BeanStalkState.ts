@@ -1,5 +1,6 @@
 import { BeanType } from "@/scripts/bean/BeanList";
 import FarmLocation from "@/scripts/farm/FarmLocation";
+import { BeanStalkCost } from "@/scripts/prestige/BeanStalkPrestige";
 import { getOrthoPlots } from "../growths/plot/OrthoPlotsRequirement";
 import { PlantType } from "../PlantList";
 import PlantState, { PlantStateSaveData } from "../PlantState";
@@ -14,13 +15,15 @@ export interface BeanStalkStateSaveData extends PlantStateSaveData {
 
 export default class BeanStalkState extends PlantState {
 
-    public consumptionTime!: number;
+    public consumptionTime: number;
 
-    public consumed!: number;
+    public consumed: number;
 
     constructor(name: PlantType, location?: FarmLocation) {
         super(name, location);
 
+        this.consumed = 0;
+        this.consumptionTime = 0;
     }
 
     /**
@@ -43,8 +46,7 @@ export default class BeanStalkState extends PlantState {
                 if (plot.plant instanceof ProducePlantState) {
                     if (plot.plant.hasBeans) {
                         plot.plant.harvest(1);
-                        this.consumed += 1;
-                        // TODO: Figure out how to make some Beans better
+                        this.consumed += BeanStalkCost[plot.plant.data.produceBean];
                         consumed = true;
                     }
                 }
@@ -61,8 +63,26 @@ export default class BeanStalkState extends PlantState {
      * Calculates the current height of the Bean Stalk
      */
     get height(): number {
-        // TODO: Calculate height based on consumed Beans
-        return 1;
+        return Math.floor(Math.log(this.consumed || 1));
+    }
+
+    get heightLabel(): string {
+        return `Height (${this.height}):`;
+    }
+
+    get heightText(): string {
+        const nextHeight = this.height + 1;
+        const requiredConsume = Math.ceil(Math.pow(Math.E, nextHeight));
+        const required = requiredConsume - this.consumed;
+        return `${required} to next stage.`;
+    }
+
+    get heightPercent(): number {
+        const nextHeight = this.height + 1;
+        const requiredConsume = Math.ceil(Math.pow(Math.E, nextHeight));
+        const previousConsume = Math.ceil(Math.pow(Math.E, this.height));
+        const delta = this.consumed - previousConsume;
+        return delta / (requiredConsume - previousConsume);
     }
 
     get consumptionPercent(): number {

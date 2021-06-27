@@ -67,6 +67,9 @@ export default class ProducePlantState extends PlantState {
     }
 
     get producePercent(): number {
+        if (this.isFull) {
+            return 1;
+        }
         return this.productionTime / this.data.produceTime;
     }
 
@@ -81,7 +84,7 @@ export default class ProducePlantState extends PlantState {
             return '';
         }
         const plant = this.data;
-        return `Grown Beans: ${this.storage}/${plant.holdCap}`;
+        return `${plant.produceBean}: ${this.storage}/${plant.holdCap}`;
     }
 
     get statuses(): PlantStatus[] {
@@ -105,6 +108,10 @@ export default class ProducePlantState extends PlantState {
         return statuses;
     }
 
+    /**
+     * Harvest the Beans on the plant.
+     * @param amount The amount of Beans to harvest. If null defaults to all.
+     */
     harvest(amount?: number): void {
         const plant = this.data;
         amount = amount ?? this.storage;

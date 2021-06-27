@@ -6,6 +6,7 @@ import Beans from "@/scripts/bean/Beans";
 import Farms from "@/scripts/farm/Farms";
 import Log from "@/scripts/log/Log";
 import { Settings } from "@/scripts/Settings";
+import PrestigeHandler from "./scripts/prestige/PrestigeHandler";
 
 export interface Features extends IgtFeatures {
     settings: Settings;
@@ -14,4 +15,5 @@ export interface Features extends IgtFeatures {
     plants: Plants;
     farms: Farms;
     log: Log;
+    prestige: PrestigeHandler;
 }

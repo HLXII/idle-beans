@@ -5,6 +5,7 @@ import Farms from "./scripts/farm/Farms";
 import Log from "./scripts/log/Log";
 import { Game } from "./Game";
 import { Settings } from "./scripts/Settings";
+import PrestigeHandler from "./scripts/prestige/PrestigeHandler";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -29,6 +30,7 @@ export class App {
                 plants: new Plants(),
                 farms: new Farms(),
                 log: new Log(),
+                prestige: new PrestigeHandler(),
             }
         );
     }

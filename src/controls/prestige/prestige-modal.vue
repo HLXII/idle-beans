@@ -5,6 +5,10 @@
                 Prestige
             </div>
             <div class="modal-body">
+                <div>
+                    TODO: Figure out description for prestige
+                </div>
+                <prestige v-for="(prestige, idx) in visiblePrestiges" :key="idx" :prestige="prestige" :controller="controller"/>
             </div>
             <div class="modal-footer">
             </div>
@@ -14,15 +18,20 @@
 
 <script>
 import Modal from "@/controls/modal/modal.vue";
+import {App} from "@/App.ts"
+import Prestige from './prestige.vue';
 
 export default {
     name: "prestige-modal",
     data() {
         return {
+            prestige: App.game.features.prestige,
+            controller: App.game.features.controller,
         }
     },
     components: {
         Modal,
+        Prestige,
     },
     props: {
         show: {
@@ -36,6 +45,9 @@ export default {
         },
     },
     computed: {
+        visiblePrestiges() {
+            return this.prestige.prestiges.filter((prestige) => prestige.visible);
+        }
     },
 }
 </script>
