@@ -2,15 +2,15 @@
     <modal :show="show" @close="close">
         <div class="modal-content">
             <div class="modal-header">
-                <nav class="flex mb-2">
-                    <wiki-nav-tab class="flex-1" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="controller.wikiTab"></wiki-nav-tab>
-                    <wiki-nav-tab class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.wikiTab"></wiki-nav-tab>
+                <nav class="flex gap-1 mb-1">
+                    <nav-button class="flex-1" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="controller.wikiTab"/>
+                    <nav-button class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.wikiTab"/>
                 </nav>
             </div>
             <div class="modal-body">
-                <wiki-tab :tabType="0" :activeTab="controller.wikiTab">
-                    <nav class="flex mb-2" v-if="beanCats.length > 1">
-                        <wiki-nav-tab v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="controller.beanTab"></wiki-nav-tab>
+                <nav-tab :tabType="0" :activeTab="controller.wikiTab">
+                    <nav class="flex gap-1 mb-1" v-if="beanCats.length > 1">
+                        <nav-button v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="controller.beanTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2">
@@ -28,10 +28,10 @@
                             </div>
                         </div>
                     </div>
-                </wiki-tab>
-                <wiki-tab :tabType="1" :activeTab="controller.wikiTab">
-                    <nav class="flex mb-2" v-if="plantCats.length > 1">
-                        <wiki-nav-tab v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="controller.plantTab"></wiki-nav-tab>
+                </nav-tab>
+                <nav-tab :tabType="1" :activeTab="controller.wikiTab">
+                    <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
+                        <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="controller.plantTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                </wiki-tab>
+                </nav-tab>
             </div>
             <div class="modal-footer">
 
@@ -68,8 +68,8 @@
 <script>
 import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
-import WikiNavTab from "@/controls/wiki/wiki-nav-tab.vue";
-import WikiTab from '@/controls/wiki/wiki-tab.vue';
+import NavButton from "@/controls/wiki/nav-button.vue";
+import NavTab from '@/controls/wiki/nav-tab.vue';
 import WikiBeanEntry from '@/controls/wiki/wiki-bean-entry.vue';
 import WikiPlantEntry from '@/controls/wiki/wiki-plant-entry.vue';
 import WikiGrowth from './wiki-growth.vue';
@@ -91,8 +91,8 @@ export default {
     },
     components: {
         Modal,
-        WikiNavTab,
-        WikiTab,
+        NavButton,
+        NavTab,
         WikiBeanEntry,
         WikiPlantEntry,
         WikiGrowth,
@@ -109,7 +109,7 @@ export default {
             this.$emit('close');
         },
         changeTab: function(tabType) {
-            this.controller.changeTab(tabType);
+            this.controller.changeWikiTab(tabType);
         },
         changeBeanTab: function(tabType) {
             this.controller.changeBeanTab(tabType);

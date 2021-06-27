@@ -5,7 +5,7 @@
 <script>
 
 export default {
-    name: "wiki-nav-tab",
+    name: "nav-button",
     props: {
         tabName: {
             type: String,
@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 .nav-button {
-    @apply text-gray-600 block mr-2 hover:text-blue-500 focus:outline-none;
+    @apply text-gray-600 block hover:text-blue-500 focus:outline-none;
 }
 .nav-button-active {
     @apply text-blue-500 border-blue-500;

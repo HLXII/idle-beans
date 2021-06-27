@@ -2,22 +2,22 @@
     <modal :show="show" @close="close">
         <div class="modal-content">
             <div class="modal-header">
-                <nav class="flex flex-col sm:flex-row mb-2">
-                    <wiki-nav-tab tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="controller.wikiTab"></wiki-nav-tab>
-                    <wiki-nav-tab tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.wikiTab"></wiki-nav-tab>
+                <nav class="flex gap-1 mb-1">
+                    <nav-button class="flex-1" tabName="Base" :tabType=0 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
+                    <nav-button class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
                 </nav>
             </div>
             <div class="modal-body">
-                <wiki-tab :tabType="0" :activeTab="controller.wikiTab">
+                <nav-tab :tabType="0" :activeTab="controller.settingsTab">
                     <icon-toggle :setting="darkMode"
                     :trueIcon="require(`@/assets/images/icons/Status Bar Icon.png`)"
                     :falseIcon="require(`@/assets/images/icons/No Status Bar Icon.png`)"
                     :trueTooltip="`Dark Mode`"
                     :falseTooltip="`Light Mode`"></icon-toggle>
-                </wiki-tab>
-                <wiki-tab :tabType="1" :activeTab="controller.wikiTab">
+                </nav-tab>
+                <nav-tab :tabType="1" :activeTab="controller.settingsTab">
 
-                </wiki-tab>
+                </nav-tab>
             </div>
             <div class="modal-footer">
 
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import Modal from "@/controls/modal/modal";
+import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
-import WikiNavTab from "@/controls/wiki/wiki-nav-tab";
-import WikiTab from '../wiki/wiki-tab.vue';
-import IconToggle from '@/controls/settings/icon-toggle';
+import IconToggle from '@/controls/settings/icon-toggle.vue';
+import NavButton from '../wiki/nav-button.vue';
+import NavTab from '../wiki/nav-tab.vue';
 
 export default {
     name: "wiki-modal",
@@ -43,9 +43,9 @@ export default {
     },
     components: {
         Modal,
-        WikiNavTab,
-        WikiTab,
-        IconToggle
+        IconToggle,
+        NavButton,
+        NavTab,
     },
     props: {
         show: {
@@ -58,7 +58,7 @@ export default {
             this.$emit('close');
         },
         changeTab: function(tabType) {
-            this.controller.changeTab(tabType);
+            this.controller.changeSettingsTab(tabType);
         },
     },
     computed: {

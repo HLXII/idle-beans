@@ -7,7 +7,7 @@
 <script>
 
 export default {
-    name: "wiki-tab",
+    name: "nav-tab",
     props: {
         tabType: {
             type: Number,

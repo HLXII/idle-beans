@@ -52,6 +52,10 @@ export default class GameController extends IgtFeature {
     /**Bean List Search Filter */
     public beanListSearch!: string;
 
+    //#region Prestige Modal properties
+    public prestigeTab!: number;
+    //#endregion
+
     //#region Wiki Modal properties
     /**Wiki Tab */
     public wikiTab!: number;
@@ -63,6 +67,10 @@ export default class GameController extends IgtFeature {
     public wikiBean!: BeanType;
     /**Opened Plant */
     public wikiPlant!: PlantType;
+    //#endregion
+
+    //#region Settings Modal properties
+    public settingsTab!: number;
     //#endregion
 
     //#region Modifier Key booleans
@@ -88,9 +96,13 @@ export default class GameController extends IgtFeature {
    
         this.beanListSearch = '';
 
+        this.prestigeTab = 0;
+
         this.wikiTab = 0;
         this.plantTab = 0;
         this.beanTab = 0;
+
+        this.settingsTab = 0;
 
         this.wikiBean = 'Bean';
         this.wikiPlant = 'Bean Bud';
@@ -214,8 +226,14 @@ export default class GameController extends IgtFeature {
         this.openedModal = ModalType.None;
     }
 
+    //#region Prestige
+    changePrestigeTab(tab: number) {
+        this.prestigeTab = tab ?? 0;
+    }
+    //#endregion
+
     //#region Wiki
-    changeTab(tab: number) {
+    changeWikiTab(tab: number) {
         this.wikiTab = tab ?? 0;
     }
 
@@ -371,6 +389,11 @@ export default class GameController extends IgtFeature {
         }
         return false;
     }
+    //#endregion
 
+    //#region Settings
+    changeSettingsTab(tab: number) {
+        this.settingsTab = tab ?? 0;
+    }
     //#endregion
 }
