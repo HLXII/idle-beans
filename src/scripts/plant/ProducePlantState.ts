@@ -90,11 +90,14 @@ export default class ProducePlantState extends PlantState {
     get statuses(): PlantStatus[] {
         const statuses = super.statuses;
 
-        const storageStatus: PlantStatus = {
-            percent: this.storagePercent,
-            tooltip: this.storageText,
+        // Including storage status
+        if (this.hasBeans) {
+            const storageStatus: PlantStatus = {
+                percent: this.storagePercent,
+                tooltip: this.storageText,
+            }
+            statuses.push(storageStatus);
         }
-        statuses.push(storageStatus);
 
         // Including produce status
         if (!this.isFull) {

@@ -2,6 +2,7 @@ import { BeanType } from "@/scripts/bean/BeanList";
 import FarmLocation from "@/scripts/farm/FarmLocation";
 import { BeanStalkCost } from "@/scripts/prestige/BeanStalkPrestige";
 import { getOrthoPlots } from "../growths/plot/OrthoPlotsRequirement";
+import { getImage, SVGData } from "../PlantImages";
 import { PlantType } from "../PlantList";
 import PlantState, { PlantStateSaveData } from "../PlantState";
 import PlantStatus from "../PlantStatus";
@@ -104,6 +105,18 @@ export default class BeanStalkState extends PlantState {
         return statuses;
     }
     
+    get image(): SVGData {
+        if (this.height >= 6) {
+            return getImage('Bean Stalk Heavens');
+        } else if (this.height > 4) {
+            return getImage('Bean Stalk Adult');
+        } else if (this.height > 2) {
+            return getImage('Bean Stalk Juvenile');
+        } else {
+            return getImage('Bean Stalk Infant')
+        }
+    }
+
     get data(): BeanStalk {
         return super.data as BeanStalk;
     }
