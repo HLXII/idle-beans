@@ -4,7 +4,7 @@
             <input class="border2 bg-white flex-1" style="min-width: 0;" v-model="controller.beanListSearch" placeholder="Filter Beans">
         </div>
         <div class="overflow-auto">
-            <bean-entry v-for="bean in filteredList" :key="bean.name" :bean=bean :controller=controller></bean-entry>
+            <bean-entry v-for="bean in filteredBeanList" :key="bean.name" :bean=bean :controller=controller></bean-entry>
         </div>
     </div>
 
@@ -27,8 +27,8 @@ export default {
         }
     },
     computed: {
-        filteredList() {
-            return this.controller.filteredList;
+        filteredBeanList() {
+            return this.controller.filteredBeanList;
         },
     },
     methods: {

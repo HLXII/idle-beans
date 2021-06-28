@@ -19,7 +19,7 @@ export default class BeanVine extends GrowthPlant {
         'Stronger Roots',
     ];
 
-    public growthTime: number = 5;
+    public baseGrowthTime: number = 300;
     public growths: Growth[] = [
         /*
         new Growth('Bean Vine', new DiagContainsRequirement({plant: 'Bean Plant', amount: 3})),

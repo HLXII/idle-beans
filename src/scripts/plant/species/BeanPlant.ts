@@ -16,6 +16,10 @@ export default class BeanPlant extends ProducePlant {
         'Stronger Roots',
     ];
 
+    public baseProduceAmount = 1;
+    public baseProduceTime = 10;
+    public baseStorage = 15;
+
     produceBean: BeanType;
 
     constructor(name: string, category: PlantCategory, public bean: string, option?: PlantOptions) {
@@ -24,11 +28,6 @@ export default class BeanPlant extends ProducePlant {
         this.produceBean = this.bean as BeanType;
     }
 
-    // TODO: Update to handle upgrades/different plants
-    produceAmount = 1;
-    produceTime = 10;
-    holdCap = 15;
-    
     /**
      * Determines the beans returned from removing the plant
      * To be overriden in sub classes.

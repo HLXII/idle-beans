@@ -17,6 +17,15 @@ export const PlantImages: Record<string, SVGData> = {
             { stroke: "#b3c189", d: "M15 14h2M14 15h3M13 16h4M13 17h3" },
         ],
     },
+    "Bean Plant Empty": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#c6c95f", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#9ea142", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
+        ],
+    },
     "Bean Plant": {
         viewBox: "0 -0.5 32 64",
         paths: [
@@ -61,6 +70,15 @@ export const PlantImages: Record<string, SVGData> = {
             { stroke: "#99b051", d: "M15 35h1M15 37h1M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
         ],
     },
+    "Green Bean Plant Empty": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#c6c95f", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#9ea142", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
+        ],
+    },
     "Green Bean Plant": {
         viewBox: "0 -0.5 32 64",
         paths: [
@@ -76,6 +94,55 @@ export const PlantImages: Record<string, SVGData> = {
         viewBox: "0 -0.5 16 16",
         paths: [
             { stroke: "#000000", d: "M6 2h4M5 3h6M5 4h2M9 4h2M9 5h2M8 6h3M7 7h3M7 8h2M7 9h2M7 10h2M7 12h2M7 13h2" },
+        ],
+    },
+    "Orange Bean Plant Empty": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#ffdf50", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#d3a44f", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
+        ],
+    },
+    "Orange Bean Plant": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#ffdf50", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#d3a44f", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
+            { stroke: "#a86e36", d: "M8 31h2M8 32h1M22 33h1M23 34h1M23 35h1M21 36h2M11 40h2M10 41h2M13 41h1M14 42h1M14 43h1" },
+            { stroke: "#e98e35", d: "M7 32h1M21 34h2M21 35h2M12 41h1M11 42h3M12 43h2" },
+        ],
+    },
+    "Red Bean Plant Empty": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#ffdf50", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#d3a44f", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
+        ],
+    },
+    "Red Bean Plant": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#ffdf50", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#d3a44f", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
+            { stroke: "#833838", d: "M8 31h2M8 32h1M22 33h1M23 34h1M23 35h1M21 36h2M11 40h2M10 41h2M13 41h1M14 42h1M14 43h1" },
+            { stroke: "#b83434", d: "M7 32h1M21 34h2M21 35h2M12 41h1M11 42h3M12 43h2" },
+        ],
+    },
+    "Yellow Bean Plant Empty": {
+        viewBox: "0 -0.5 32 64",
+        paths: [
+            { stroke: "#b3c189", d: "M17 24h2M16 25h2M15 26h1M14 27h2M14 28h1M13 29h2M10 30h2M13 30h2M11 31h2M14 31h1M18 31h4M14 32h4M19 32h2M14 33h3M14 34h2M14 35h2M14 36h4M12 37h2M15 37h3M11 38h1M17 38h2M17 39h2M16 40h3M16 41h3M16 42h3M16 43h3M15 44h4M15 45h3M14 46h4M13 47h4M12 48h5M12 49h4" },
+            { stroke: "#ffdf50", d: "M10 26h4M13 27h1M6 29h3M5 30h3M5 31h1M22 31h2M24 32h2M25 33h1M26 34h1M26 35h1M26 36h1M9 38h2M7 39h4M6 40h4M5 41h3M5 42h1M5 43h1" },
+            { stroke: "#99b051", d: "M16 26h1M15 28h1M13 31h1M13 32h1M18 32h1M13 33h1M17 33h1M16 34h1M16 35h1M14 37h1M12 38h2M16 38h1M16 39h1M19 41h1M19 42h1M19 43h1M19 44h1M18 45h2M18 46h1M17 47h2M17 48h2M16 49h2" },
+            { stroke: "#d3a44f", d: "M12 27h1M13 28h1M8 30h2M22 32h2M23 33h2M24 34h2M25 35h1M11 39h1M10 40h1M8 41h1M6 42h2" },
         ],
     },
     "Yellow Bean Plant": {
@@ -124,19 +191,36 @@ export const PlantIcons: Record<string, SVGData> = {
     "Bean Sprout": {
         viewBox: "0 -0.5 16 16",
         paths: [
-            { stroke: "#c6c95f", d: "M7 4h2M7 5h1M7 6h1" },
-            { stroke: "#9ea142", d: "M8 5h1" },
-            { stroke: "#b3c189", d: "M9 5h1M9 6h1M9 7h1M8 8h1M7 9h2M7 10h1" },
-            { stroke: "#99b051", d: "M9 8h1M9 9h1M8 10h1" },
+            { stroke: "#c6c95f", d: "M7 3h3M6 4h3M6 5h1" },
+            { stroke: "#9ea142", d: "M9 4h1M7 5h2M6 6h1" },
+            { stroke: "#99b051", d: "M10 4h1M9 5h1M11 6h1M11 7h1M11 8h1M11 9h1M10 10h1M10 11h1M9 12h1M5 13h4" },
+            { stroke: "#b3c189", d: "M10 5h1M10 6h1M10 7h1M10 8h1M10 9h1M9 10h1M8 11h2M5 12h4" },
+        ],
+    },
+    "Bean Stalk": {
+        viewBox: "0 -0.5 16 16",
+        paths: [
+            { stroke: "#ffffff", d: "M5 1h2M3 2h1M6 2h3M12 2h2M2 3h1M7 3h3M11 3h1M9 4h2" },
+            { stroke: "#3ab654", d: "M9 1h2M9 2h3M4 4h1M4 5h1M4 6h2M10 6h1M5 7h1M9 7h1M5 8h2M8 8h2M6 9h2M7 10h2M4 11h1M9 11h2M3 12h1M11 12h1M12 13h1" },
+            { stroke: "#c6f1d7", d: "M5 2h1M3 3h1M6 3h1M12 3h2M7 4h2M11 4h2" },
+            { stroke: "#2aa043", d: "M10 3h1M10 5h1M11 6h1M4 7h1M10 7h1M10 8h1M5 9h1M8 9h2M6 10h1M7 11h2M4 12h1M10 12h1M3 13h2M9 13h1M11 13h1" },
+            { stroke: "#29863d", d: "M11 5h2M12 6h1M11 7h1M4 8h1M11 8h1M10 9h1M5 10h1M9 10h1M5 11h2M5 12h2M8 12h2M5 13h1M8 13h1M10 13h1" },
+        ],
+    },
+    "Bean Vine": {
+        viewBox: "0 -0.5 16 16",
+        paths: [
+            { stroke: "#8db952", d: "M9 2h1M9 3h1M8 4h1M8 5h1M8 6h1M7 7h1M7 8h1M6 9h1M5 10h1M4 11h1M6 11h1M8 11h2M6 12h1M10 12h1" },
+            { stroke: "#7fa34e", d: "M9 4h1M9 5h1M9 6h1M8 7h2M8 8h1M7 9h2M6 10h3M5 11h1M7 11h1M4 12h1M8 12h2M6 13h1M10 13h1" },
         ],
     },
     "Blue Bean Sprout": {
         viewBox: "0 -0.5 16 16",
         paths: [
-            { stroke: "#2e6eee", d: "M7 4h2M7 5h1M7 6h1" },
-            { stroke: "#355eb0", d: "M8 5h1" },
-            { stroke: "#b3c189", d: "M9 5h1M9 6h1M9 7h1M8 8h1M7 9h2M7 10h1" },
-            { stroke: "#99b051", d: "M9 8h1M9 9h1M8 10h1" },
+            { stroke: "#2e6eee", d: "M8 4h3M9 5h3" },
+            { stroke: "#355eb0", d: "M8 5h1M9 6h3" },
+            { stroke: "#99b051", d: "M8 6h1M9 7h1M9 8h1M9 9h1M8 10h1M7 11h1M3 12h4" },
+            { stroke: "#b3c189", d: "M8 7h1M8 8h1M7 9h2M6 10h2M3 11h4" },
         ],
     },
     "Green Bean Plant": {
@@ -154,6 +238,24 @@ export const PlantIcons: Record<string, SVGData> = {
             { stroke: "#000000", d: "M6 2h4M5 3h6M5 4h2M9 4h2M9 5h2M8 6h3M7 7h3M7 8h2M7 9h2M7 10h2M7 12h2M7 13h2" },
         ],
     },
+    "Orange Bean Plant": {
+        viewBox: "0 -0.5 16 16",
+        paths: [
+            { stroke: "#b3c189", d: "M4 3h1M4 4h2M11 4h1M6 5h2M10 5h2M8 6h1M10 6h1M9 7h1" },
+            { stroke: "#99b051", d: "M5 5h1M6 6h2M9 6h1M11 6h1M10 7h1" },
+            { stroke: "#a86e36", d: "M7 7h2M8 8h2M9 9h1M8 10h2M7 11h2M5 12h3" },
+            { stroke: "#e98e35", d: "M7 8h1M6 9h3M5 10h3M5 11h2" },
+        ],
+    },
+    "Red Bean Plant": {
+        viewBox: "0 -0.5 16 16",
+        paths: [
+            { stroke: "#b3c189", d: "M4 3h1M4 4h2M11 4h1M6 5h2M10 5h2M8 6h1M10 6h1M9 7h1" },
+            { stroke: "#99b051", d: "M5 5h1M6 6h2M9 6h1M11 6h1M10 7h1" },
+            { stroke: "#833838", d: "M7 7h2M8 8h2M9 9h1M8 10h2M7 11h2M5 12h3" },
+            { stroke: "#b83434", d: "M7 8h1M6 9h3M5 10h3M5 11h2" },
+        ],
+    },
     "Yellow Bean Plant": {
         viewBox: "0 -0.5 16 16",
         paths: [
@@ -166,10 +268,10 @@ export const PlantIcons: Record<string, SVGData> = {
     "Yellow Bean Sprout": {
         viewBox: "0 -0.5 16 16",
         paths: [
-            { stroke: "#ffdf50", d: "M7 4h2M7 5h1M7 6h1" },
-            { stroke: "#d3a44f", d: "M8 5h1" },
-            { stroke: "#b3c189", d: "M9 5h1M9 6h1M9 7h1M8 8h1M7 9h2M7 10h1" },
-            { stroke: "#99b051", d: "M9 8h1M9 9h1M8 10h1" },
+            { stroke: "#ffdf50", d: "M6 3h2M5 4h2M4 5h3" },
+            { stroke: "#d3a44f", d: "M7 4h1M7 5h1M4 6h3" },
+            { stroke: "#99b051", d: "M4 7h1M4 8h1M5 9h1M6 10h1M7 11h1M8 12h4" },
+            { stroke: "#b3c189", d: "M5 7h1M5 8h2M6 9h2M7 10h2M8 11h4" },
         ],
     },
 }

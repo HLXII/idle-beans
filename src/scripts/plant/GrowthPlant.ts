@@ -12,9 +12,21 @@ export default abstract class GrowthPlant extends Plant {
     public static state = GrowthPlantState;
 
     /**
-     * Age (ms) in which the plant will grow
+     * Base age (s) in which the plant will grow
      */
-    public abstract growthTime: number;
+    public abstract baseGrowthTime: number;
+
+    /**
+     * Age (s) in which the Plant will grow, taking into account modifiers
+     * If the GrowthPlantState is given, will also take into account status effects
+     * @param state The GrowthPlantState
+     * @returns The Age (s) in which the Plant will grow.
+     */
+    growthTime(state?: GrowthPlantState): number {
+        // TODO: Handle Upgrades and Status Updates
+        return this.baseGrowthTime;
+    }
+
     /**
      * List of possible growth requirements.
      * Will be check in order of appearance (first requirement prioritized)

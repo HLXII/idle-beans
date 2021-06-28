@@ -13,18 +13,51 @@ export default abstract class ProducePlant extends Plant {
     public abstract produceBean: BeanType;
 
     /**
-     * Amount of Bean produced per cycle
+     * Base amount of Bean produced per cycle
      */
-    public abstract produceAmount: number;
+    public abstract baseProduceAmount: number;
 
     /**
-     * Time required for a production cycle
+     * Amount of Beans produced per cycle, taking into account modifiers
+     * If the ProducePlantState is given, will also take into account status effects
+     * @param state The ProducePlantState
+     * @returns Amount of Beans produced per cycle
      */
-    public abstract produceTime: number;
+    public produceAmount(state?: ProducePlantState) {
+        // TODO: Handle Upgrades and Statuses
+        return this.baseProduceAmount;
+    }
 
     /**
-     * Total Beans that can be stored on the plant
+     * Base time required for a production cycle
      */
-    public abstract holdCap: number;
+    public abstract baseProduceTime: number;
+
+    /**
+     * Time required for a production cycle, taking into account modifiers
+     * If the ProducePlantState is given, will also take into account status effects
+     * @param state The ProducePlantState
+     * @returns Time required for a production cycle
+     */
+     public produceTime(state?: ProducePlantState) {
+        // TODO: Handle Upgrades and Statuses
+        return this.baseProduceTime;
+    }
+
+    /**
+     * Base maximum Beans that can be stored on the Plant
+     */
+    public abstract baseStorage: number;
+
+    /**
+     * Maximum Beans that can be stored on the Plant, taking into account modifiers
+     * If the ProducePlantState is given, will also take into account status effects
+     * @param state The ProducePlantState
+     * @returns Maximum Beans that can be stored on the Plant
+     */
+     public storage(state?: ProducePlantState) {
+        // TODO: Handle Upgrades and Statuses
+        return this.baseStorage;
+    }
 
 }

@@ -17,7 +17,7 @@ export default class BeanBud extends GrowthPlant {
         'Stronger Roots',
     ];
 
-    public growthTime: number = 5;
+    public baseGrowthTime: number = 16;
     public growths: Growth[] = [
         new Growth('Bean Vine', new DiagContainsRequirement({plant: 'Bean Plant', amount: 3})),
         new Growth('Blue Bean Sprout', new AnyGrowthRequirement(

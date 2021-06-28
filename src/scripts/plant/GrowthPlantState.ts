@@ -40,7 +40,7 @@ export default class GrowthPlantState extends PlantState {
 
         const growth = this.data.growthPlant(this);
         this.growthPlant = growth;
-        if (this.stageAge >= this.data.growthTime) {
+        if (this.stageAge >= this.data.growthTime(this)) {
             App.game.features.log.log([
                 'A ',
                 {text: this.type, type: LinkType.Plant, id: this.type},
@@ -52,7 +52,7 @@ export default class GrowthPlantState extends PlantState {
     }
 
     get growthPercent(): number {
-        return this.stageAge / this.data.growthTime;
+        return this.stageAge / this.data.growthTime(this);
     }
 
     get growthText(): string {

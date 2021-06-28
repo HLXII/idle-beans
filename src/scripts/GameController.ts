@@ -3,6 +3,7 @@ import { SaveData, IgtFeature, HotKeys, KeyBind, KeyEventType } from "incrementa
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Beans from "./bean/Beans";
+import PlantableBean from "./bean/PlantableBean";
 import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
 import Plant from "./plant/Plant";
@@ -39,38 +40,38 @@ export default class GameController extends IgtFeature {
     private plants!: Plants;
 
     //#region Selectors
-    public tool!: ToolType;
+    public tool: ToolType;
 
-    public bean!: BeanType;
+    public bean: BeanType;
 
-    public plot!: {row: number; col: number};
+    public plot: {row: number; col: number};
     //#endregion
 
     /**Modal handler */
-    public openedModal!: ModalType;
+    public openedModal: ModalType;
 
     /**Bean List Search Filter */
-    public beanListSearch!: string;
+    public beanListSearch: string;
 
     //#region Prestige Modal properties
-    public prestigeTab!: number;
+    public prestigeTab: number;
     //#endregion
 
     //#region Wiki Modal properties
     /**Wiki Tab */
-    public wikiTab!: number;
+    public wikiTab: number;
     /**Plant Wiki Tab */
-    public plantTab!: number;
+    public plantTab: number;
     /**Bean Wiki Tab */
-    public beanTab!: number;
+    public beanTab: number;
     /**Opened Bean */
-    public wikiBean!: BeanType;
+    public wikiBean: BeanType;
     /**Opened Plant */
-    public wikiPlant!: PlantType;
+    public wikiPlant: PlantType;
     //#endregion
 
     //#region Settings Modal properties
-    public settingsTab!: number;
+    public settingsTab: number;
     //#endregion
 
     //#region Modifier Key booleans
@@ -81,12 +82,6 @@ export default class GameController extends IgtFeature {
 
     constructor() {
         super('controller');
-    }
-
-    initialize(features: Features): void {
-        this.farms = features.farms;
-        this.beans = features.beans;
-        this.plants = features.plants;
 
         this.tool = ToolType.Cursor;
         this.bean = 'Bean';
@@ -106,6 +101,12 @@ export default class GameController extends IgtFeature {
 
         this.wikiBean = 'Bean';
         this.wikiPlant = 'Bean Bud';
+    }
+
+    initialize(features: Features): void {
+        this.farms = features.farms;
+        this.beans = features.beans;
+        this.plants = features.plants;
 
         // Adding modifier key bindings
         HotKeys.addKeyBind(new KeyBind('ctrl', 'Ctrl Modifier Down', () => { this.ctrlKey = true; }, undefined, KeyEventType.KeyDown));
@@ -126,14 +127,13 @@ export default class GameController extends IgtFeature {
     }
 
     changeTool(tool: ToolType) {
-        console.log(`Changing Tool to ${ToolType[tool]}`);
         this.tool = tool;
 
         // Switch to visible bean
         if (this.tool === ToolType.Bean) {
             if (!this.beanIsVisibleInList(this.bean)) {
-                if (this.filteredList.length) {
-                    this.bean = this.filteredList[0].name as BeanType;
+                if (this.filteredBeanList.length) {
+                    this.bean = this.filteredBeanList[0].name as BeanType;
                 }
             }
         }
@@ -143,12 +143,10 @@ export default class GameController extends IgtFeature {
         if (this.tool !== ToolType.Bean) {
             this.changeTool(ToolType.Bean);
         }
-        console.log(`Changing Bean to ${bean}`);
         this.bean = bean;
     }
 
     clickDirt(row: number, col: number) {
-        console.log(`Clicked Plot - ${row},${col} - ${ToolType[this.tool]}`);
         switch(this.tool) {
             case ToolType.Cursor: {
                 this.plot = {row: row, col: col};
@@ -176,8 +174,13 @@ export default class GameController extends IgtFeature {
         this.clickDirt(row, col);
     }
 
-    get filteredList(): Bean[] {
+    get filteredBeanList(): Bean[] {
         return Object.values(BeanList).filter((bean: Bean) => {
+
+            // Don't display if not plantable
+            if (!(bean instanceof PlantableBean)) {
+                return false;
+            }
 
             // Don't display if there are no beans in inventory of this type
             if (bean.amount <= 0) {
@@ -194,7 +197,7 @@ export default class GameController extends IgtFeature {
     }
 
     beanIsVisibleInList(beanType: BeanType) {
-        return this.filteredList.map((bean) => bean.name).includes(beanType);
+        return this.filteredBeanList.map((bean) => bean.name).includes(beanType);
     }
 
     load(data: GameControllerSaveData): void {
@@ -387,7 +390,6 @@ export default class GameController extends IgtFeature {
                 return plant.unlocked;
             }
         }
-        return false;
     }
     //#endregion
 

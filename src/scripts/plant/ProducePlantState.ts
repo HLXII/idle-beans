@@ -38,16 +38,16 @@ export default class ProducePlantState extends PlantState {
         if (!this.isFull) {
             // Handling production
             this.productionTime += delta;
-            if (this.productionTime >= plant.produceTime) {
-                const produceAmount = plant.produceAmount;
+            if (this.productionTime >= plant.produceTime(this)) {
+                const produceAmount = plant.produceAmount(this);
                 // Storing on Plant if there is space
-                const storeAmount = Math.min(plant.holdCap - this.storage, produceAmount);
+                const storeAmount = Math.min(plant.storage(this) - this.storage, produceAmount);
                 this.storage += storeAmount;
     
                 // Collecting extra Beans at a lower rate
                 const collectedBeans = Math.floor((produceAmount - storeAmount) / 2);
                 App.game.features.beans.gain(plant.produceBean, collectedBeans);
-                this.productionTime -= plant.produceTime;
+                this.productionTime -= plant.produceTime(this);
             }
         } else {
             this.productionTime = 0;
@@ -55,7 +55,7 @@ export default class ProducePlantState extends PlantState {
     }
 
     get isFull(): boolean {
-        return this.storage >= this.data.holdCap;
+        return this.storage >= this.data.storage(this);
     }
 
     get hasBeans(): boolean {
@@ -63,19 +63,19 @@ export default class ProducePlantState extends PlantState {
     }
 
     get storagePercent(): number {
-        return this.storage / this.data.holdCap;
+        return this.storage / this.data.storage(this);
     }
 
     get producePercent(): number {
         if (this.isFull) {
             return 1;
         }
-        return this.productionTime / this.data.produceTime;
+        return this.productionTime / this.data.produceTime(this);
     }
 
     get produceText(): string {
         const plant = this.data;
-        const gainedBeans = `${plant.produceAmount} ${plant.produceBean}${Number(plant.produceAmount) > 1 ? 's' : ''}`;
+        const gainedBeans = `${plant.produceAmount(this)} ${plant.produceBean}${Number(plant.produceAmount(this)) > 1 ? 's' : ''}`;
         return `Growing ${gainedBeans}`;
     }
 
@@ -84,7 +84,7 @@ export default class ProducePlantState extends PlantState {
             return '';
         }
         const plant = this.data;
-        return `${plant.produceBean}: ${this.storage}/${plant.holdCap}`;
+        return `${plant.produceBean}: ${this.storage}/${plant.storage(this)}`;
     }
 
     get statuses(): PlantStatus[] {
@@ -127,7 +127,7 @@ export default class ProducePlantState extends PlantState {
         if (this.hasBeans) {
             return super.image;
         } else {
-            return getImage(`${super.image} Unripe`);
+            return getImage(`${this.data.name} Empty`);
         }
     }
 
