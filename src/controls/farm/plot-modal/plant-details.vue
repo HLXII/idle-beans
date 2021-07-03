@@ -40,8 +40,8 @@
 <script>
 import {App} from "@/App.ts";
 import PlantState from "@/scripts/plant/PlantState";
-import Icon from '@/controls/icon.vue';
-import Tooltip from "@/controls/tooltip.vue";
+import Icon from '@/controls/utility/icon.vue';
+import Tooltip from "@/controls/utility/tooltip.vue";
 
 export default {
     name: "plant-details",

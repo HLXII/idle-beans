@@ -9,7 +9,7 @@
 <script>
 import GameController from "@/scripts/GameController";
 import Bean from "@/scripts/bean/Bean";
-import Icon from "@/controls/icon";
+import Icon from "@/controls/utility/icon";
 
 export default {
   name: "wiki-bean-entry",

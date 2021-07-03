@@ -10,7 +10,7 @@
 <script>
 import GameController, {ToolType} from "@/scripts/GameController";
 import Bean from "@/scripts/bean/Bean";
-import Icon from "@/controls/icon.vue";
+import Icon from "@/controls/utility/icon.vue";
 
 export default {
   name: "bean-entry",

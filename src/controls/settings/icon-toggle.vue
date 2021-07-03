@@ -10,8 +10,8 @@
 
 <script>
 import {BooleanSetting} from "incremental-game-template";
-import Icon from '@/controls/icon.vue';
-import Tooltip from '@/controls/tooltip.vue';
+import Icon from '@/controls/utility/icon.vue';
+import Tooltip from '@/controls/utility/tooltip.vue';
 
 export default {
     name: "icon-toggle",

@@ -9,7 +9,7 @@
 <script>
 import GameController from "@/scripts/GameController";
 import Plant from "@/scripts/plant/Plant";
-import SvgIcon from '../svg-icon.vue';
+import SvgIcon from '@/controls/utility/svg-icon.vue';
 
 export default {
   name: "wiki-bean-entry",

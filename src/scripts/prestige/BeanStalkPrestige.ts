@@ -80,8 +80,10 @@ export default class BeanStalkPrestige extends Prestige {
         }
 
         // Calculating reward based on Bean Stalk height
-        // TODO:
-        const reward = {};
+        // TODO: Update to scale better
+        const reward = {
+            'Prestige Bean': 1,
+        };
         return reward;
     }
     

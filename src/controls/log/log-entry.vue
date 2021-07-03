@@ -6,7 +6,7 @@
 
 <script>
 import GameController from '@/scripts/GameController'
-import gameText from '../game-text.vue'
+import gameText from '@/controls/utility/game-text.vue'
 
 export default {
   components: { gameText },

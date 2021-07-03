@@ -6,7 +6,7 @@
 
 <script>
 import GameController, {ToolType} from "@/scripts/GameController";
-import Icon from "@/controls/icon";
+import Icon from "@/controls/utility/icon";
 
 export default {
   name: "tool-icons",

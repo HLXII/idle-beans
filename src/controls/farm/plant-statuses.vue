@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import ProgressBar from "@/controls/progress-bar";
+import ProgressBar from "@/controls/utility/progress-bar";
 
 export default {
     name: "plant-statuses",

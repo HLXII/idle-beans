@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BorderProgressBar from '@/controls/border-progress-bar.vue';
+import BorderProgressBar from '@/controls/utility/border-progress-bar.vue';
 
 export default {
     name: "status",

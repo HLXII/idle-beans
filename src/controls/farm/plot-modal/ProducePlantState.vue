@@ -14,8 +14,8 @@
 <script>
 import PlantDetails from "@/controls/farm/plot-modal/plant-details.vue";
 import ProducePlantState from "@/scripts/plant/ProducePlantState";
-import StatusTable from './status-table.vue';
-import Status from './status.vue';
+import StatusTable from '@/controls/farm/plot-modal/status-table.vue'
+import Status from '@/controls/farm/plot-modal/status.vue'
 
 export default {
     name: "ProducePlantState",

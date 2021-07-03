@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Tooltip from "@/controls/tooltip.vue";
+import Tooltip from "@/controls/utility/tooltip.vue";
 
 export default {
     name: "border-progress-bar",

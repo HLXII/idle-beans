@@ -21,12 +21,12 @@
 
 <script>
 import Prestige from '@/scripts/prestige/Prestige'
-import GameText from '../game-text.vue'
+import GameText from '@/controls/utility/game-text.vue'
 import GameController from '@/scripts/GameController'
-import GameButton from '../game-button.vue'
-import StatusTable from '../farm/plot-modal/status-table.vue'
-import Status from '../farm/plot-modal/status.vue'
-import Tooltip from '../tooltip.vue'
+import GameButton from '@/controls/utility/game-button.vue'
+import StatusTable from '@/controls/farm/plot-modal/status-table.vue'
+import Status from '@/controls/farm/plot-modal/status.vue'
+import Tooltip from '@/controls/utility/tooltip.vue'
 
 export default {
     name: "prestige",

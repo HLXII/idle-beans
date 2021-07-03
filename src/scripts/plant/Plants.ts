@@ -1,9 +1,7 @@
 
-import { Features } from '@/Features';
 import { SaveData, IgtFeature, AbstractField } from 'incremental-game-template';
 import Plant, { PlantSaveData } from './Plant';
 import { PlantCategory, PlantList, PlantType } from './PlantList';
-import { PlantUpgradeId } from './upgrades/PlantUpgrades';
 
 export interface PlantsSaveData extends SaveData {
     [key: string]: PlantSaveData;

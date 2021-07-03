@@ -6,6 +6,10 @@ import Log from "../log/Log";
 import BeanStalkPrestige from "./BeanStalkPrestige";
 import Prestige from "./Prestige";
 
+export interface PrestigeSaveData extends SaveData {
+    prestiged: boolean;
+}
+
 export default class PrestigeHandler extends IgtFeature {
     
     private beans!: Beans;
@@ -15,14 +19,18 @@ export default class PrestigeHandler extends IgtFeature {
 
     // TODO: Handle prestige bonus goals
 
+    public prestiged: boolean;
+
     constructor() {
         super('prestige');
+
+        this.prestiged = false;
     }
 
     initialize(features: Features): void {
         this.beans = features.beans;
         this.log = features.log;
-        
+
         this.prestiges = [
             new BeanStalkPrestige(features),
         ];
@@ -37,8 +45,6 @@ export default class PrestigeHandler extends IgtFeature {
      * Handle cleanup up the game state to enter prestige mode
      */
     triggerPrestige() {
-        // Switch state to prestige
-
         // Clean up inventory
         Object.values(this.beans.list).forEach((bean) => {
             if (bean.category !== BeanCategory.Special) {
@@ -47,19 +53,33 @@ export default class PrestigeHandler extends IgtFeature {
         });
         
         // Clear farms
-        
+        // TODO
 
         // Clear log
         this.log.clearLog();
-        
-        return;
+
+        // Switch state to prestige
+        this.prestiged = true;
     }
 
-    load(data: SaveData): void {
-        return;
+    /**
+     * Handle finishing up prestige mode and returning to the main game
+     */
+    completePrestige() {
+        // Handle Bean Packet purchases
+        // TODO
+
+        // Switch state to main game
+        this.prestiged = false;
     }
-    save(): SaveData {
-        return {};
+
+    load(data: PrestigeSaveData): void {
+        this.prestiged = data.prestiged ?? false;
+    }
+    save(): PrestigeSaveData {
+        return {
+            prestiged: this.prestiged,
+        };
     }
 
 }

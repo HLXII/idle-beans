@@ -18,8 +18,8 @@
 import GameController from "@/scripts/GameController";
 import Plants from "@/scripts/plant/Plants";
 import Growth from "@/scripts/plant/growths/Growth";
-import GameText from '../game-text.vue';
-import SvgIcon from '../svg-icon.vue';
+import GameText from '@/controls/utility/game-text.vue';
+import SvgIcon from '@/controls/utility/svg-icon.vue';
 import { PlantIcons } from '@/scripts/plant/PlantImages';
 import { LinkType } from '@/scripts/controls/GameText';
 

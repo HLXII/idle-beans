@@ -31,7 +31,14 @@ export default abstract class Prestige {
     abstract text: string;
 
     get rewardText(): string {
-        return 'Prestige for:<br>';
+        const message = ['Prestige for:'];
+
+        const rewards = this.reward;
+        for (const bean in rewards) {
+            const amount = rewards[bean as BeanType] ?? 0;
+            message.push(`${amount} ${bean}${amount > 1 ? 's' : ''}`);
+        }
+        return message.join('<br>');
     }
 
     applyModifiers(value: number) {

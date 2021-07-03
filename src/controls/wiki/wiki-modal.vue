@@ -76,7 +76,7 @@ import WikiGrowth from './wiki-growth.vue';
 
 import { BeanCategory } from "@/scripts/bean/BeanList";
 import { PlantCategory } from "@/scripts/plant/PlantList";
-import GameText from '../game-text.vue';
+import GameText from '@/controls/utility/game-text.vue';
 
 export default {
     name: "wiki-modal",
