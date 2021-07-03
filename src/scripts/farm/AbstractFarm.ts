@@ -14,6 +14,8 @@ export default abstract class AbstractFarm implements Saveable {
 
     public type: FarmType;
 
+    public name: string;
+
     public plots: Plot[][];
 
     public plants: (PlantState | undefined)[];
@@ -24,8 +26,9 @@ export default abstract class AbstractFarm implements Saveable {
 
     public readonly defaultPlotSize: number = 5;
 
-    constructor(type: FarmType) {
+    constructor(type: FarmType, name: string) {
         this.type = type;
+        this.name = name;
 
         this.plots = [];
         this.plants = [];

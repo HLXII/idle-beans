@@ -46,7 +46,7 @@ export default class BeanStalkState extends PlantState {
                 }
                 if (plot.plant instanceof ProducePlantState) {
                     if (plot.plant.hasBeans) {
-                        plot.plant.harvest(1);
+                        plot.plant.storage -= 1;
                         this.consumed += BeanStalkCost[plot.plant.data.produceBean];
                         consumed = true;
                     }

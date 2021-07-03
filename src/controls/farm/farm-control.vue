@@ -25,22 +25,24 @@
                   :falseTooltip="`Not displaying Plants statuses.`"></icon-toggle>
           </div>
         </div>
-        <!-- Additional Controls -->
-        <div class="flex">
-            TEST
+        <div class="flex gap-1">
+            <!-- TODO: Create Icons for farm types -->
+            <icon :image=tempImage></icon>
+            <div><span class="align-middle">{{farm.name}}</span></div>
         </div>
-        <!-- Farm Status -->
     </div>
 </template>
 
 <script>
 import {App} from "@/App.ts"
 import IconToggle from '@/controls/settings/icon-toggle.vue';
+import Icon from '../icon.vue';
 
 export default {
     name: "farm-control",
     components: {
         IconToggle,
+        Icon,
     },
     data() {
         return {
@@ -51,6 +53,9 @@ export default {
         }
     },
     computed: {
+        tempImage() {
+            return require(`@/assets/images/icons/None Icon.png`);
+        },
         availableFarms() {
             return this.farms.availableFarms;
         },

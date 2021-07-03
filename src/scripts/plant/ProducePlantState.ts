@@ -45,8 +45,8 @@ export default class ProducePlantState extends PlantState {
                 this.storage += storeAmount;
     
                 // Collecting extra Beans at a lower rate
-                const collectedBeans = Math.floor((produceAmount - storeAmount) / 2);
-                App.game.features.beans.gain(plant.produceBean, collectedBeans);
+                //const collectedBeans = Math.floor((produceAmount - storeAmount) / 2);
+                //App.game.features.beans.gain(plant.produceBean, collectedBeans);
                 this.productionTime -= plant.produceTime(this);
             }
         } else {
