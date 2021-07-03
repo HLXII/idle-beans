@@ -1,8 +1,8 @@
 <template>
     <div class="btn" @click="toggle">
         <icon :image=icon v-bind:class="{'has-tooltip': 'hasTooltip'}" >
-            <tooltip v-if="hasTooltip" position="top-right" :interactable="false" width=56>
-                <div class="text-center">{{tooltip}}</div>
+            <tooltip v-if="hasTooltip" position="top-right" :interactable="false">
+                <div class="whitespace-nowrap">{{tooltip}}</div>
             </tooltip>
         </icon>
     </div>

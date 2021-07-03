@@ -36,6 +36,6 @@ export default {
 
 <style>
 .bg-icon {
-    @apply bg-yellow-50 dark:bg-gray-500;
+    @apply bg-yellow-200 dark:bg-gray-500;
 }
 </style>
