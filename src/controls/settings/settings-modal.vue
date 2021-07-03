@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <nav class="flex gap-1 mb-1">
                     <nav-button class="flex-1" tabName="Base" :tabType=0 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
-                    <nav-button class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
+                    <nav-button class="flex-1" tabName="Save" :tabType=1 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
                 </nav>
             </div>
             <div class="modal-body">

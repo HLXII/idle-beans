@@ -71,8 +71,8 @@ export default class PlantState implements Saveable, FarmLocation {
         for (const bean in harvestGain) {
             App.game.features.beans.gain(bean as BeanType, harvestGain[bean as BeanType]);
         }
+        
         // Logging harvest
-        // TODO
         const gainedBeans = Object.entries(harvestGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
         App.game.features.log.log([
             `Removed a `,

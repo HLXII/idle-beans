@@ -19,14 +19,6 @@ export default class LogEntry implements Saveable {
         this.time = new Date();
     }
 
-    // TODO: Add setting to remove time from message
-    get logMessage(): GameText[] {
-        return [
-            `${(new Date(this.time)).toString()} `,
-            ...this.message,
-        ];
-    }
-
     saveKey = '';
     save(): LogEntrySaveData {
         return {

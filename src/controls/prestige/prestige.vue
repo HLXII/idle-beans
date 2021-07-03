@@ -2,7 +2,12 @@
     <div class="border2">
         <div>
             <!-- Add Floating Icon for Prestige -->
-            <div class="float-right"><game-button text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/></div>
+            <div class="float-right">
+                <div class="has-tooltip" style="position: relative;display:inline-block;">
+                    <game-button text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/>
+                    <tooltip :interactable="true" position="bottom-left"><div class="whitespace-nowrap" v-html="prestige.rewardText"/></tooltip>
+                </div>
+            </div>
             <div>{{prestige.name}}</div>
             <div><game-text :text="prestige.description" :controller="controller" /></div>
         </div>
@@ -21,6 +26,7 @@ import GameController from '@/scripts/GameController'
 import GameButton from '../game-button.vue'
 import StatusTable from '../farm/plot-modal/status-table.vue'
 import Status from '../farm/plot-modal/status.vue'
+import Tooltip from '../tooltip.vue'
 
 export default {
     name: "prestige",
@@ -28,7 +34,8 @@ export default {
         GameText,
         GameButton,
         StatusTable,
-        Status
+        Status,
+        Tooltip,
     },
     props: {
         prestige: {
@@ -43,10 +50,9 @@ export default {
     methods: {
         triggerPrestige() {
             this.prestige.triggerPrestige();
-        }
+        },
     },
     computed: {
-
     },
 }
 </script>

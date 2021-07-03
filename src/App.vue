@@ -1,79 +1,81 @@
 <template>
-  <div>
-    <div class="grid grid-cols-4" style="margin: auto; max-width: 1600px;">
-      <igt-notifications></igt-notifications>
-      <div id="left-column">
-        <div class="flex flex-col" style="height: 100%;">
-            <div class="flex flex-col-reverse" style="height: 192px;">
-                <!-- Tool Icons -->
-                <tool-icons></tool-icons>
+    <div :class="{'dark': darkMode}">
+        <div class="viewWrapper">
+            <div class="farmView">
+                <igt-notifications></igt-notifications>
+                <div id="left-column">
+                    <div class="flex flex-col" style="height: 100%;">
+                        <div class="flex flex-col-reverse" style="height: 192px;">
+                            <!-- Tool Icons -->
+                            <tool-icons></tool-icons>
+                        </div>
+                        <!-- Bean List -->
+                        <bean-list></bean-list>
+                    </div>
+                </div>
+                <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
+                        <div class="border2">
+                            <!-- Title -->
+                            <div style="height: 192px; pointer-events: none; margin: 0;">
+                                <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
+                            </div>
+                            <!-- Farm -->
+                            <farm></farm>
+                        </div>
+                        <!-- Farm Info -->
+                        <div class="mt-3">
+                            <farm-control></farm-control>
+                        </div>
+                        <!-- Dev Panel -->
+                        <!-- TODO -->
+                </div>
+                <div id="right-column">
+                    <div class="flex flex-col" style="height: 100%;">
+                        <div class="flex flex-col-reverse" style="height: 192px;">
+                                <!-- Additional Icons -->
+                                <div class="flex flex-wrap justify-center">
+                                    <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Wiki)">
+                                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
+                                            <tooltip position="top-left" :interactable="false">
+                                            <div class="text-center">Wiki</div>
+                                            </tooltip>
+                                        </icon>
+                                    </div>
+                                    <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Achievements)">
+                                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
+                                            <tooltip position="top-left" :interactable="false">
+                                            <div class="text-center">Achievements</div>
+                                            </tooltip>
+                                        </icon>
+                                    </div>
+                                    <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Prestige)">
+                                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
+                                            <tooltip position="top-left" :interactable="false">
+                                            <div class="text-center">Prestige</div>
+                                            </tooltip>
+                                        </icon>
+                                    </div>
+                                    <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Settings)">
+                                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
+                                            <tooltip position="top-left" :interactable="false">
+                                            <div class="text-center">Settings</div>
+                                            </tooltip>
+                                        </icon>
+                                    </div>
+                                </div>
+                        </div>
+                        <!-- Log -->
+                        <log></log>
+                    </div>
+                </div>
             </div>
-            <!-- Bean List -->
-            <bean-list></bean-list>
         </div>
-      </div>
-      <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
-          <div class="border2">
-              <!-- Title -->
-              <div style="height: 192px; pointer-events: none; margin: 0;">
-                  <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
-              </div>
-              <!-- Farm -->
-              <farm></farm>
-          </div>
-          <!-- Farm Info -->
-          <div class="mt-3">
-            <farm-control></farm-control>
-          </div>
-          <!-- Dev Panel -->
-          <!-- TODO -->
-      </div>
-      <div id="right-column">
-          <div class="flex flex-col" style="height: 100%;">
-              <div class="flex flex-col-reverse" style="height: 192px;">
-                  <!-- Additional Icons -->
-                  <div class="flex flex-wrap justify-center">
-                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Wiki)">
-                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
-                            <tooltip position="top-left" :interactable="false">
-                              <div class="text-center">Wiki</div>
-                            </tooltip>
-                          </icon>
-                      </div>
-                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Achievements)">
-                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
-                            <tooltip position="top-left" :interactable="false">
-                              <div class="text-center">Achievements</div>
-                            </tooltip>
-                          </icon>
-                      </div>
-                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Prestige)">
-                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
-                            <tooltip position="top-left" :interactable="false">
-                              <div class="text-center">Prestige</div>
-                            </tooltip>
-                          </icon>
-                      </div>
-                      <div class="btn m-1" style="height:32px;" @click="openModal(ModalType.Settings)">
-                          <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
-                            <tooltip position="top-left" :interactable="false">
-                              <div class="text-center">Settings</div>
-                            </tooltip>
-                          </icon>
-                      </div>
-                  </div>
-              </div>
-              <!-- Log -->
-              <log></log>
-          </div>
-      </div>
+        <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"/>
+        <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"/>
+        <settings-modal :show="game.features.controller.openedModal == ModalType.Settings" @close="closeModal"/>
+        <achievements-modal :show="game.features.controller.openedModal == ModalType.Achievements" @close="closeModal"/>
+        <prestige-modal :show="game.features.controller.openedModal == ModalType.Prestige" @close="closeModal"/>
     </div>
-      <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"/>
-      <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"/>
-      <settings-modal :show="game.features.controller.openedModal == ModalType.Settings" @close="closeModal"/>
-      <achievements-modal :show="game.features.controller.openedModal == ModalType.Achievements" @close="closeModal"/>
-      <prestige-modal :show="game.features.controller.openedModal == ModalType.Prestige" @close="closeModal"/>
-  </div>
 </template>
 
 <script>
@@ -95,45 +97,48 @@ import PrestigeModal from './controls/prestige/prestige-modal.vue';
 import Tooltip from '@/controls/tooltip.vue';
 
 export default {
-  components: {
-    IgtNotifications,
-    ToolIcons,
-    BeanList,
-    Farm,
-    Log,
-    PlotModal,
-    WikiModal,
-    SettingsModal,
-    Icon,
-    FarmControl,
-    AchievementsModal,
-    PrestigeModal,
-    Tooltip,
-  },
-  data() {
-    return {
-      game: App.game,
-      ModalType,
-    }
-  },
-  computed: {
-    showDevPanel() {
-      return !App.inProduction;
+    components: {
+        IgtNotifications,
+        ToolIcons,
+        BeanList,
+        Farm,
+        Log,
+        PlotModal,
+        WikiModal,
+        SettingsModal,
+        Icon,
+        FarmControl,
+        AchievementsModal,
+        PrestigeModal,
+        Tooltip,
     },
-  },
-  methods: {
-    openModal(modalType) {
-      this.game.features.controller.openModal(modalType);
+    data() {
+        return {
+            game: App.game,
+            ModalType,
+        }
     },
-    closeModal() {
-      this.game.features.controller.closeModal();
-    }
-  },
+    computed: {
+        darkMode() {
+            return App.game.features.settings.getSetting('darkMode').value;
+        },
+        showDevPanel() {
+            return !App.inProduction;
+        },
+    },
+    methods: {
+        openModal(modalType) {
+            this.game.features.controller.openModal(modalType);
+        },
+        closeModal() {
+            this.game.features.controller.closeModal();
+        }
+    },
 }
 </script>
 
 <style>
-/* Let's get this party started */
+/* Scroll Bar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -148,9 +153,22 @@ export default {
     margin: 5px 0;
     border: solid;
     border-width: 10px 0 10px 15px;
-  background: rgba(255,0,0,0.4); 
+    background: rgba(255,0,0,0.4); 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(255,0,0,0.4); 
+}
+
+.viewWrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    @apply dark:bg-gray-900 dark:text-white;
+}
+
+.farmView {
+    margin: auto;
+    max-width: 1600px;
+    @apply grid grid-cols-4 dark:bg-gray-900;
 }
 </style>

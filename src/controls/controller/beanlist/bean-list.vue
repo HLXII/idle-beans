@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col border2 bg-generic" style="flex-grow: 1; height: 0px; min-height: 320px;">
         <div class="flex mb-1">
-            <input class="border2 bg-white flex-1" style="min-width: 0;" v-model="controller.beanListSearch" placeholder="Filter Beans">
+            <input class="border2 bg-white dark:bg-gray-700 flex-1" style="min-width: 0;" v-model="controller.beanListSearch" placeholder="Filter Beans">
         </div>
         <div class="overflow-auto">
             <bean-entry v-for="bean in filteredBeanList" :key="bean.name" :bean=bean :controller=controller></bean-entry>

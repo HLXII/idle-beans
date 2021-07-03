@@ -10,7 +10,6 @@ import Plant from "./plant/Plant";
 import { PlantList, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 
-
 export enum ToolType {
     'Cursor' = 0,
     'Bean',

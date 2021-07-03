@@ -71,8 +71,18 @@ export default class BeanStalkPrestige extends Prestige {
         return beanStalk.height >= this.heightRequirement;
     }
 
-    get reward(): number {
-        return 1;
+    get reward(): {[bean in BeanType]?: number} {
+        const beanStalk = this.highestBeanStalk;
+        
+        // No Bean Stalk, default to nothing
+        if (!beanStalk) {
+            return {};
+        }
+
+        // Calculating reward based on Bean Stalk height
+        // TODO:
+        const reward = {};
+        return reward;
     }
     
     label: string = 'Highest Bean Stalk:';
@@ -109,4 +119,5 @@ export const BeanStalkCost: Record<BeanType, number> = {
     'Pea':              3,
     'Coffee Bean':      4,
     'Cocoa Bean':       5,
+    'Prestige Bean':    0,
 }
