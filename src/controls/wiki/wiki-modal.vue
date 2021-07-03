@@ -13,13 +13,13 @@
                         <nav-button v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="controller.beanTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
-                        <div class="border2">
+                        <div class="border2 bg-generic">
                             <wiki-bean-entry v-for="bean in beanList" :key="bean.name" :id="bean.elementName" :bean=bean :controller=controller></wiki-bean-entry>
                         </div>
-                        <div class="border2 col-span-2 p-1">
+                        <div class="border2 bg-generic col-span-2 p-1">
                             <div>
                                 <div class="float-left mb-2 mr-2">
-                                    <div class="border4">
+                                    <div class="border4 bg-icon">
                                         <img :src="bean.image" width=64px />
                                     </div>
                                 </div>
@@ -34,13 +34,13 @@
                         <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="controller.plantTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
-                        <div class="border2">
+                        <div class="border2 bg-generic">
                             <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller></wiki-plant-entry>
                         </div>
-                        <div class="border2 col-span-2 p-1">
+                        <div class="border2 bg-generic col-span-2 p-1">
                             <div class="overflow-auto">
                                 <div class="float-left mb-2 mr-2">
-                                    <div class="border4">
+                                    <div class="border4 bg-icon">
                                         <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="plant.icon.viewBox" shape-rendering="crispEdges">
                                             <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                                             <path v-for="path in plant.icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />

@@ -1,7 +1,7 @@
 <template>
     <transition name="modal">
         <div class="modal-mask" @click="close" v-show="show">
-            <div class="modal-container border2" @click.stop>
+            <div class="modal-container border2 dark:text-white" @click.stop>
               <slot></slot>
             </div>
         </div>
@@ -49,10 +49,10 @@ export default {
     max-width: 680px;
     margin: 40px auto 0;
     padding: 4px;
-    background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
+    @apply bg-white dark:bg-gray-900
 }
 
 .modal-enter {

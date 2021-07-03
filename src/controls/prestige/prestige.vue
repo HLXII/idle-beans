@@ -1,5 +1,5 @@
 <template>
-    <div class="border2">
+    <div class="border2 bg-generic">
         <div>
             <!-- Add Floating Icon for Prestige -->
             <div class="float-right">

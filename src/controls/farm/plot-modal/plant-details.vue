@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex">
-            <div class="border4 mr-2">
+            <div class="border4 bg-icon mr-2">
                 <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                     <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />

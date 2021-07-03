@@ -39,9 +39,9 @@ export default {
 
 <style scoped>
 .nav-button {
-    @apply text-gray-600 block hover:text-blue-500 focus:outline-none;
+    @apply block hover:bg-red-200 focus:outline-none;
 }
 .nav-button-active {
-    @apply text-blue-500 border-blue-500;
+    @apply bg-red-500 hover:bg-red-500 text-white;
 }
 </style>

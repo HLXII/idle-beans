@@ -16,7 +16,7 @@ export default {
         },
         bg: {
             type: String,
-            default: 'bg-generic',
+            default: 'bg-icon',
         },
         size: {
             type: Number,
@@ -34,5 +34,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.bg-icon {
+    @apply bg-yellow-50 dark:bg-gray-500;
+}
 </style>

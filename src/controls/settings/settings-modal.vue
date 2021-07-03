@@ -9,11 +9,13 @@
             </div>
             <div class="modal-body">
                 <nav-tab :tabType="0" :activeTab="controller.settingsTab">
-                    <icon-toggle :setting="darkMode"
-                    :trueIcon="require(`@/assets/images/icons/Status Bar Icon.png`)"
-                    :falseIcon="require(`@/assets/images/icons/No Status Bar Icon.png`)"
-                    :trueTooltip="`Dark Mode`"
-                    :falseTooltip="`Light Mode`"></icon-toggle>
+                    <div class="flex">
+                        <icon-toggle :setting="darkMode"
+                        :trueIcon="require(`@/assets/images/icons/Status Bar Icon.png`)"
+                        :falseIcon="require(`@/assets/images/icons/No Status Bar Icon.png`)"
+                        :trueTooltip="`Dark Mode`"
+                        :falseTooltip="`Light Mode`"></icon-toggle>
+                    </div>
                 </nav-tab>
                 <nav-tab :tabType="1" :activeTab="controller.settingsTab">
 

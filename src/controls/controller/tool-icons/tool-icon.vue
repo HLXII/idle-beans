@@ -36,7 +36,7 @@ export default {
       return require(`@/assets/images/icons/${this.ToolType[this.toolType]} Icon.png`);
     },
     selectedBG() {
-      return this.selected ? 'bg-red-500' : 'bg-generic';
+      return this.selected ? 'bg-red-500' : 'bg-icon';
     },
   },
   methods: {
