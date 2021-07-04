@@ -79,8 +79,8 @@ import BeanList from './controller/beanlist/bean-list.vue';
 import Icon from '@/controls/utility/icon.vue';
 import Tooltip from '@/controls/utility/tooltip.vue';
 import Log from './log/log.vue';
-import NavButton from './wiki/nav-button.vue';
-import NavTab from './wiki/nav-tab.vue';
+import NavButton from "@/controls/utility/nav-button.vue";
+import NavTab from './utility/nav-tab.vue';
 import Upgrade from './prestige/upgrade.vue';
 
 export default {

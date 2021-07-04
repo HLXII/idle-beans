@@ -28,8 +28,8 @@
 import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
 import Prestige from './prestige.vue';
-import NavButton from '../wiki/nav-button.vue';
-import NavTab from '../wiki/nav-tab.vue';
+import NavButton from "@/controls/utility/nav-button.vue";
+import NavTab from '../utility/nav-tab.vue';
 
 export default {
     name: "prestige-modal",

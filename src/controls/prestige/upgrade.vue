@@ -47,7 +47,9 @@ export default {
     },
     methods: {
         purchase(upgradeId) {
-            this.upgrades.purchaseUpgrade(upgradeId);
+            if (!this.disabled) {
+                this.upgrades.purchaseUpgrade(upgradeId);
+            }
         },
     },
     computed: {

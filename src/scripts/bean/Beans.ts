@@ -31,7 +31,7 @@ export default class Beans extends IgtFeature {
      */
     canAfford(beans: BeanAmount): boolean {
         return Object.entries(beans).every(([bean, amount]) => {
-            return this.list[bean as BeanType].amount >= amount;
+            return this.list[bean as BeanType].amount >= (amount ?? 0);
         });
     }
 
@@ -41,7 +41,7 @@ export default class Beans extends IgtFeature {
      */
     takeAmount(beans: BeanAmount) {
         Object.entries(beans).forEach(([bean, amount]) => {
-            this.gain(bean as BeanType, -amount);
+            this.gain(bean as BeanType, -(amount ?? 0));
         });
     }
 
@@ -51,7 +51,7 @@ export default class Beans extends IgtFeature {
      */
     gainAmount(beans: BeanAmount) {
         Object.entries(beans).forEach(([bean, amount]) => {
-            this.gain(bean as BeanType, amount);
+            this.gain(bean as BeanType, (amount ?? 0));
         });
     }
 

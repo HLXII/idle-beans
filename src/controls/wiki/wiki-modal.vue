@@ -68,8 +68,8 @@
 <script>
 import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
-import NavButton from "@/controls/wiki/nav-button.vue";
-import NavTab from '@/controls/wiki/nav-tab.vue';
+import NavButton from "@/controls/utility/nav-button.vue";
+import NavTab from '@/controls/utility/nav-tab.vue';
 import WikiBeanEntry from '@/controls/wiki/wiki-bean-entry.vue';
 import WikiPlantEntry from '@/controls/wiki/wiki-plant-entry.vue';
 import WikiGrowth from './wiki-growth.vue';

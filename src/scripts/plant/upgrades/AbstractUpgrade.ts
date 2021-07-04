@@ -11,7 +11,7 @@ export default abstract class AbstractUpgrade {
     cost(level: number) {
         const cost: BeanAmount = {};
         Object.entries(this.baseCost).forEach(([bean, amount]) => {
-            cost[bean as BeanType] = amount * level;
+            cost[bean as BeanType] = (amount ?? 0) * level;
         });
         return cost;
     }
