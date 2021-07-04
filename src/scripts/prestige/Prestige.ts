@@ -1,7 +1,8 @@
 import { Features } from "@/Features";
-import { BeanType } from "../bean/BeanList";
+import { BeanAmount, BeanType } from "../bean/BeanList";
 import Beans from "../bean/Beans";
 import { GameText } from "../controls/GameText";
+import GameHelper from "../GameHelper";
 import PrestigeHandler from "./PrestigeHandler";
 
 export default abstract class Prestige {
@@ -22,7 +23,7 @@ export default abstract class Prestige {
 
     abstract canPrestige: boolean;
 
-    abstract reward: {[bean in BeanType]?: number};
+    abstract reward: BeanAmount;
 
     abstract label: string;
 
@@ -30,15 +31,11 @@ export default abstract class Prestige {
 
     abstract text: string;
 
-    get rewardText(): string {
-        const message = ['Prestige for:'];
-
-        const rewards = this.reward;
-        for (const bean in rewards) {
-            const amount = rewards[bean as BeanType] ?? 0;
-            message.push(`${amount} ${bean}${amount > 1 ? 's' : ''}`);
-        }
-        return message.join('<br>');
+    get rewardText(): GameText[] {
+        const message = [];
+        message.push('Prestige for:<br>');
+        message.push(...GameHelper.beanAmount(this.reward));
+        return message;
     }
 
     applyModifiers(value: number) {
@@ -52,10 +49,7 @@ export default abstract class Prestige {
         }
 
         // Gain reward
-        const rewards = this.reward;
-        for (const bean in rewards) {
-            this.beans.gain(bean as BeanType, rewards[bean as BeanType]);
-        }
+        this.beans.gainAmount(this.reward);
 
         // Cleanup game state for prestige
         this.prestiges.triggerPrestige();

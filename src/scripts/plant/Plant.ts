@@ -1,6 +1,6 @@
 import { App } from '@/App';
 import { SaveData, Saveable } from 'incremental-game-template';
-import { BeanType } from '../bean/BeanList';
+import { BeanAmount, BeanType } from '../bean/BeanList';
 import { GameText, LinkType } from '../controls/GameText';
 import FarmLocation from '../farm/FarmLocation';
 import { PlantIcons, SVGData } from './PlantImages';
@@ -39,7 +39,7 @@ export default abstract class Plant implements Saveable {
      * To be overriden in sub classes.
      * @param state The PlantState
      */
-    harvestGain(state: PlantState): {[bean in BeanType]?: number} {
+    removeGain(state: PlantState): BeanAmount {
         return {[state.originBean]: 1};
     }
 

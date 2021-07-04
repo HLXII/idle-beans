@@ -1,4 +1,4 @@
-import { BeanType } from "@/scripts/bean/BeanList";
+import { BeanAmount, BeanType } from "@/scripts/bean/BeanList";
 import { GameText } from "@/scripts/controls/GameText";
 import Plant from "../Plant";
 import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
@@ -25,7 +25,7 @@ export default class BeanStalk extends Plant {
      * Determine the gain from cutting down the Bean Stalk
      * @param state The BeanStalkState
      */
-    harvestGain(state: BeanStalkState): {[bean in BeanType]?: number} {
+     removeGain(state: BeanStalkState): BeanAmount {
         // TODO: Calculate returns based on height
         return {[state.originBean]: 1};
     }

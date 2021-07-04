@@ -1,9 +1,10 @@
+import { BeanAmount } from "@/scripts/bean/BeanList";
 import AbstractUpgrade from "./AbstractUpgrade";
 import { PlantEffectId } from "./PlantEffectId";
 
 export default abstract class ModifierUpgrade extends AbstractUpgrade {
 
-    constructor(name: string, description: string, baseCost: number, public effect: PlantEffectId) {
+    constructor(name: string, description: string, baseCost: BeanAmount, public effect: PlantEffectId) {
         super(name, description, baseCost);
     }
 

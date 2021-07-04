@@ -2,6 +2,7 @@
     <div :class="{'dark': darkMode}">
         <div class="viewWrapper">
             <main-view v-if="!game.features.prestige.prestiged" :game="game"/>
+            <prestige-view v-if="game.features.prestige.prestiged" :game="game"/>
         </div>
         <plot-modal :show="game.features.controller.openedModal == ModalType.Plot" @close="closeModal"/>
         <wiki-modal :show="game.features.controller.openedModal == ModalType.Wiki" @close="closeModal"/>
@@ -21,6 +22,7 @@ import SettingsModal from '@/controls/settings/settings-modal.vue';
 import AchievementsModal from './controls/achievements/achievements-modal.vue';
 import PrestigeModal from './controls/prestige/prestige-modal.vue';
 import MainView from './controls/main-view.vue';
+import PrestigeView from './controls/prestige-view.vue';
 
 export default {
     components: {
@@ -30,6 +32,7 @@ export default {
         AchievementsModal,
         PrestigeModal,
         MainView,
+        PrestigeView,
     },
     data() {
         return {

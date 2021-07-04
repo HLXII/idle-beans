@@ -5,7 +5,9 @@
             <div class="float-right">
                 <div class="has-tooltip" style="position: relative;display:inline-block;">
                     <game-button text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/>
-                    <tooltip :interactable="true" position="bottom-left"><div class="whitespace-nowrap" v-html="prestige.rewardText"/></tooltip>
+                    <tooltip :interactable="true" position="bottom-left">
+                        <game-text class="whitespace-nowrap" :text="prestige.rewardText" :controller="controller"/>
+                    </tooltip>
                 </div>
             </div>
             <div>{{prestige.name}}</div>

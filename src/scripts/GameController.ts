@@ -73,6 +73,10 @@ export default class GameController extends IgtFeature {
     public settingsTab: number;
     //#endregion
 
+    //#region Prestige View properties
+    public prestigeShopTab: number;
+    //#endregion
+
     //#region Modifier Key booleans
     public ctrlKey = false;
     public shiftKey = false;
@@ -96,10 +100,12 @@ export default class GameController extends IgtFeature {
         this.plantTab = 0;
         this.beanTab = 0;
 
-        this.settingsTab = 0;
-
         this.wikiBean = 'Bean';
         this.wikiPlant = 'Bean Bud';
+
+        this.settingsTab = 0;
+
+        this.prestigeShopTab = 0;
     }
 
     initialize(features: Features): void {
@@ -177,9 +183,9 @@ export default class GameController extends IgtFeature {
         return Object.values(BeanList).filter((bean: Bean) => {
 
             // Don't display if not plantable
-            if (!(bean instanceof PlantableBean)) {
-                return false;
-            }
+            //if (!(bean instanceof PlantableBean)) {
+            //    return false;
+            //}
 
             // Don't display if there are no beans in inventory of this type
             if (bean.amount <= 0) {
@@ -395,6 +401,12 @@ export default class GameController extends IgtFeature {
     //#region Settings
     changeSettingsTab(tab: number) {
         this.settingsTab = tab ?? 0;
+    }
+    //#endregion
+
+    //#region Prestige View
+    changePrestigeShopTab(tab: number) {
+        this.prestigeShopTab = tab ?? 0;
     }
     //#endregion
 }

@@ -47,4 +47,12 @@ export type BeanType = keyof typeof InternalBeanList;
  */
 export const BeanList: Record<BeanType, Bean> = InternalBeanList;
 
+/**
+ * Bean Icon Images
+ */
 export const BeanImages = GameHelper.importImages(require.context('/src/assets/images/beans/', false, /\.(png|jpe?g|svg)$/));
+
+/**
+ * Type for Bean amounts
+ */
+export type BeanAmount = {[bean in BeanType]?: number};

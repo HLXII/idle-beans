@@ -2,6 +2,7 @@ import { Features } from "@/Features";
 import { IgtFeature, SaveData } from "incremental-game-template";
 import { BeanCategory, BeanType } from "../bean/BeanList";
 import Beans from "../bean/Beans";
+import GameController from "../GameController";
 import Log from "../log/Log";
 import BeanStalkPrestige from "./BeanStalkPrestige";
 import Prestige from "./Prestige";
@@ -12,13 +13,18 @@ export interface PrestigeSaveData extends SaveData {
 
 export default class PrestigeHandler extends IgtFeature {
     
+    /**Internal references */
     private beans!: Beans;
     private log!: Log;
+    private controller!: GameController;
 
+    /**Possible Prestiges */
     public prestiges!: Prestige[];
 
+    /**Prestige Modifiers */
     // TODO: Handle prestige bonus goals
 
+    /**Whether we're in Prestige mode */
     public prestiged: boolean;
 
     constructor() {
@@ -30,6 +36,7 @@ export default class PrestigeHandler extends IgtFeature {
     initialize(features: Features): void {
         this.beans = features.beans;
         this.log = features.log;
+        this.controller = features.controller;
 
         this.prestiges = [
             new BeanStalkPrestige(features),
@@ -57,6 +64,9 @@ export default class PrestigeHandler extends IgtFeature {
 
         // Clear log
         this.log.clearLog();
+
+        // Close modal
+        this.controller.closeModal();
 
         // Switch state to prestige
         this.prestiged = true;

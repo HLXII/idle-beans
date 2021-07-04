@@ -2,9 +2,9 @@
     <div>
         <div class="flex">
             <div class="border4 bg-icon mr-2">
-                <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges">
+                <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="plant.icon.viewBox" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                    <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
+                    <path v-for="path in plant.icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
                 </svg>
             </div>
             <div class="flex-1">
@@ -25,8 +25,8 @@
                             <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="remove">
                                 Remove
                             </button>
-                            <tooltip width=60 position="bottom-left" :interactable="false">
-                                <div v-html="harvestGainMessage"></div>
+                            <tooltip position="bottom-left" :interactable="true">
+                                <game-text class="whitespace-nowrap" :text="plant.removeGainMessage" :controller="controller"/>
                             </tooltip>
                         </div>
                     </div>
@@ -42,17 +42,20 @@ import {App} from "@/App.ts";
 import PlantState from "@/scripts/plant/PlantState";
 import Icon from '@/controls/utility/icon.vue';
 import Tooltip from "@/controls/utility/tooltip.vue";
+import GameText from '@/controls/utility/game-text.vue';
 
 export default {
     name: "plant-details",
     data() {
         return {
             farms: App.game.features.farms,
+            controller: App.game.features.controller,
         }; 
     },
     components: {
         Icon,
         Tooltip,
+        GameText,
     },
     props: {
         plant: {
@@ -64,12 +67,6 @@ export default {
         originBean() {
             return App.game.features.beans.list[this.plant.originBean];
         },
-        harvestGainMessage() {
-            return this.plant.harvestGainMessage;
-        },
-        icon() {
-            return this.plant.icon;
-        }
     },
     methods: {
         remove() {

@@ -1,10 +1,11 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
-import { BeanType } from "../bean/BeanList";
-import { LinkType } from "../controls/GameText";
+import { BeanAmount, BeanType } from "../bean/BeanList";
+import { GameText, LinkType } from "../controls/GameText";
 import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
+import GameHelper from "../GameHelper";
 import Plant from "./Plant";
 import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from './PlantList';
@@ -66,14 +67,11 @@ export default class PlantState implements Saveable, FarmLocation {
      */
     handleRemove() {
         // Gaining harvest cost
-        const harvestGain = this.harvestGain;
-        console.log(harvestGain);
-        for (const bean in harvestGain) {
-            App.game.features.beans.gain(bean as BeanType, harvestGain[bean as BeanType]);
-        }
+        const removeGain = this.removeGain;
+        App.game.features.beans.gainAmount(removeGain);
         
         // Logging harvest
-        const gainedBeans = Object.entries(harvestGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
+        const gainedBeans = Object.entries(removeGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
         App.game.features.log.log([
             `Removed a `,
             {text: this.type, type: LinkType.Plant, id: this.type},
@@ -82,19 +80,15 @@ export default class PlantState implements Saveable, FarmLocation {
         ]);
     }
 
-    get harvestGain(): {[bean in BeanType]?: number} {
-        return this.data.harvestGain(this);
+    get removeGain(): BeanAmount {
+        return this.data.removeGain(this);
     }
 
-    get harvestGainMessage(): string {
+    get removeGainMessage(): GameText[] {
         const message = [];
-        message.push('Harvesting this plant will return:');
-        const harvestGain = this.harvestGain;
-        for (const bean in harvestGain) {
-            const amount = harvestGain[bean as BeanType] ?? 0;
-            message.push(`${amount} ${bean}${amount > 1 ? 's' : ''}`);
-        }
-        return message.join('<br>');
+        message.push('Harvesting this plant will return:<br>');
+        message.push(...GameHelper.beanAmount(this.removeGain));
+        return message;
     }
 
     /**

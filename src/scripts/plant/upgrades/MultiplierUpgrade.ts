@@ -1,9 +1,10 @@
+import { BeanAmount } from "@/scripts/bean/BeanList";
 import ModifierUpgrade from "./ModifierUpgrade";
 import { PlantEffectId } from "./PlantEffectId";
 
 export default class MultiplierUpgrade extends ModifierUpgrade {
 
-    constructor(name: string, description: string, baseCost: number, effect: PlantEffectId, public multiplier: number) {
+    constructor(name: string, description: string, baseCost: BeanAmount, effect: PlantEffectId, public multiplier: number) {
         super(name, description, baseCost, effect);
     }
 

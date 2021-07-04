@@ -1,13 +1,12 @@
 <template>
-    <div class="flex flex-col border2 bg-generic" style="flex-grow: 1; height: 0px; min-height: 320px;">
-        <div class="flex mb-1">
+    <div class="flex flex-col gap-1 border2 bg-generic">
+        <div v-if="useFilter" class="flex">
             <input class="border2 bg-white dark:bg-gray-700 flex-1 focus:outline-none" style="min-width: 0;" v-model="controller.beanListSearch" placeholder="Filter Beans">
         </div>
-        <div class="overflow-auto">
-            <bean-entry v-for="bean in filteredBeanList" :key="bean.name" :bean=bean :controller=controller></bean-entry>
+        <div class="flex flex-col gap-1 overflow-auto">
+            <bean-entry v-for="bean in list" :key="bean.name" :bean=bean :controller=controller :focusable="focusable"></bean-entry>
         </div>
     </div>
-
 </template>
 
 <script>
@@ -26,10 +25,20 @@ export default {
             ToolType,
         }
     },
-    computed: {
-        filteredBeanList() {
-            return this.controller.filteredBeanList;
+    props: {
+        useFilter: {
+            type: Boolean,
+            default: false,
         },
+        focusable: {
+            type: Boolean,
+            default: true,
+        },
+        list: {
+            type: Array,
+        },
+    },
+    computed: {
     },
     methods: {
     }

@@ -1,5 +1,5 @@
 <template>
-    <div class="m-1 btn" style="height: 32px;" v-on:click="changeTool(toolType)">
+    <div class="btn" style="height: 32px;" v-on:click="changeTool(toolType)">
         <icon :image=image :bg="selectedBG"></icon>
     </div>
 </template>

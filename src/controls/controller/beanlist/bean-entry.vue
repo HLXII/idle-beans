@@ -1,5 +1,5 @@
 <template>
-    <div class="flex mb-1" v-bind:class="{active: active}"
+    <div class="flex" v-bind:class="{active: active}"
         v-on:click="changeBean(bean.name)">
         <icon :image=bean.image></icon>
         <div class="px-1"><span class="align-middle">{{bean.name}}</span></div>
@@ -30,15 +30,25 @@ export default {
     controller: {
       type: GameController,
       required: true,
-    }
+    },
+    focusable: {
+      type: Boolean,
+      default: true,
+    },
   },
   computed: {
     active() {
+        if (!this.focusable) {
+          return false;
+        }
         return (this.controller.bean == this.bean.name) && (this.controller.tool == ToolType.Bean) 
     },
   },
   methods: {
       changeBean(bean) {
+        if (!this.focusable) {
+          return;
+        }
         this.controller.changeBean(bean);
       }
   },

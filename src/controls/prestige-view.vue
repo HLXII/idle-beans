@@ -1,30 +1,38 @@
 <template>
-    <div class="farmView">
+    <div class="prestigeView">
         <div id="left-column">
             <div class="flex flex-col gap-1" style="height: 100%;">
-                <div class="flex flex-col-reverse" style="height: 192px;">
-                    <!-- Tool Icons -->
-                    <tool-icons></tool-icons>
-                </div>
-                <!-- Bean List -->
-                <bean-list class="farmBeanList" :list="game.features.controller.filteredBeanList" :useFilter="true" ></bean-list>
+                <div style="height: 192px;"></div>
+                <bean-list class="farmBeanList" :list="game.features.controller.filteredBeanList" :useFilter="false" :focusable="false"></bean-list>
             </div>
         </div>
         <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
-                <div class="border2">
-                    <!-- Title -->
-                    <div style="height: 192px; pointer-events: none; margin: 0;">
-                        <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
+                <div class="border2 bg-generic">
+                    <div>
+                        <nav class="flex gap-1 mb-1">
+                            <nav-button class="flex-1" tabName="General" :tabType=0 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
+                            <nav-button class="flex-1" tabName="Bean Packets" :tabType=1 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
+                            <nav-button class="flex-1" tabName="Plant Upgrades" :tabType=2 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
+                        </nav>
                     </div>
-                    <!-- Farm -->
-                    <farm></farm>
+                    <div>
+                        <nav-tab :activeTab="controller.prestigeShopTab" :tabType=0>
+                            <div>
+                                TODO: Add General Shop
+                            </div>
+                        </nav-tab>
+                        <nav-tab :activeTab="controller.prestigeShopTab" :tabType=1>
+                            <div>
+                                TODO: Add Seed Packet Shop
+                            </div>
+                        </nav-tab>
+                        <nav-tab :activeTab="controller.prestigeShopTab" :tabType=2>
+                            <div>
+                                TODO: Add Upgrade Shop
+                            </div>
+                        </nav-tab>
+                    </div>
                 </div>
-                <!-- Farm Info -->
-                <div class="mt-3">
-                    <farm-control></farm-control>
-                </div>
-                <!-- Dev Panel -->
-                <!-- TODO -->
         </div>
         <div id="right-column">
             <div class="flex flex-col gap-1" style="height: 100%;">
@@ -45,13 +53,6 @@
                                 </tooltip>
                             </icon>
                         </div>
-                        <div class="btn" style="height:32px;" @click="openModal(ModalType.Prestige)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Prestige</div>
-                                </tooltip>
-                            </icon>
-                        </div>
                         <div class="btn" style="height:32px;" @click="openModal(ModalType.Settings)">
                             <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
                                 <tooltip position="top-left" :interactable="false">
@@ -62,7 +63,10 @@
                     </div>
                 </div>
                 <!-- Log -->
-                <log></log>
+                <log/>
+                <button type="button" class="btn btn-red border2" v-on:click="startGame">
+                    Start Game
+                </button>
             </div>
         </div>
     </div>
@@ -70,25 +74,22 @@
 
 <script>
 import {ModalType} from '@/scripts/GameController';
-
-import ToolIcons from '@/controls/controller/tool-icons/tool-icons.vue';
-import BeanList from '@/controls/controller/beanlist/bean-list.vue';
-import Farm from '@/controls/farm/farm.vue';
-import Log from '@/controls/log/log.vue';
-import Icon from "@/controls/utility/icon.vue";
-import FarmControl from "@/controls/farm/farm-control.vue";
-import Tooltip from '@/controls/utility/tooltip.vue';
 import { Game } from '@/Game';
+import BeanList from './controller/beanlist/bean-list.vue';
+import Icon from '@/controls/utility/icon.vue';
+import Tooltip from '@/controls/utility/tooltip.vue';
+import Log from './log/log.vue';
+import NavButton from './wiki/nav-button.vue';
+import NavTab from './wiki/nav-tab.vue';
 
 export default {
     components: {
-        ToolIcons,
         BeanList,
-        Farm,
-        Log,
         Icon,
-        FarmControl,
         Tooltip,
+        Log,
+        NavButton,
+        NavTab
     },
     data() {
         return {
@@ -102,31 +103,31 @@ export default {
         },
     },
     computed: {
-        darkMode() {
-            return this.game.features.settings.getSetting('darkMode').value;
+        controller() {
+            return this.game.features.controller;
         },
     },
     methods: {
+        startGame() {
+            this.game.features.prestige.completePrestige();
+        },
         openModal(modalType) {
-            this.game.features.controller.openModal(modalType);
+            this.controller.openModal(modalType);
         },
         closeModal() {
-            this.game.features.controller.closeModal();
-        }
+            this.controller.closeModal();
+        },
+        changeTab(tab) {
+            this.controller.changePrestigeShopTab(tab);
+        },
     },
 }
 </script>
 
 <style>
-.farmView {
+.prestigeView {
     margin: auto;
     max-width: 1600px;
     @apply grid grid-cols-4 dark:bg-gray-900;
-}
-
-.farmBeanList {
-    flex-grow: 1;
-    height: 0px;
-    min-height: 320px;
 }
 </style>

@@ -1,5 +1,5 @@
 import { Features } from "@/Features";
-import { BeanType } from "../bean/BeanList";
+import { BeanAmount, BeanType } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
 import AbstractFarm from "../farm/AbstractFarm";
 import Farms from "../farm/Farms";
@@ -71,7 +71,7 @@ export default class BeanStalkPrestige extends Prestige {
         return beanStalk.height >= this.heightRequirement;
     }
 
-    get reward(): {[bean in BeanType]?: number} {
+    get reward(): BeanAmount {
         const beanStalk = this.highestBeanStalk;
         
         // No Bean Stalk, default to nothing

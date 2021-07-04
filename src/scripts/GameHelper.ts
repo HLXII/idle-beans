@@ -1,4 +1,5 @@
-import { GameText } from "./controls/GameText";
+import { BeanAmount, BeanType } from "./bean/BeanList";
+import { GameText, LinkType } from "./controls/GameText";
 
 export default class GameHelper {
 
@@ -26,6 +27,22 @@ export default class GameHelper {
         gameText.push(`${conjunction} `);
         gameText.push(...last);
 
+        return gameText;
+    }
+
+    public static beanAmount(beans: BeanAmount): GameText[] {
+        const gameText: GameText[] = [];
+
+        for (const bean in beans) {
+            const amount = beans[bean as BeanType] ?? 0;
+            gameText.push(`${amount} `);
+            gameText.push({text: `${bean}${amount > 1 ? 's' : ''}`, type: LinkType.Bean, id: bean});
+            gameText.push('<br>');
+        }
+        
+        // Removing last BR
+        gameText.pop();
+        
         return gameText;
     }
 

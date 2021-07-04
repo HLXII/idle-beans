@@ -1,5 +1,5 @@
 import { GameText } from "@/scripts/controls/GameText";
-import { BeanType } from "../../bean/BeanList";
+import { BeanAmount, BeanType } from "../../bean/BeanList";
 import { PlantOptions } from "../Plant";
 import { PlantCategory } from "../PlantList";
 import PlantState from "../PlantState";
@@ -33,7 +33,7 @@ export default class BeanPlant extends ProducePlant {
      * To be overriden in sub classes.
      * @param state The PlantState
      */
-    harvestGain(state: PlantState): {[bean in BeanType]?: number} {
+     removeGain(state: PlantState): BeanAmount {
         // TODO: Handle more gain from harvests?
         return {[this.bean]: 2};
     }
