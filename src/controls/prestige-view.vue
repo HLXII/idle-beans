@@ -17,8 +17,8 @@
                     </div>
                     <div>
                         <nav-tab :activeTab="controller.prestigeShopTab" :tabType=0>
-                            <div>
-                                TODO: Add General Shop
+                            <div class="flex flex-cols-4 gap-1 justify-center">
+                                <upgrade v-for="upgrade in upgrades.list" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :controller="controller" :beans="beans"/>
                             </div>
                         </nav-tab>
                         <nav-tab :activeTab="controller.prestigeShopTab" :tabType=1>
@@ -81,6 +81,7 @@ import Tooltip from '@/controls/utility/tooltip.vue';
 import Log from './log/log.vue';
 import NavButton from './wiki/nav-button.vue';
 import NavTab from './wiki/nav-tab.vue';
+import Upgrade from './prestige/upgrade.vue';
 
 export default {
     components: {
@@ -89,7 +90,8 @@ export default {
         Tooltip,
         Log,
         NavButton,
-        NavTab
+        NavTab,
+        Upgrade
     },
     data() {
         return {
@@ -105,6 +107,12 @@ export default {
     computed: {
         controller() {
             return this.game.features.controller;
+        },
+        upgrades() {
+            return this.game.features.upgrades;
+        },
+        beans() {
+            return this.game.features.beans;
         },
     },
     methods: {

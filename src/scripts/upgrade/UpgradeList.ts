@@ -6,6 +6,7 @@ import Upgrade from "./Upgrade";
  */
  const InternalUpgrades = {
     '7x7 Plains': new Upgrade('7x7 Plains', ['Increase Plains Farm size to 7x7.'], {'Prestige Bean': 10}),
+    '9x9 Plains': new Upgrade('9x9 Plains', ['Increase Plains Farm size to 9x9.'], {'Prestige Bean': 1000}),
 };
 
 /**

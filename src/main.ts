@@ -30,7 +30,6 @@ window.onload = function () {
         window.App = App;
     }
 
-
     console.log("Launched");
 
     new Vue({

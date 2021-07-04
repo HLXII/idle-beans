@@ -1,6 +1,7 @@
 import { Saveable, SaveData } from "incremental-game-template";
 import { BeanAmount } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
+import GameHelper from "../GameHelper";
 
 export interface UpgradeSaveData extends SaveData {
     purchased: boolean;
