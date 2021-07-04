@@ -25,17 +25,24 @@ export default {
     controller: {
       type: GameController,
       required: true,
+    },
+    activePlant: {
+      type: String,
+      required: true,
+    },
+    changePlant: {
+      type: Function,
+      required: true,
     }
   },
   computed: {
     active() {
-        return (this.controller.wikiPlant == this.plant.name)
+        return (this.activePlant == this.plant.name)
     },
+
   },
   methods: {
-      changePlant(plant) {
-        this.controller.changeWikiPlant(plant);
-      }
+
   },
 }
 </script>

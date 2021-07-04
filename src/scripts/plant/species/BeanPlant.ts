@@ -22,8 +22,8 @@ export default class BeanPlant extends ProducePlant {
 
     produceBean: BeanType;
 
-    constructor(name: string, category: PlantCategory, public bean: string, option?: PlantOptions) {
-        super(name, category, option);
+    constructor(name: string, category: PlantCategory, level: number, public bean: string, option?: PlantOptions) {
+        super(name, category, level, option);
         
         this.produceBean = this.bean as BeanType;
     }

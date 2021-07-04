@@ -35,7 +35,7 @@
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller></wiki-plant-entry>
+                            <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.wikiPlant" :changePlant="changeWikiPlant"></wiki-plant-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div class="overflow-auto">
@@ -117,6 +117,9 @@ export default {
         changePlantTab: function(tabType) {
             this.controller.changePlantTab(tabType);
         },
+        changeWikiPlant: function(plantType) {
+            this.controller.changeWikiPlant(plantType);
+        },
     },
     computed: {
         beanList() {
@@ -127,7 +130,6 @@ export default {
         },
         plantList() {
             return this.controller.wikiPlantList;
-
         },
         plant() {
             return this.plants.list[this.controller.wikiPlant];

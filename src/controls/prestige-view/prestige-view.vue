@@ -7,7 +7,7 @@
             </div>
         </div>
         <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
-                <div class="border2 bg-generic">
+                <div class="border2 bg-generic" style="min-height:560px;">
                     <div>
                         <nav class="flex gap-1 mb-1">
                             <nav-button class="flex-1" tabName="General" :tabType=0 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
@@ -27,8 +27,16 @@
                             </div>
                         </nav-tab>
                         <nav-tab :activeTab="controller.prestigeShopTab" :tabType=2>
-                            <div>
-                                TODO: Add Upgrade Shop
+                            <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
+                                <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="controller.prestigePlantTab"/>
+                            </nav>
+                            <div class="grid grid-cols-3 gap-2" style="height: 640px;">
+                                <div class="border2 bg-generic">
+                                    <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.prestigePlant" :changePlant="changePlant"></wiki-plant-entry>
+                                </div>
+                                <div class="border2 bg-generic col-span-2 p-1">
+                                    <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.name" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
+                                </div>
                             </div>
                         </nav-tab>
                     </div>
@@ -62,8 +70,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Log -->
-                <log/>
+                <seed-cart/>
                 <button type="button" class="btn btn-red border2" v-on:click="startGame">
                     Start Game
                 </button>
@@ -75,27 +82,33 @@
 <script>
 import {ModalType} from '@/scripts/GameController';
 import { Game } from '@/Game';
-import BeanList from './controller/beanlist/bean-list.vue';
+import BeanList from '../controller/beanlist/bean-list.vue';
 import Icon from '@/controls/utility/icon.vue';
 import Tooltip from '@/controls/utility/tooltip.vue';
-import Log from './log/log.vue';
 import NavButton from "@/controls/utility/nav-button.vue";
-import NavTab from './utility/nav-tab.vue';
-import Upgrade from './prestige/upgrade.vue';
+import NavTab from '../utility/nav-tab.vue';
+import Upgrade from './upgrade.vue';
+import SeedCart from './seed-cart.vue';
+import { PlantCategory } from '@/scripts/plant/PlantList';
+import WikiPlantEntry from '../wiki/wiki-plant-entry.vue';
+import PlantUpgrade from './plant-upgrade.vue';
 
 export default {
     components: {
         BeanList,
         Icon,
         Tooltip,
-        Log,
         NavButton,
         NavTab,
-        Upgrade
+        Upgrade,
+        SeedCart,
+        WikiPlantEntry,
+        PlantUpgrade
     },
     data() {
         return {
             ModalType,
+            PlantCategory,
         }
     },
     props: {
@@ -114,6 +127,26 @@ export default {
         beans() {
             return this.game.features.beans;
         },
+        plants() {
+            return this.game.features.plants;
+        },
+        plantList() {
+            return this.controller.prestigePlantList;
+        },
+        plantCats() {
+            return Object.values(this.PlantCategory).filter((val) => {
+                if (isNaN(val)) {
+                    return false;
+                }
+                return this.plants.catIsVisible(val);
+            });        
+        },
+        plant() {
+            return this.plants.list[this.controller.prestigePlant];
+        },
+        plantUpgrades() {
+            return this.plant.upgrades.map((upgrade) => this.plants.upgrades[upgrade]);
+        },
     },
     methods: {
         startGame() {
@@ -127,6 +160,12 @@ export default {
         },
         changeTab(tab) {
             this.controller.changePrestigeShopTab(tab);
+        },
+        changePlantTab(tab) {
+            this.controller.changePrestigePlantTab(tab);
+        },
+        changePlant(plantType) {
+            this.controller.changePrestigePlant(plantType);
         },
     },
 }

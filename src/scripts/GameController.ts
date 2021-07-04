@@ -75,6 +75,8 @@ export default class GameController extends IgtFeature {
 
     //#region Prestige View properties
     public prestigeShopTab: number;
+    public prestigePlantTab: number;
+    public prestigePlant: PlantType;
     //#endregion
 
     //#region Modifier Key booleans
@@ -106,6 +108,8 @@ export default class GameController extends IgtFeature {
         this.settingsTab = 0;
 
         this.prestigeShopTab = 0;
+        this.prestigePlantTab = 0;
+        this.prestigePlant = 'Bean Bud';
     }
 
     initialize(features: Features): void {
@@ -407,6 +411,21 @@ export default class GameController extends IgtFeature {
     //#region Prestige View
     changePrestigeShopTab(tab: number) {
         this.prestigeShopTab = tab ?? 0;
+    }
+    get prestigePlantList(): Plant[] {
+        return Object.values(PlantList).filter((plant: Plant) => {
+            if (plant.category !== this.prestigePlantTab) {
+                return false;
+            }
+            return plant.unlocked;
+        });    
+    }
+    changePrestigePlantTab(tab: number) {
+        this.prestigePlantTab = tab ?? 0;
+        this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
+    }
+    changePrestigePlant(plant: PlantType) {
+        this.prestigePlant = plant;
     }
     //#endregion
 }
