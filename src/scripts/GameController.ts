@@ -9,6 +9,7 @@ import Farms from "./farm/Farms";
 import Plant from "./plant/Plant";
 import { PlantList, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
+import { Settings } from "./Settings";
 
 export enum ToolType {
     'Cursor' = 0,
@@ -25,6 +26,16 @@ export enum ModalType {
     Prestige,
 }
 
+export enum TabType {
+    Wiki = "Wiki",
+    WikiPlant = "WikiPlant",
+    WikiBean = "WikiBean",
+    Settings = "Settings",
+    Prestige = "Prestige",
+    PrestigeShop = "PrestigeShop",
+    PrestigePlant = "PrestigePlant",
+}
+
 export interface GameControllerSaveData extends SaveData {
     tool: ToolType;
     bean: BeanType;
@@ -37,6 +48,7 @@ export default class GameController extends IgtFeature {
     private farms!: Farms;
     private beans!: Beans;
     private plants!: Plants;
+    private settings!: Settings;
 
     //#region Selectors
     public tool: ToolType;
@@ -52,30 +64,17 @@ export default class GameController extends IgtFeature {
     /**Bean List Search Filter */
     public beanListSearch: string;
 
-    //#region Prestige Modal properties
-    public prestigeTab: number;
-    //#endregion
+    /**Tab handler */
+    public tabs: Record<TabType, number>;
 
     //#region Wiki Modal properties
-    /**Wiki Tab */
-    public wikiTab: number;
-    /**Plant Wiki Tab */
-    public plantTab: number;
-    /**Bean Wiki Tab */
-    public beanTab: number;
     /**Opened Bean */
     public wikiBean: BeanType;
     /**Opened Plant */
     public wikiPlant: PlantType;
     //#endregion
 
-    //#region Settings Modal properties
-    public settingsTab: number;
-    //#endregion
-
     //#region Prestige View properties
-    public prestigeShopTab: number;
-    public prestigePlantTab: number;
     public prestigePlant: PlantType;
     //#endregion
 
@@ -96,26 +95,27 @@ export default class GameController extends IgtFeature {
    
         this.beanListSearch = '';
 
-        this.prestigeTab = 0;
-
-        this.wikiTab = 0;
-        this.plantTab = 0;
-        this.beanTab = 0;
-
         this.wikiBean = 'Bean';
         this.wikiPlant = 'Bean Bud';
 
-        this.settingsTab = 0;
-
-        this.prestigeShopTab = 0;
-        this.prestigePlantTab = 0;
         this.prestigePlant = 'Bean Bud';
+
+        this.tabs = {
+            'Wiki': 0,
+            'WikiPlant': 0,
+            'WikiBean': 0,
+            'Settings': 0,
+            'Prestige': 0,
+            'PrestigeShop': 0,
+            'PrestigePlant': 0,
+        };
     }
 
     initialize(features: Features): void {
         this.farms = features.farms;
         this.beans = features.beans;
         this.plants = features.plants;
+        this.settings = features.settings;
 
         // Adding modifier key bindings
         HotKeys.addKeyBind(new KeyBind('ctrl', 'Ctrl Modifier Down', () => { this.ctrlKey = true; }, undefined, KeyEventType.KeyDown));
@@ -238,27 +238,39 @@ export default class GameController extends IgtFeature {
         this.openedModal = ModalType.None;
     }
 
-    //#region Prestige
-    changePrestigeTab(tab: number) {
-        this.prestigeTab = tab ?? 0;
+    /**
+     * Handler for nav tab changes.
+     * @param tabType The TabType to change
+     * @param tab The tab number to change to
+     * @param ignoreSpecialUpdates Set to true to ignore updating additional tab properties
+     */
+    changeTab(tabType: TabType, tab: number, ignoreSpecialUpdates: boolean = false): void {
+        if (!TabType[tabType]) {
+            console.error(`Error - Invalid tab change - ${tabType}.`);
+            return;
+        }
+        this.tabs[tabType] = tab ?? 0;
+
+        // Special Tab updates
+        if (!ignoreSpecialUpdates) {
+            switch(tabType) {
+                case TabType.WikiPlant: {
+                    this.changeWikiPlant(this.wikiPlantList[0].name as PlantType);
+                    break;
+                }
+                case TabType.WikiBean: {
+                    this.changeWikiBean(this.wikiBeanList[0].name as BeanType);
+                    break;
+                }
+                case TabType.PrestigePlant: {
+                    this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
+                    break;
+                }
+            }
+        }
     }
-    //#endregion
 
     //#region Wiki
-    changeWikiTab(tab: number) {
-        this.wikiTab = tab ?? 0;
-    }
-
-    changePlantTab(tab: number) {
-        this.plantTab = tab ?? 0;
-        this.changeWikiPlant(this.wikiPlantList[0].name as PlantType);
-    }
-
-    changeBeanTab(tab: number) {
-        this.beanTab = tab ?? 0;
-        this.changeWikiBean(this.wikiBeanList[0].name as BeanType);
-    }
-
     changeWikiBean(beanType: BeanType) {
         this.wikiBean = beanType;
     }
@@ -304,10 +316,10 @@ export default class GameController extends IgtFeature {
         this.openModal(ModalType.Wiki);
 
         // Switch to Bean tab
-        this.wikiTab = 0;
+        this.changeTab(TabType.Wiki, 0);
 
         // Switching to correct category tab
-        this.changeBeanTab(this.beans.list[beanType].category);
+        this.changeTab(TabType.WikiBean, this.beans.list[beanType].category, true);
 
         // Open Bean
         this.changeWikiBean(beanType);
@@ -344,10 +356,10 @@ export default class GameController extends IgtFeature {
         this.openModal(ModalType.Wiki);
 
         // Switch to Plant tab
-        this.wikiTab = 1;
+        this.changeTab(TabType.Wiki, 1);
 
         // Switching to correct category tab
-        this.changePlantTab(this.plants.list[plantType].category);
+        this.changeTab(TabType.WikiPlant, this.plants.list[plantType].category, true);
 
         // Open Bean
         this.changeWikiPlant(plantType);
@@ -366,7 +378,7 @@ export default class GameController extends IgtFeature {
 
     get wikiBeanList(): Bean[] {
         return Object.values(BeanList).filter((bean: Bean) => {
-            if (bean.category !== this.beanTab) {
+            if (bean.category !== this.tabs[TabType.WikiBean]) {
                 return false;
             }
             return bean.unlocked;
@@ -375,7 +387,7 @@ export default class GameController extends IgtFeature {
 
     get wikiPlantList(): Plant[] {
         return Object.values(PlantList).filter((plant: Plant) => {
-            if (plant.category !== this.plantTab) {
+            if (plant.category !== this.tabs[TabType.WikiPlant]) {
                 return false;
             }
             return plant.unlocked;
@@ -402,27 +414,20 @@ export default class GameController extends IgtFeature {
     }
     //#endregion
 
-    //#region Settings
-    changeSettingsTab(tab: number) {
-        this.settingsTab = tab ?? 0;
-    }
-    //#endregion
-
     //#region Prestige View
-    changePrestigeShopTab(tab: number) {
-        this.prestigeShopTab = tab ?? 0;
-    }
     get prestigePlantList(): Plant[] {
         return Object.values(PlantList).filter((plant: Plant) => {
-            if (plant.category !== this.prestigePlantTab) {
+            if (plant.category !== this.tabs[TabType.PrestigePlant]) {
                 return false;
             }
+
+            // Checking if we should display the plant based on purchased upgrades
+            if (!this.settings.getSetting('displayPurchasedUpgrades')?.value && plant.purchasedAllUpgrades) {
+                return false;
+            }
+
             return plant.unlocked;
         });    
-    }
-    changePrestigePlantTab(tab: number) {
-        this.prestigePlantTab = tab ?? 0;
-        this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
     }
     changePrestigePlant(plant: PlantType) {
         this.prestigePlant = plant;

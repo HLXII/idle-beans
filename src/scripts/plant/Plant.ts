@@ -60,6 +60,13 @@ export default abstract class Plant implements Saveable {
     }
 
     /**
+     * Returns whether we have purchased all upgrades on this Plant
+     */
+    get purchasedAllUpgrades(): boolean {
+        return this.upgrades.every((upgrade) => this.purchasedUpgrades.includes(upgrade));
+    }
+
+    /**
      * Returns the Plant Icon SVG Data
      */
     get icon(): SVGData {

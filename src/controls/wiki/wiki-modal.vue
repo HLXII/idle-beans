@@ -3,14 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <nav class="flex gap-1 mb-1">
-                    <nav-button class="flex-1" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="controller.wikiTab"/>
-                    <nav-button class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="controller.wikiTab"/>
+                    <nav-button class="flex-1" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="wikiTab"/>
+                    <nav-button class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="wikiTab"/>
                 </nav>
             </div>
             <div class="modal-body">
-                <nav-tab :tabType="0" :activeTab="controller.wikiTab">
+                <nav-tab :tabType="0" :activeTab="wikiTab">
                     <nav class="flex gap-1 mb-1" v-if="beanCats.length > 1">
-                        <nav-button v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="controller.beanTab"/>
+                        <nav-button v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="beanTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
@@ -29,9 +29,9 @@
                         </div>
                     </div>
                 </nav-tab>
-                <nav-tab :tabType="1" :activeTab="controller.wikiTab">
+                <nav-tab :tabType="1" :activeTab="wikiTab">
                     <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
-                        <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="controller.plantTab"/>
+                        <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
@@ -67,7 +67,7 @@
 
 <script>
 import Modal from "@/controls/modal/modal.vue";
-import {App} from "@/App.ts"
+import { App } from "@/App.ts"
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '@/controls/utility/nav-tab.vue';
 import WikiBeanEntry from '@/controls/wiki/wiki-bean-entry.vue';
@@ -77,6 +77,7 @@ import WikiGrowth from './wiki-growth.vue';
 import { BeanCategory } from "@/scripts/bean/BeanList";
 import { PlantCategory } from "@/scripts/plant/PlantList";
 import GameText from '@/controls/utility/game-text.vue';
+import { TabType } from "@/scripts/GameController";
 
 export default {
     name: "wiki-modal",
@@ -108,31 +109,40 @@ export default {
         close: function() {
             this.$emit('close');
         },
-        changeTab: function(tabType) {
-            this.controller.changeWikiTab(tabType);
+        changeTab: function(tab) {
+            this.controller.changeTab(TabType.Wiki, tab);
         },
-        changeBeanTab: function(tabType) {
-            this.controller.changeBeanTab(tabType);
+        changeBeanTab: function(tab) {
+            this.controller.changeTab(TabType.WikiBean, tab);
         },
-        changePlantTab: function(tabType) {
-            this.controller.changePlantTab(tabType);
+        changePlantTab: function(tab) {
+            this.controller.changeTab(TabType.WikiPlant, tab);
         },
         changeWikiPlant: function(plantType) {
             this.controller.changeWikiPlant(plantType);
         },
     },
     computed: {
+        wikiTab() {
+            return this.controller.tabs[TabType.Wiki];
+        },
         beanList() {
             return this.controller.wikiBeanList;
         },
         bean() {
             return this.beans.list[this.controller.wikiBean];
         },
+        beanTab() {
+            return this.controller.tabs[TabType.WikiBean];
+        },
         plantList() {
             return this.controller.wikiPlantList;
         },
         plant() {
             return this.plants.list[this.controller.wikiPlant];
+        },
+        plantTab() {
+            return this.controller.tabs[TabType.WikiPlant];
         },
         visibleGrowths() {
             if (this.plant.growths) {

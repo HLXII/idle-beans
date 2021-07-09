@@ -3,12 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <nav class="flex gap-1 mb-1">
-                    <nav-button class="flex-1" tabName="Base" :tabType=0 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
-                    <nav-button class="flex-1" tabName="Save" :tabType=1 :changeTab="changeTab" :activeTab="controller.settingsTab"/>
+                    <nav-button class="flex-1" tabName="Base" :tabType=0 :changeTab="changeTab" :activeTab="settingsTab"/>
+                    <nav-button class="flex-1" tabName="Prestige" :tabType=1 :changeTab="changeTab" :activeTab="settingsTab"/>
+                    <nav-button class="flex-1" tabName="Save" :tabType=2 :changeTab="changeTab" :activeTab="settingsTab"/>
                 </nav>
             </div>
             <div class="modal-body">
-                <nav-tab :tabType="0" :activeTab="controller.settingsTab">
+                <!-- Base -->
+                <nav-tab :tabType="0" :activeTab="settingsTab">
                     <div class="grid grid-cols-2">
                         <div>Dark Mode:</div>
                         <div class="flex">
@@ -20,7 +22,21 @@
                         </div>
                     </div>
                 </nav-tab>
-                <nav-tab :tabType="1" :activeTab="controller.settingsTab">
+                <!-- Prestige-->
+                <nav-tab :tabType="1" :activeTab="settingsTab">
+                    <div class="grid grid-cols-2">
+                        <div>Display Purchased Upgrades:</div>
+                        <div class="flex">
+                            <icon-toggle :setting="displayPurchasedUpgrades"
+                            :trueIcon="require(`@/assets/images/icons/Dark Mode Icon.png`)"
+                            :falseIcon="require(`@/assets/images/icons/Light Mode Icon.png`)"
+                            :trueTooltip="`Displaying Purchased Upgrades`"
+                            :falseTooltip="`Hiding Purchased Upgrades`"></icon-toggle>
+                        </div>
+                    </div>
+                </nav-tab>
+                <!-- Save -->
+                <nav-tab :tabType="2" :activeTab="settingsTab">
 
                 </nav-tab>
             </div>
@@ -33,10 +49,11 @@
 
 <script>
 import Modal from "@/controls/modal/modal.vue";
-import {App} from "@/App.ts"
+import { App } from "@/App.ts"
 import IconToggle from '@/controls/settings/icon-toggle.vue';
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '../utility/nav-tab.vue';
+import { TabType } from "@/scripts/GameController";
 
 export default {
     name: "wiki-modal",
@@ -62,14 +79,20 @@ export default {
         close: function() {
             this.$emit('close');
         },
-        changeTab: function(tabType) {
-            this.controller.changeSettingsTab(tabType);
+        changeTab: function(tab) {
+            this.controller.changeTab(TabType.Settings, tab);
         },
     },
     computed: {
+        settingsTab() {
+            return this.controller.tabs[TabType.Settings];
+        },
         darkMode() {
             return this.settings.getSetting('darkMode');
-        }
+        },
+        displayPurchasedUpgrades() {
+            return this.settings.getSetting('displayPurchasedUpgrades');
+        },
     },
 }
 </script>

@@ -3,18 +3,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <nav class="flex gap-1 mb-1">
-                    <nav-button class="flex-1" tabName="Prestige" :tabType=0 :changeTab="changeTab" :activeTab="controller.prestigeTab"/>
-                    <nav-button class="flex-1" tabName="Modifiers" :tabType=1 :changeTab="changeTab" :activeTab="controller.prestigeTab"/>
+                    <nav-button class="flex-1" tabName="Prestige" :tabType=0 :changeTab="changeTab" :activeTab="prestigeTab"/>
+                    <nav-button class="flex-1" tabName="Modifiers" :tabType=1 :changeTab="changeTab" :activeTab="prestigeTab"/>
                 </nav>
             </div>
             <div class="modal-body">
-                <nav-tab :activeTab="controller.prestigeTab" :tabType=0>
+                <nav-tab :activeTab="prestigeTab" :tabType=0>
                     <div>
                         TODO: Figure out description for prestige
                     </div>
                     <prestige v-for="(prestige, idx) in visiblePrestiges" :key="idx" :prestige="prestige" :controller="controller"/>
                 </nav-tab>
-                <nav-tab :activeTab="controller.prestigeTab" :tabType=1>
+                <nav-tab :activeTab="prestigeTab" :tabType=1>
 
                 </nav-tab>
             </div>
@@ -30,6 +30,7 @@ import {App} from "@/App.ts"
 import Prestige from './prestige.vue';
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '../utility/nav-tab.vue';
+import { TabType } from "@/scripts/GameController";
 
 export default {
     name: "prestige-modal",
@@ -55,11 +56,14 @@ export default {
         close: function() {
             this.$emit('close');
         },
-        changeTab: function(tabType) {
-            this.controller.changePrestigeTab(tabType);
+        changeTab: function(tab) {
+            this.controller.changeTab(TabType.Prestige, tab);
         },
     },
     computed: {
+        prestigeTab() {
+            return this.controller.tabs[TabType.Prestige];
+        },
         visiblePrestiges() {
             return this.prestige.prestiges.filter((prestige) => prestige.visible);
         }

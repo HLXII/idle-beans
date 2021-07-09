@@ -10,25 +10,28 @@
                 <div class="border2 bg-generic" style="min-height:560px;">
                     <div>
                         <nav class="flex gap-1 mb-1">
-                            <nav-button class="flex-1" tabName="General" :tabType=0 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
-                            <nav-button class="flex-1" tabName="Bean Packets" :tabType=1 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
-                            <nav-button class="flex-1" tabName="Plant Upgrades" :tabType=2 :changeTab="changeTab" :activeTab="controller.prestigeShopTab"/>
+                            <nav-button class="flex-1" tabName="General" :tabType=0 :changeTab="changeShopTab" :activeTab="shopTab"/>
+                            <nav-button class="flex-1" tabName="Bean Packets" :tabType=1 :changeTab="changeShopTab" :activeTab="shopTab"/>
+                            <nav-button class="flex-1" tabName="Plant Upgrades" :tabType=2 :changeTab="changeShopTab" :activeTab="shopTab"/>
                         </nav>
                     </div>
                     <div>
-                        <nav-tab :activeTab="controller.prestigeShopTab" :tabType=0>
+                        <!-- General Tab -->
+                        <nav-tab :activeTab="shopTab" :tabType=0>
                             <div class="flex flex-cols-4 gap-1 justify-center">
-                                <upgrade v-for="upgrade in upgrades.list" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :controller="controller" :beans="beans"/>
+                                <upgrade v-for="upgrade in upgradeList" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :controller="controller" :beans="beans"/>
                             </div>
                         </nav-tab>
-                        <nav-tab :activeTab="controller.prestigeShopTab" :tabType=1>
+                        <!-- Bean Packets Tab -->
+                        <nav-tab :activeTab="shopTab" :tabType=1>
                             <div>
                                 TODO: Add Seed Packet Shop
                             </div>
                         </nav-tab>
-                        <nav-tab :activeTab="controller.prestigeShopTab" :tabType=2>
+                        <!-- Plant Upgrades Tab -->
+                        <nav-tab :activeTab="shopTab" :tabType=2>
                             <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
-                                <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="controller.prestigePlantTab"/>
+                                <nav-button class="flex-1" v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
                             </nav>
                             <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                                 <div class="border2 bg-generic">
@@ -80,7 +83,7 @@
 </template>
 
 <script>
-import {ModalType} from '@/scripts/GameController';
+import { ModalType, TabType } from '@/scripts/GameController';
 import { Game } from '@/Game';
 import BeanList from '../controller/beanlist/bean-list.vue';
 import Icon from '@/controls/utility/icon.vue';
@@ -103,7 +106,7 @@ export default {
         Upgrade,
         SeedCart,
         WikiPlantEntry,
-        PlantUpgrade
+        PlantUpgrade,
     },
     data() {
         return {
@@ -118,6 +121,10 @@ export default {
         },
     },
     computed: {
+        //#region Features
+        settings() {
+            return this.game.features.settings;
+        },
         controller() {
             return this.game.features.controller;
         },
@@ -129,6 +136,21 @@ export default {
         },
         plants() {
             return this.game.features.plants;
+        },
+        //#endregion
+        shopTab() {
+            return this.controller.tabs[TabType.PrestigeShop];
+        },
+        plantTab() {
+            return this.controller.tabs[TabType.PrestigePlant];
+        },
+        upgradeList() {
+            return Object.values(this.upgrades.list).filter((upgrade) => {
+                if (!this.settings.getSetting('displayPurchasedUpgrades').value && upgrade.purchased) {
+                    return false;
+                }
+                return true;
+            });
         },
         plantList() {
             return this.controller.prestigePlantList;
@@ -158,11 +180,11 @@ export default {
         closeModal() {
             this.controller.closeModal();
         },
-        changeTab(tab) {
-            this.controller.changePrestigeShopTab(tab);
+        changeShopTab(tab) {
+            this.controller.changeTab(TabType.PrestigeShop, tab);
         },
         changePlantTab(tab) {
-            this.controller.changePrestigePlantTab(tab);
+            this.controller.changeTab(TabType.PrestigePlant, tab);
         },
         changePlant(plantType) {
             this.controller.changePrestigePlant(plantType);
