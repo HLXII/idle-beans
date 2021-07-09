@@ -54,6 +54,7 @@ export default {
         purchase(upgradeId) {
             if (!this.disabled) {
                 this.plants.purchaseUpgrade(this.plant, upgradeId);
+                this.controller.updatePrestigePlantTab();
             }
         },
     },

@@ -33,13 +33,16 @@
                             <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
                                 <nav-button class="flex-1" v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
                             </nav>
-                            <div class="grid grid-cols-3 gap-2" style="height: 640px;">
+                            <div class="grid grid-cols-3 gap-2" style="height: 640px;" v-if="plantCats.length > 0">
                                 <div class="border2 bg-generic">
                                     <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.prestigePlant" :changePlant="changePlant"></wiki-plant-entry>
                                 </div>
                                 <div class="border2 bg-generic col-span-2 p-1">
                                     <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.name" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
                                 </div>
+                            </div>
+                            <div v-if="plantCats.length == 0">
+                                All available Plant Upgrades Purchased!
                             </div>
                         </nav-tab>
                     </div>
@@ -156,12 +159,7 @@ export default {
             return this.controller.prestigePlantList;
         },
         plantCats() {
-            return Object.values(this.PlantCategory).filter((val) => {
-                if (isNaN(val)) {
-                    return false;
-                }
-                return this.plants.catIsVisible(val);
-            });        
+            return this.controller.prestigePlantCats;
         },
         plant() {
             return this.plants.list[this.controller.prestigePlant];

@@ -57,15 +57,6 @@ export default class Plants extends IgtFeature {
         plant.purchasedUpgrades.push(upgradeId);
     }
 
-    catIsVisible(category: PlantCategory) {
-        return Object.values(this.list).filter((plant) => {
-            if (plant.category !== category) {
-                return false;
-            }
-            return plant.unlocked;
-        }).length > 0;
-    }
-
     saveKey = 'plants';
     save(): PlantsSaveData {
         const data: PlantsSaveData = {};

@@ -69,20 +69,6 @@ export default class Beans extends IgtFeature {
         }
     }
 
-    /**
-     * Determines whether a BeanCategory is visible in the wiki
-     * @param category The BeanCategory
-     * @returns True if there are Beans unlocked in this Category.
-     */
-    catIsVisible(category: BeanCategory) {
-        return Object.values(this.list).filter((bean) => {
-            if (bean.category !== category) {
-                return false;
-            }
-            return bean.unlocked;
-        }).length > 0;
-    }
-
     saveKey = 'beans';
     save(): BeansSaveData {
         const data: BeansSaveData = {};

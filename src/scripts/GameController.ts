@@ -7,7 +7,7 @@ import PlantableBean from "./bean/PlantableBean";
 import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
 import Plant from "./plant/Plant";
-import { PlantList, PlantType } from "./plant/PlantList";
+import { PlantCategory, PlantList, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 import { Settings } from "./Settings";
 
@@ -266,8 +266,32 @@ export default class GameController extends IgtFeature {
                     this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
                     break;
                 }
+                case TabType.PrestigeShop: {
+                    if (tab === 2) {
+                        this.updatePrestigePlantTab();
+                    }
+                    break;
+                }
             }
         }
+    }
+
+    /**
+     * Helper function to obtain Plants via some filter
+     * @param filter The filter function
+     * @returns A list of Plants
+     */
+    filterPlants(filter: (plant: Plant) => boolean): Plant[] {
+        return Object.values(PlantList).filter(filter);
+    }
+
+    /**
+     * Helper function to obtain Beans via some filter
+     * @param filter The filter function
+     * @returns A list of Beans
+     */
+     filterBeans(filter: (bean: Bean) => boolean): Bean[] {
+        return Object.values(BeanList).filter(filter);
     }
 
     //#region Wiki
@@ -376,8 +400,12 @@ export default class GameController extends IgtFeature {
         */
     }
 
+    /**
+     * Returns the list of Beans to display in the Bean Wiki
+     * Checks current BeanCategory tab and Bean unlock state
+     */
     get wikiBeanList(): Bean[] {
-        return Object.values(BeanList).filter((bean: Bean) => {
+        return this.filterBeans((bean: Bean) => {
             if (bean.category !== this.tabs[TabType.WikiBean]) {
                 return false;
             }
@@ -385,15 +413,25 @@ export default class GameController extends IgtFeature {
         });
     }
 
+    /**
+     * Returns the list of Plants to display in the Plant Wiki
+     * Checks current PlantCategory tab and Plant unlock state
+     */
     get wikiPlantList(): Plant[] {
-        return Object.values(PlantList).filter((plant: Plant) => {
+        return this.filterPlants((plant: Plant) => {
             if (plant.category !== this.tabs[TabType.WikiPlant]) {
                 return false;
             }
             return plant.unlocked;
-        });    
+        });
     }
 
+    /**
+     * Helper function to determine whether a Wiki link is active
+     * @param type The LinkType
+     * @param id The ID of the link
+     * @returns True if the player can click the link, False otherwise
+     */
     linkActive(type: LinkType, id: string): boolean {
         switch(type) {
             case LinkType.Bean: {
@@ -416,7 +454,7 @@ export default class GameController extends IgtFeature {
 
     //#region Prestige View
     get prestigePlantList(): Plant[] {
-        return Object.values(PlantList).filter((plant: Plant) => {
+        return this.filterPlants((plant: Plant) => {
             if (plant.category !== this.tabs[TabType.PrestigePlant]) {
                 return false;
             }
@@ -427,10 +465,50 @@ export default class GameController extends IgtFeature {
             }
 
             return plant.unlocked;
-        });    
+        }); 
+    }
+    get prestigePlantCats(): number[] {
+        return Object.values(PlantCategory).filter((val) => {
+            if (isNaN(+val)) {
+                return false;
+            }
+            return this.filterPlants((plant) => {
+                if (plant.category !== val) {
+                    return false;
+                }
+                if (!this.settings.getSetting('displayPurchasedUpgrades')?.value && plant.purchasedAllUpgrades) {
+                    return false;
+                }
+                return plant.unlocked;
+            }).length > 0;
+        }).map((value) => +value);
     }
     changePrestigePlant(plant: PlantType) {
         this.prestigePlant = plant;
+    }
+    /**
+     * When purchasing Plant Upgrades, if the Display Purchased Upgrades setting is disabled,
+     * A Plant might 
+     */
+    updatePrestigePlantTab() {
+        // Only check for updates if this setting is disabled
+        if (this.settings.getSetting('displayPurchasedUpgrades')?.value) {
+            return;
+        }
+
+        // Purchased all upgrades, must switch to another Plant
+        if (this.plants.list[this.prestigePlant].purchasedAllUpgrades) {
+            // There are still plants in this category, switch to the first one
+            if (this.prestigePlantList.length) {
+                this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
+            // No plants left in this category, try to switch to another category
+            } else if (this.prestigePlantCats.length) {
+                this.changeTab(TabType.PrestigePlant, this.prestigePlantCats[0]);
+            // No more categories, clear and show completed tab
+            } else {
+                // Do nothing
+            }
+        }
     }
     //#endregion
 }

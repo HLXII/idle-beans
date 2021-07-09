@@ -155,7 +155,12 @@ export default {
                 if (isNaN(val)) {
                     return false;
                 }
-                return this.beans.catIsVisible(val);
+                return this.controller.filterBeans((bean) => {
+                    if (bean.category !== val) {
+                        return false;
+                    }
+                    return bean.unlocked;
+                }).length > 0;
             });
         },
         plantCats() {
@@ -163,7 +168,12 @@ export default {
                 if (isNaN(val)) {
                     return false;
                 }
-                return this.plants.catIsVisible(val);
+                return this.controller.filterPlants((plant) => {
+                    if (plant.category !== val) {
+                        return false;
+                    }
+                    return plant.unlocked;
+                }).length > 0;
             });        
         },
     },
