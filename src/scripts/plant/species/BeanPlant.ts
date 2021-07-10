@@ -13,7 +13,9 @@ export default class BeanPlant extends ProducePlant {
     ];
 
     upgrades: UpgradeState[] = [
-        new UpgradeState('Root Depth', {'Sky Bean': 1}),
+        new UpgradeState('Wider Leaves', {'Sky Bean': 1}),
+        new UpgradeState('Increased Bud Sites', {'Sky Bean': 2}),
+        new UpgradeState('Stem Strength', {'Sky Bean': 3}),
     ];
 
     public baseProduceAmount = 1;
@@ -30,11 +32,9 @@ export default class BeanPlant extends ProducePlant {
 
     /**
      * Determines the beans returned from removing the plant
-     * To be overriden in sub classes.
      * @param state The PlantState
      */
      removeGain(state: PlantState): BeanAmount {
-        // TODO: Handle more gain from harvests?
         return {[this.bean]: 2};
     }
 

@@ -5,4 +5,6 @@
 export enum PlantEffectId {
     GrowthTime,
     RipeTime,
+    RipeAmount,
+    Storage,
 }

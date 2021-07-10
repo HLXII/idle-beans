@@ -14,6 +14,7 @@ export default class BeanSprout extends GrowthPlant {
 
     upgrades: UpgradeState[] = [
         new UpgradeState('Root Depth', {'Sky Bean': 1}),
+        new UpgradeState('Root Hairs', {'Sky Bean': 2}),
     ];
 
     public baseGrowthTime: number = 16;
