@@ -8,7 +8,7 @@ import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanPlant extends ProducePlant {
     
-    description: GameText[] = [
+    baseDescription: GameText[] = [
         'Just a simple Bean Plant. TEMP',
     ];
 

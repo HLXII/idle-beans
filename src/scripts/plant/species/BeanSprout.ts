@@ -9,7 +9,7 @@ import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanSprout extends GrowthPlant {
 
-    description: GameText[] = [
+    baseDescription = [
         'Just a Bean trying to grow.',
     ];
 

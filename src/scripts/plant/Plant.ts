@@ -28,6 +28,8 @@ export default abstract class Plant implements Saveable {
 
     /**Available Plant Upgrades */
     abstract upgrades: UpgradeState[];
+    /**Base Plant Description */
+    abstract baseDescription: GameText[];
     /**Plant Description */
     abstract description: GameText[];
 

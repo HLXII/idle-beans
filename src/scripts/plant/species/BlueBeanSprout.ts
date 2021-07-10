@@ -8,13 +8,11 @@ import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BlueBeanSprout extends GrowthPlant {
 
-    get description(): GameText[] {
-        return [
-            'A rare blue variant of the ',
-            {text: 'Bean Sprout', type: LinkType.Plant, id: 'Bean Sprout'},
-            '.',
-        ];
-    }
+    baseDescription = [
+        'A rare blue variant of the ',
+        {text: 'Bean Sprout', type: LinkType.Plant, id: 'Bean Sprout'},
+        '.',
+    ];
 
     upgrades: UpgradeState[] = [
         new UpgradeState('Stronger Roots', {'Sky Bean': 1}),

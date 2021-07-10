@@ -9,11 +9,9 @@ import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanVine extends GrowthPlant {
 
-    get description(): GameText[] {
-        return [
-            'A more robust Bean growth.',
-        ];
-    }
+    baseDescription = [
+        'A more robust Bean growth.',
+    ];
 
     upgrades: UpgradeState[] = [
         new UpgradeState('Stronger Roots', {'Sky Bean': 1}),

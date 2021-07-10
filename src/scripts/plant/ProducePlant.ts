@@ -3,6 +3,7 @@ import { PlantType } from './PlantList';
 import Growth from './growths/Growth';
 import ProducePlantState from './ProducePlantState';
 import { BeanType } from '../bean/BeanList';
+import { GameText } from '../controls/GameText';
 
 export default abstract class ProducePlant extends Plant {
     public static state = ProducePlantState;
@@ -58,6 +59,15 @@ export default abstract class ProducePlant extends Plant {
      public storage(state?: ProducePlantState) {
         // TODO: Handle Upgrades and Statuses
         return this.baseStorage;
+    }
+
+    get description(): GameText[] {
+        return [
+            ...this.baseDescription,
+            '<br>',
+            `Produces ${this.produceAmount()} ${this.produceBean} every ${this.produceTime()} seconds.<br>`,
+            `Can store ${this.storage()} Beans.`, 
+        ];
     }
 
 }

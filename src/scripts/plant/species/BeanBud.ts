@@ -9,8 +9,8 @@ import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanBud extends GrowthPlant {
 
-    description: GameText[] = [
-        'Just a Bean in the ground.',
+    baseDescription = [
+        'Just a Bean in the ground.'
     ];
     
     upgrades: UpgradeState[] = [

@@ -7,10 +7,15 @@ import BeanStalkState from "./BeanStalkState";
 export default class BeanStalk extends Plant {
     public static state = BeanStalkState;
 
+    baseDescription = [
+        `A Bean that will conquer the heavens.`,
+    ];
+
     get description(): GameText[] {
-       return [
-        `A Bean that will conquer the heavens. Consumes nearby ripe Beans every ${this.consumeCooldown} seconds.`,
-       ];
+        return [
+            ...this.baseDescription,
+            `<br>Consumes nearby ripe Beans every ${this.consumeCooldown} seconds.`,
+        ]
     }
 
     upgrades: UpgradeState[] = [
