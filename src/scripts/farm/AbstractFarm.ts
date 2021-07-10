@@ -181,6 +181,10 @@ export default abstract class AbstractFarm implements Saveable {
         });
     }
 
+    get background(): string {
+        return 'url(' + require(`@/assets/images/backgrounds/${this.name}.png`) + ')';
+    }
+
     get saveKey(): string {
         return this.type.toString();
     }

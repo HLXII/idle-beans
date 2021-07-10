@@ -11,7 +11,7 @@
             </div>
         </div>
         <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
-                <div class="border2">
+                <div class="border2" :style="farmStyle">
                     <!-- Title -->
                     <div style="height: 192px; pointer-events: none; margin: 0;">
                         <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
@@ -105,6 +105,15 @@ export default {
         darkMode() {
             return this.game.features.settings.getSetting('darkMode').value;
         },
+        farmStyle() {
+            return {
+                'background-size': 'cover',
+                'background-origin': 'border-box',
+                'background-repeat': 'no-repeat',
+                'background-image': this.game.features.farms.getFarm().background,
+                'image-rendering': 'pixelated',
+            };
+        }
     },
     methods: {
         openModal(modalType) {

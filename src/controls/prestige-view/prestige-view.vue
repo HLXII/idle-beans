@@ -40,7 +40,7 @@
                                 <div class="border2 bg-generic">
                                     <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.prestigePlant" :changePlant="changePlant"></wiki-plant-entry>
                                 </div>
-                                <div class="border2 bg-generic col-span-2">
+                                <div class="border2 bg-generic col-span-2 flex flex-col gap-1">
                                     <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
                                 </div>
                             </div>
@@ -155,6 +155,9 @@ export default {
                 if (!this.settings.getSetting('displayPurchasedUpgrades').value && upgrade.purchased) {
                     return false;
                 }
+                if (!upgrade.visible) {
+                    return false;
+                }
                 return true;
             });
         },
@@ -168,7 +171,13 @@ export default {
             return this.plants.list[this.controller.prestigePlant];
         },
         plantUpgrades() {
-            return this.plant.upgrades;
+            return this.plant.upgrades.filter((upgrade) => {
+                if (!this.settings.getSetting('displayPurchasedUpgrades').value && upgrade.purchased) {
+                    return false;
+                }
+
+                return upgrade.visible(this.plant);
+            });
         },
     },
     methods: {

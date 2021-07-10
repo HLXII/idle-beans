@@ -14,7 +14,7 @@ export default class BeanVine extends GrowthPlant {
     ];
 
     upgrades: UpgradeState[] = [
-        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
+        new UpgradeState('Root Depth', {'Sky Bean': 1}),
     ];
 
     public baseGrowthTime: number = 300;

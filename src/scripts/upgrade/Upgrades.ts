@@ -33,6 +33,10 @@ export default class Upgrades extends IgtFeature {
             console.error(`Error - Upgrade "${upgradeId}" not found.`);
             return;
         }
+        if (!upgrade.visible) {
+            console.error(`Error - Upgrade "${upgradeId}" isn't purchaseable yet.`);
+            return;
+        }
         if (upgrade.purchased) {
             console.error(`Error - Upgrade "${upgradeId}" was already purchased.`);
             return;

@@ -1,4 +1,4 @@
-import { Saveable, SaveData } from "incremental-game-template";
+import { NoRequirement, Requirement, Saveable, SaveData } from "incremental-game-template";
 import { BeanAmount } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
 
@@ -12,7 +12,7 @@ export default class Upgrade implements Saveable {
 
     public purchased: boolean;
 
-    constructor(public name: string, description: GameText | GameText[], public cost: BeanAmount) {
+    constructor(public name: string, description: GameText | GameText[], public cost: BeanAmount, public requirement: Requirement = new NoRequirement()) {
         if (Array.isArray(description)) {
             this.description = description;
         } else {
@@ -20,6 +20,10 @@ export default class Upgrade implements Saveable {
         }
         
         this.purchased = false;
+    }
+
+    get visible(): boolean {
+        return this.requirement.isCompleted;
     }
 
     get saveKey(): string {

@@ -7,8 +7,10 @@ import { PlantEffectId } from "./PlantEffectId";
  * Used to store all Plant Upgrades. This isn't typed so that we can pull the keys into PlantUpgradeId
  */
  const InternalPlantUpgrades = {
-    'Stronger Roots': new MultiplierUpgrade('Stronger Roots', 'Cuts growth time in half.', PlantEffectId.GrowthTime, 0.5),
+    'Root Depth': new MultiplierUpgrade('Root Depth', 'Increase depth of roots, accessing additional nutrients. Cuts growth time in half.', PlantEffectId.GrowthTime, 0.5),
+    'Root Hairs': new MultiplierUpgrade('Root Hairs', 'Additional root hairs provide more surface area for nutrient extraction. Cuts growth time in half.', PlantEffectId.GrowthTime, 0.5, 'Root Depth'),
     'Wider Leaves': new MultiplierUpgrade('Wider Leaves', 'Beans grow in half the time.', PlantEffectId.RipeTime, 0.5),
+
 };
 
 /**

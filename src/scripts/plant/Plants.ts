@@ -45,6 +45,10 @@ export default class Plants extends IgtFeature {
             console.error(`Error - Plant ${plant.name} doesn't contain Plant Upgrade ${upgradeId}.`);
             return;
         }
+        if (!upgradeState.visible(plant)) {
+            console.error(`Error - Plant Upgrade ${upgradeId} is not purchaseable yet.`);
+            return;
+        }
         if (upgradeState.purchased) {
             console.error(`Error - Plant ${plant.name} already has Plant Upgrade ${upgradeId} purchased.`)
             return;

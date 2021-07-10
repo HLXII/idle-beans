@@ -13,7 +13,7 @@ export default class BeanPlant extends ProducePlant {
     ];
 
     upgrades: UpgradeState[] = [
-        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
+        new UpgradeState('Root Depth', {'Sky Bean': 1}),
     ];
 
     public baseProduceAmount = 1;

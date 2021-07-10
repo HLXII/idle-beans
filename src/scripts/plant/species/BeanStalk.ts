@@ -19,7 +19,7 @@ export default class BeanStalk extends Plant {
     }
 
     upgrades: UpgradeState[] = [
-        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
+        new UpgradeState('Root Depth', {'Sky Bean': 1}),
     ];
     get consumeCooldown(): number {
         return 2;
