@@ -27,8 +27,8 @@
                         </nav-tab>
                         <!-- Bean Packets Tab -->
                         <nav-tab :activeTab="shopTab" :tabType=1>
-                            <div>
-                                TODO: Add Seed Packet Shop
+                            <div class="flex flex-cols-4 gap-1 justify-center">
+                                <seed-packet v-for="packet in beanPackets" :key="packet.name" :packet="packet" :prestige="prestige" :controller="controller" :selected="prestige.selectedBeanPackets.includes(packet.name)"/>
                             </div>
                         </nav-tab>
                         <!-- Plant Upgrades Tab -->
@@ -101,6 +101,7 @@ import SeedCart from './seed-cart.vue';
 import { PlantCategory } from '@/scripts/plant/PlantList';
 import WikiPlantEntry from '../wiki/wiki-plant-entry.vue';
 import PlantUpgrade from './plant-upgrade.vue';
+import SeedPacket from './seed-packet.vue';
 
 export default {
     components: {
@@ -113,6 +114,7 @@ export default {
         SeedCart,
         WikiPlantEntry,
         PlantUpgrade,
+        SeedPacket,
     },
     data() {
         return {
@@ -143,6 +145,9 @@ export default {
         plants() {
             return this.game.features.plants;
         },
+        prestige() {
+            return this.game.features.prestige;
+        },
         //#endregion
         shopTab() {
             return this.controller.tabs[TabType.PrestigeShop];
@@ -160,6 +165,9 @@ export default {
                 }
                 return true;
             });
+        },
+        beanPackets() {
+            return Object.values(this.prestige.beanPackets).filter((packet) => packet.requirement.isCompleted);
         },
         plantList() {
             return this.controller.prestigePlantList;

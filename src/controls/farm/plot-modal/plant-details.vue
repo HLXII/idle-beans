@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex">
-            <div class="border4 bg-icon mr-2">
+            <div class="border4 bg-icon mr-2" @click="goToPlant">
                 <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="plant.icon.viewBox" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                     <path v-for="path in plant.icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
@@ -72,6 +72,9 @@ export default {
         remove() {
             this.farms.removePlant(this.plant.row, this.plant.col);
         },
+        goToPlant() {
+            this.controller.goToPlant(this.plant.data.name);
+        }
     }
 }
 </script>
