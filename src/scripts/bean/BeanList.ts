@@ -34,7 +34,7 @@ const InternalBeanList = {
     'Pea': new PlantableBean('Pea', 'TODO', BeanCategory.Food),
     'Coffee Bean': new PlantableBean('Coffee Bean', 'TODO', BeanCategory.Food),
     'Cocoa Bean': new PlantableBean('Cocoa Bean', 'TODO', BeanCategory.Food),
-    'Prestige Bean': new Bean('Prestige Bean', 'A Bean of otherworldly power.', BeanCategory.Special),
+    'Sky Bean': new Bean('Sky Bean', 'A Bean of condensed power of the Sky.', BeanCategory.Special),
 };
 
 /**

@@ -4,7 +4,7 @@ import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
-import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
+import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BlueBeanSprout extends GrowthPlant {
 
@@ -16,8 +16,8 @@ export default class BlueBeanSprout extends GrowthPlant {
         ];
     }
 
-    upgrades: PlantUpgradeId[] = [
-        'Stronger Roots',
+    upgrades: UpgradeState[] = [
+        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
     ];
 
     public baseGrowthTime: number = 3600;

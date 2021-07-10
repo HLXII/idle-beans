@@ -3,8 +3,8 @@ import { Features } from '@/Features';
 import { SaveData, IgtFeature, AbstractField } from 'incremental-game-template';
 import Beans from '../bean/Beans';
 import Plant, { PlantSaveData } from './Plant';
-import { PlantCategory, PlantList, PlantType } from './PlantList';
-import AbstractUpgrade from './upgrades/AbstractUpgrade';
+import { PlantList, PlantType } from './PlantList';
+import PlantUpgrade from './upgrades/PlantUpgrade';
 import { PlantUpgradeId, PlantUpgrades } from './upgrades/PlantUpgrades';
 
 export interface PlantsSaveData extends SaveData {
@@ -17,7 +17,7 @@ export default class Plants extends IgtFeature {
 
     public list: Record<PlantType, Plant> = PlantList;
 
-    public upgrades: Record<PlantUpgradeId, AbstractUpgrade> = PlantUpgrades;
+    public upgrades: Record<PlantUpgradeId, PlantUpgrade> = PlantUpgrades;
 
     constructor() {
         super('plants');
@@ -40,21 +40,22 @@ export default class Plants extends IgtFeature {
             console.error(`Error - Invalid Plant (${plant}) or Plant Upgrade (${upgradeId})`)
             return;
         }
-        if (!plant.upgrades.includes(upgradeId)) {
+        const upgradeState = plant.upgrades.find((upgradeState) => upgradeState.id === upgradeId);
+        if (!upgradeState) {
             console.error(`Error - Plant ${plant.name} doesn't contain Plant Upgrade ${upgradeId}.`);
             return;
         }
-        if (plant.purchasedUpgrades.includes(upgradeId)) {
+        if (upgradeState.purchased) {
             console.error(`Error - Plant ${plant.name} already has Plant Upgrade ${upgradeId} purchased.`)
             return;
         }
-        if (!this.beans.canAfford(upgrade.cost(plant.level))) {
+        if (!this.beans.canAfford(upgradeState.cost)) {
             console.error(`Error - Cannot afford Plant Upgrade ${upgradeId} on Plant ${plant.name}.`);
             return;
         }
 
-        this.beans.takeAmount(upgrade.cost(plant.level));
-        plant.purchasedUpgrades.push(upgradeId);
+        this.beans.takeAmount(upgradeState.cost);
+        upgradeState.purchased = true;
     }
 
     saveKey = 'plants';

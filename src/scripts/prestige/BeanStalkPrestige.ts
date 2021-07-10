@@ -82,7 +82,7 @@ export default class BeanStalkPrestige extends Prestige {
         // Calculating reward based on Bean Stalk height
         // TODO: Update to scale better
         const reward = {
-            'Prestige Bean': 1,
+            'Sky Bean': 1,
         };
         return reward;
     }
@@ -121,5 +121,5 @@ export const BeanStalkCost: Record<BeanType, number> = {
     'Pea':              3,
     'Coffee Bean':      4,
     'Cocoa Bean':       5,
-    'Prestige Bean':    0,
+    'Sky Bean':         0,
 }

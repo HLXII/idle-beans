@@ -5,7 +5,7 @@ import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
 import { OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
-import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
+import UpgradeState from "../upgrades/UpgradeState";
 
 export default class YellowBeanSprout extends GrowthPlant {
 
@@ -17,10 +17,9 @@ export default class YellowBeanSprout extends GrowthPlant {
         ];
     }
 
-    upgrades: PlantUpgradeId[] = [
-        'Stronger Roots',
+    upgrades: UpgradeState[] = [
+        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
     ];
-
     public baseGrowthTime: number = 120;
     public growths: Growth[] = [
         new Growth('Red Bean Plant', new AnyGrowthRequirement(

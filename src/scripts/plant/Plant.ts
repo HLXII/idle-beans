@@ -1,20 +1,24 @@
 import { App } from '@/App';
 import { SaveData, Saveable } from 'incremental-game-template';
-import { BeanAmount, BeanType } from '../bean/BeanList';
+import { BeanAmount } from '../bean/BeanList';
 import { GameText, LinkType } from '../controls/GameText';
 import FarmLocation from '../farm/FarmLocation';
 import { PlantIcons, SVGData } from './PlantImages';
 import { PlantCategory, PlantType } from './PlantList';
 import PlantState from './PlantState';
-import { PlantUpgradeId } from './upgrades/PlantUpgrades';
+import UpgradeState from './upgrades/UpgradeState';
 
 export interface PlantOptions {
     unlocked?: boolean;
 }
 
+interface PlantUpgradeSaveData extends SaveData {
+    [key: string]: boolean;
+}
+
 export interface PlantSaveData extends SaveData {
     unlocked: boolean;
-    purchasedUpgrades: PlantUpgradeId[];
+    upgrades: PlantUpgradeSaveData;
 }
 
 export default abstract class Plant implements Saveable {
@@ -23,15 +27,12 @@ export default abstract class Plant implements Saveable {
     public unlocked: boolean;
 
     /**Available Plant Upgrades */
-    abstract upgrades: PlantUpgradeId[];
+    abstract upgrades: UpgradeState[];
     /**Plant Description */
     abstract description: GameText[];
 
-    public purchasedUpgrades: PlantUpgradeId[];
-
     constructor(public name: string, public level: number, public category: PlantCategory, option?: PlantOptions) {
         this.unlocked = option?.unlocked ?? false;
-        this.purchasedUpgrades = [];
     }
 
     /**
@@ -48,7 +49,7 @@ export default abstract class Plant implements Saveable {
             // TODO: Handle adding wiki notification
             // TODO: Add setting to filter this message
             App.game.features.log.log([
-                `You have discovered a new plant: `,
+                `You have discovered a new Plant: `,
                 {text: this.name, type: LinkType.Plant, id: this.name},
             ]);
             this.unlocked = true;
@@ -63,7 +64,7 @@ export default abstract class Plant implements Saveable {
      * Returns whether we have purchased all upgrades on this Plant
      */
     get purchasedAllUpgrades(): boolean {
-        return this.upgrades.every((upgrade) => this.purchasedUpgrades.includes(upgrade));
+        return this.upgrades.every((upgrade) => upgrade.purchased);
     }
 
     /**
@@ -84,18 +85,20 @@ export default abstract class Plant implements Saveable {
         return this.name;
     }
     save(): PlantSaveData {
+        const upgrades: PlantUpgradeSaveData = {};
+        this.upgrades.forEach((upgradeState) => {
+            upgrades[upgradeState.id] = upgradeState.purchased;
+        });
         return {
             unlocked: this.unlocked,
-            purchasedUpgrades: this.purchasedUpgrades,
+            upgrades: upgrades,
         };
     }
     load(data: PlantSaveData): void {
         this.unlocked = data.unlocked ?? false;
-        if (data.purchasedUpgrades && data.purchasedUpgrades.length) {
-            this.purchasedUpgrades = data.purchasedUpgrades.filter((upgrade) => this.upgrades.includes(upgrade));
-        } else {
-            this.purchasedUpgrades = [];
-        }
+        this.upgrades.forEach((upgradeState) => {
+            upgradeState.load({ purchased: data.upgrades[upgradeState.id] });
+        });
     }
 
 }

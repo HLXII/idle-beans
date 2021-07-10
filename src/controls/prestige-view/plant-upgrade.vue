@@ -1,10 +1,10 @@
 <template>
-    <div class="border2 bg-generic" :class="[disabled ? 'upgradeDisabled' : '']" @click="purchase(upgrade.name)">
-        <div>{{upgrade.name}}</div>
+    <div class="border2 bg-generic" :class="[disabled ? 'upgradeDisabled' : '']" @click="purchase(upgrade.id)">
+        <div>{{upgrade.id}}</div>
         <div>
-            <game-text :text="upgrade.description" :controller="controller"/>
+            <game-text :text="baseUpgrade.description" :controller="controller"/>
         </div>
-        <div v-if="purchased" class="text-center">Purchased</div>
+        <div v-if="upgrade.purchased" class="text-center">Purchased</div>
         <div v-else>
             <div class="text-center">Cost:</div>
             <div>
@@ -19,7 +19,7 @@ import GameText from '@/controls/utility/game-text.vue'
 import GameController from '@/scripts/GameController'
 import GameHelper from '@/scripts/GameHelper'
 import Beans from '@/scripts/bean/Beans'
-import AbstractUpgrade from '@/scripts/plant/upgrades/AbstractUpgrade'
+import UpgradeState from '@/scripts/plant/upgrades/UpgradeState'
 import Plant from '@/scripts/plant/Plant'
 import Plants from '@/scripts/plant/Plants'
 
@@ -34,7 +34,7 @@ export default {
             required: true,
         },
         upgrade: {
-            type: AbstractUpgrade,
+            type: UpgradeState,
             required: true,
         },
         controller: {
@@ -59,17 +59,14 @@ export default {
         },
     },
     computed: {
-        cost() {
-            return this.upgrade.cost(this.plant.level);
+        baseUpgrade() {
+            return this.plants.upgrades[this.upgrade.id];
         },
         costText() {
-            return GameHelper.beanAmount(this.cost);
-        },
-        purchased() {
-            return this.plant.purchasedUpgrades.includes(this.upgrade.name);
+            return GameHelper.beanAmount(this.upgrade.cost);
         },
         disabled() {
-            return this.purchased || !this.beans.canAfford(this.cost);
+            return this.upgrade.purchased || !this.beans.canAfford(this.upgrade.cost);
         },
     },
 }

@@ -1,5 +1,7 @@
 
+import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
+import { LinkType } from "../controls/GameText";
 import { BeanCategory, BeanImages } from "./BeanList";
 
 export interface BeanOptions {
@@ -21,6 +23,18 @@ export default class Bean implements Saveable {
         this.unlocked = option?.unlocked ?? false;
     
         this.amount = option?.amount ?? 0;
+    }
+
+    unlock() {
+        if (!this.unlocked) {
+            // TODO: Handle adding wiki notification
+            // TODO: Add setting to filter this message
+            App.game.features.log.log([
+                `You have discovered a new Bean: `,
+                {text: this.name, type: LinkType.Bean, id: this.name},
+            ]);
+            this.unlocked = true;
+        }
     }
 
     get image(): any {
@@ -50,8 +64,8 @@ export default class Bean implements Saveable {
     }
 
     load(data: BeanSaveData): void {
-        this.unlocked = data.unlocked ?? false;
-        this.amount = data.amount ?? 0;
+        this.unlocked = data?.unlocked ?? false;
+        this.amount = data?.amount ?? 0;
     }
 
 }

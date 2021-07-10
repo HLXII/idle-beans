@@ -21,6 +21,9 @@
                             <div class="flex flex-cols-4 gap-1 justify-center">
                                 <upgrade v-for="upgrade in upgradeList" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :controller="controller" :beans="beans"/>
                             </div>
+                            <div v-if="upgradeList.length == 0">
+                                All available Upgrades purchased!
+                            </div>
                         </nav-tab>
                         <!-- Bean Packets Tab -->
                         <nav-tab :activeTab="shopTab" :tabType=1>
@@ -42,7 +45,7 @@
                                 </div>
                             </div>
                             <div v-if="plantCats.length == 0">
-                                All available Plant Upgrades Purchased!
+                                All available Plant Upgrades purchased!
                             </div>
                         </nav-tab>
                     </div>
@@ -165,7 +168,7 @@ export default {
             return this.plants.list[this.controller.prestigePlant];
         },
         plantUpgrades() {
-            return this.plant.upgrades.map((upgrade) => this.plants.upgrades[upgrade]);
+            return this.plant.upgrades;
         },
     },
     methods: {

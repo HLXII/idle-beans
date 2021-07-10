@@ -65,7 +65,7 @@ export default class Beans extends IgtFeature {
         bean.amount += amount;
 
         if (amount > 0) {
-            bean.unlocked = true;
+            bean.unlock();
         }
     }
 
@@ -78,8 +78,8 @@ export default class Beans extends IgtFeature {
         return data;
     }
     load(data: BeansSaveData): void {
-        Object.entries(data).map(([beanType, beanData]) => {
-            this.list[beanType as BeanType].load(beanData);
+        Object.keys(this.list).forEach((beanType) => {
+            this.list[beanType as BeanType].load(data[beanType]);
         });
     }
 

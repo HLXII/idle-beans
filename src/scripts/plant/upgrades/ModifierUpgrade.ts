@@ -1,12 +1,11 @@
-import { BeanAmount } from "@/scripts/bean/BeanList";
 import { GameText } from "@/scripts/controls/GameText";
-import AbstractUpgrade from "./AbstractUpgrade";
+import PlantUpgrade from "./PlantUpgrade";
 import { PlantEffectId } from "./PlantEffectId";
 
-export default abstract class ModifierUpgrade extends AbstractUpgrade {
+export default abstract class ModifierUpgrade extends PlantUpgrade {
 
-    constructor(name: string, description: GameText | GameText[], baseCost: BeanAmount, public effect: PlantEffectId) {
-        super(name, description, baseCost);
+    constructor(name: string, description: GameText | GameText[], public effect: PlantEffectId) {
+        super(name, description);
     }
 
     public applyEffect(initialValue: number, effect: PlantEffectId): number {

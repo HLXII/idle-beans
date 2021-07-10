@@ -4,7 +4,7 @@ import { PlantOptions } from "../Plant";
 import { PlantCategory } from "../PlantList";
 import PlantState from "../PlantState";
 import ProducePlant from "../ProducePlant";
-import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
+import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanPlant extends ProducePlant {
     
@@ -12,8 +12,8 @@ export default class BeanPlant extends ProducePlant {
         'Just a simple Bean Plant. TEMP',
     ];
 
-    upgrades: PlantUpgradeId[] = [
-        'Stronger Roots',
+    upgrades: UpgradeState[] = [
+        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
     ];
 
     public baseProduceAmount = 1;

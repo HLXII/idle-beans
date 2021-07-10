@@ -1,7 +1,7 @@
-import { BeanAmount, BeanType } from "@/scripts/bean/BeanList";
+import { BeanAmount } from "@/scripts/bean/BeanList";
 import { GameText } from "@/scripts/controls/GameText";
 import Plant from "../Plant";
-import { PlantUpgradeId } from "../upgrades/PlantUpgrades";
+import UpgradeState from "../upgrades/UpgradeState";
 import BeanStalkState from "./BeanStalkState";
 
 export default class BeanStalk extends Plant {
@@ -13,10 +13,9 @@ export default class BeanStalk extends Plant {
        ];
     }
 
-    upgrades: PlantUpgradeId[] = [
-        'Stronger Roots',
+    upgrades: UpgradeState[] = [
+        new UpgradeState('Stronger Roots', {'Sky Bean': 1}),
     ];
-
     get consumeCooldown(): number {
         return 2;
     }

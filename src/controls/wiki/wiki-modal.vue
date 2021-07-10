@@ -8,6 +8,7 @@
                 </nav>
             </div>
             <div class="modal-body">
+                <!-- Bean Tab -->
                 <nav-tab :tabType="0" :activeTab="wikiTab">
                     <nav class="flex gap-1 mb-1" v-if="beanCats.length > 1">
                         <nav-button v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="beanTab"/>
@@ -29,6 +30,7 @@
                         </div>
                     </div>
                 </nav-tab>
+                <!-- Plant Tab -->
                 <nav-tab :tabType="1" :activeTab="wikiTab">
                     <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
                         <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
@@ -50,10 +52,15 @@
                                 <div class="plantName">{{plant.name}}</div>
                                 <game-text :text="plant.description" :controller="controller"/>
                             </div>
-                            <div v-if="visibleGrowths.length > 0">
-                                <h1>Growths</h1>
-                                <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :controller="controller"/>
+                            <div>
+                                <nav class="flex gap-1 mb-1">
+                                    <nav-button class="flex-1" v-if="visibleGrowths.length > 0" tabName="Growths" :tabType=0 :changeTab="changePlantDetailsTab" :activeTab="plantDetailsTab"/>
+                                    <nav-button class="flex-1" v-if="purchasedUpgrades.length > 0" tabName="Upgrades" :tabType=1 :changeTab="changePlantDetailsTab" :activeTab="plantDetailsTab"/>
+                                </nav>
                             </div>
+                            <nav-tab :tabType="0" :activeTab="plantDetailsTab">
+                                <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :controller="controller"/>
+                            </nav-tab>
                         </div>
                     </div>
                 </nav-tab>
@@ -118,6 +125,9 @@ export default {
         changePlantTab: function(tab) {
             this.controller.changeTab(TabType.WikiPlant, tab);
         },
+        changePlantDetailsTab: function(tab) {
+            this.controller.changeTab(TabType.WikiPlantDetails, tab);
+        },
         changeWikiPlant: function(plantType) {
             this.controller.changeWikiPlant(plantType);
         },
@@ -144,9 +154,18 @@ export default {
         plantTab() {
             return this.controller.tabs[TabType.WikiPlant];
         },
+        plantDetailsTab() {
+            return this.controller.tabs[TabType.WikiPlantDetails];
+        },
         visibleGrowths() {
             if (this.plant.growths) {
                 return this.plant.growths.filter((growth) => growth.visible);
+            }
+            return [];
+        },
+        purchasedUpgrades() {
+            if (this.plant.uprades) {
+                return this.plant.upgrades.filter((upgrade) => upgrade.purchased);
             }
             return [];
         },

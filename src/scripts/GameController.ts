@@ -3,7 +3,6 @@ import { SaveData, IgtFeature, HotKeys, KeyBind, KeyEventType } from "incrementa
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Beans from "./bean/Beans";
-import PlantableBean from "./bean/PlantableBean";
 import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
 import Plant from "./plant/Plant";
@@ -29,6 +28,7 @@ export enum ModalType {
 export enum TabType {
     Wiki = "Wiki",
     WikiPlant = "WikiPlant",
+    WikiPlantDetails = 'WikiPlantDetails',
     WikiBean = "WikiBean",
     Settings = "Settings",
     Prestige = "Prestige",
@@ -103,6 +103,7 @@ export default class GameController extends IgtFeature {
         this.tabs = {
             'Wiki': 0,
             'WikiPlant': 0,
+            'WikiPlantDetails': 0,
             'WikiBean': 0,
             'Settings': 0,
             'Prestige': 0,
@@ -301,6 +302,9 @@ export default class GameController extends IgtFeature {
 
     changeWikiPlant(plantType: PlantType) {
         this.wikiPlant = plantType;
+
+        // Checking if we need to update the PlantDetailsTab
+        // TODO
     }
 
     openWiki(type: LinkType, id: string) {
