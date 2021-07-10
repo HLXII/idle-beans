@@ -4,7 +4,6 @@ import DefaultRequirement from '../growths/DefaultRequirement';
 import AnyGrowthRequirement from '../growths/AnyGrowthRequirement';
 import OriginBeanRequirement from '../growths/OriginBeanRequirement';
 import { DiagContainsRequirement } from "../growths/plot/PlotRequirements";
-import { GameText } from "@/scripts/controls/GameText";
 import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanBud extends GrowthPlant {

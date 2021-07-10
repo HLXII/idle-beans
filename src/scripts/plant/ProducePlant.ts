@@ -1,6 +1,4 @@
 import Plant from './Plant';
-import { PlantType } from './PlantList';
-import Growth from './growths/Growth';
 import ProducePlantState from './ProducePlantState';
 import { BeanType } from '../bean/BeanList';
 import { GameText } from '../controls/GameText';

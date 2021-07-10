@@ -1,4 +1,3 @@
-import { BeanType } from "@/scripts/bean/BeanList";
 import FarmLocation from "@/scripts/farm/FarmLocation";
 import { BeanStalkCost } from "@/scripts/prestige/BeanStalkPrestige";
 import { getOrthoPlots } from "../growths/plot/OrthoPlotsRequirement";

@@ -37,7 +37,7 @@ export default class Bean implements Saveable {
         }
     }
 
-    get image(): any {
+    get image(): string {
         return BeanImages[this.name];
     }
 

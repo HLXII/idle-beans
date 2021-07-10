@@ -1,8 +1,7 @@
 
-import { Features } from "@/Features";
 import { SaveData, AbstractField, IgtFeature } from "incremental-game-template";
 import Bean, { BeanSaveData } from "./Bean";
-import { BeanType, BeanList, BeanCategory, BeanAmount } from "./BeanList";
+import { BeanType, BeanList, BeanAmount } from "./BeanList";
 
 interface BeansSaveData extends SaveData {
     [key: string]: BeanSaveData;

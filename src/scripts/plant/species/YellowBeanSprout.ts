@@ -1,4 +1,4 @@
-import { GameText, LinkType } from "@/scripts/controls/GameText";
+import { LinkType } from "@/scripts/controls/GameText";
 import GrowthPlant from "../GrowthPlant";
 import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";

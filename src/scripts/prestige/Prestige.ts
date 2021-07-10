@@ -1,5 +1,5 @@
 import { Features } from "@/Features";
-import { BeanAmount, BeanType } from "../bean/BeanList";
+import { BeanAmount } from "../bean/BeanList";
 import Beans from "../bean/Beans";
 import { GameText } from "../controls/GameText";
 import GameHelper from "../GameHelper";
