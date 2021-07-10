@@ -4,13 +4,15 @@
         <div>
             <game-text :text="baseUpgrade.description" :controller="controller"/>
         </div>
-        <div v-if="upgrade.purchased" class="text-center">Purchased</div>
-        <div v-else>
-            <div class="text-center">Cost:</div>
-            <div>
-                <game-text :text="costText" :controller="controller"/>
+        <template v-if="!displayOnly">
+            <div v-if="upgrade.purchased" class="text-center">Purchased</div>
+            <div v-else>
+                <div class="text-center">Cost:</div>
+                <div>
+                    <game-text :text="costText" :controller="controller"/>
+                </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -49,10 +51,14 @@ export default {
             type: Beans,
             required: true,
         },
+        displayOnly: {
+            type: Boolean,
+            default: false,
+        },
     },
     methods: {
         purchase(upgradeId) {
-            if (!this.disabled) {
+            if (!this.disabled && !this.displayOnly) {
                 this.plants.purchaseUpgrade(this.plant, upgradeId);
                 this.controller.updatePrestigePlantTab();
             }
@@ -66,6 +72,9 @@ export default {
             return GameHelper.beanAmount(this.upgrade.cost);
         },
         disabled() {
+            if (this.displayOnly) {
+                return false; 
+            }
             return this.upgrade.purchased || !this.beans.canAfford(this.upgrade.cost);
         },
     },

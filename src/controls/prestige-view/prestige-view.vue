@@ -40,8 +40,8 @@
                                 <div class="border2 bg-generic">
                                     <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.prestigePlant" :changePlant="changePlant"></wiki-plant-entry>
                                 </div>
-                                <div class="border2 bg-generic col-span-2 p-1">
-                                    <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.name" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
+                                <div class="border2 bg-generic col-span-2">
+                                    <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
                                 </div>
                             </div>
                             <div v-if="plantCats.length == 0">

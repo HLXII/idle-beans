@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="border2 my-3">
+        <div class="border2">
             <div class="flex">
                 <svg-icon :icon="plantIcon" />
                 <div class="px-1">

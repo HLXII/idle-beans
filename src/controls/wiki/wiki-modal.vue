@@ -58,8 +58,11 @@
                                     <nav-button class="flex-1" v-if="purchasedUpgrades.length > 0" tabName="Upgrades" :tabType=1 :changeTab="changePlantDetailsTab" :activeTab="plantDetailsTab"/>
                                 </nav>
                             </div>
-                            <nav-tab :tabType="0" :activeTab="plantDetailsTab">
+                            <nav-tab class="flex flex-col gap-1" :tabType="0" :activeTab="plantDetailsTab">
                                 <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :controller="controller"/>
+                            </nav-tab>
+                            <nav-tab class="flex flex-col gap-1" :tabType="1" :activeTab="plantDetailsTab">
+                                <plant-upgrade v-for="upgrade in purchasedUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :displayOnly="true" :controller="controller" :plants="plants" :beans="beans"/>
                             </nav-tab>
                         </div>
                     </div>
@@ -85,6 +88,7 @@ import { BeanCategory } from "@/scripts/bean/BeanList";
 import { PlantCategory } from "@/scripts/plant/PlantList";
 import GameText from '@/controls/utility/game-text.vue';
 import { TabType } from "@/scripts/GameController";
+import PlantUpgrade from '../prestige-view/plant-upgrade.vue';
 
 export default {
     name: "wiki-modal",
@@ -105,6 +109,7 @@ export default {
         WikiPlantEntry,
         WikiGrowth,
         GameText,
+        PlantUpgrade,
     },
     props: {
         show: {
@@ -164,7 +169,7 @@ export default {
             return [];
         },
         purchasedUpgrades() {
-            if (this.plant.uprades) {
+            if (this.plant.upgrades) {
                 return this.plant.upgrades.filter((upgrade) => upgrade.purchased);
             }
             return [];
