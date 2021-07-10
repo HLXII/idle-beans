@@ -8,6 +8,7 @@ import Log from "@/scripts/log/Log";
 import { Settings } from "@/scripts/Settings";
 import PrestigeHandler from "./scripts/prestige/PrestigeHandler";
 import Upgrades from "./scripts/upgrade/Upgrades";
+import Statistics from "./scripts/statistics/Statistics";
 
 export interface Features extends IgtFeatures {
     settings: Settings;
@@ -18,4 +19,5 @@ export interface Features extends IgtFeatures {
     log: Log;
     prestige: PrestigeHandler;
     upgrades: Upgrades;
+    statistics: Statistics;
 }

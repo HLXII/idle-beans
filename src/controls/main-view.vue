@@ -24,6 +24,7 @@
                     <farm-control></farm-control>
                 </div>
                 <!-- Dev Panel -->
+                <igt-developer-panel v-if="showDevPanel" :developerPanel="game.getDeveloperPanel()"/>
                 <!-- TODO -->
         </div>
         <div id="right-column">
@@ -69,6 +70,8 @@
 </template>
 
 <script>
+import {App} from "@/App.ts"
+
 import {ModalType} from '@/scripts/GameController';
 
 import ToolIcons from '@/controls/controller/tool-icons/tool-icons.vue';
@@ -79,6 +82,7 @@ import Icon from "@/controls/utility/icon.vue";
 import FarmControl from "@/controls/farm/farm-control.vue";
 import Tooltip from '@/controls/utility/tooltip.vue';
 import { Game } from '@/Game';
+import IgtDeveloperPanel from '@/components/developer-panel/igt-developer-panel.vue';
 
 export default {
     components: {
@@ -89,6 +93,7 @@ export default {
         Icon,
         FarmControl,
         Tooltip,
+        IgtDeveloperPanel,
     },
     data() {
         return {
@@ -102,6 +107,9 @@ export default {
         },
     },
     computed: {
+        showDevPanel() {
+            return !App.inProduction;
+        },
         darkMode() {
             return this.game.features.settings.getSetting('darkMode').value;
         },
