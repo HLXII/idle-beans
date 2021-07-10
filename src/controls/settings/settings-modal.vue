@@ -28,8 +28,8 @@
                         <div>Display Purchased Upgrades:</div>
                         <div class="flex">
                             <icon-toggle :setting="displayPurchasedUpgrades"
-                            :trueIcon="require(`@/assets/images/icons/Dark Mode Icon.png`)"
-                            :falseIcon="require(`@/assets/images/icons/Light Mode Icon.png`)"
+                            :trueIcon="require(`@/assets/images/icons/Eye Icon.png`)"
+                            :falseIcon="require(`@/assets/images/icons/No Eye Icon.png`)"
                             :trueTooltip="`Displaying Purchased Upgrades`"
                             :falseTooltip="`Hiding Purchased Upgrades`"></icon-toggle>
                         </div>
