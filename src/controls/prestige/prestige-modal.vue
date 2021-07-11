@@ -8,12 +8,14 @@
                 </nav>
             </div>
             <div class="modal-body">
+                <!-- Prestiges -->
                 <nav-tab :activeTab="prestigeTab" :tabType=0>
-                    <div>
-                        TODO: Figure out description for prestige
+                    <div v-if="visiblePrestiges.length == 0">
+                        Currently no available prestiges.
                     </div>
                     <prestige v-for="(prestige, idx) in visiblePrestiges" :key="idx" :prestige="prestige" :controller="controller"/>
                 </nav-tab>
+                <!-- Prestige Modifiers -->
                 <nav-tab :activeTab="prestigeTab" :tabType=1>
 
                 </nav-tab>

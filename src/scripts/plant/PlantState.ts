@@ -6,6 +6,7 @@ import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
 import GameHelper from "../GameHelper";
+import { EntryType } from "../log/Log";
 import Plant from "./Plant";
 import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from './PlantList';
@@ -77,7 +78,7 @@ export default class PlantState implements Saveable, FarmLocation {
             {text: this.type, type: LinkType.Plant, id: this.type},
             '. Gained: ',
             gainedBeans,
-        ]);
+        ], EntryType.Removal);
     }
 
     get removeGain(): BeanAmount {

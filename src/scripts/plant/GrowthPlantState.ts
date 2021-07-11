@@ -1,6 +1,7 @@
 import { App } from "@/App";
 import { LinkType } from "../controls/GameText";
 import FarmLocation from "../farm/FarmLocation";
+import { EntryType } from "../log/Log";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
 import PlantState, { PlantStateSaveData } from "./PlantState";
@@ -46,7 +47,7 @@ export default class GrowthPlantState extends PlantState {
                 {text: this.type, type: LinkType.Plant, id: this.type},
                 ' has grown into a ',
                 {text: growth, type: LinkType.Plant, id: growth},
-            ]);
+            ], EntryType.Growth);
             this.grow(growth);
         }
     }

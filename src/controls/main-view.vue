@@ -25,7 +25,6 @@
                 </div>
                 <!-- Dev Panel -->
                 <igt-developer-panel v-if="showDevPanel" :developerPanel="game.getDeveloperPanel()"/>
-                <!-- TODO -->
         </div>
         <div id="right-column">
             <div class="flex flex-col gap-1" style="height: 100%;">

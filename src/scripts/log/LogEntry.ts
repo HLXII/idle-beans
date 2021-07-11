@@ -1,21 +1,18 @@
 import { SaveData, Saveable } from "incremental-game-template";
 import { GameText } from "../controls/GameText";
+import { EntryType } from "./Log";
 
 export interface LogEntrySaveData extends SaveData {
     message: GameText[];
-    color: string;
+    type: EntryType;
     time: number;
 }
 
 export default class LogEntry implements Saveable {
 
-    public message: GameText[];
-    public color: string;
     public time: Date;
 
-    constructor(message: GameText[] = [], color: string = 'dark') {
-        this.message = message;
-        this.color = color;
+    constructor(public message: GameText[] = [], public type: EntryType = EntryType.Normal) {
         this.time = new Date();
     }
 
@@ -23,13 +20,13 @@ export default class LogEntry implements Saveable {
     save(): LogEntrySaveData {
         return {
             message: this.message,
-            color: this.color,
+            type: this.type,
             time: this.time.getTime(),
         }    
     }
     load(data: LogEntrySaveData): void {
         this.message = data?.message ?? [];
-        this.color = data?.color ?? '';
+        this.type = data?.type ?? EntryType.Normal;
         this.time = new Date(data?.time);
     }
     

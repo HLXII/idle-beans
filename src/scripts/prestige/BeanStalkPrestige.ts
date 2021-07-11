@@ -122,4 +122,6 @@ export const BeanStalkCost: Record<BeanType, number> = {
     'Coffee Bean':      4,
     'Cocoa Bean':       5,
     'Sky Bean':         0,
+    'Magic Bean':       0,
+    'PCBean':           0,
 }

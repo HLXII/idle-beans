@@ -17,7 +17,6 @@ export default class EveryGrowthRequirement extends GrowthRequirement {
     }
 
     get description(): GameText[] {
-        // TODO: Check if this formatting works well (might need 'and'?)
         const description = [];
         const descs = this.reqs.filter((req) => req.visible()).map((req) => req.description);
         const firsts = descs.slice(0, descs.length - 1);

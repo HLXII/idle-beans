@@ -2,6 +2,7 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
 import { LinkType } from "../controls/GameText";
+import { EntryType } from "../log/Log";
 import { BeanCategory, BeanImages } from "./BeanList";
 
 export interface BeanOptions {
@@ -27,12 +28,10 @@ export default class Bean implements Saveable {
 
     unlock() {
         if (!this.unlocked) {
-            // TODO: Handle adding wiki notification
-            // TODO: Add setting to filter this message
             App.game.features.log.log([
                 `You have discovered a new Bean: `,
                 {text: this.name, type: LinkType.Bean, id: this.name},
-            ]);
+            ], EntryType.Unlock);
             this.unlocked = true;
         }
     }
