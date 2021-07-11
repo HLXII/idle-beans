@@ -34,7 +34,7 @@ export default abstract class Plant implements Saveable {
     /**Plant Description */
     abstract description: GameText[];
 
-    constructor(public name: string, public level: number, public category: PlantCategory, option?: PlantOptions) {
+    constructor(public name: string, public category: PlantCategory, option?: PlantOptions) {
         this.unlocked = option?.unlocked ?? false;
     }
 

@@ -1,6 +1,6 @@
 import Plant from './Plant';
 import ProducePlantState from './ProducePlantState';
-import { BeanType } from '../bean/BeanList';
+import { BeanAmount, BeanType } from '../bean/BeanList';
 import { GameText } from '../controls/GameText';
 import { App } from '@/App';
 import ModifierUpgrade from './upgrades/ModifierUpgrade';
@@ -105,6 +105,14 @@ export default abstract class ProducePlant extends Plant {
             `Produces ${this.produceAmount()} ${this.produceBean} every ${this.produceTime()} seconds.<br>`,
             `Can store ${this.storage()} Beans.`, 
         ];
+    }
+
+    /**
+     * Determines the beans returned from removing the plant
+     * @param state The PlantState
+     */
+     removeGain(state: ProducePlantState): BeanAmount {
+        return {[this.produceBean]: 2};
     }
 
 }

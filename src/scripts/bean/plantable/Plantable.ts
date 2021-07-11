@@ -1,5 +1,5 @@
-import { FarmType } from '../farm/FarmType';
-import { PlantType } from '../plant/PlantList';
+import { FarmType } from '../../farm/FarmType';
+import { PlantType } from '../../plant/PlantList';
 
 export default interface Plantable {
 

@@ -1,11 +1,13 @@
 import GameHelper from '../GameHelper';
 import Bean from './Bean';
-import PlantableBean from './PlantableBean';
+import PlantableBean from './plantable/PlantableBean';
 
 export enum BeanCategory {
-    'Colored' = 0,
+    'Normal' = 0,
+    'Colored',
     'Food',
     'Special',
+    'Machine',
 }
 
 /**
@@ -13,7 +15,7 @@ export enum BeanCategory {
  * Used to store all Bean data. This isn't typed so that we can pull the keys into BeanType
  */
 const InternalBeanList = {
-    'Bean': new PlantableBean('Bean', 'The quintessential Bean.', BeanCategory.Colored, 'Bean Bud', { unlocked: true, amount: 1 }),
+    'Bean': new PlantableBean('Bean', 'The quintessential Bean.', BeanCategory.Normal, 'Bean Bud', undefined, { unlocked: true, amount: 1 }),
     'Green Bean': new PlantableBean('Green Bean', 'A greener variety of Bean. Goes great in soups.', BeanCategory.Colored),
     'Red Bean': new PlantableBean('Red Bean', 'It\'s vibrant color lends itself to stews.', BeanCategory.Colored),
     'Yellow Bean': new PlantableBean('Yellow Bean', 'A more pale Bean variety. Ideally should be harvested young.', BeanCategory.Colored),
@@ -35,6 +37,8 @@ const InternalBeanList = {
     'Coffee Bean': new PlantableBean('Coffee Bean', 'TODO', BeanCategory.Food),
     'Cocoa Bean': new PlantableBean('Cocoa Bean', 'TODO', BeanCategory.Food),
     'Sky Bean': new Bean('Sky Bean', 'A Bean of condensed power of the Sky.', BeanCategory.Special),
+    'Magic Bean': new Bean('Magic Bean', 'A Bean imbued with magical energy. Worth 1/5th a cow.', BeanCategory.Normal),
+    'PCBean': new Bean('PCBean', 'A silicon-based Bean species. Has evolved to conduct electrical signals between its cell walls.', BeanCategory.Machine),
 };
 
 /**

@@ -1,18 +1,20 @@
 import { App } from "@/App";
-import { FarmType } from "../farm/FarmType";
-import { PlantType } from "../plant/PlantList";
-import Bean, { BeanOptions } from "./Bean";
-import { BeanCategory, BeanType } from "./BeanList";
+import { FarmType } from "@/scripts/farm/FarmType";
+import { PlantType } from "@/scripts/plant/PlantList";
+import Bean, { BeanOptions } from "../Bean";
+import { BeanCategory, BeanType } from "../BeanList";
+import NoPlantRequirement from "./NoPlantRequirement";
 import Plantable from "./Plantable";
+import PlantRequirement from "./PlantRequirement";
 
 
 export default class PlantableBean extends Bean implements Plantable {
     
-    constructor(name: string, description: string, category: BeanCategory, public plantType: PlantType = 'Bean Bud', option?: BeanOptions) {
+    constructor(name: string, description: string, category: BeanCategory, public plantType: PlantType = 'Bean Bud', public plantRequirement: PlantRequirement = new NoPlantRequirement(), option?: BeanOptions) {
         super(name, description, category, option);
     }
 
-    plant(farm: FarmType, row: number, col: number) {
+    plant(farm: FarmType, row: number, col: number): boolean {
         // No Beans left
         if (!this.amount) {
             return false;
@@ -21,6 +23,11 @@ export default class PlantableBean extends Bean implements Plantable {
         const prevPlant = App.game.features.farms.getPlant(row, col, farm);
         if (prevPlant) {
             return false;
+        }
+
+        // Checking Plot requirements
+        if (!this.plantRequirement.canPlant(farm ,row, col)) {
+            return false
         }
 
         // Removing Bean
@@ -36,6 +43,8 @@ export default class PlantableBean extends Bean implements Plantable {
 
         // Unlocking state
         plant.unlock();
+
+        return true;
     }
 
 }

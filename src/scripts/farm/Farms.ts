@@ -2,7 +2,7 @@ import { App } from "@/App";
 import { Features } from "@/Features";
 import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import { BeanType } from "../bean/BeanList";
-import { isPlantable } from "../bean/Plantable";
+import { isPlantable } from "../bean/plantable/Plantable";
 import PlantState from "../plant/PlantState";
 import ProducePlantState from "../plant/ProducePlantState";
 import AbstractFarm, { FarmSaveData } from "./AbstractFarm";

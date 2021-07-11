@@ -19,21 +19,6 @@ export default class BeanVine extends GrowthPlant {
 
     public baseGrowthTime: number = 300;
     public growths: Growth[] = [
-        /*
-        new Growth('Bean Vine', new DiagContainsRequirement({plant: 'Bean Plant', amount: 3})),
-        new Growth('Blue Bean Sprout', new AnyGrowthRequirement(
-            [
-                new OriginBeanRequirement(['Blue Bean', 'Indigo Bean', 'Purple Bean']),
-                // TODO: Additional logic to initially morph
-            ]
-        )),
-        new Growth('Yellow Bean Sprout', new AnyGrowthRequirement(
-            [
-                new OriginBeanRequirement(['Yellow Bean', 'Orange Bean', 'Red Bean']),
-                new DiagContainsRequirement({plant: 'Bean Plant', amount: 2}),
-            ]
-        )),
-        */
         new Growth('Bean Stalk', new DefaultRequirement()),
     ];
 
