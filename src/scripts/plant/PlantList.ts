@@ -19,6 +19,7 @@ import YellowBeanPlant from './species/beanplants/YellowBeanPlant';
 import BeanShoot from './species/foodplants/BeanShoot';
 import SoyBeanPlant from './species/foodplants/SoyBeanPlant';
 import MungBeanPlant from './species/foodplants/MungBeanPlant';
+import PeanutVine from './species/foodplants/PeanutVine';
 
 export enum PlantCategory {
     'Common' = 0,
@@ -49,16 +50,17 @@ const InternalPlantList = {
     'Bean Shoot':           new BeanShoot('Bean Shoot',                 PlantCategory.Common),
     'Soy Bean Plant':       new SoyBeanPlant('Soy Bean Plant',          PlantCategory.Food),
     'Mung Bean Plant':      new MungBeanPlant('Mung Bean Plant',        PlantCategory.Food), 
-    'Black-eyed Pea Plant': new BeanPlant('Black-eyed Pea Plant',       PlantCategory.Food), 
-    'Adzuki Bean Plant':    new BeanPlant('Adzuki Bean Plant',          PlantCategory.Food), 
-    'Chickpea Plant':       new BeanPlant('Chickpea Plant',             PlantCategory.Food), 
-    'Peanut Vine':          new BeanPlant('Peanut Vine',                PlantCategory.Food), 
-    'Lentil Vine':          new BeanPlant('Lentil Vine',                PlantCategory.Food), 
-    'Pea Plant':            new BeanPlant('Pea Plant',                  PlantCategory.Food), 
-    'Coffee Tree':          new BeanPlant('Coffee Tree',                PlantCategory.Food), 
-    'Cacao Tree':           new BeanPlant('Cacao Tree',                 PlantCategory.Food), 
+    //'Black-eyed Pea Plant': new BeanPlant('Black-eyed Pea Plant',       PlantCategory.Food), 
+    //'Adzuki Bean Plant':    new BeanPlant('Adzuki Bean Plant',          PlantCategory.Food), 
+    //'Chickpea Plant':       new BeanPlant('Chickpea Plant',             PlantCategory.Food), 
+    'Peanut Vine':          new PeanutVine('Peanut Vine',               PlantCategory.Food), 
+    //'Lentil Vine':          new BeanPlant('Lentil Vine',                PlantCategory.Food), 
+    //'Pea Plant':            new BeanPlant('Pea Plant',                  PlantCategory.Food), 
+    //'Coffee Tree':          new BeanPlant('Coffee Tree',                PlantCategory.Food), 
+    //'Cacao Tree':           new BeanPlant('Cacao Tree',                 PlantCategory.Food), 
     'Bean Vine':            new BeanVine('Bean Vine',                   PlantCategory.Common), 
     'Bean Stalk':           new BeanStalk('Bean Stalk',                 PlantCategory.Common),
+    //'Lesser Leguma Plant':  new LesserLegumaPlant
 };
 
 /**
