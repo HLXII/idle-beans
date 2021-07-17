@@ -26,10 +26,6 @@ export default class BeanStalkState extends PlantState {
         this.consumptionTime = 0;
     }
 
-    /**
-     * Updates the plant every game tick
-     * @param delta The time passed (ms)
-     */
     update(delta: number) {
         super.update(delta);
 
@@ -105,11 +101,13 @@ export default class BeanStalkState extends PlantState {
     }
     
     get image(): SVGData {
-        if (this.height >= 6) {
+        if (this.height >= 10) {
             return getImage('Bean Stalk Heavens');
-        } else if (this.height > 4) {
+        } else if (this.height >= 5) {
+            return getImage('Bean Stalk Grown');
+        } else if (this.height >= 3) {
             return getImage('Bean Stalk Adult');
-        } else if (this.height > 2) {
+        } else if (this.height >= 1) {
             return getImage('Bean Stalk Juvenile');
         } else {
             return getImage('Bean Stalk Infant')

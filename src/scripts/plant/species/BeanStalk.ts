@@ -1,5 +1,6 @@
 import { BeanAmount } from "@/scripts/bean/BeanList";
 import { GameText } from "@/scripts/controls/GameText";
+import BeanStalkPrestige from "@/scripts/prestige/BeanStalkPrestige";
 import Plant from "../Plant";
 import UpgradeState from "../upgrades/UpgradeState";
 import BeanStalkState from "./BeanStalkState";
@@ -19,18 +20,18 @@ export default class BeanStalk extends Plant {
     }
 
     upgrades: UpgradeState[] = [
-
+        // TODO: Add upgrades
     ];
     get consumeCooldown(): number {
+        // TODO: Handle upgrades
         return 2;
     }
 
-    /**
-     * Determine the gain from cutting down the Bean Stalk
-     * @param state The BeanStalkState
-     */
-     removeGain(state: BeanStalkState): BeanAmount {
-        // TODO: Calculate returns based on height
-        return {[state.originBean]: 1};
+    removeGain(state: BeanStalkState): BeanAmount {
+        if (state.height < BeanStalkPrestige.prestigeHeight) {
+            return {[state.originBean]: 1};
+        } else {
+            return {'Magic Bean': state.height - BeanStalkPrestige.prestigeHeight + 1}
+        }
     }
 }

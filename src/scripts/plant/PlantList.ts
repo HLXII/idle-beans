@@ -20,11 +20,14 @@ import BeanShoot from './species/foodplants/BeanShoot';
 import SoyBeanPlant from './species/foodplants/SoyBeanPlant';
 import MungBeanPlant from './species/foodplants/MungBeanPlant';
 import PeanutVine from './species/foodplants/PeanutVine';
+import LegumaBud from './species/leguma/LegumaBud';
+import LesserLegumaPlant from './species/leguma/LesserLegumaPlant';
 
 export enum PlantCategory {
     'Common' = 0,
     'Colored',
     'Food',
+    'Magic',
 }
 
 /**
@@ -60,7 +63,8 @@ const InternalPlantList = {
     //'Cacao Tree':           new BeanPlant('Cacao Tree',                 PlantCategory.Food), 
     'Bean Vine':            new BeanVine('Bean Vine',                   PlantCategory.Common), 
     'Bean Stalk':           new BeanStalk('Bean Stalk',                 PlantCategory.Common),
-    //'Lesser Leguma Plant':  new LesserLegumaPlant
+    'Leguma Bud':           new LegumaBud('Leguma Bud',                 PlantCategory.Magic),
+    'Lesser Leguma Plant':  new LesserLegumaPlant('Lesser Leguma Plant',  PlantCategory.Magic),
 };
 
 /**

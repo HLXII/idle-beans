@@ -12,7 +12,7 @@ export default class BeanStalkPrestige extends Prestige {
     private farms: Farms;
 
     /**Height of Bean Stalk required to prestige */
-    private heightRequirement = 6;
+    public static prestigeHeight = 5;
 
     constructor(features: Features) {
         super(features);
@@ -68,7 +68,7 @@ export default class BeanStalkPrestige extends Prestige {
         if (!beanStalk) {
             return false;
         }
-        return beanStalk.height >= this.heightRequirement;
+        return beanStalk.height >= BeanStalkPrestige.prestigeHeight;
     }
 
     get reward(): BeanAmount {
@@ -90,7 +90,7 @@ export default class BeanStalkPrestige extends Prestige {
     label: string = 'Highest Bean Stalk:';
 
     get percent(): number {
-        return Math.min(1, (this.highestBeanStalk?.height || 0) / this.heightRequirement);
+        return Math.min(1, (this.highestBeanStalk?.height || 0) / BeanStalkPrestige.prestigeHeight);
     }
 
     get text(): string {

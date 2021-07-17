@@ -37,7 +37,7 @@ const InternalBeanList = {
     //'Coffee Bean': new PlantableBean('Coffee Bean', 'TODO', BeanCategory.Food),
     //'Cocoa Bean': new PlantableBean('Cocoa Bean', 'TODO', BeanCategory.Food),
     'Sky Bean': new Bean('Sky Bean', 'A Bean of condensed power of the Sky.', BeanCategory.Special),
-    'Magic Bean': new Bean('Magic Bean', 'A Bean imbued with magical energy. Worth 1/5th a cow.', BeanCategory.Normal),
+    'Magic Bean': new PlantableBean('Magic Bean', 'A Bean imbued with magical energy. Worth 1/5th a cow.', BeanCategory.Normal, 'Leguma Bud'),
     //'PCBean': new Bean('PCBean', 'A silicon-based Bean species. Has evolved to conduct electrical signals between its cell walls.', BeanCategory.Machine),
 };
 
