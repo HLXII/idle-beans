@@ -22,12 +22,14 @@ export default class YellowBeanSprout extends GrowthPlant {
     
     public baseGrowthTime: number = 120;
     public growths: Growth[] = [
+        /*
         new Growth('Red Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Red Bean'),
                 // TODO: Create requirement
             ]
         )),
+        */
         new Growth('Soy Bean Plant', new NearContainsRequirement([
             { plant: 'Yellow Bean Plant', amount: 2},
             'Orange Bean Plant',

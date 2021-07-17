@@ -21,18 +21,22 @@ export default class BlueBeanSprout extends GrowthPlant {
 
     public baseGrowthTime: number = 3600;
     public growths: Growth[] = [
+        /*
         new Growth('Purple Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Purple Bean'),
                 // TODO: Create requirement
             ]
         )),
+        */
+        /*
         new Growth('Indigo Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Indigo Bean'),
                 // TODO: Create requirement
             ]
         )),
-        new Growth('Blue Bean Plant', new DefaultRequirement()),
+        */
+        //new Growth('Blue Bean Plant', new DefaultRequirement()),
     ];
 }

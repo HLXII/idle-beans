@@ -19,6 +19,7 @@ export default class BeanSprout extends GrowthPlant {
 
     public baseGrowthTime: number = 16;
     public growths: Growth[] = [
+        /*
         new Growth('Rainbow Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Rainbow Bean'),
@@ -35,6 +36,8 @@ export default class BeanSprout extends GrowthPlant {
                 )
             ]
         )),
+        */
+        /*
         new Growth('Black Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Black Bean'),
@@ -47,6 +50,7 @@ export default class BeanSprout extends GrowthPlant {
                 // TODO: Create requirement
             ]
         )),
+        */
         new Growth('Mung Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Mung Bean'),
