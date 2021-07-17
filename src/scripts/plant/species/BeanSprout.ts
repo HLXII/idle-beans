@@ -47,13 +47,18 @@ export default class BeanSprout extends GrowthPlant {
                 // TODO: Create requirement
             ]
         )),
+        new Growth('Mung Bean Plant', new AnyGrowthRequirement(
+            [
+                new OriginBeanRequirement('Mung Bean'),
+                new OrthoContainsRequirement({plant: 'Green Bean Plant', amount: 4}),
+            ]
+        )),
         new Growth('Green Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Green Bean'),
                 new OrthoContainsRequirement('Bean Plant'),
             ]
         )),
-        //new Growth('Bean Bush', // TODO: create requirement
         new Growth('Bean Plant', new DefaultRequirement()),
     ];
 

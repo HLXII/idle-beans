@@ -4,7 +4,7 @@ import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
-import { OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
+import { NearContainsRequirement, OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
 import UpgradeState from "../upgrades/UpgradeState";
 
 export default class YellowBeanSprout extends GrowthPlant {
@@ -28,6 +28,10 @@ export default class YellowBeanSprout extends GrowthPlant {
                 // TODO: Create requirement
             ]
         )),
+        new Growth('Soy Bean Plant', new NearContainsRequirement([
+            { plant: 'Yellow Bean Plant', amount: 2},
+            'Orange Bean Plant',
+        ])),
         new Growth('Orange Bean Plant', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement('Orange Bean'),

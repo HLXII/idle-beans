@@ -26,6 +26,7 @@ export default class BeanBud extends GrowthPlant {
                 // TODO: Additional logic to initially morph
             ]
         )),
+        new Growth('Bean Shoot', new OriginBeanRequirement(['Soy Bean'])),
         new Growth('Yellow Bean Sprout', new AnyGrowthRequirement(
             [
                 new OriginBeanRequirement(['Yellow Bean', 'Orange Bean', 'Red Bean']),

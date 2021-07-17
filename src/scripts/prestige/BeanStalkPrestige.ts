@@ -98,30 +98,3 @@ export default class BeanStalkPrestige extends Prestige {
     }
     
 }
-
-export const BeanStalkCost: Record<BeanType, number> = {
-    'Bean':             1,
-    'Green Bean':       2,
-    'Red Bean':         2,
-    'Yellow Bean':      2,
-    'Orange Bean':      2,
-    'White Bean':       3,
-    'Black Bean':       3,
-    'Blue Bean':        3,
-    'Indigo Bean':      4,
-    'Purple Bean':      4,
-    'Rainbow Bean':     5,
-    'Black-eyed Pea':   2,
-    'Adzuki Bean':      2,
-    'Chickpea':         3,
-    'Soy Bean':         4,
-    'Peanut':           2,
-    'Lentil':           2,
-    'Mung Bean':        4,
-    'Pea':              3,
-    'Coffee Bean':      4,
-    'Cocoa Bean':       5,
-    'Sky Bean':         0,
-    'Magic Bean':       0,
-    'PCBean':           0,
-}

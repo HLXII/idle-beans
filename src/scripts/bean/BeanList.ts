@@ -26,13 +26,13 @@ const InternalBeanList = {
     'Indigo Bean': new PlantableBean('Indigo Bean', 'The deeper shade of Indigo is caused by unique pigments to this Bean.', BeanCategory.Colored),
     'Purple Bean': new PlantableBean('Purple Bean', 'The purple hue of this bean lead it to be prized in some ancient cultures.', BeanCategory.Colored),
     'Rainbow Bean': new PlantableBean('Rainbow Bean', 'The cellular structure of this Bean has striations of various colored Beans.', BeanCategory.Colored),
+    'Soy Bean': new PlantableBean('Soy Bean', 'TODO', BeanCategory.Food),
+    'Mung Bean': new PlantableBean('Mung Bean', 'TODO', BeanCategory.Food),
     'Black-eyed Pea': new PlantableBean('Black-eyed Pea', 'TODO', BeanCategory.Food),
     'Adzuki Bean': new PlantableBean('Adzuki Bean', 'TODO', BeanCategory.Food),
     'Chickpea': new PlantableBean('Chickpea', 'TODO', BeanCategory.Food),
-    'Soy Bean': new PlantableBean('Soy Bean', 'TODO', BeanCategory.Food),
     'Peanut': new PlantableBean('Peanut', 'TODO', BeanCategory.Food),
     'Lentil': new PlantableBean('Lentil', 'TODO', BeanCategory.Food),
-    'Mung Bean': new PlantableBean('Mung Bean', 'TODO', BeanCategory.Food),
     'Pea': new PlantableBean('Pea', 'TODO', BeanCategory.Food),
     'Coffee Bean': new PlantableBean('Coffee Bean', 'TODO', BeanCategory.Food),
     'Cocoa Bean': new PlantableBean('Cocoa Bean', 'TODO', BeanCategory.Food),
@@ -60,3 +60,33 @@ export const BeanImages = GameHelper.importImages(require.context('/src/assets/i
  * Type for Bean amounts
  */
 export type BeanAmount = {[bean in BeanType]?: number};
+
+/**
+ * Value of the Bean when consumed by a Bean Stalk
+ */
+export const BeanStalkCost: Record<BeanType, number> = {
+    'Bean':             1,
+    'Green Bean':       2,
+    'Red Bean':         2,
+    'Yellow Bean':      2,
+    'Orange Bean':      2,
+    'White Bean':       3,
+    'Black Bean':       3,
+    'Blue Bean':        3,
+    'Indigo Bean':      4,
+    'Purple Bean':      4,
+    'Rainbow Bean':     5,
+    'Soy Bean':         4,
+    'Mung Bean':        4,
+    'Black-eyed Pea':   2,
+    'Adzuki Bean':      2,
+    'Chickpea':         3,
+    'Peanut':           2,
+    'Lentil':           2,
+    'Pea':              3,
+    'Coffee Bean':      4,
+    'Cocoa Bean':       5,
+    'Sky Bean':         0,
+    'Magic Bean':       0,
+    'PCBean':           0,
+}
