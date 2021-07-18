@@ -3,8 +3,10 @@ import { FarmType } from "./FarmType";
 
 export default class Farm extends AbstractFarm {
     
+    maxLeguma: number = 100;
+    
     constructor() {
-        super(FarmType.farm, 'Plains');
+        super(FarmType.plains, 'Plains');
     }
 
     canAccess(): boolean {

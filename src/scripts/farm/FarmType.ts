@@ -1,4 +1,4 @@
 
 export enum FarmType {
-    'farm' = 0,
+    'plains' = 0,
 }

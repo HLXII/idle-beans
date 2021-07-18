@@ -34,6 +34,8 @@ export default abstract class AbstractFarm implements Saveable {
 
     public readonly defaultPlotSize: number = 5;
 
+    abstract maxLeguma: number;
+
     constructor(type: FarmType, name: string) {
         this.type = type;
         this.name = name;

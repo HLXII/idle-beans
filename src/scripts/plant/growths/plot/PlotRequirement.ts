@@ -1,6 +1,7 @@
 import Plot from "../../../farm/Plot";
 import GrowthPlantState from "../../GrowthPlantState";
 import { PlantType } from "../../PlantList";
+import PlantState from "../../PlantState";
 import GrowthRequirement from "../GrowthRequirement";
 
 export default abstract class PlotRequirement extends GrowthRequirement {
@@ -35,8 +36,8 @@ export default abstract class PlotRequirement extends GrowthRequirement {
         }
         return plantType.every((plantType) => {
             return plots.some((plot: Plot) => {
-                const plant = plot.plant;
-                return (plant !== undefined) && (plant.type == plantType);
+                const plant = plot.entity;
+                return (plant instanceof PlantState) && (plant.type == plantType);
             });
         });
     }
@@ -55,13 +56,13 @@ export default abstract class PlotRequirement extends GrowthRequirement {
         // Counting plots
         const availablePlants: any = {};
         plots.forEach((plot) => {
-            if (!plot.plant) {
+            if (!plot.entity) {
                 return;
             }
-            if (!availablePlants[plot.plant.type]) {
-                availablePlants[plot.plant.type] = 1;
+            if (!availablePlants[plot.entity.type]) {
+                availablePlants[plot.entity.type] = 1;
             } else {
-                availablePlants[plot.plant.type] += 1;
+                availablePlants[plot.entity.type] += 1;
             }
         });
 

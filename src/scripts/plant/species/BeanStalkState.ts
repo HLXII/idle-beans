@@ -22,7 +22,7 @@ export default class BeanStalkState extends PlantState {
     constructor(name: PlantType, location?: FarmLocation) {
         super(name, location);
 
-        this.consumed = 0;
+        this.consumed = 1;
         this.consumptionTime = 0;
     }
 
@@ -55,9 +55,7 @@ export default class BeanStalkState extends PlantState {
 
     }
 
-    /**
-     * Calculates the current height of the Bean Stalk
-     */
+    //#region Height Status
     get height(): number {
         return Math.floor(Math.log(this.consumed || 1));
     }
@@ -80,23 +78,29 @@ export default class BeanStalkState extends PlantState {
         const delta = this.consumed - previousConsume;
         return delta / (requiredConsume - previousConsume);
     }
+    //#endregion
 
+    //#region Consumption Cooldown
     get consumptionPercent(): number {
         const percent = this.consumptionTime / this.data.consumeCooldown;
         return Math.min(1, Math.max(0, percent));
     }
 
+    get consumptionText(): string {
+        return 'TODO: Cooldown timer text';
+    }
+    //#endregion
+
     get statuses(): Status[] {
         const statuses = super.statuses;
 
         if (this.consumptionPercent < 1) {
-            const consumeStatus: Status = {
-                percent: this.consumptionPercent,
-                tooltip: 'Consume Cooldown',
-                color: 'green',
-            }
+            const consumeStatus = new Status('Consume Cooldown', this.consumptionPercent, this.consumptionText, 'green');
             statuses.push(consumeStatus);
         }
+
+        const heightStatus = new Status(this.heightLabel, this.heightPercent, this.heightText, 'yellow');
+        statuses.push(heightStatus);
 
         return statuses;
     }
@@ -129,6 +133,6 @@ export default class BeanStalkState extends PlantState {
     load(data: BeanStalkStateSaveData): void {
         super.load(data);
         this.consumptionTime = data.consumptionTime ?? 0;
-        this.consumed = data.consumed ?? 0;
+        this.consumed = data.consumed ?? 1;
     }
 }

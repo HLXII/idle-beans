@@ -83,7 +83,7 @@ export default abstract class EntityState implements Saveable, FarmLocation {
         };
     }
     load(data: EntityStateSaveData): void {
-        this.farm = data.farm ?? FarmType.farm;
+        this.farm = data.farm ?? FarmType.plains;
         this.row = data.row ?? 0;
         this.col = data.col ?? 0;
         this.age = data.age ?? 0;

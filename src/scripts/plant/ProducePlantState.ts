@@ -54,6 +54,7 @@ export default class ProducePlantState extends PlantState {
         }
     }
 
+    //#region Storage Status
     get isFull(): boolean {
         return this.storage >= this.data.storage(this);
     }
@@ -66,47 +67,41 @@ export default class ProducePlantState extends PlantState {
         return this.storage / this.data.storage(this);
     }
 
+    get storageText(): string {
+        const plant = this.data;
+        return `${plant.produceBean}: ${this.storage}/${plant.storage(this)}`;
+    }
+    //#endregion
+
+    //#region Produce Status
     get producePercent(): number {
-        if (this.isFull) {
-            return 1;
-        }
         return this.productionTime / this.data.produceTime(this);
     }
 
-    get produceText(): string {
+    get produceLabel(): string {
         const plant = this.data;
         const gainedBeans = `${plant.produceAmount(this)} ${plant.produceBean}${Number(plant.produceAmount(this)) > 1 ? 's' : ''}`;
         return `Growing ${gainedBeans}`;
     }
 
-    get storageText(): string {
-        if (this.storage === 0) {
-            return '';
-        }
-        const plant = this.data;
-        return `${plant.produceBean}: ${this.storage}/${plant.storage(this)}`;
+    get produceText(): string {
+        return `TODO: Growth timer`;
     }
+    //#endregion
+
 
     get statuses(): Status[] {
         const statuses = super.statuses;
 
         // Including storage status
         if (this.hasBeans) {
-            const storageStatus: Status = {
-                percent: this.storagePercent,
-                tooltip: this.storageText,
-                color: 'pink',
-            }
+            const storageStatus = new Status('Ripe Beans', this.storagePercent, this.storageText, 'pink');
             statuses.push(storageStatus);
         }
 
         // Including produce status
         if (!this.isFull) {
-            const produceStatus: Status = {
-                percent: this.producePercent,
-                tooltip: this.produceText,
-                color: 'green',
-            }
+            const produceStatus = new Status(this.produceLabel, this.producePercent, this.produceText, 'green');
             statuses.push(produceStatus);
         }
 

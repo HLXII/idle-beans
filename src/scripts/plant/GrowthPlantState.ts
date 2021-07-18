@@ -52,6 +52,7 @@ export default class GrowthPlantState extends PlantState {
         }
     }
 
+    //#region Growth Status
     get growthPercent(): number {
         return this.stageAge / this.data.growthTime(this);
     }
@@ -59,16 +60,13 @@ export default class GrowthPlantState extends PlantState {
     get growthText(): string {
         return `Growing into ${this.data.growthPlant(this)}`;
     }
+    //#endregion
 
     get statuses(): Status[] {
         const statuses = super.statuses;
 
         // Including growth status
-        const growthStatus: Status = {
-            percent: this.growthPercent,
-            tooltip: this.growthText,
-            color: 'green',
-        }
+        const growthStatus = new Status('Growth', this.growthPercent, this.growthText, 'green');
         statuses.push(growthStatus);
         return statuses;
     }

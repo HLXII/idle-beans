@@ -1,18 +1,11 @@
 <template>
     <div class="entity" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
-        <div v-show="!displayIcons" class="entityContainer">
+        <div class="entityContainer">
             <plot-statuses v-if="displayStatus" :statuses="entity.statuses"></plot-statuses>
-            <svg class="entityImage" xmlns="http://www.w3.org/2000/svg" :viewBox="image.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickEntity(entity.row, entity.col)">
+            <svg class="entityImage" xmlns="http://www.w3.org/2000/svg" :viewBox="svgData.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickEntity(entity.row, entity.col)">
                 <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                <path v-for="path in image.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
-            </svg>
-        </div>
-        <div v-show="displayIcons" class="entityContainer">
-            <plot-statuses v-if="displayStatus" :statuses="entity.statuses"></plot-statuses>
-            <svg class="entityImage" xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickEntity(entity.row, entity.col)">
-                <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
+                <path v-for="path in svgData.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
             </svg>
         </div>
     </div>
@@ -70,12 +63,9 @@ export default {
                 width: `${100 / this.farm.plots.length}%`,
             };
         },
-        image() {
-            return this.entity.image;
-        },
-        icon() {
-            return this.entity.icon;
-        },
+        svgData() {
+            return this.displayIcons ? this.entity.icon : this.entity.image;
+        }
     }
 }
 </script>

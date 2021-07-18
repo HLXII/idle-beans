@@ -4,7 +4,7 @@
             <!-- Add Floating Icon for Prestige -->
             <div class="float-right">
                 <div class="has-tooltip" style="position: relative;display:inline-block;">
-                    <game-button text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/>
+                    <game-button bg="bg-red-500" text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/>
                     <tooltip :interactable="true" position="bottom-left">
                         <game-text class="whitespace-nowrap" :text="prestige.rewardText" :controller="controller"/>
                     </tooltip>

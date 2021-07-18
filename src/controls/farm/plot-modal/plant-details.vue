@@ -1,39 +1,24 @@
 <template>
     <div>
-        <div class="flex">
-            <div class="border4 bg-icon mr-2" @click="goToPlant">
-                <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="plant.icon.viewBox" shape-rendering="crispEdges">
-                    <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
-                    <path v-for="path in plant.icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
-                </svg>
-            </div>
-            <div class="flex-1">
-                <div class="flex py-1">
-                    <div class="plantName">{{plant.type}}</div>
-                    
-                    <div class="flex-grow text-right" style="height: 32px;" >
-                        <icon :image=originBean.image class="has-tooltip" >
-                            <tooltip position="bottom-left" :interactable="false" width=56>
-                                <div class="text-center">Planted using a {{plant.originBean}}</div>
-                            </tooltip>
-                        </icon>
-                    </div>
+        <entity-details :entity="plant" :controller="controller" :farms="farms">
+            <template v-slot:topRightContent>
+                <icon :image=originBean.image class="has-tooltip" >
+                    <tooltip position="bottom-left" :interactable="false" width=56>
+                        <div class="text-center">Planted using a {{plant.originBean}}</div>
+                    </tooltip>
+                </icon>
+            </template>
+            <template v-slot:bottomRightContent>
+                <div class="has-tooltip" style="position:relative;">
+                    <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="remove">
+                        Remove
+                    </button>
+                    <tooltip position="bottom-left" :interactable="true">
+                        <game-text class="whitespace-nowrap" :text="plant.removeGainMessage" :controller="controller"/>
+                    </tooltip>
                 </div>
-                <div class="py-1">
-                    <div class="float-right">
-                        <div class="has-tooltip" style="position:relative;">
-                            <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="remove">
-                                Remove
-                            </button>
-                            <tooltip position="bottom-left" :interactable="true">
-                                <game-text class="whitespace-nowrap" :text="plant.removeGainMessage" :controller="controller"/>
-                            </tooltip>
-                        </div>
-                    </div>
-                    <div>Age: {{plant.age}}</div>
-                </div>
-            </div>
-        </div>
+            </template>
+        </entity-details>
     </div>
 </template>
 
@@ -43,6 +28,7 @@ import PlantState from "@/scripts/plant/PlantState";
 import Icon from '@/controls/utility/icon.vue';
 import Tooltip from "@/controls/utility/tooltip.vue";
 import GameText from '@/controls/utility/game-text.vue';
+import EntityDetails from './entity-details.vue';
 
 export default {
     name: "plant-details",
@@ -56,6 +42,7 @@ export default {
         Icon,
         Tooltip,
         GameText,
+        EntityDetails,
     },
     props: {
         plant: {

@@ -1,10 +1,9 @@
 import { Features } from "@/Features";
-import { BeanAmount, BeanType } from "../bean/BeanList";
+import { BeanAmount } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
 import EntityState from "../entity/EntityState";
 import AbstractFarm from "../farm/AbstractFarm";
 import Farms from "../farm/Farms";
-import PlantState from "../plant/PlantState";
 import BeanStalkState from "../plant/species/BeanStalkState";
 import Prestige from "./Prestige";
 
@@ -72,10 +71,8 @@ export default class BeanStalkPrestige extends Prestige {
             return {};
         }
 
-        // Calculating reward based on Bean Stalk height
-        // TODO: Update to scale better
         const reward = {
-            'Sky Bean': 1,
+            'Sky Bean': beanStalk.height - 4,
         };
         return reward;
     }
@@ -87,7 +84,7 @@ export default class BeanStalkPrestige extends Prestige {
     }
 
     get text(): string {
-        return `${this.highestBeanStalk?.height}/6`;
+        return `${this.highestBeanStalk?.height}/${BeanStalkPrestige.prestigeHeight}`;
     }
     
 }
