@@ -171,7 +171,7 @@ export default class GameController extends IgtFeature {
             }
             case ToolType.Sickle: {
                 if (this.ctrlKey) {
-                    this.farms.removePlant(row, col);
+                    this.farms.removeEntity(row, col);
                 } else {
                     this.farms.harvestPlant(row, col);
                 }
@@ -180,7 +180,7 @@ export default class GameController extends IgtFeature {
         }
     }
 
-    clickPlant(row: number, col: number) {
+    clickEntity(row: number, col: number) {
         this.clickDirt(row, col);
     }
 

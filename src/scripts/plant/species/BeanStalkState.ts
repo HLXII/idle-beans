@@ -4,7 +4,7 @@ import { getOrthoPlots } from "../growths/plot/OrthoPlotsRequirement";
 import { getImage, SVGData } from "../PlantImages";
 import { PlantType } from "../PlantList";
 import PlantState, { PlantStateSaveData } from "../PlantState";
-import PlantStatus from "../PlantStatus";
+import Status from "../../entity/Status";
 import ProducePlantState from "../ProducePlantState";
 import BeanStalk from "./BeanStalk";
 
@@ -36,13 +36,13 @@ export default class BeanStalkState extends PlantState {
             // Pulling Beans from nearby plants
             const orthoPlots = getOrthoPlots(this.plot);
             for (const plot of orthoPlots) {
-                if (!plot.plant) {
+                if (!plot.entity) {
                     continue;
                 }
-                if (plot.plant instanceof ProducePlantState) {
-                    if (plot.plant.hasBeans) {
-                        plot.plant.storage -= 1;
-                        this.consumed += BeanStalkCost[plot.plant.data.produceBean];
+                if (plot.entity instanceof ProducePlantState) {
+                    if (plot.entity.hasBeans) {
+                        plot.entity.storage -= 1;
+                        this.consumed += BeanStalkCost[plot.entity.data.produceBean];
                         consumed = true;
                     }
                 }
@@ -86,11 +86,11 @@ export default class BeanStalkState extends PlantState {
         return Math.min(1, Math.max(0, percent));
     }
 
-    get statuses(): PlantStatus[] {
+    get statuses(): Status[] {
         const statuses = super.statuses;
 
         if (this.consumptionPercent < 1) {
-            const consumeStatus: PlantStatus = {
+            const consumeStatus: Status = {
                 percent: this.consumptionPercent,
                 tooltip: 'Consume Cooldown',
             }

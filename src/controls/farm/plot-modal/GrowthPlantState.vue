@@ -1,8 +1,8 @@
 <template>
     <div>
-        <plant-details :plant=plant></plant-details>
+        <plant-details :plant=entity></plant-details>
         <status-table>
-            <status label="Growth:" :percent="plant.growthPercent" :text="plant.growthText"/>
+            <status label="Growth:" :percent="entity.growthPercent" :text="entity.growthText"/>
         </status-table>
     </div>
 </template>
@@ -21,7 +21,7 @@ export default {
         Status,
     },
     props: {
-        plant: {
+        entity: {
             type: GrowthPlantState,
             required: true,
         }

@@ -1,16 +1,16 @@
 <template>
-    <div class="plant" style="position: absolute; pointer-events: none;"
+    <div class="entity" style="position: absolute; pointer-events: none;"
         v-bind:style="style">
-        <div v-show="!displayIcons" class="plantContainer">
-            <plant-statuses v-if="displayStatus" :statuses="plant.statuses"></plant-statuses>
-            <svg class="plantImage" xmlns="http://www.w3.org/2000/svg" :viewBox="image.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickPlant(plant.row, plant.col)">
+        <div v-show="!displayIcons" class="entityContainer">
+            <plot-statuses v-if="displayStatus" :statuses="entity.statuses"></plot-statuses>
+            <svg class="entityImage" xmlns="http://www.w3.org/2000/svg" :viewBox="image.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickEntity(entity.row, entity.col)">
                 <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                 <path v-for="path in image.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
             </svg>
         </div>
-        <div v-show="displayIcons" class="plantContainer">
-            <plant-statuses v-if="displayStatus" :statuses="plant.statuses"></plant-statuses>
-            <svg class="plantImage" xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickPlant(plant.row, plant.col)">
+        <div v-show="displayIcons" class="entityContainer">
+            <plot-statuses v-if="displayStatus" :statuses="entity.statuses"></plot-statuses>
+            <svg class="entityImage" xmlns="http://www.w3.org/2000/svg" :viewBox="icon.viewBox" shape-rendering="crispEdges" v-on:click="controller.clickEntity(entity.row, entity.col)">
                 <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                 <path v-for="path in icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
             </svg>
@@ -21,16 +21,16 @@
 <script>
 import AbstractFarm from "@/scripts/farm/AbstractFarm";
 import GameController from "@/scripts/GameController";
-import PlantState from "@/scripts/plant/PlantState";
+import EntityState from "@/scripts/entity/EntityState";
 
-import PlantStatuses from "@/controls/farm/plant-statuses";
+import PlotStatuses from "@/controls/farm/plot-statuses.vue";
 
 import { PlantImages } from "@/scripts/plant/PlantImages";
 
 export default {
-    name: "plant",
+    name: "entity",
     components: {
-        PlantStatuses,
+        PlotStatuses,
     },
     data() {
         return {
@@ -46,8 +46,8 @@ export default {
             type: GameController,
             required: true,
         },
-        plant: {
-            type: PlantState,
+        entity: {
+            type: EntityState,
         },
         displayIcons: {
             type: Boolean,
@@ -65,16 +65,16 @@ export default {
         style() {
             return {
                 bottom: '0%',
-                'padding-bottom': `${((this.farm.plots.length - this.plant.row - 1) * 100 / this.farm.plots.length)}%`,
-                left: `${this.plant.col * 100 / this.farm.plots.length}%`,
+                'padding-bottom': `${((this.farm.plots.length - this.entity.row - 1) * 100 / this.farm.plots.length)}%`,
+                left: `${this.entity.col * 100 / this.farm.plots.length}%`,
                 width: `${100 / this.farm.plots.length}%`,
             };
         },
         image() {
-            return this.plant.image;
+            return this.entity.image;
         },
         icon() {
-            return this.plant.icon;
+            return this.entity.icon;
         },
     }
 }
@@ -84,10 +84,10 @@ export default {
     .plot:hover {
         filter: brightness(.5);
     }
-    .plantContainer {
+    .entityContainer {
         position: relative;
     }
-    .plantImage:hover {
+    .entityImage:hover {
         filter: brightness(.5);
     }
 </style>

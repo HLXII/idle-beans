@@ -1,9 +1,9 @@
 <template>
     <div>
-        <plant-details :plant=plant></plant-details>
+        <plant-details :plant=entity></plant-details>
         <status-table>
-            <status label="Ripe Beans:" :percent="plant.storagePercent" :text="plant.storageText"/>
-            <status :label="plant.produceText" :percent="plant.producePercent"/>
+            <status label="Ripe Beans:" :percent="entity.storagePercent" :text="entity.storageText"/>
+            <status :label="entity.produceText" :percent="entity.producePercent"/>
         </status-table>
         <!--
         <td style="width:1%;padding-right:10px;"><game-button style="height: 24px;" text="Harvest" :onClick="harvest" /></td>
@@ -25,14 +25,14 @@ export default {
         Status,
     },
     props: {
-        plant: {
+        entity: {
             type: ProducePlantState,
             required: true,
         }
     },
     methods: {
         harvest() {
-            this.plant.harvest();
+            this.entity.harvest();
         },
     },
     computed: {

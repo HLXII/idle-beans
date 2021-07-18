@@ -5,7 +5,7 @@ import { EntryType } from "../log/Log";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
 import PlantState, { PlantStateSaveData } from "./PlantState";
-import PlantStatus from "./PlantStatus";
+import Status from "../entity/Status";
 
 export interface GrowthPlantStateSaveData extends PlantStateSaveData {
     stageAge: number;
@@ -60,11 +60,11 @@ export default class GrowthPlantState extends PlantState {
         return `Growing into ${this.data.growthPlant(this)}`;
     }
 
-    get statuses(): PlantStatus[] {
+    get statuses(): Status[] {
         const statuses = super.statuses;
 
         // Including growth status
-        const growthStatus: PlantStatus = {
+        const growthStatus: Status = {
             percent: this.growthPercent,
             tooltip: this.growthText,
         }
@@ -86,10 +86,10 @@ export default class GrowthPlantState extends PlantState {
         newState.load(oldStateData);
         
         // Removing this plant
-        App.game.features.farms.removePlantByState(this);
+        App.game.features.farms.removeEntityByState(this);
 
         // Adding new plant
-        App.game.features.farms.addPlant(newState, newState.row, newState.col, newState.farm);
+        App.game.features.farms.addEntity(newState, newState.row, newState.col, newState.farm);
 
         // Unlocking plant
         newPlant.unlock();

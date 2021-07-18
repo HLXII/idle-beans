@@ -1,5 +1,5 @@
 <template>
-    <div class="plantStatuses">
+    <div class="plotStatuses">
         <div  v-for="(status, idx) in statuses" :key="idx">
             <progress-bar :percentage="status.percent" :tooltip="status.tooltip"></progress-bar>
         </div>
@@ -10,7 +10,7 @@
 import ProgressBar from "@/controls/utility/progress-bar";
 
 export default {
-    name: "plant-statuses",
+    name: "plot-statuses",
     components: {
         ProgressBar,
     },
@@ -27,7 +27,7 @@ export default {
 </script>
 
 <style scoped>
-.plantStatuses {
+.plotStatuses {
     position: absolute;
     width:100%;
     bottom: 0;

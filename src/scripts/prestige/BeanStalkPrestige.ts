@@ -1,6 +1,7 @@
 import { Features } from "@/Features";
 import { BeanAmount, BeanType } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
+import EntityState from "../entity/EntityState";
 import AbstractFarm from "../farm/AbstractFarm";
 import Farms from "../farm/Farms";
 import PlantState from "../plant/PlantState";
@@ -25,18 +26,13 @@ export default class BeanStalkPrestige extends Prestige {
     get highestBeanStalk(): BeanStalkState | undefined {
         let beanStalk: BeanStalkState | undefined = undefined;
         Object.values(this.farms.farms).forEach((farm: AbstractFarm) => {
-            farm.plants.forEach((plant: PlantState | undefined) => {
-                if (!plant) {
-                    return;
-                }
-                if (plant.data.name !== 'Bean Stalk') {
-                    return;
-                }
-                const newBeanStalk = plant as BeanStalkState;
-                if (!beanStalk) {
-                    beanStalk = newBeanStalk;
-                } else if (beanStalk.height < newBeanStalk.height) {
-                    beanStalk = newBeanStalk;
+            farm.entities.forEach((entity: EntityState | undefined) => {
+                if (entity instanceof BeanStalkState) {
+                    if (!beanStalk) {
+                        beanStalk = entity;
+                    } else if (beanStalk.height < entity.height) {
+                        beanStalk = entity;
+                    }                
                 }
             });
         });
@@ -54,11 +50,8 @@ export default class BeanStalkPrestige extends Prestige {
     get visible(): boolean {
         // Finding any Bean Stalks
         return Object.values(this.farms.farms).some((farm: AbstractFarm) => {
-            return farm.plants.some((plant: PlantState | undefined) => {
-                if (!plant) {
-                    return false;
-                }
-                return (plant.data.name === 'Bean Stalk');
+            return farm.entities.some((entity: EntityState | undefined) => {
+                return (entity instanceof BeanStalkState);
             });
         })
     }

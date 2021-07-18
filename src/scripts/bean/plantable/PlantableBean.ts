@@ -19,9 +19,9 @@ export default class PlantableBean extends Bean implements Plantable {
         if (!this.amount) {
             return false;
         }
-        // Plot already has plant
-        const prevPlant = App.game.features.farms.getPlant(row, col, farm);
-        if (prevPlant) {
+        // Plot already has an Entity
+        const prevEntity = App.game.features.farms.getEntity(row, col, farm);
+        if (prevEntity) {
             return false;
         }
 
@@ -39,7 +39,7 @@ export default class PlantableBean extends Bean implements Plantable {
         newPlant.originBean = this.name as BeanType;
 
         // Planting Bean
-        App.game.features.farms.addPlant(newPlant, row, col, farm);
+        App.game.features.farms.addEntity(newPlant, row, col, farm);
 
         // Unlocking state
         plant.unlock();

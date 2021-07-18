@@ -11,12 +11,12 @@
             </div>
         </div>
     
-        <!-- Plant Layer -->
-        <div class="plants">
-            <plant v-for="plant in plants" :key="plant.id" :plant=plant 
+        <!-- Entity Layer -->
+        <div class="entities">
+            <entity v-for="entity in entities" :key="entity.id" :entity=entity 
                 :farm=farm :controller=controller
                 :displayIcons="displayIcons"
-                :displayStatus="displayStatus"></plant>
+                :displayStatus="displayStatus"></entity>
         </div>
         
         <slot></slot>
@@ -25,27 +25,29 @@
 
 <script>
 import {App} from "@/App.ts"
-import Plant from "@/controls/farm/plant";
+import Entity from "@/controls/farm/entity.vue";
 
 export default {
     name: "farm",
     components: {
-        Plant,
+        Entity,
     },
     data() {
         return {
-        farms: App.game.features.farms,
-        controller: App.game.features.controller,
-        farm: App.game.features.farms.farms[App.game.features.farms.activeFarm],
-        settings: App.game.features.settings,
+            farms: App.game.features.farms,
+            controller: App.game.features.controller,
+            settings: App.game.features.settings,
         }
     },
     computed: {
+        farm() {
+            return this.farms.getFarm();
+        },
         width() {
             return `${100 / this.farm.plots.length}%`;
         },
-        plants() {
-            return this.farm.plants.filter(plant => plant);
+        entities() {
+            return this.farm.entities.filter(entity => entity);
         },
         plots() {
             return this.farm.plots;

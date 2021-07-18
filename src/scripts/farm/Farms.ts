@@ -3,6 +3,7 @@ import { Features } from "@/Features";
 import { SaveData, IgtFeature, AbstractField } from "incremental-game-template";
 import { BeanType } from "../bean/BeanList";
 import { isPlantable } from "../bean/plantable/Plantable";
+import EntityState from "../entity/EntityState";
 import PlantState from "../plant/PlantState";
 import ProducePlantState from "../plant/ProducePlantState";
 import AbstractFarm, { FarmSaveData } from "./AbstractFarm";
@@ -61,33 +62,35 @@ export default class Farms extends IgtFeature {
         return this.getFarm(farm).getPlot(row, col);
     }
 
-    getPlant(row: number, col: number, farm?: FarmType): PlantState | undefined {
+    getEntity(row: number, col: number, farm?: FarmType): EntityState | undefined {
         // Obtaining Farm if not given
         farm = farm ?? this.activeFarm;
 
-        return this.getFarm(farm).getPlant(row, col);
+        return this.getFarm(farm).getEntity(row, col);
     }
 
-    addPlant(state: PlantState, row: number, col: number, farm?: FarmType) {
+    addEntity(state: EntityState, row: number, col: number, farm?: FarmType) {
         // Obtaining Farm if not given
         farm = farm ?? this.activeFarm;
 
-        this.getFarm(farm).addPlant(state, row, col);
+        this.getFarm(farm).addEntity(state, row, col);
     }
 
-    removePlant(row: number, col: number, farm?: FarmType) {
+    removeEntity(row: number, col: number, farm?: FarmType) {
         // Obtaining Farm if not given
         farm = farm ?? this.activeFarm;
 
-        // Handling plant removal
-        const plant = this.getPlant(row, col ,farm);
-        plant?.handleRemove();
-
-        this.getFarm(farm).removePlant(row, col);
+        // Handling Plant removal
+        const entity = this.getEntity(row, col ,farm);
+        if (entity instanceof PlantState) {
+            entity.handleRemove();
+        }
+    
+        this.getFarm(farm).removeEntity(row, col);
     }
 
-    removePlantByState(state: PlantState) {
-        this.getFarm(state.farm).removePlant(state.row, state.col);
+    removeEntityByState(state: EntityState) {
+        this.getFarm(state.farm).removeEntity(state.row, state.col);
     }
 
     harvestPlant(row: number, col: number, farm?: FarmType) {
@@ -95,7 +98,7 @@ export default class Farms extends IgtFeature {
         farm = farm ?? this.activeFarm;
 
         // Checking if this is a harvestable plant
-        const plant = this.getPlant(row, col ,farm);
+        const plant = this.getEntity(row, col ,farm);
         if (plant instanceof ProducePlantState) {
             plant.harvest();
             return true;

@@ -1,65 +1,37 @@
 import { App } from "@/App";
-import { SaveData, Saveable } from "incremental-game-template";
 import { BeanAmount, BeanType } from "../bean/BeanList";
 import { GameText, LinkType } from "../controls/GameText";
+import EntityState, { EntityStateSaveData } from "../entity/EntityState";
 import FarmLocation from "../farm/FarmLocation";
-import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
 import GameHelper from "../GameHelper";
 import { EntryType } from "../log/Log";
 import Plant from "./Plant";
 import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from './PlantList';
-import PlantStatus from "./PlantStatus";
+import Status from "../entity/Status";
 
-export interface PlantStateSaveData extends SaveData, FarmLocation {
-    stateClass: string;
+export interface PlantStateSaveData extends EntityStateSaveData {
     type: PlantType;
     originBean: BeanType;
-    age: number;
 }
 
-export default class PlantState implements Saveable, FarmLocation {
+export default class PlantState extends EntityState {
 
     /** Type of Plant for this state */
     public type: PlantType;
 
-    /** Position in the Farm */
-    public farm!: FarmType;
-    public row!: number;
-    public col!: number;
-
     /** Original Bean used to grow this Plant */
     public originBean: BeanType;
 
-    /** Age (in milliseconds) */
-    public age: number;
-
     constructor(type: PlantType, location?: FarmLocation) {
+        super(location);
+
         this.type = type;
-
-        if (location) {
-            this.farm = location.farm;
-            this.row = location.row;
-            this.col = location.col;
-        }
-
         this.originBean = 'Bean';
-        this.age = 0;
     }
 
-    /**
-     * Updates the Plant every game tick
-     * @param delta The time passed (ms)
-     */
-    update(delta: number) {
-        this.age += delta;
-    }
-
-    /**
-     * Returns the PlantStatuses affecting this Plant
-     */
-    get statuses(): PlantStatus[] {
+    get statuses(): Status[] {
         return [];
     }
 
@@ -120,33 +92,19 @@ export default class PlantState implements Saveable, FarmLocation {
         return this.data.icon;
     }
 
-    /**
-     * Returns the name for the component to display in the modal
-     */
-    get modalTemplate(): string {
-        return this.constructor.name;
-    }
-
     //#region Save
     saveKey = '';
     save(): PlantStateSaveData {
         return {
-            stateClass: this.constructor.name,
+            ...super.save(),
             type: this.type,
-            farm: this.farm,
-            row: this.row,
-            col: this.col,
             originBean: this.originBean,
-            age: this.age,
         };
     }
     load(data: PlantStateSaveData): void {
+        super.load(data);
         this.type = data.type ?? 'Bean Bud';
-        this.farm = data.farm ?? FarmType.farm;
-        this.row = data.row ?? 0;
-        this.col = data.col ?? 0;
         this.originBean = data.originBean ?? 'Bean';
-        this.age = data.age ?? 0;
     }
     //#endregion
 

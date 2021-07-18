@@ -6,8 +6,8 @@
                 <button type="button" class="btn-close" aria-label="Close" @click=close></button>
             </div>
             <div class="modal-body p-0">
-                <!-- Plant Data -->
-                <component v-if=plant v-bind:is=plant.modalTemplate :plant="plant" :controller="controller" ></component>
+                <!-- Entity Data -->
+                <component v-if=entity v-bind:is=entity.modalTemplate :entity="entity" :controller="controller" ></component>
                 <!-- Dirt Data -->
                 <!-- TODO -->
                 <div>
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import Modal from "@/controls/modal/modal";
+import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
-import PlantState from "@/controls/farm/plot-modal/PlantState";
-import GrowthPlantState from "@/controls/farm/plot-modal/GrowthPlantState";
-import ProducePlantState from "@/controls/farm/plot-modal/ProducePlantState";
-import BeanStalkState from "@/controls/farm/plot-modal/BeanStalkState";
+import PlantState from "@/controls/farm/plot-modal/PlantState.vue";
+import GrowthPlantState from "@/controls/farm/plot-modal/GrowthPlantState.vue";
+import ProducePlantState from "@/controls/farm/plot-modal/ProducePlantState.vue";
+import BeanStalkState from "@/controls/farm/plot-modal/BeanStalkState.vue";
 
 export default {
     name: "plot-modal",
@@ -61,8 +61,8 @@ export default {
         plot() {
             return this.farm.getFarm().getPlot(this.controller.plot.row, this.controller.plot.col);
         },
-        plant() {
-            return this.plot.plant;
+        entity() {
+            return this.plot.entity;
         }
     },
 }

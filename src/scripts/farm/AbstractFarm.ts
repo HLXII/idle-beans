@@ -1,5 +1,7 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
+import EntityState, { EntityStateSaveData } from "../entity/EntityState";
+import { PlantType } from "../plant/PlantList";
 import PlantState, { PlantStateSaveData } from "../plant/PlantState";
 import { FarmType } from "./FarmType";
 import Plot, { PlotSaveData } from "./Plot";
@@ -7,7 +9,7 @@ import Plot, { PlotSaveData } from "./Plot";
 export interface FarmSaveData extends SaveData {
     size: number;
     plots: PlotSaveData[][];
-    plants: (PlantStateSaveData | undefined)[];
+    entities: (EntityStateSaveData | undefined)[];
 }
 
 export default abstract class AbstractFarm implements Saveable {
@@ -18,7 +20,13 @@ export default abstract class AbstractFarm implements Saveable {
 
     public plots: Plot[][];
 
-    public plants: (PlantState | undefined)[];
+    /** 
+     * The Entities in the farm.
+     * Adding this as a note for me in the future. We store these in a separate array rather than
+     * storing them as properties in the Plot object because that causes issues with Vue updating
+     * The Entities in the UI.
+     */
+    public entities: (EntityState | undefined)[];
 
     private _size!: number;
 
@@ -31,7 +39,7 @@ export default abstract class AbstractFarm implements Saveable {
         this.name = name;
 
         this.plots = [];
-        this.plants = [];
+        this.entities = [];
 
         this._size = 0;
         this.size = this.defaultPlotSize;
@@ -47,7 +55,7 @@ export default abstract class AbstractFarm implements Saveable {
         if (this._size !== size) {
             console.log(`Updating Farm ${FarmType[this.type]} size from ${this._size} to ${size}.`);
 
-            // Updating Plots and Plants
+            // Updating Plots and Entities
             if (size > this._size) {
                 const delta = size - this._size;
 
@@ -63,16 +71,16 @@ export default abstract class AbstractFarm implements Saveable {
                     this.plots.push(newRow);
                 }
 
-                // Expanding and shifting plants
-                const newPlants = new Array(size * size).fill(undefined);
-                this.plants.forEach((plant, idx) => {
+                // Expanding and shifting Entities
+                const newEntities = new Array(size * size).fill(undefined);
+                this.entities.forEach((entity, idx) => {
                     // Parsing original coords
-                    const [newRow, newCol] = this.getPlantCoord(plant ?? idx);
-                    const newIdx = this.getPlantId(newRow, newCol, size);
-                    newPlants[newIdx] = plant;
+                    const [newRow, newCol] = this.getEntityCoord(entity ?? idx);
+                    const newIdx = this.getEntityId(newRow, newCol, size);
+                    newEntities[newIdx] = entity;
                 });
 
-                this.plants = newPlants;
+                this.entities = newEntities;
             } else {
                 console.error('Error: This is not currently possible based on the game\'s design.');
                 return;
@@ -126,47 +134,47 @@ export default abstract class AbstractFarm implements Saveable {
         return this.plots[row][col];
     }
 
-    getPlantId(row: number, col: number, size?: number): number {
+    getEntityId(row: number, col: number, size?: number): number {
         size = size ?? this.size;
         return (row * size) + col;
     }
 
-    getPlantCoord(plantOrIdx: PlantState | number): number[] {
-        if (plantOrIdx instanceof PlantState) {
-            return [plantOrIdx.row, plantOrIdx.col];
+    getEntityCoord(entityOrIdx: EntityState | number): number[] {
+        if (entityOrIdx instanceof EntityState) {
+            return [entityOrIdx.row, entityOrIdx.col];
         } else {
-            const row = plantOrIdx % this.size;
-            const col = plantOrIdx - row;
+            const row = entityOrIdx % this.size;
+            const col = entityOrIdx - row;
             return [row, col];
         }
     }
 
-    getPlant(row: number, col: number): PlantState | undefined {
-        return this.plants[this.getPlantId(row, col)];
+    getEntity(row: number, col: number): EntityState | undefined {
+        return this.entities[this.getEntityId(row, col)];
     }
 
-    addPlant(state: PlantState, row: number, col: number) {
+    addEntity(state: EntityState, row: number, col: number) {
         // Sanity Check
-        const prevPlant = this.getPlant(row, col);
-        if (prevPlant) {
-            console.error('Error - Cannot add plant over existing plant', prevPlant);
+        const prevEntity = this.getEntity(row, col);
+        if (prevEntity) {
+            console.error('Error - Cannot add Entity over existing Entity', prevEntity);
             return;
         }
 
-        const id = this.getPlantId(row, col);
-        this.plants.splice(id, 1, state);
+        const id = this.getEntityId(row, col);
+        this.entities.splice(id, 1, state);
     }
 
-    removePlant(row: number, col: number) {
+    removeEntity(row: number, col: number) {
         // Sanity Check
-        const prevPlant = this.getPlant(row, col);
-        if (!prevPlant) {
-            console.error('Error - Attempting to remove plant that doesn\'t exist');
+        const prevEntity = this.getEntity(row, col);
+        if (!prevEntity) {
+            console.error('Error - Attempting to remove Entity that doesn\'t exist');
             return;
         }
 
-        const id = this.getPlantId(row, col);
-        this.plants.splice(id, 1, undefined);
+        const id = this.getEntityId(row, col);
+        this.entities.splice(id, 1, undefined);
     }
 
     update(delta: number) {
@@ -176,8 +184,8 @@ export default abstract class AbstractFarm implements Saveable {
         })));
 
         // Updating plants
-        Object.values(this.plants).forEach((plant) => {
-            plant?.update(delta);
+        Object.values(this.entities).forEach((entity) => {
+            entity?.update(delta);
         });
     }
 
@@ -193,20 +201,27 @@ export default abstract class AbstractFarm implements Saveable {
 
         this.loadPlots(data.plots);
 
-        data.plants.forEach((plant) => {
-            if (!plant) {
-                return undefined;
-            }
-            const plantState = App.game.features.plants.list[plant.type].state();
-            plantState.load(plant);
-            this.addPlant(plantState, plantState.row, plantState.col);
-        });
+        // Loading Entities
+        if (data.entities) {
+            data.entities.forEach((entity) => {
+                if (!entity) {
+                    return undefined;
+                }
+                // Try to load plant
+                const plant = App.game.features.plants.list[entity.type as PlantType];
+                if (plant) {
+                    const plantState = plant.state();
+                    plantState.load(entity as PlantStateSaveData);
+                    this.addEntity(plantState, plantState.row, plantState.col);
+                }
+            });
+        }
     }
     save(): FarmSaveData {
         const data: FarmSaveData = {
             size: this.size,
             plots: this.plots.map(row => row.map(plot => plot.save())),
-            plants: this.plants.map(plant => plant?.save()),
+            entities: this.entities.map(entity => entity?.save()),
         };
         return data;
     }

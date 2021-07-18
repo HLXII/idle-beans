@@ -1,6 +1,6 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
-import PlantState from "../plant/PlantState";
+import EntityState from "../entity/EntityState";
 import FarmLocation from "./FarmLocation";
 import { FarmType } from "./FarmType";
 
@@ -25,10 +25,10 @@ export default class Plot implements Saveable, FarmLocation {
     }
 
     /**
-     * Obtains a reference to the Plant on this Plot, if one exists
+     * Obtains a reference to the Entity on this Plot, if one exists
      */
-    get plant(): PlantState | undefined {
-        return App.game.features.farms.getPlant(this.row, this.col, this.farm);
+    get entity(): EntityState | undefined {
+        return App.game.features.farms.getEntity(this.row, this.col, this.farm);
     }
 
     saveKey = '';

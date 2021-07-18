@@ -3,7 +3,7 @@ import FarmLocation from "../farm/FarmLocation";
 import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from "./PlantList";
 import PlantState, { PlantStateSaveData } from "./PlantState";
-import PlantStatus from "./PlantStatus";
+import Status from "../entity/Status";
 import ProducePlant from "./ProducePlant";
 
 export interface ProducePlantStateSaveData extends PlantStateSaveData {
@@ -87,12 +87,12 @@ export default class ProducePlantState extends PlantState {
         return `${plant.produceBean}: ${this.storage}/${plant.storage(this)}`;
     }
 
-    get statuses(): PlantStatus[] {
+    get statuses(): Status[] {
         const statuses = super.statuses;
 
         // Including storage status
         if (this.hasBeans) {
-            const storageStatus: PlantStatus = {
+            const storageStatus: Status = {
                 percent: this.storagePercent,
                 tooltip: this.storageText,
             }
@@ -101,7 +101,7 @@ export default class ProducePlantState extends PlantState {
 
         // Including produce status
         if (!this.isFull) {
-            const produceStatus: PlantStatus = {
+            const produceStatus: Status = {
                 percent: this.producePercent,
                 tooltip: this.produceText,
             }
