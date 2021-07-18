@@ -95,6 +95,7 @@ export default class ProducePlantState extends PlantState {
             const storageStatus: Status = {
                 percent: this.storagePercent,
                 tooltip: this.storageText,
+                color: 'pink',
             }
             statuses.push(storageStatus);
         }
@@ -104,6 +105,7 @@ export default class ProducePlantState extends PlantState {
             const produceStatus: Status = {
                 percent: this.producePercent,
                 tooltip: this.produceText,
+                color: 'green',
             }
             statuses.push(produceStatus);
         }

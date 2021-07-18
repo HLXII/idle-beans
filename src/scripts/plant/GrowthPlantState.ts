@@ -67,6 +67,7 @@ export default class GrowthPlantState extends PlantState {
         const growthStatus: Status = {
             percent: this.growthPercent,
             tooltip: this.growthText,
+            color: 'green',
         }
         statuses.push(growthStatus);
         return statuses;

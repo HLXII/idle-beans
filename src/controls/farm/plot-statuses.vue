@@ -1,13 +1,13 @@
 <template>
     <div class="plotStatuses">
         <div  v-for="(status, idx) in statuses" :key="idx">
-            <progress-bar :percentage="status.percent" :tooltip="status.tooltip"></progress-bar>
+            <progress-bar :fgClass="`bg-${status.color}-500`" :bgClass="`bg-${status.color}-200`" :percentage="status.percent" :tooltip="status.tooltip"></progress-bar>
         </div>
     </div>
 </template>
 
 <script>
-import ProgressBar from "@/controls/utility/progress-bar";
+import ProgressBar from "@/controls/utility/progress-bar.vue";
 
 export default {
     name: "plot-statuses",

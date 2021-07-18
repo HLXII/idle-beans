@@ -93,6 +93,7 @@ export default class BeanStalkState extends PlantState {
             const consumeStatus: Status = {
                 percent: this.consumptionPercent,
                 tooltip: 'Consume Cooldown',
+                color: 'green',
             }
             statuses.push(consumeStatus);
         }
