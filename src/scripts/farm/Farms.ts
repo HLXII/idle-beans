@@ -35,7 +35,7 @@ export default class Farms extends IgtFeature {
         this.farms = [
             new Farm(),
         ];
-        this.activeFarm = FarmType.farm;
+        this.activeFarm = FarmType.plains;
     }
     canAccess(): boolean {
         return true;
@@ -136,7 +136,7 @@ export default class Farms extends IgtFeature {
         Object.entries(data.farms).forEach(([farmType, data]) => {
             this.farms[Number(farmType) as FarmType].load(data);
         }); 
-        this.activeFarm = data.activeFarm ?? FarmType.farm;
+        this.activeFarm = data.activeFarm ?? FarmType.plains;
     }
     save(): FarmsSaveData {
         const farms: {[key in FarmType]?: FarmSaveData} = {};

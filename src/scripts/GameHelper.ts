@@ -30,14 +30,14 @@ export default class GameHelper {
         return gameText;
     }
 
-    public static beanAmount(beans: BeanAmount): GameText[] {
+    public static beanAmount(beans: BeanAmount, conjunction: string = '<br>'): GameText[] {
         const gameText: GameText[] = [];
 
         for (const bean in beans) {
             const amount = beans[bean as BeanType] ?? 0;
             gameText.push(`${amount} `);
             gameText.push({text: `${bean}${amount > 1 ? 's' : ''}`, type: LinkType.Bean, id: bean});
-            gameText.push('<br>');
+            gameText.push(conjunction);
         }
         
         // Removing last BR

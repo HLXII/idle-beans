@@ -57,7 +57,7 @@ export default {
     },
     methods: {
         remove() {
-            this.farms.removePlant(this.plant.row, this.plant.col);
+            this.farms.removeEntity(this.plant.row, this.plant.col);
         },
         goToPlant() {
             this.controller.goToPlant(this.plant.data.name);

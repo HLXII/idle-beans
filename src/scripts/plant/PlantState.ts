@@ -44,12 +44,12 @@ export default class PlantState extends EntityState {
         App.game.features.beans.gainAmount(removeGain);
         
         // Logging harvest
-        const gainedBeans = Object.entries(removeGain).map(([key, amount]) => `${amount} ${key}${Number(amount) > 1 ? 's' : ''}`).join(', ');
+        const gainedBeans = GameHelper.beanAmount(removeGain, ', ');
         App.game.features.log.log([
             `Removed a `,
             {text: this.type, type: LinkType.Plant, id: this.type},
             '. Gained: ',
-            gainedBeans,
+            ...gainedBeans,
         ], EntryType.Removal);
     }
 
