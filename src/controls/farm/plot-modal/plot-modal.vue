@@ -21,6 +21,7 @@
 <script>
 import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
+import EmptyEntityState from "@/controls/farm/plot-modal/EmptyEntityState.vue";
 import PlantState from "@/controls/farm/plot-modal/PlantState.vue";
 import GrowthPlantState from "@/controls/farm/plot-modal/GrowthPlantState.vue";
 import ProducePlantState from "@/controls/farm/plot-modal/ProducePlantState.vue";
@@ -40,6 +41,7 @@ export default {
     },
     components: {
         Modal,
+        EmptyEntityState,
         PlantState,
         GrowthPlantState,
         ProducePlantState,

@@ -86,10 +86,10 @@ export default class Plot implements Saveable, FarmLocation {
         const statuses = [];
 
         // Leguma
-        if (this.leguma > 0) {
+        if (this.leguma >= 0.1) {
             const maxLeguma = App.game.features.farms.getFarm(this.farm).maxLeguma;
             const legumaPercent = this.leguma / maxLeguma;
-            const legumaStatus = new Status('Leguma', legumaPercent, `${this.leguma}/${maxLeguma}`, 'blue');
+            const legumaStatus = new Status('Leguma', legumaPercent, `${this.leguma.toFixed(1)}/${maxLeguma}`, 'blue');
             statuses.push(legumaStatus);
         }
 
@@ -99,7 +99,7 @@ export default class Plot implements Saveable, FarmLocation {
     /**
      * Obtains a reference to the Entity on this Plot, if one exists
      */
-    get entity(): EntityState | undefined {
+    get entity(): EntityState {
         return App.game.features.farms.getEntity(this.row, this.col, this.farm);
     }
 

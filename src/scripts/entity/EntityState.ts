@@ -1,6 +1,8 @@
+import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
 import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";
+import Plot from "../farm/Plot";
 import { SVGData } from "../plant/PlantImages";
 import Status from "./Status";
 
@@ -53,7 +55,13 @@ export default abstract class EntityState implements Saveable, FarmLocation {
     //      return App.game.features.plants.list[this.type];
     // }
 
-
+    /**
+     * Obtains the Plot the Plant is on
+     */
+     get plot(): Plot {
+        return App.game.features.farms.farms[this.farm].plots[this.row][this.col];
+    }
+    
     /**
      * Returns the Plant image SVGData
      */

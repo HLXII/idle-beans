@@ -1,9 +1,11 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
+import EmptyEntityState from "../entity/EmptyEntityState";
 import EntityState, { EntityStateSaveData } from "../entity/EntityState";
 import GameHelper from "../GameHelper";
 import { PlantType } from "../plant/PlantList";
 import { PlantStateSaveData } from "../plant/PlantState";
+import RainbowBeanPlant from "../plant/species/beanplants/RainbowBeanPlant";
 import { FarmType } from "./FarmType";
 import Plot, { PlotSaveData } from "./Plot";
 
@@ -34,7 +36,7 @@ export default abstract class AbstractFarm implements Saveable {
      * storing them as properties in the Plot object because that causes issues with Vue updating
      * The Entities in the UI.
      */
-    public entities: (EntityState | undefined)[];
+    public entities: (EntityState)[];
 
     private _size!: number;
 
@@ -82,7 +84,12 @@ export default abstract class AbstractFarm implements Saveable {
                 }
 
                 // Expanding and shifting Entities
-                const newEntities = new Array(size * size).fill(undefined);
+                const newEntities = [];
+                for (let r = 0; r < size; r++) {
+                    for (let c = 0;c < size;c++) {
+                        newEntities.push(new EmptyEntityState({row: r, col: c, farm: this.type}));
+                    }
+                }
                 this.entities.forEach((entity, idx) => {
                     // Parsing original coords
                     const [newRow, newCol] = this.getEntityCoord(entity ?? idx);
@@ -159,14 +166,14 @@ export default abstract class AbstractFarm implements Saveable {
         }
     }
 
-    getEntity(row: number, col: number): EntityState | undefined {
+    getEntity(row: number, col: number): EntityState {
         return this.entities[this.getEntityId(row, col)];
     }
 
     addEntity(state: EntityState, row: number, col: number) {
         // Sanity Check
         const prevEntity = this.getEntity(row, col);
-        if (prevEntity) {
+        if (!(prevEntity instanceof EmptyEntityState)) {
             console.error('Error - Cannot add Entity over existing Entity', prevEntity);
             return;
         }
@@ -178,13 +185,13 @@ export default abstract class AbstractFarm implements Saveable {
     removeEntity(row: number, col: number) {
         // Sanity Check
         const prevEntity = this.getEntity(row, col);
-        if (!prevEntity) {
+        if (prevEntity instanceof EmptyEntityState) {
             console.error('Error - Attempting to remove Entity that doesn\'t exist');
             return;
         }
 
         const id = this.getEntityId(row, col);
-        this.entities.splice(id, 1, undefined);
+        this.entities.splice(id, 1, new EmptyEntityState({row: row, col: col, farm: this.type }));
     }
 
     update(delta: number) {

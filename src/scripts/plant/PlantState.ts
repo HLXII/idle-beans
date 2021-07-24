@@ -72,13 +72,6 @@ export default class PlantState extends EntityState {
     }
 
     /**
-     * Obtains the Plot the Plant is on
-     */
-    get plot(): Plot {
-        return App.game.features.farms.farms[this.farm].plots[this.row][this.col];
-    }
-
-    /**
      * Returns the Plant image SVGData
      */
     get image(): SVGData {

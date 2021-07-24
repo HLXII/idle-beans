@@ -62,7 +62,7 @@ export default class Farms extends IgtFeature {
         return this.getFarm(farm).getPlot(row, col);
     }
 
-    getEntity(row: number, col: number, farm?: FarmType): EntityState | undefined {
+    getEntity(row: number, col: number, farm?: FarmType): EntityState {
         // Obtaining Farm if not given
         farm = farm ?? this.activeFarm;
 

@@ -1,4 +1,5 @@
 import { App } from "@/App";
+import EmptyEntityState from "@/scripts/entity/EmptyEntityState";
 import { FarmType } from "@/scripts/farm/FarmType";
 import { PlantType } from "@/scripts/plant/PlantList";
 import Bean, { BeanOptions } from "../Bean";
@@ -21,7 +22,7 @@ export default class PlantableBean extends Bean implements Plantable {
         }
         // Plot already has an Entity
         const prevEntity = App.game.features.farms.getEntity(row, col, farm);
-        if (prevEntity) {
+        if (!(prevEntity instanceof EmptyEntityState)) {
             return false;
         }
 
