@@ -9,7 +9,7 @@ import PlantDetails from "@/controls/farm/plot-modal/plant-details.vue";
 import EntityState from "@/scripts/entity/EntityState";
 
 export default {
-    name: "PlantState",
+    name: "LegumaPlantState",
     data() {
         return {
 

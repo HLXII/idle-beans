@@ -20,7 +20,7 @@ export default abstract class EntityState implements Saveable, FarmLocation {
     public row!: number;
     public col!: number;
 
-    /** Age (in milliseconds) */
+    /** Age (in seconds) */
     public age: number;
 
     constructor(location?: FarmLocation) {
@@ -34,8 +34,8 @@ export default abstract class EntityState implements Saveable, FarmLocation {
     }
 
     /**
-     * Updates the Entity every game tick
-     * @param delta The time passed (ms)
+     * Update the Entity
+     * @param delta Time passed in seconds
      */
     update(delta: number) {
         this.age += delta;

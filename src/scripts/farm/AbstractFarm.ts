@@ -1,8 +1,9 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
 import EntityState, { EntityStateSaveData } from "../entity/EntityState";
+import GameHelper from "../GameHelper";
 import { PlantType } from "../plant/PlantList";
-import PlantState, { PlantStateSaveData } from "../plant/PlantState";
+import { PlantStateSaveData } from "../plant/PlantState";
 import { FarmType } from "./FarmType";
 import Plot, { PlotSaveData } from "./Plot";
 
@@ -10,6 +11,13 @@ export interface FarmSaveData extends SaveData {
     size: number;
     plots: PlotSaveData[][];
     entities: (EntityStateSaveData | undefined)[];
+}
+
+export enum PlotUpdateCycle {
+    Base = 1,
+    ManaPropagationSend = 2,
+    ManaPropagationGroup = 3,
+    ManaPropagationProcess = 4,
 }
 
 export default abstract class AbstractFarm implements Saveable {
@@ -180,15 +188,18 @@ export default abstract class AbstractFarm implements Saveable {
     }
 
     update(delta: number) {
-        // Updating plots
-        this.plots.forEach((row) => row.forEach((plot => {
-            plot.update(delta);
-        })));
-
         // Updating plants
         Object.values(this.entities).forEach((entity) => {
             entity?.update(delta);
         });
+
+        // Updating plots
+        GameHelper.enumNumbers(PlotUpdateCycle).forEach(cycle => {
+            this.plots.forEach((row) => row.forEach((plot => {
+                plot.update(delta, cycle);
+            })));
+        });
+
     }
 
     get background(): string {

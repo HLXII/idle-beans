@@ -46,6 +46,10 @@ export default class GameHelper {
         return gameText;
     }
 
+    public static enumNumbers(enumerable: any): number[] {
+        return Object.keys(enumerable).map(Number).filter((k) => !Number.isNaN(k));
+    }
+    
     public static importImages(r: __WebpackModuleApi.RequireContext) {
         const images: {[key: string]: any} = {};
         r.keys().map((item, index) => { 

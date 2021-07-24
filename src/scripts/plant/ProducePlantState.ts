@@ -25,10 +25,6 @@ export default class ProducePlantState extends PlantState {
         this.storage = 0;
     }
 
-    /**
-     * Updates the plant every game tick
-     * @param delta The time passed (ms)
-     */
     update(delta: number) {
         super.update(delta);
 

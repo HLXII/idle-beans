@@ -1,11 +1,12 @@
 import { GameText } from "@/scripts/controls/GameText";
-import Plant from "../../Plant";
+import LegumaPlant from "../../LegumaPlant";
 import UpgradeState from "../../upgrades/UpgradeState";
 
-export default class LesserLegumaPlant extends Plant {
+export default class LesserLegumaPlant extends LegumaPlant {
+
     baseDescription: GameText[] = [];
 
-    description: GameText[] = [];
+    public baseLegumaProduce: number = 1;
     
     upgrades: UpgradeState[] = [
         new UpgradeState('Wider Leaves', {'Sky Bean': 1}),

@@ -1,7 +1,7 @@
 <template>
     <div class="plotStatuses">
-        <div  v-for="(status, idx) in statuses" :key="idx">
-            <progress-bar :fgClass="`bg-${status.color}-500`" :bgClass="`bg-${status.color}-200`" :percentage="status.percent" :tooltip="status.text"></progress-bar>
+        <div v-for="(status, idx) in statuses" :key="idx">
+            <progress-bar :fgClass="`bg-${status.color}-500`" :bgClass="`bg-${status.color}-200`" :percentage="status.percent" :tooltip="status.tooltip"></progress-bar>
         </div>
     </div>
 </template>

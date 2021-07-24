@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td class="simple-status-label" colspan="2"><span class="whitespace-nowrap">{{label}}</span></td>
+        <td class="simple-status-label" colspan="2"><span class="whitespace-nowrap">{{label}}:</span></td>
         <td><border-progress-bar :percentage="percent" :text="text"/></td>
     </tr>
 </template>

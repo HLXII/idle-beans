@@ -9,10 +9,7 @@
                 <!-- Entity Data -->
                 <component v-if=entity v-bind:is=entity.modalTemplate :entity="entity" :controller="controller" ></component>
                 <!-- Dirt Data -->
-                <!-- TODO -->
-                <div>
-
-                </div>
+                <plot-details :plot="plot"></plot-details>
             </div>
             <div class="modal-footer">
 
@@ -28,6 +25,8 @@ import PlantState from "@/controls/farm/plot-modal/PlantState.vue";
 import GrowthPlantState from "@/controls/farm/plot-modal/GrowthPlantState.vue";
 import ProducePlantState from "@/controls/farm/plot-modal/ProducePlantState.vue";
 import BeanStalkState from "@/controls/farm/plot-modal/BeanStalkState.vue";
+import LegumaPlantState from "@/controls/farm/plot-modal/LegumaPlantState.vue";
+import PlotDetails from './plot-details.vue';
 
 export default {
     name: "plot-modal",
@@ -45,6 +44,8 @@ export default {
         GrowthPlantState,
         ProducePlantState,
         BeanStalkState,
+        LegumaPlantState,
+        PlotDetails,
     },
     props: {
         show: {

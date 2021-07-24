@@ -17,6 +17,25 @@ export function getOrthoPlots(plot: Plot): Plot[] {
         .map(([r, c]) => farms.getPlot(r, c, farm));
 }
 
+export function getAllOrthoPlots(plot: Plot): (Plot | undefined)[] {
+
+    const farms = App.game.features.farms;
+
+    const farm = plot.farm;
+    const row = plot.row;
+    const col = plot.col;
+
+    const plotIndices = [[row - 1, col], [row, col - 1], [row, col + 1], [row + 1, col]];
+    
+    return plotIndices.map(([r, c]) => {
+        if (farms.getFarm(farm).isValidCoord(r, c)) {
+            return farms.getPlot(r, c, farm);
+        } else {
+            return undefined;
+        }
+    });
+}
+
 export default class OrthoPlotsRequirement extends PlotRequirement {
 
     getPlots(plot: Plot): Plot[] {
