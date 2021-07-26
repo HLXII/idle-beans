@@ -8,7 +8,7 @@ import Plant from "./plant/Plant";
 import { PlantCategory, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 import { Settings } from "./Settings";
-import Wiki, { WikiType } from "./wiki/Wiki";
+import Wiki from "./wiki/Wiki";
 
 export enum ToolType {
     'Cursor' = 0,

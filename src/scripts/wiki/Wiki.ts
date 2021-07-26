@@ -6,14 +6,25 @@ import Beans from "../bean/Beans";
 import GameController, { ModalType, TabType } from "../GameController";
 import Notifications from "../notifications/Notifications";
 import Plant from "../plant/Plant";
+import { SVGData } from "../plant/PlantImages";
 import { PlantType } from "../plant/PlantList";
 import Plants from "../plant/Plants";
 
 export enum WikiType {
     Bean,
     Plant,
+    Farm,
 }
 
+export interface WikiEntry {
+    type: WikiType;
+    category: number;
+    visible: boolean;
+    icon?: SVGData;
+    image?: any;
+    elementName: string;
+    component: string;
+}
 
 export interface WikiSaveData extends SaveData {
 
@@ -210,6 +221,10 @@ export default class Wiki extends IgtFeature {
                 return plant.unlocked;
             }
         }
+
+        // Should never reach this
+        console.error(`Error - WikiType ${type} wasn't handled properly.`);
+        return false;
     }
 
     load(data: WikiSaveData): void {

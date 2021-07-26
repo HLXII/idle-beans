@@ -2,7 +2,7 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
 import { EntryType } from "../log/Log";
-import { WikiType } from "../wiki/Wiki";
+import { WikiEntry, WikiType } from "../wiki/Wiki";
 import { BeanCategory, BeanImages } from "./BeanList";
 
 export interface BeanOptions {
@@ -15,7 +15,7 @@ export interface BeanSaveData extends SaveData {
     amount: number;
 }
 
-export default class Bean implements Saveable {
+export default class Bean implements Saveable, WikiEntry {
 
     public unlocked: boolean;
     public amount: number;
@@ -36,25 +36,42 @@ export default class Bean implements Saveable {
         }
     }
 
+    /**
+     * WikiType
+     */
+    public type = 0;
+    
+    /**
+     * Visiblity in the Wiki
+     */
+    get visible(): boolean {
+        return this.unlocked;
+    }
+
+    /**
+     * Vue component name for the Wiki entry
+     */
+    get component(): string {
+        return 'wiki-bean';
+    }
+
+    /**
+     * Bean Image
+     */
     get image(): string {
         return BeanImages[this.name];
     }
 
-    get tooltip(): string {
-        return `${this.name}: ${this.amount}`;
-    }
-
-    get saveKey(): string {
-        return this.name;
-    }
-
     /**
-     * Return the element ID name in the Wiki
+     * Element ID for the Wiki entry
      */
      get elementName(): string {
         return this.name.toLowerCase().replace(/ /, '-');
     }
 
+    get saveKey(): string {
+        return this.name;
+    }
     save(): BeanSaveData {
         return {
             unlocked: this.unlocked,

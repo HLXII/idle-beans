@@ -9,7 +9,7 @@ import { PlantCategory, PlantType } from './PlantList';
 import PlantState from './PlantState';
 import { PlantUpgradeId } from './upgrades/PlantUpgrades';
 import UpgradeState from './upgrades/UpgradeState';
-import { WikiType } from "../wiki/Wiki";
+import { WikiEntry, WikiType } from "../wiki/Wiki";
 
 export interface PlantOptions {
     unlocked?: boolean;
@@ -24,7 +24,7 @@ export interface PlantSaveData extends SaveData {
     upgrades: PlantUpgradeSaveData;
 }
 
-export default abstract class Plant implements Saveable {
+export default abstract class Plant implements Saveable, WikiEntry {
     public static state = PlantState;
 
     public unlocked: boolean;
@@ -99,14 +99,33 @@ export default abstract class Plant implements Saveable {
     }
 
     /**
-     * Returns the Plant Icon SVG Data
+     * WikiType
+     */
+    type: WikiType = WikiType.Plant;
+
+    /**
+     * Visiblity in the Wiki 
+     */
+    get visible(): boolean {
+        return this.unlocked;
+    }
+
+    /**
+     * Wiki Vue component
+     */
+    get component(): string {
+        return 'wiki-plant';
+    }
+
+    /**
+     * Plant Icon SVG Data
      */
     get icon(): SVGData {
         return PlantIcons[this.name] ?? PlantIcons['Missing Plant'];
     }
 
     /**
-     * Return the element ID name in the Wiki
+     * Element ID for the Wiki entry
      */
     get elementName(): string {
         return this.name.toLowerCase().replace(/ /, '-');
