@@ -1,7 +1,7 @@
 <template>
     <div class="btn" @click="toggle">
         <icon :image=icon v-bind:class="{'has-tooltip': 'hasTooltip'}" >
-            <tooltip v-if="hasTooltip" position="top-right" :interactable="false">
+            <tooltip v-if="hasTooltip" position="top-left" :interactable="false">
                 <div class="whitespace-nowrap">{{tooltip}}</div>
             </tooltip>
         </icon>

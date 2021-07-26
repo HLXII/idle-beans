@@ -46,13 +46,19 @@ export default {
 }
 
 .modal-container {
-    max-width: 680px;
-    margin: 40px auto 0;
+    max-width: 620px;
+    margin: 40px 10px;
     padding: 4px;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     @apply bg-white dark:bg-gray-900
+}
+
+@media (min-width: 640px) {
+    .modal-container {
+        margin: 40px auto 0;
+    }
 }
 
 .modal-enter {

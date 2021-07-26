@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'dark': darkMode}">
+    <div class="view" :class="{'dark': darkMode}">
         <div class="viewWrapper">
             <main-view v-if="!game.features.prestige.prestiged" :game="game"/>
             <prestige-view v-if="game.features.prestige.prestiged" :game="game"/>
@@ -57,8 +57,16 @@ export default {
 </script>
 
 <style>
+html, body {
+    margin: 0px;
+    height: 100%;
+}
+
+.view {
+    height: 100%;
+}
+
 .viewWrapper {
-    position: fixed;
     width: 100%;
     height: 100%;
     @apply dark:bg-gray-900 dark:text-white;

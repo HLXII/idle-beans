@@ -1,8 +1,8 @@
 <template>
-    <div class="farmView">
-        <div id="left-column">
+    <div class="farmView grid grid-cols-2 md:grid-cols-4 dark:bg-gray-900">
+        <div id="left-column" class="order-2 md:order-1">
             <div class="flex flex-col gap-1" style="height: 100%;">
-                <div class="flex flex-col-reverse" style="height: 192px;">
+                <div class="iconBox">
                     <!-- Tool Icons -->
                     <tool-icons></tool-icons>
                 </div>
@@ -10,7 +10,7 @@
                 <bean-list class="farmBeanList" :list="game.features.controller.filteredBeanList" :useFilter="true" ></bean-list>
             </div>
         </div>
-        <div id="middle-column" class="col-span-2 justify-self-center px-2" style="width:100%;">
+        <div id="middle-column" class="col-span-2 justify-self-center px-2 order-first md:order-2" style="width:100%;">
                 <div class="border2" :style="farmStyle">
                     <!-- Title -->
                     <div style="height: 192px; pointer-events: none; margin: 0;">
@@ -26,9 +26,9 @@
                 <!-- Dev Panel -->
                 <igt-developer-panel v-if="showDevPanel" :developerPanel="game.getDeveloperPanel()"/>
         </div>
-        <div id="right-column">
+        <div id="right-column" class="order-last">
             <div class="flex flex-col gap-1" style="height: 100%;">
-                <div class="flex flex-col-reverse" style="height: 192px;">
+                <div class="iconBox">
                     <!-- Additional Icons -->
                     <div class="flex flex-wrap gap-1 justify-center">
                         <div class="btn" style="height:32px;" @click="openModal(ModalType.Wiki)">
@@ -137,7 +137,16 @@ export default {
 .farmView {
     margin: auto;
     max-width: 1600px;
-    @apply grid grid-cols-4 dark:bg-gray-900;
+}
+
+.iconBox {
+    @apply flex flex-col-reverse;
+}
+
+@media (min-width: 768px) {
+    .iconBox {
+        height: 192px;
+    }
 }
 
 .farmBeanList {
