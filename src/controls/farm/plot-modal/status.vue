@@ -1,12 +1,13 @@
 <template>
     <tr>
-        <td class="simple-status-label" colspan="2"><span class="whitespace-nowrap">{{label}}:</span></td>
-        <td><border-progress-bar :percentage="percent" :text="text"/></td>
+        <td class="simple-status-label" colspan="2"><span class="whitespace-nowrap">{{status.label}}:</span></td>
+        <td><border-progress-bar :fgClass="`bg-${status.color}-500`" :bgClass="`bg-${status.color}-200`" :percentage="status.percent" :text="status.text"/></td>
     </tr>
 </template>
 
 <script>
 import BorderProgressBar from '@/controls/utility/border-progress-bar.vue';
+import Status from '@/scripts/entity/Status';
 
 export default {
     name: "status",
@@ -14,17 +15,10 @@ export default {
         BorderProgressBar
     },
     props: {
-        label: {
-            type: String,
+        status: {
+            type: Status,
             required: true,
         },
-        percent: {
-            type: Number,
-            require: true,
-        },
-        text: {
-            type: String,
-        }
     },
 }
 </script>

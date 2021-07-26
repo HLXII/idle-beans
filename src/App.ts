@@ -8,6 +8,8 @@ import { Settings } from "./scripts/Settings";
 import PrestigeHandler from "./scripts/prestige/PrestigeHandler";
 import Upgrades from "./scripts/upgrade/Upgrades";
 import Statistics from "./scripts/statistics/Statistics";
+import Wiki from "./scripts/wiki/Wiki";
+import Notifications from "./scripts/notifications/Notifications";
 
 export class App {
     static inProduction: boolean = (process.env.NODE_ENV === "production");
@@ -34,6 +36,8 @@ export class App {
                 prestige: new PrestigeHandler(),
                 upgrades: new Upgrades(),
                 statistics: new Statistics(),
+                wiki: new Wiki(),
+                notifications: new Notifications(),
             }
         );
     }

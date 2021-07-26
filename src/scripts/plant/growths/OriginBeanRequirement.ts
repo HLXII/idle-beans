@@ -5,7 +5,6 @@ import { BeanType } from "../../bean/BeanList";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";
 
-
 export default class OriginBeanRequirement extends GrowthRequirement {
 
     public bean: BeanType[];

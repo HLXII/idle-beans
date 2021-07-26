@@ -24,7 +24,7 @@
             </div>
         </div>
         <status-table>
-            <status v-for="status in entity.statuses" :key="status.label" :label="status.label" :percent="status.percent" :text="status.text" />
+            <status v-for="status in entity.statuses" :key="status.label" :status="status" />
         </status-table>
     </div>
 </template>

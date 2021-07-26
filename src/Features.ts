@@ -9,6 +9,8 @@ import { Settings } from "@/scripts/Settings";
 import PrestigeHandler from "./scripts/prestige/PrestigeHandler";
 import Upgrades from "./scripts/upgrade/Upgrades";
 import Statistics from "./scripts/statistics/Statistics";
+import Wiki from "./scripts/wiki/Wiki";
+import Notifications from "./scripts/notifications/Notifications";
 
 export interface Features extends IgtFeatures {
     settings: Settings;
@@ -20,4 +22,6 @@ export interface Features extends IgtFeatures {
     prestige: PrestigeHandler;
     upgrades: Upgrades;
     statistics: Statistics;
+    wiki: Wiki;
+    notifications: Notifications;
 }

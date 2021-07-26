@@ -61,7 +61,7 @@ export default class BeanStalkState extends PlantState {
     }
 
     get heightLabel(): string {
-        return `Height (${this.height}):`;
+        return `Height (${this.height})`;
     }
 
     get heightText(): string {
