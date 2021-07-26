@@ -2,23 +2,23 @@
     <div class="border2" :class="packetClass" @click="packetClick(packet.name)">
         <div>{{packet.name}}</div>
         <div>
-            <game-text :text="description" :controller="controller"/>
+            <game-text :text="description" :wiki="wiki"/>
         </div>
         <div>
-            <game-text :text="costText" :controller="controller"/>
+            <game-text :text="costText" :wiki="wiki"/>
         </div>
     </div>
 </template>
 
 <script>
 import GameText from '@/controls/utility/game-text.vue'
-import GameController from '@/scripts/GameController'
 import GameHelper from '@/scripts/GameHelper'
 import BeanPacket from '@/scripts/prestige/BeanPacket'
 import PrestigeHandler from '@/scripts/prestige/PrestigeHandler'
+import Wiki from '@/scripts/wiki/Wiki'
 
 export default {
-    name: "plant-upgrade",
+    name: "seed-packet",
     components: {
         GameText,
     },
@@ -35,8 +35,8 @@ export default {
             type: PrestigeHandler,
             require: true,
         },
-        controller: {
-            type: GameController,
+        wiki: {
+            type: Wiki,
             required: true,
         },
     },

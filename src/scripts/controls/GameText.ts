@@ -1,13 +1,9 @@
+import { WikiType } from "../wiki/Wiki";
 
 export type GameText = string | LinkText;
 
 export interface LinkText {
     text: string;
-    type?: LinkType;
+    type?: WikiType;
     id?: string;
-}
-
-export enum LinkType {
-    Bean,
-    Plant,
 }

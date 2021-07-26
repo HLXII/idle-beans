@@ -1,6 +1,6 @@
 import { App } from "@/App";
 import { BeanAmount, BeanType } from "../bean/BeanList";
-import { GameText, LinkType } from "../controls/GameText";
+import { GameText } from "../controls/GameText";
 import EntityState, { EntityStateSaveData } from "../entity/EntityState";
 import FarmLocation from "../farm/FarmLocation";
 import Plot from "../farm/Plot";
@@ -10,6 +10,7 @@ import Plant from "./Plant";
 import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from './PlantList';
 import Status from "../entity/Status";
+import { WikiType } from "../wiki/Wiki";
 
 export interface PlantStateSaveData extends EntityStateSaveData {
     type: PlantType;
@@ -47,7 +48,7 @@ export default class PlantState extends EntityState {
         const gainedBeans = GameHelper.beanAmount(removeGain, ', ');
         App.game.features.log.log([
             `Removed a `,
-            {text: this.type, type: LinkType.Plant, id: this.type},
+            {text: this.type, type: WikiType.Plant, id: this.type},
             '. Gained: ',
             ...gainedBeans,
         ], EntryType.Removal);

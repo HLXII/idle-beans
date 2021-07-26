@@ -1,5 +1,6 @@
 import { BeanAmount, BeanType } from "./bean/BeanList";
-import { GameText, LinkType } from "./controls/GameText";
+import { GameText } from "./controls/GameText";
+import { WikiType } from "./wiki/Wiki";
 
 export default class GameHelper {
 
@@ -36,7 +37,7 @@ export default class GameHelper {
         for (const bean in beans) {
             const amount = beans[bean as BeanType] ?? 0;
             gameText.push(`${amount} `);
-            gameText.push({text: `${bean}${amount > 1 ? 's' : ''}`, type: LinkType.Bean, id: bean});
+            gameText.push({text: `${bean}${amount > 1 ? 's' : ''}`, type: WikiType.Bean, id: bean});
             gameText.push(conjunction);
         }
         

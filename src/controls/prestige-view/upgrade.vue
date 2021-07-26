@@ -2,13 +2,13 @@
     <div class="border2 bg-generic" :class="[disabled ? 'upgradeDisabled' : '']" @click="purchase(upgrade.name)">
         <div>{{upgrade.name}}</div>
         <div>
-            <game-text :text="upgrade.description" :controller="controller"/>
+            <game-text :text="upgrade.description" :wiki="wiki"/>
         </div>
         <div v-if="upgrade.purchased" class="text-center">Purchased</div>
         <div v-else>
             <div class="text-center">Cost:</div>
             <div>
-                <game-text :text="cost" :controller="controller"/>
+                <game-text :text="cost" :wiki="wiki"/>
             </div>
         </div>
     </div>
@@ -16,11 +16,11 @@
 
 <script>
 import GameText from '@/controls/utility/game-text.vue'
-import GameController from '@/scripts/GameController'
 import GameHelper from '@/scripts/GameHelper'
 import Upgrade from '@/scripts/upgrade/Upgrade'
 import Beans from '@/scripts/bean/Beans'
 import Upgrades from '@/scripts/upgrade/Upgrades'
+import Wiki from '@/scripts/wiki/Wiki'
 
 export default {
     name: "upgrade",
@@ -36,8 +36,8 @@ export default {
             type: Upgrades,
             required: true,
         },
-        controller: {
-            type: GameController,
+        wiki: {
+            type: Wiki,
             required: true,
         },
         beans: {

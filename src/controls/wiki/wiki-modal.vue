@@ -16,7 +16,7 @@
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-entry v-for="bean in beanList" :key="bean.name" :class="{notification: notifications.hasBeanNotification(bean.name)}" :id="bean.elementName" :entry="bean" :controller=controller :activeEntry="wiki.bean" :change="changeWikiBean"></wiki-entry>
+                            <wiki-entry v-for="bean in beanList" :key="bean.name" :class="{notification: notifications.hasBeanNotification(bean.name)}" :id="bean.elementName" :entry="bean" :controller=controller :activeEntry="wiki.bean" :change="changeBean"></wiki-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div>
@@ -38,7 +38,7 @@
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-entry v-for="plant in plantList" :key="plant.name" :class="{notification: notifications.hasPlantNotification(plant.name)}" :id="plant.elementName" :entry="plant" :controller=controller :activeEntry="wiki.plant" :change="changeWikiPlant"></wiki-entry>
+                            <wiki-entry v-for="plant in plantList" :key="plant.name" :class="{notification: notifications.hasPlantNotification(plant.name)}" :id="plant.elementName" :entry="plant" :controller=controller :activeEntry="wiki.plant" :change="changePlant"></wiki-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div class="overflow-auto">
@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="plantName">{{plant.name}}</div>
-                                <game-text :text="plant.description" :controller="controller"/>
+                                <game-text :text="plant.description" :wiki="wiki"/>
                             </div>
                             <div>
                                 <nav class="flex gap-1 mb-1">
@@ -60,17 +60,28 @@
                                 </nav>
                             </div>
                             <nav-tab class="flex flex-col gap-1" :tabType="0" :activeTab="plantDetailsTab">
-                                <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :controller="controller"/>
+                                <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :wiki="wiki"/>
                             </nav-tab>
                             <nav-tab class="flex flex-col gap-1" :tabType="1" :activeTab="plantDetailsTab">
-                                <plant-upgrade v-for="upgrade in purchasedUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :displayOnly="true" :controller="controller" :plants="plants" :beans="beans"/>
+                                <plant-upgrade v-for="upgrade in purchasedUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :displayOnly="true" 
+                                    :controller="controller" :plants="plants" :beans="beans" :wiki="wiki"/>
                             </nav-tab>
                         </div>
                     </div>
                 </nav-tab>
                 <!-- Farm Tab -->
                 <nav-tab :tabType="2" :activeTab="wikiTab">
+                    <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
+                        <nav-button v-for="cat in farmCats" :key="cat" :class="{notification: notifications.hasFarmCatNotification(cat)}" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changeFarmTab" :activeTab="farmTab"/>
+                    </nav>
+                    <div class="grid grid-cols-3 gap-2" style="height: 640px;">
+                        <div class="border2 bg-generic">
+                            <wiki-entry v-for="entry in farmEntries" :key="entry.name" :class="{notification: notifications.hasEntryNotification(entry.name)}" :id="entry.elementName" :entry="entry" :controller=controller :activeEntry="wiki.farmEntry" :change="changeFarmEntry"></wiki-entry>
+                        </div>
+                        <div class="border2 bg-generic col-span-2 p-1">
 
+                        </div>
+                    </div>
                 </nav-tab>
             </div>
             <div class="modal-footer">
@@ -93,6 +104,8 @@ import GameText from '@/controls/utility/game-text.vue';
 import { TabType } from "@/scripts/GameController";
 import PlantUpgrade from '../prestige-view/plant-upgrade.vue';
 import WikiEntry from './wiki-entry.vue';
+import GameHelper from '@/scripts/GameHelper';
+import { FarmType } from '@/scripts/farm/FarmType';
 
 export default {
     name: "wiki-modal",
@@ -100,6 +113,7 @@ export default {
         return {
             plants: App.game.features.plants,
             beans: App.game.features.beans,
+            farms: App.game.features.farms,
             controller: App.game.features.controller,
             wiki: App.game.features.wiki,
             notifications: App.game.features.notifications,
@@ -138,31 +152,66 @@ export default {
         changePlantDetailsTab: function(tab) {
             this.controller.changeTab(TabType.WikiPlantDetails, tab);
         },
-        changeWikiBean: function(beanType) {
+        changeFarmTab: function(tab) {
+            this.controller.changeTab(TabType.WikiFarm, tab);
+        },
+        changeBean: function(beanType) {
             this.wiki.changeBean(beanType);
         },
-        changeWikiPlant: function(plantType) {
+        changePlant: function(plantType) {
             this.wiki.changePlant(plantType);
+        },
+        changeFarmEntry: function(farmType) {
+            this.wiki.changeFarmEntry(farmType);
         },
     },
     computed: {
         wikiTab() {
             return this.controller.tabs[TabType.Wiki];
         },
+        //#region Beans
         beanList() {
             return this.wiki.beanList;
         },
         bean() {
             return this.beans.list[this.wiki.bean];
         },
+        beanCats() {
+            return Object.values(this.BeanCategory).filter((val) => {
+                if (isNaN(val)) {
+                    return false;
+                }
+                return this.beans.filter((bean) => {
+                    if (bean.category !== val) {
+                        return false;
+                    }
+                    return bean.unlocked;
+                }).length > 0;
+            });
+        },
         beanTab() {
             return this.controller.tabs[TabType.WikiBean];
         },
+        //#endregion
+        //#region Plants
         plantList() {
             return this.wiki.plantList;
         },
         plant() {
             return this.plants.list[this.wiki.plant];
+        },
+        plantCats() {
+            return Object.values(this.PlantCategory).filter((val) => {
+                if (isNaN(val)) {
+                    return false;
+                }
+                return this.plants.filter((plant) => {
+                    if (plant.category !== val) {
+                        return false;
+                    }
+                    return plant.unlocked;
+                }).length > 0;
+            });        
         },
         plantTab() {
             return this.controller.tabs[TabType.WikiPlant];
@@ -182,32 +231,21 @@ export default {
             }
             return [];
         },
-        beanCats() {
-            return Object.values(this.BeanCategory).filter((val) => {
-                if (isNaN(val)) {
-                    return false;
-                }
-                return this.beans.filter((bean) => {
-                    if (bean.category !== val) {
-                        return false;
-                    }
-                    return bean.unlocked;
-                }).length > 0;
-            });
+        //#endregion
+        //#region Farms
+        farmEntries() {
+            return this.wiki.farmEntries;
         },
-        plantCats() {
-            return Object.values(this.PlantCategory).filter((val) => {
-                if (isNaN(val)) {
-                    return false;
-                }
-                return this.plants.filter((plant) => {
-                    if (plant.category !== val) {
-                        return false;
-                    }
-                    return plant.unlocked;
-                }).length > 0;
-            });        
+        farm() {
+            return this.farms.farms[this.wiki.farm];
         },
+        farmCats() {
+            return GameHelper.enumNumbers(FarmType).filter((num) => this.farms.farms[num].unlocked);
+        },
+        farmTab() {
+            return this.controller.tabs[TabType.WikiFarm];
+        },
+        //#endregion
     },
 }
 </script>

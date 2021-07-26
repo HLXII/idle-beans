@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import GameController from "@/scripts/GameController";
+import Wiki from '@/scripts/wiki/Wiki';
 
 export default {
     name: "link-text",
@@ -12,14 +12,14 @@ export default {
             type: Object,
             required: true,
         },
-        controller: {
-            type: GameController,
+        wiki: {
+            type: Wiki,
             required: true,
         },
     },
     computed: {
         active() {
-            return this.controller.linkActive(this.link.type, this.link.id); 
+            return this.wiki.linkActive(this.link.type, this.link.id); 
         },
         text() {
             return this.active ? this.link.text : '???';
@@ -28,7 +28,7 @@ export default {
     methods: {
         openWiki(type, id) {
             if (this.active) {
-                this.controller.openWiki(type, id);
+                this.wiki.openWiki(type, id);
             }
         }
     },

@@ -6,12 +6,12 @@
                 <div class="has-tooltip" style="position: relative;display:inline-block;">
                     <game-button bg="bg-red-500" text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/>
                     <tooltip :interactable="true" position="bottom-left">
-                        <game-text class="whitespace-nowrap" :text="prestige.rewardText" :controller="controller"/>
+                        <game-text class="whitespace-nowrap" :text="prestige.rewardText" :wiki="wiki"/>
                     </tooltip>
                 </div>
             </div>
             <div>{{prestige.name}}</div>
-            <div><game-text :text="prestige.description" :controller="controller" /></div>
+            <div><game-text :text="prestige.description" :wiki="wiki" /></div>
         </div>
         <div>
             <status-table>
@@ -24,11 +24,11 @@
 <script>
 import Prestige from '@/scripts/prestige/Prestige'
 import GameText from '@/controls/utility/game-text.vue'
-import GameController from '@/scripts/GameController'
 import GameButton from '@/controls/utility/game-button.vue'
 import StatusTable from '@/controls/farm/plot-modal/status-table.vue'
 import Status from '@/controls/farm/plot-modal/status.vue'
 import Tooltip from '@/controls/utility/tooltip.vue'
+import Wiki from '@/scripts/wiki/Wiki'
 
 export default {
     name: "prestige",
@@ -44,8 +44,8 @@ export default {
             type: Prestige,
             required: true,
         },
-        controller: {
-            type: GameController,
+        wiki: {
+            type: Wiki,
             required: true,
         }
     },

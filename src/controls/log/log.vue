@@ -3,7 +3,7 @@
         <span class="btn bg-white dark:bg-gray-700 flex text-center justify-center border2 mb-1" @click="clearLog">Clear Log</span>
         <div class="flex flex-col-reverse logContainer">
             <div> <!-- Additional div used to reverse the entries correctly -->
-                <log-entry v-for="(entry, idx) in log.entries" :key=idx :entry="entry" :controller="controller"></log-entry>
+                <log-entry v-for="(entry, idx) in log.entries" :key=idx :entry="entry" :wiki="wiki"></log-entry>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       log: App.game.features.log,
-      controller: App.game.features.controller,
+      wiki: App.game.features.wiki,
     }
   },
   computed: {

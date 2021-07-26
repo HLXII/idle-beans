@@ -13,7 +13,7 @@
                     <div v-if="visiblePrestiges.length == 0">
                         Currently no available prestiges.
                     </div>
-                    <prestige v-for="(prestige, idx) in visiblePrestiges" :key="idx" :prestige="prestige" :controller="controller"/>
+                    <prestige v-for="(prestige, idx) in visiblePrestiges" :key="idx" :prestige="prestige" :wiki="wiki"/>
                 </nav-tab>
                 <!-- Prestige Modifiers -->
                 <nav-tab :activeTab="prestigeTab" :tabType=1>
@@ -40,6 +40,7 @@ export default {
         return {
             prestige: App.game.features.prestige,
             controller: App.game.features.controller,
+            wiki: App.game.features.wiki,
         }
     },
     components: {

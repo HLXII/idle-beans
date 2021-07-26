@@ -3,14 +3,12 @@ import { SaveData, IgtFeature, HotKeys, KeyBind, KeyEventType } from "incrementa
 import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Beans from "./bean/Beans";
-import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
-import Notifications from "./notifications/Notifications";
 import Plant from "./plant/Plant";
-import { PlantCategory, PlantList, PlantType } from "./plant/PlantList";
+import { PlantCategory, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 import { Settings } from "./Settings";
-import Wiki from "./wiki/Wiki";
+import Wiki, { WikiType } from "./wiki/Wiki";
 
 export enum ToolType {
     'Cursor' = 0,
@@ -32,6 +30,7 @@ export enum TabType {
     WikiPlant = "WikiPlant",
     WikiPlantDetails = 'WikiPlantDetails',
     WikiBean = "WikiBean",
+    WikiFarm = "WikiFarm",
     Settings = "Settings",
     Prestige = "Prestige",
     PrestigeShop = "PrestigeShop",
@@ -52,7 +51,6 @@ export default class GameController extends IgtFeature {
     private plants!: Plants;
     private settings!: Settings;
     private wiki!: Wiki;
-    private notifications!: Notifications;
 
     //#region Selectors
     public tool: ToolType;
@@ -99,6 +97,7 @@ export default class GameController extends IgtFeature {
             'WikiPlant': 0,
             'WikiPlantDetails': 0,
             'WikiBean': 0,
+            "WikiFarm": 0,
             'Settings': 0,
             'Prestige': 0,
             'PrestigeShop': 0,
@@ -112,7 +111,6 @@ export default class GameController extends IgtFeature {
         this.plants = features.plants;
         this.settings = features.settings;
         this.wiki = features.wiki;
-        this.notifications = features.notifications;
 
         // Adding modifier key bindings
         HotKeys.addKeyBind(new KeyBind('ctrl', 'Ctrl Modifier Down', () => { this.ctrlKey = true; }, undefined, KeyEventType.KeyDown));
@@ -268,31 +266,6 @@ export default class GameController extends IgtFeature {
                     }
                     break;
                 }
-            }
-        }
-    }
-
-    /**
-     * Helper function to determine whether a Wiki link is active
-     * @param type The LinkType
-     * @param id The ID of the link
-     * @returns True if the player can click the link, False otherwise
-     */
-    linkActive(type: LinkType, id: string): boolean {
-        switch(type) {
-            case LinkType.Bean: {
-                const bean = this.beans.list[id as BeanType];
-                if (!bean) {
-                    return false;
-                }
-                return bean.unlocked;
-            }
-            case LinkType.Plant: {
-                const plant = this.plants.list[id as PlantType];
-                if (!plant) {
-                    return false;
-                }
-                return plant.unlocked;
             }
         }
     }

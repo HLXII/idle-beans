@@ -2,14 +2,14 @@
     <div class="border2 bg-generic" :class="[disabled ? 'upgradeDisabled' : '']" @click="purchase(upgrade.id)">
         <div>{{upgrade.id}}</div>
         <div>
-            <game-text :text="baseUpgrade.description" :controller="controller"/>
+            <game-text :text="baseUpgrade.description" :wiki="wiki"/>
         </div>
         <template v-if="!displayOnly">
             <div v-if="upgrade.purchased" class="text-center">Purchased</div>
             <div v-else>
                 <div class="text-center">Cost:</div>
                 <div>
-                    <game-text :text="costText" :controller="controller"/>
+                    <game-text :text="costText" :wiki="wiki"/>
                 </div>
             </div>
         </template>
@@ -24,6 +24,7 @@ import Beans from '@/scripts/bean/Beans'
 import UpgradeState from '@/scripts/plant/upgrades/UpgradeState'
 import Plant from '@/scripts/plant/Plant'
 import Plants from '@/scripts/plant/Plants'
+import Wiki from '@/scripts/wiki/Wiki'
 
 export default {
     name: "plant-upgrade",
@@ -41,6 +42,10 @@ export default {
         },
         controller: {
             type: GameController,
+            required: true,
+        },
+        wiki: {
+            type: Wiki,
             required: true,
         },
         plants: {

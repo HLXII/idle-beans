@@ -1,6 +1,6 @@
 <template>
     <div>
-        <entity-details :entity="plant" :controller="controller" :farms="farms">
+        <entity-details :entity="plant" :wiki="wiki" :farms="farms">
             <template v-slot:topRightContent>
                 <icon :image=originBean.image class="has-tooltip" >
                     <tooltip position="bottom-left" :interactable="false" width=56>
@@ -14,7 +14,7 @@
                         Remove
                     </button>
                     <tooltip position="bottom-left" :interactable="true">
-                        <game-text class="whitespace-nowrap" :text="plant.removeGainMessage" :controller="controller"/>
+                        <game-text class="whitespace-nowrap" :text="plant.removeGainMessage" :wiki="wiki"/>
                     </tooltip>
                 </div>
             </template>
@@ -35,7 +35,7 @@ export default {
     data() {
         return {
             farms: App.game.features.farms,
-            controller: App.game.features.controller,
+            wiki: App.game.features.wiki,
         }; 
     },
     components: {
@@ -60,7 +60,7 @@ export default {
             this.farms.removeEntity(this.plant.row, this.plant.col);
         },
         goToPlant() {
-            this.controller.goToPlant(this.plant.data.name);
+            this.wiki.goToPlant(this.plant.data.name);
         }
     }
 }

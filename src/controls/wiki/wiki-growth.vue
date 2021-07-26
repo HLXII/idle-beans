@@ -5,23 +5,22 @@
                 <svg-icon :icon="plantIcon" />
                 <div class="px-1">
                     <span class="align-middle">
-                        <game-text :text="plantName" :controller="controller"/>
+                        <game-text :text="plantName" :wiki="wiki"/>
                     </span>
                 </div>
             </div>
-            <game-text :text="growth.description" :controller="controller" />
+            <game-text :text="growth.description" :wiki="wiki" />
         </div>
     </div>
 </template>
 
 <script>
-import GameController from "@/scripts/GameController";
 import Plants from "@/scripts/plant/Plants";
 import Growth from "@/scripts/plant/growths/Growth";
 import GameText from '@/controls/utility/game-text.vue';
 import SvgIcon from '@/controls/utility/svg-icon.vue';
 import { PlantIcons } from '@/scripts/plant/PlantImages';
-import { LinkType } from '@/scripts/controls/GameText';
+import Wiki, { WikiType } from '@/scripts/wiki/Wiki';
 
 export default {
     name: "wiki-growth",
@@ -34,8 +33,8 @@ export default {
             type: Growth,
             required: true,
         },
-        controller: {
-            type: GameController,
+        wiki: {
+            type: Wiki,
             required: true,
         },
         plants: {
@@ -56,7 +55,7 @@ export default {
         plantName() {
             return [{
                 text: this.growth.plant,
-                type: LinkType.Plant,
+                type: WikiType.Plant,
                 id: this.growth.plant,
             }];
         }

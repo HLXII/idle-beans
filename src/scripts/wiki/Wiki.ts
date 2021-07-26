@@ -3,12 +3,16 @@ import { SaveData, IgtFeature } from "incremental-game-template";
 import Bean from "../bean/Bean";
 import { BeanType } from "../bean/BeanList";
 import Beans from "../bean/Beans";
-import { LinkType } from "../controls/GameText";
 import GameController, { ModalType, TabType } from "../GameController";
 import Notifications from "../notifications/Notifications";
 import Plant from "../plant/Plant";
 import { PlantType } from "../plant/PlantList";
 import Plants from "../plant/Plants";
+
+export enum WikiType {
+    Bean,
+    Plant,
+}
 
 
 export interface WikiSaveData extends SaveData {
@@ -60,13 +64,13 @@ export default class Wiki extends IgtFeature {
         // TODO
     }
 
-    openWiki(type: LinkType, id: string) {
+    openWiki(type: WikiType, id: string) {
         switch(type) {
-            case LinkType.Bean: {
+            case WikiType.Bean: {
                 this.goToBean(id as BeanType);
                 break;
             }
-            case LinkType.Plant: {
+            case WikiType.Plant: {
                 this.goToPlant(id as PlantType);
                 break;
             }
@@ -183,6 +187,30 @@ export default class Wiki extends IgtFeature {
         });
     }
     
+    /**
+     * Helper function to determine whether a Wiki link is active
+     * @param type The WikiType
+     * @param id The ID of the link
+     * @returns True if the player can click the link, False otherwise
+     */
+    linkActive(type: WikiType, id: string): boolean {
+        switch(type) {
+            case WikiType.Bean: {
+                const bean = this.beans.list[id as BeanType];
+                if (!bean) {
+                    return false;
+                }
+                return bean.unlocked;
+            }
+            case WikiType.Plant: {
+                const plant = this.plants.list[id as PlantType];
+                if (!plant) {
+                    return false;
+                }
+                return plant.unlocked;
+            }
+        }
+    }
 
     load(data: WikiSaveData): void {
         // TODO:

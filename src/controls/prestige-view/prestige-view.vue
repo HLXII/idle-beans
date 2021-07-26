@@ -19,7 +19,7 @@
                         <!-- General Tab -->
                         <nav-tab :activeTab="shopTab" :tabType=0>
                             <div class="flex flex-cols-4 gap-1 justify-center">
-                                <upgrade v-for="upgrade in upgradeList" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :controller="controller" :beans="beans"/>
+                                <upgrade v-for="upgrade in upgradeList" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :wiki="wiki" :beans="beans"/>
                             </div>
                             <div v-if="upgradeList.length == 0">
                                 All available Upgrades purchased!
@@ -28,7 +28,7 @@
                         <!-- Bean Packets Tab -->
                         <nav-tab :activeTab="shopTab" :tabType=1>
                             <div class="flex flex-cols-4 gap-1 justify-center">
-                                <seed-packet v-for="packet in beanPackets" :key="packet.name" :packet="packet" :prestige="prestige" :controller="controller" :selected="prestige.selectedBeanPackets.includes(packet.name)"/>
+                                <seed-packet v-for="packet in beanPackets" :key="packet.name" :packet="packet" :prestige="prestige" :wiki="wiki" :selected="prestige.selectedBeanPackets.includes(packet.name)"/>
                             </div>
                         </nav-tab>
                         <!-- Plant Upgrades Tab -->
@@ -41,7 +41,8 @@
                                     <wiki-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :entry=plant :controller=controller :activeEntry="controller.prestigePlant" :change="changePlant"></wiki-entry>
                                 </div>
                                 <div class="border2 bg-generic col-span-2 flex flex-col gap-1">
-                                    <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
+                                    <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade"
+                                        :controller="controller" :plants="plants" :beans="beans" :wiki="wiki"/>
                                 </div>
                             </div>
                             <div v-if="plantCats.length == 0">
@@ -147,6 +148,9 @@ export default {
         },
         prestige() {
             return this.game.features.prestige;
+        },
+        wiki() {
+            return this.game.features.wiki;
         },
         //#endregion
         shopTab() {

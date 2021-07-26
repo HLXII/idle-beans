@@ -1,4 +1,4 @@
-import { LinkType } from "@/scripts/controls/GameText";
+import { WikiType } from "@/scripts/wiki/Wiki";
 import GrowthPlant from "../GrowthPlant";
 import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";
@@ -10,7 +10,7 @@ export default class BlueBeanSprout extends GrowthPlant {
 
     baseDescription = [
         'A rare blue variant of the ',
-        {text: 'Bean Sprout', type: LinkType.Plant, id: 'Bean Sprout'},
+        {text: 'Bean Sprout', type: WikiType.Plant, id: 'Bean Sprout'},
         '.',
     ];
 

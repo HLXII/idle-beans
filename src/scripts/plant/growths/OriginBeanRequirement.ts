@@ -1,6 +1,7 @@
 import { App } from "@/App";
-import { GameText, LinkType } from "@/scripts/controls/GameText";
+import { GameText } from "@/scripts/controls/GameText";
 import GameHelper from "@/scripts/GameHelper";
+import { WikiType } from "@/scripts/wiki/Wiki";
 import { BeanType } from "../../bean/BeanList";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";
@@ -30,7 +31,7 @@ export default class OriginBeanRequirement extends GrowthRequirement {
     get description(): GameText[] {
 
         const beanText: GameText[][] = this.bean.map((bean) => {
-            return [{text: `${bean}`, type: LinkType.Bean, id: bean}]
+            return [{text: `${bean}`, type: WikiType.Bean, id: bean}]
         });
 
         return [

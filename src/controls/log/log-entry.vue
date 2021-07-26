@@ -1,12 +1,12 @@
 <template>
     <div v-bind:class="entry.color">
-        <game-text :text="entry.message" :controller="controller"/>
+        <game-text :text="entry.message" :wiki="wiki"/>
     </div>
 </template>
 
 <script>
-import GameController from '@/scripts/GameController'
 import gameText from '@/controls/utility/game-text.vue'
+import Wiki from '@/scripts/wiki/Wiki'
 
 export default {
   components: { gameText },
@@ -16,8 +16,8 @@ export default {
           type: Object,
           required: true,
       },
-      controller: {
-          type: GameController,
+      wiki: {
+          type: Wiki,
           required: true,
       }
   },

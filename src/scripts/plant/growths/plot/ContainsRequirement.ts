@@ -1,7 +1,8 @@
 import { App } from "@/App";
-import { GameText, LinkType } from "@/scripts/controls/GameText";
+import { GameText } from "@/scripts/controls/GameText";
 import Plot from "@/scripts/farm/Plot";
 import GameHelper from "@/scripts/GameHelper";
+import { WikiType } from "@/scripts/wiki/Wiki";
 import { PlantType } from "../../PlantList";
 import PlotRequirement, { MinimalPlot } from "./PlotRequirement";
 
@@ -45,7 +46,7 @@ function ContainReq<GReqClass extends MinimalPlot>(Base: GReqClass) {
             const data: GameText[][] = this.data.map((datum) => {
                 return [
                     `${datum.amount} `,
-                    {text: `${datum.plant}${datum.amount > 1 ? 's' : ''}`, type: LinkType.Plant, id: datum.plant},
+                    {text: `${datum.plant}${datum.amount > 1 ? 's' : ''}`, type: WikiType.Plant, id: datum.plant},
                 ]
             });
             

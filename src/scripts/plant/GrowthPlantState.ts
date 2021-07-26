@@ -1,5 +1,5 @@
 import { App } from "@/App";
-import { LinkType } from "../controls/GameText";
+import { WikiType } from "../wiki/Wiki";
 import FarmLocation from "../farm/FarmLocation";
 import { EntryType } from "../log/Log";
 import GrowthPlant from "./GrowthPlant";
@@ -40,9 +40,9 @@ export default class GrowthPlantState extends PlantState {
         if (this.stageAge >= this.data.growthTime(this)) {
             App.game.features.log.log([
                 'A ',
-                {text: this.type, type: LinkType.Plant, id: this.type},
+                {text: this.type, type: WikiType.Plant, id: this.type},
                 ' has grown into a ',
-                {text: growth, type: LinkType.Plant, id: growth},
+                {text: growth, type: WikiType.Plant, id: growth},
             ], EntryType.Growth);
             this.grow(growth);
         }

@@ -32,9 +32,9 @@
 <script>
 import EntityState from "@/scripts/entity/EntityState";
 import Farms from '@/scripts/farm/Farms';
-import GameController from '@/scripts/GameController';
 import StatusTable from './status-table.vue';
 import Status from './status.vue';
+import Wiki from '@/scripts/wiki/Wiki';
 
 export default {
     name: "entity-details",
@@ -54,8 +54,8 @@ export default {
             type: Farms,
             required: true,
         },
-        controller: {
-            type: GameController,
+        wiki: {
+            type: Wiki,
             required: true,
         }
     },
@@ -68,7 +68,7 @@ export default {
         },
         goToEntity() {
             // TODO: Handle non-Plant entities in wiki
-            this.controller.goToPlant(this.entity.data.name);
+            this.wiki.goToPlant(this.entity.data.name);
         }
     }
 }
