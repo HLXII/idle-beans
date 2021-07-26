@@ -9,12 +9,8 @@ import Plant from "../plant/Plant";
 import { SVGData } from "../plant/PlantImages";
 import { PlantType } from "../plant/PlantList";
 import Plants from "../plant/Plants";
+import { WikiType } from "./WikiType";
 
-export enum WikiType {
-    Bean,
-    Plant,
-    Farm,
-}
 
 export interface WikiEntry {
     type: WikiType;

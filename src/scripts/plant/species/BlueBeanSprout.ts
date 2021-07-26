@@ -1,4 +1,4 @@
-import { WikiType } from "@/scripts/wiki/Wiki";
+import { WikiType } from "@/scripts/wiki/WikiType";
 import GrowthPlant from "../GrowthPlant";
 import AnyGrowthRequirement from "../growths/AnyGrowthRequirement";
 import DefaultRequirement from "../growths/DefaultRequirement";

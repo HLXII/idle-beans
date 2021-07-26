@@ -1,6 +1,6 @@
 import { BeanType } from "@/scripts/bean/BeanList";
 import { GameText } from "@/scripts/controls/GameText";
-import { WikiType } from "@/scripts/wiki/Wiki";
+import { WikiType } from "@/scripts/wiki/WikiType";
 import ProducePlant from "../../ProducePlant";
 import UpgradeState from "../../upgrades/UpgradeState";
 

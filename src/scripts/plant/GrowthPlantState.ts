@@ -1,11 +1,11 @@
 import { App } from "@/App";
-import { WikiType } from "../wiki/Wiki";
 import FarmLocation from "../farm/FarmLocation";
 import { EntryType } from "../log/Log";
 import GrowthPlant from "./GrowthPlant";
 import { PlantType } from "./PlantList";
 import PlantState, { PlantStateSaveData } from "./PlantState";
 import Status from "../entity/Status";
+import { WikiType } from "../wiki/WikiType";
 
 export interface GrowthPlantStateSaveData extends PlantStateSaveData {
     stageAge: number;

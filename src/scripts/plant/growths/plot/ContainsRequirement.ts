@@ -2,7 +2,7 @@ import { App } from "@/App";
 import { GameText } from "@/scripts/controls/GameText";
 import Plot from "@/scripts/farm/Plot";
 import GameHelper from "@/scripts/GameHelper";
-import { WikiType } from "@/scripts/wiki/Wiki";
+import { WikiType } from "@/scripts/wiki/WikiType";
 import { PlantType } from "../../PlantList";
 import PlotRequirement, { MinimalPlot } from "./PlotRequirement";
 

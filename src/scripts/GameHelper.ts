@@ -1,6 +1,6 @@
 import { BeanAmount, BeanType } from "./bean/BeanList";
 import { GameText } from "./controls/GameText";
-import { WikiType } from "./wiki/Wiki";
+import { WikiType } from "./wiki/WikiType";
 
 export default class GameHelper {
 

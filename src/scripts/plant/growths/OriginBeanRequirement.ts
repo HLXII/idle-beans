@@ -1,7 +1,7 @@
 import { App } from "@/App";
 import { GameText } from "@/scripts/controls/GameText";
 import GameHelper from "@/scripts/GameHelper";
-import { WikiType } from "@/scripts/wiki/Wiki";
+import { WikiType } from "@/scripts/wiki/WikiType";
 import { BeanType } from "../../bean/BeanList";
 import GrowthPlantState from "../GrowthPlantState";
 import GrowthRequirement from "./GrowthRequirement";

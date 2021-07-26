@@ -20,7 +20,8 @@ import Growth from "@/scripts/plant/growths/Growth";
 import GameText from '@/controls/utility/game-text.vue';
 import SvgIcon from '@/controls/utility/svg-icon.vue';
 import { PlantIcons } from '@/scripts/plant/PlantImages';
-import Wiki, { WikiType } from '@/scripts/wiki/Wiki';
+import Wiki from '@/scripts/wiki/Wiki';
+import { WikiType } from '@/scripts/wiki/WikiType';
 
 export default {
     name: "wiki-growth",

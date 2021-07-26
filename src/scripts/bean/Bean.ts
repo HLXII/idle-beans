@@ -2,7 +2,8 @@
 import { App } from "@/App";
 import { SaveData, Saveable } from "incremental-game-template";
 import { EntryType } from "../log/Log";
-import { WikiEntry, WikiType } from "../wiki/Wiki";
+import { WikiEntry } from "../wiki/Wiki";
+import { WikiType } from "../wiki/WikiType";
 import { BeanCategory, BeanImages } from "./BeanList";
 
 export interface BeanOptions {
@@ -39,7 +40,7 @@ export default class Bean implements Saveable, WikiEntry {
     /**
      * WikiType
      */
-    public type = 0;
+    public type = WikiType.Bean;
     
     /**
      * Visiblity in the Wiki

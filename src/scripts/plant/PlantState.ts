@@ -10,7 +10,7 @@ import Plant from "./Plant";
 import { getImage, SVGData } from "./PlantImages";
 import { PlantType } from './PlantList';
 import Status from "../entity/Status";
-import { WikiType } from "../wiki/Wiki";
+import { WikiType } from "../wiki/WikiType";
 
 export interface PlantStateSaveData extends EntityStateSaveData {
     type: PlantType;

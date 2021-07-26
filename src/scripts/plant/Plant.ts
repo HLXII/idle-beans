@@ -9,7 +9,8 @@ import { PlantCategory, PlantType } from './PlantList';
 import PlantState from './PlantState';
 import { PlantUpgradeId } from './upgrades/PlantUpgrades';
 import UpgradeState from './upgrades/UpgradeState';
-import { WikiEntry, WikiType } from "../wiki/Wiki";
+import { WikiEntry } from "../wiki/Wiki";
+import { WikiType } from '../wiki/WikiType';
 
 export interface PlantOptions {
     unlocked?: boolean;

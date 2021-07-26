@@ -1,4 +1,4 @@
-import { WikiType } from "../wiki/Wiki";
+import { WikiType } from "../wiki/WikiType";
 
 export type GameText = string | LinkText;
 
