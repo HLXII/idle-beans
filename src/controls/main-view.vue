@@ -32,7 +32,7 @@
                     <!-- Additional Icons -->
                     <div class="flex flex-wrap gap-1 justify-center">
                         <div class="btn" style="height:32px;" @click="openModal(ModalType.Wiki)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
+                            <icon class="has-tooltip" :bg="game.features.notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
                                 <tooltip position="top-left" :interactable="false">
                                 <div class="text-center">Wiki</div>
                                 </tooltip>

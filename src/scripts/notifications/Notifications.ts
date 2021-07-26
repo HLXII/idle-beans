@@ -1,8 +1,8 @@
 import { Features } from "@/Features";
 import { SaveData, IgtFeature } from "incremental-game-template";
-import { BeanType } from "../bean/BeanList";
+import { BeanCategory, BeanType } from "../bean/BeanList";
 import Beans from "../bean/Beans";
-import { PlantType } from "../plant/PlantList";
+import { PlantCategory, PlantType } from "../plant/PlantList";
 import Plants from "../plant/Plants";
 
 
@@ -19,6 +19,10 @@ export default class Notifications extends IgtFeature {
 
     public beanNotification!: {[key in BeanType]: boolean};
     public plantNotification!: {[key in PlantType]: boolean};
+
+    // TODO: Achievement Notifications
+    // TODO: Prestige Notifications
+    // TODO: Push/popup notifications?
 
     constructor() {
         super('notifications');
@@ -38,6 +42,52 @@ export default class Notifications extends IgtFeature {
     }
     canAccess(): boolean {
         return true;
+    }
+
+    //#region Wiki Notifications
+
+    get hasWikiNotification(): boolean {
+        return this.hasBeansNotification || this.hasPlantsNotification;
+    }
+
+    get hasBeansNotification(): boolean {
+        return Object.values(this.beans.list).filter((bean) => bean.unlocked).some((bean) => !this.beanNotification[bean.name as BeanType]);
+    }
+
+    hasBeanCatNotification(cat: BeanCategory): boolean {
+        return Object.values(this.beans.list)
+            .filter((bean) => bean.unlocked)
+            .filter((bean) => bean.category === cat)
+            .some((bean) => !this.beanNotification[bean.name as BeanType]);
+    }
+
+    hasBeanNotification(bean: BeanType): boolean {
+        return this.beans.list[bean].unlocked && !this.beanNotification[bean];
+    }
+
+    get hasPlantsNotification(): boolean {
+        return Object.values(this.plants.list).filter((plant) => plant.unlocked).some((plant) => !this.plantNotification[plant.name as PlantType]);
+    }
+
+    hasPlantCatNotification(cat: PlantCategory): boolean {
+        return Object.values(this.plants.list)
+            .filter((plant) => plant.unlocked)
+            .filter((plant) => plant.category === cat)
+            .some((plant) => !this.plantNotification[plant.name as PlantType]);
+    }
+
+    hasPlantNotification(plant: PlantType): boolean {
+        return this.plants.list[plant].unlocked && !this.plantNotification[plant];
+    }
+
+    //#endregion
+
+    notify(id: BeanType | PlantType) {
+        if (this.beans.list[id as BeanType] !== undefined) {
+            this.beanNotification[id as BeanType] = true;
+        } else if (this.plants.list[id as PlantType] !== undefined) {
+            this.plantNotification[id as PlantType] = true;
+        }
     }
 
     load(data: NotificationsSaveData): void {

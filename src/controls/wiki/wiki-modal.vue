@@ -3,19 +3,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <nav class="flex gap-1 mb-1">
-                    <nav-button class="flex-1" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="wikiTab"/>
-                    <nav-button class="flex-1" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="wikiTab"/>
+                    <nav-button class="flex-1" :class="{notification: notifications.hasBeansNotification}" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="wikiTab"/>
+                    <nav-button class="flex-1" :class="{notification: notifications.hasPlantsNotification}" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="wikiTab"/>
                 </nav>
             </div>
             <div class="modal-body">
                 <!-- Bean Tab -->
                 <nav-tab :tabType="0" :activeTab="wikiTab">
                     <nav class="flex gap-1 mb-1" v-if="beanCats.length > 1">
-                        <nav-button v-for="cat in beanCats" :key="cat" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="beanTab"/>
+                        <nav-button v-for="cat in beanCats" :key="cat" :class="{notification: notifications.hasBeanCatNotification(cat)}" :tabName="BeanCategory[cat]" :tabType="cat" :changeTab="changeBeanTab" :activeTab="beanTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-bean-entry v-for="bean in beanList" :key="bean.name" :id="bean.elementName" :bean=bean :controller=controller></wiki-bean-entry>
+                            <wiki-bean-entry v-for="bean in beanList" :key="bean.name" :class="{notification: notifications.hasBeanNotification(bean.name)}" :id="bean.elementName" :bean=bean :wiki=wiki></wiki-bean-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div>
@@ -33,11 +33,11 @@
                 <!-- Plant Tab -->
                 <nav-tab :tabType="1" :activeTab="wikiTab">
                     <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
-                        <nav-button v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
+                        <nav-button v-for="cat in plantCats" :key="cat" :class="{notification: notifications.hasPlantCatNotification(cat)}" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.wikiPlant" :changePlant="changeWikiPlant"></wiki-plant-entry>
+                            <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :class="{notification: notifications.hasPlantNotification(plant.name)}" :id="plant.elementName" :plant=plant :controller=controller :activePlant="wiki.plant" :changePlant="changeWikiPlant"></wiki-plant-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div class="overflow-auto">
@@ -97,6 +97,8 @@ export default {
             plants: App.game.features.plants,
             beans: App.game.features.beans,
             controller: App.game.features.controller,
+            wiki: App.game.features.wiki,
+            notifications: App.game.features.notifications,
             BeanCategory,
             PlantCategory,
         }
@@ -134,7 +136,7 @@ export default {
             this.controller.changeTab(TabType.WikiPlantDetails, tab);
         },
         changeWikiPlant: function(plantType) {
-            this.controller.changeWikiPlant(plantType);
+            this.wiki.changePlant(plantType);
         },
     },
     computed: {
@@ -142,19 +144,19 @@ export default {
             return this.controller.tabs[TabType.Wiki];
         },
         beanList() {
-            return this.controller.wikiBeanList;
+            return this.wiki.beanList;
         },
         bean() {
-            return this.beans.list[this.controller.wikiBean];
+            return this.beans.list[this.wiki.bean];
         },
         beanTab() {
             return this.controller.tabs[TabType.WikiBean];
         },
         plantList() {
-            return this.controller.wikiPlantList;
+            return this.wiki.plantList;
         },
         plant() {
-            return this.plants.list[this.controller.wikiPlant];
+            return this.plants.list[this.wiki.plant];
         },
         plantTab() {
             return this.controller.tabs[TabType.WikiPlant];
@@ -179,7 +181,7 @@ export default {
                 if (isNaN(val)) {
                     return false;
                 }
-                return this.controller.filterBeans((bean) => {
+                return this.beans.filter((bean) => {
                     if (bean.category !== val) {
                         return false;
                     }
@@ -192,7 +194,7 @@ export default {
                 if (isNaN(val)) {
                     return false;
                 }
-                return this.controller.filterPlants((plant) => {
+                return this.plants.filter((plant) => {
                     if (plant.category !== val) {
                         return false;
                     }
@@ -205,4 +207,9 @@ export default {
 </script>
 
 <style scoped>
+
+.notification {
+    font-weight: bold;
+}
+
 </style>

@@ -62,6 +62,15 @@ export default class Plants extends IgtFeature {
         upgradeState.purchased = true;
     }
 
+    /**
+     * Helper function to obtain Plants via some filter
+     * @param filter The filter function
+     * @returns A list of Plants
+     */
+    filter(filter: (plant: Plant) => boolean): Plant[] {
+        return Object.values(this.list).filter(filter);
+    }
+
     saveKey = 'plants';
     save(): PlantsSaveData {
         const data: PlantsSaveData = {};

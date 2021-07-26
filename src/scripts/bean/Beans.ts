@@ -68,6 +68,15 @@ export default class Beans extends IgtFeature {
         }
     }
 
+    /**
+     * Helper function to obtain Beans via some filter
+     * @param filter The filter function
+     * @returns A list of Beans
+     */
+    filter(filter: (bean: Bean) => boolean): Bean[] {
+        return Object.values(this.list).filter(filter);
+    }
+
     saveKey = 'beans';
     save(): BeansSaveData {
         const data: BeansSaveData = {};

@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import GameController from "@/scripts/GameController";
 import Bean from "@/scripts/bean/Bean";
 import Icon from "@/controls/utility/icon";
+import Wiki from '@/scripts/wiki/Wiki';
 
 export default {
   name: "wiki-bean-entry",
@@ -21,19 +21,19 @@ export default {
       type: Bean,
       required: true,
     },
-    controller: {
-      type: GameController,
+    wiki: {
+      type: Wiki,
       required: true,
-    }
+    },
   },
   computed: {
     active() {
-        return (this.controller.wikiBean == this.bean.name)
+        return (this.wiki.bean == this.bean.name)
     },
   },
   methods: {
       changeBean(bean) {
-        this.controller.changeWikiBean(bean);
+        this.wiki.changeBean(bean);
       }
   },
 }

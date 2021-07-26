@@ -5,10 +5,12 @@ import { BeanType, BeanList } from "./bean/BeanList";
 import Beans from "./bean/Beans";
 import { LinkType } from "./controls/GameText";
 import Farms from "./farm/Farms";
+import Notifications from "./notifications/Notifications";
 import Plant from "./plant/Plant";
 import { PlantCategory, PlantList, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 import { Settings } from "./Settings";
+import Wiki from "./wiki/Wiki";
 
 export enum ToolType {
     'Cursor' = 0,
@@ -49,6 +51,8 @@ export default class GameController extends IgtFeature {
     private beans!: Beans;
     private plants!: Plants;
     private settings!: Settings;
+    private wiki!: Wiki;
+    private notifications!: Notifications;
 
     //#region Selectors
     public tool: ToolType;
@@ -66,13 +70,6 @@ export default class GameController extends IgtFeature {
 
     /**Tab handler */
     public tabs: Record<TabType, number>;
-
-    //#region Wiki Modal properties
-    /**Opened Bean */
-    public wikiBean: BeanType;
-    /**Opened Plant */
-    public wikiPlant: PlantType;
-    //#endregion
 
     //#region Prestige View properties
     public prestigePlant: PlantType;
@@ -95,9 +92,6 @@ export default class GameController extends IgtFeature {
    
         this.beanListSearch = '';
 
-        this.wikiBean = 'Bean';
-        this.wikiPlant = 'Bean Bud';
-
         this.prestigePlant = 'Bean Bud';
 
         this.tabs = {
@@ -117,6 +111,8 @@ export default class GameController extends IgtFeature {
         this.beans = features.beans;
         this.plants = features.plants;
         this.settings = features.settings;
+        this.wiki = features.wiki;
+        this.notifications = features.notifications;
 
         // Adding modifier key bindings
         HotKeys.addKeyBind(new KeyBind('ctrl', 'Ctrl Modifier Down', () => { this.ctrlKey = true; }, undefined, KeyEventType.KeyDown));
@@ -130,7 +126,6 @@ export default class GameController extends IgtFeature {
         HotKeys.addKeyBind(new KeyBind('1', 'One', () => { this.changeTool(ToolType.Cursor); }));
         HotKeys.addKeyBind(new KeyBind('2', 'Two', () => { this.changeTool(ToolType.Bean); }));
         HotKeys.addKeyBind(new KeyBind('3', 'Three', () => { this.changeTool(ToolType.Sickle); }));
-
     }
     canAccess(): boolean {
         return true;
@@ -256,11 +251,11 @@ export default class GameController extends IgtFeature {
         if (!ignoreSpecialUpdates) {
             switch(tabType) {
                 case TabType.WikiPlant: {
-                    this.changeWikiPlant(this.wikiPlantList[0].name as PlantType);
+                    this.wiki.changePlant(this.wiki.plantList[0].name as PlantType);
                     break;
                 }
                 case TabType.WikiBean: {
-                    this.changeWikiBean(this.wikiBeanList[0].name as BeanType);
+                    this.wiki.changeBean(this.wiki.beanList[0].name as BeanType);
                     break;
                 }
                 case TabType.PrestigePlant: {
@@ -275,159 +270,6 @@ export default class GameController extends IgtFeature {
                 }
             }
         }
-    }
-
-    /**
-     * Helper function to obtain Plants via some filter
-     * @param filter The filter function
-     * @returns A list of Plants
-     */
-    filterPlants(filter: (plant: Plant) => boolean): Plant[] {
-        return Object.values(PlantList).filter(filter);
-    }
-
-    /**
-     * Helper function to obtain Beans via some filter
-     * @param filter The filter function
-     * @returns A list of Beans
-     */
-     filterBeans(filter: (bean: Bean) => boolean): Bean[] {
-        return Object.values(BeanList).filter(filter);
-    }
-
-    //#region Wiki
-    changeWikiBean(beanType: BeanType) {
-        this.wikiBean = beanType;
-    }
-
-    changeWikiPlant(plantType: PlantType) {
-        this.wikiPlant = plantType;
-
-        // Checking if we need to update the PlantDetailsTab
-        // TODO
-    }
-
-    openWiki(type: LinkType, id: string) {
-        switch(type) {
-            case LinkType.Bean: {
-                this.goToBean(id as BeanType);
-                break;
-            }
-            case LinkType.Plant: {
-                this.goToPlant(id as PlantType);
-                break;
-            }
-            default: {
-                console.error(`Error - Could not open invalid wiki - ${type}, ${id}.`);
-                break;
-            }
-        }
-    }
-
-    goToBean(beanType: BeanType) {
-        // Sanity Check
-        if (!beanType) {
-            console.error("Error - Cannot open empty Bean.");
-            return;
-        }
-        const bean = this.beans.list[beanType];
-        if (!bean) {
-            console.error("Error - Could not retrieve Bean from list.", beanType);
-            return;
-        }
-        if (!bean.unlocked) {
-            console.error("Error - Cannot open locked Bean.", beanType);
-            return;
-        }
-
-        // Open Wiki modal
-        this.openModal(ModalType.Wiki);
-
-        // Switch to Bean tab
-        this.changeTab(TabType.Wiki, 0);
-
-        // Switching to correct category tab
-        this.changeTab(TabType.WikiBean, this.beans.list[beanType].category, true);
-
-        // Open Bean
-        this.changeWikiBean(beanType);
-        
-        /*
-        const beanElement = document.getElementById(bean.elementName);
-        if (!beanElement) {
-            console.error("Error - Could not find Bean element.", beanType);
-            return;
-        }
-
-        // Make sure Bean is visible
-        beanElement?.scrollIntoView(true);]
-        */
-    }
-
-    goToPlant(plantType: PlantType) {
-        // Sanity Check
-        if (!plantType) {
-            console.error("Error - Cannot open empty Plant.");
-            return;
-        }
-        const plant = this.plants.list[plantType];
-        if (!plant) {
-            console.error("Error - Could not retrieve Plant from list.", plantType);
-            return;
-        }
-        if (!plant.unlocked) {
-            console.error("Error - Cannot open locked Plant.", plantType);
-            return;
-        }
-
-        // Open Wiki modal
-        this.openModal(ModalType.Wiki);
-
-        // Switch to Plant tab
-        this.changeTab(TabType.Wiki, 1);
-
-        // Switching to correct category tab
-        this.changeTab(TabType.WikiPlant, this.plants.list[plantType].category, true);
-
-        // Open Bean
-        this.changeWikiPlant(plantType);
-
-        /*
-        const plantElement = document.getElementById(plant.elementName);
-        if (!plantElement) {
-            console.error("Error - Could not find Plant element.", plantType);
-            return;
-        }
-
-        // Make sure Plant is visible
-        plantElement?.scrollIntoView(true);
-        */
-    }
-
-    /**
-     * Returns the list of Beans to display in the Bean Wiki
-     * Checks current BeanCategory tab and Bean unlock state
-     */
-    get wikiBeanList(): Bean[] {
-        return this.filterBeans((bean: Bean) => {
-            if (bean.category !== this.tabs[TabType.WikiBean]) {
-                return false;
-            }
-            return bean.unlocked;
-        });
-    }
-
-    /**
-     * Returns the list of Plants to display in the Plant Wiki
-     * Checks current PlantCategory tab and Plant unlock state
-     */
-    get wikiPlantList(): Plant[] {
-        return this.filterPlants((plant: Plant) => {
-            if (plant.category !== this.tabs[TabType.WikiPlant]) {
-                return false;
-            }
-            return plant.unlocked;
-        });
     }
 
     /**
@@ -454,11 +296,10 @@ export default class GameController extends IgtFeature {
             }
         }
     }
-    //#endregion
 
     //#region Prestige View
     get prestigePlantList(): Plant[] {
-        return this.filterPlants((plant: Plant) => {
+        return this.plants.filter((plant: Plant) => {
             if (plant.category !== this.tabs[TabType.PrestigePlant]) {
                 return false;
             }
@@ -476,7 +317,7 @@ export default class GameController extends IgtFeature {
             if (isNaN(+val)) {
                 return false;
             }
-            return this.filterPlants((plant) => {
+            return this.plants.filter((plant) => {
                 if (plant.category !== val) {
                     return false;
                 }
