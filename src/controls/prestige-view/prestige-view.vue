@@ -38,7 +38,7 @@
                             </nav>
                             <div class="grid grid-cols-3 gap-2" style="height: 640px;" v-if="plantCats.length > 0">
                                 <div class="border2 bg-generic">
-                                    <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :plant=plant :controller=controller :activePlant="controller.prestigePlant" :changePlant="changePlant"></wiki-plant-entry>
+                                    <wiki-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :entry=plant :controller=controller :activeEntry="controller.prestigePlant" :change="changePlant"></wiki-entry>
                                 </div>
                                 <div class="border2 bg-generic col-span-2 flex flex-col gap-1">
                                     <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :controller="controller" :plants="plants" :beans="beans"/>
@@ -99,9 +99,9 @@ import NavTab from '../utility/nav-tab.vue';
 import Upgrade from './upgrade.vue';
 import SeedCart from './seed-cart.vue';
 import { PlantCategory } from '@/scripts/plant/PlantList';
-import WikiPlantEntry from '../wiki/wiki-plant-entry.vue';
 import PlantUpgrade from './plant-upgrade.vue';
 import SeedPacket from './seed-packet.vue';
+import WikiEntry from '../wiki/wiki-entry.vue';
 
 export default {
     components: {
@@ -112,9 +112,9 @@ export default {
         NavTab,
         Upgrade,
         SeedCart,
-        WikiPlantEntry,
         PlantUpgrade,
         SeedPacket,
+        WikiEntry,
     },
     data() {
         return {

@@ -5,6 +5,7 @@
                 <nav class="flex gap-1 mb-1">
                     <nav-button class="flex-1" :class="{notification: notifications.hasBeansNotification}" tabName="Beans" :tabType=0 :changeTab="changeTab" :activeTab="wikiTab"/>
                     <nav-button class="flex-1" :class="{notification: notifications.hasPlantsNotification}" tabName="Plants" :tabType=1 :changeTab="changeTab" :activeTab="wikiTab"/>
+                    <nav-button class="flex-1" tabName="Farms" :tabType=2 :changeTab="changeTab" :activeTab="wikiTab"/>
                 </nav>
             </div>
             <div class="modal-body">
@@ -15,7 +16,7 @@
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-bean-entry v-for="bean in beanList" :key="bean.name" :class="{notification: notifications.hasBeanNotification(bean.name)}" :id="bean.elementName" :bean=bean :wiki=wiki></wiki-bean-entry>
+                            <wiki-entry v-for="bean in beanList" :key="bean.name" :class="{notification: notifications.hasBeanNotification(bean.name)}" :id="bean.elementName" :entry="bean" :controller=controller :activeEntry="wiki.bean" :change="changeWikiBean"></wiki-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div>
@@ -37,7 +38,7 @@
                     </nav>
                     <div class="grid grid-cols-3 gap-2" style="height: 640px;">
                         <div class="border2 bg-generic">
-                            <wiki-plant-entry v-for="plant in plantList" :key="plant.name" :class="{notification: notifications.hasPlantNotification(plant.name)}" :id="plant.elementName" :plant=plant :controller=controller :activePlant="wiki.plant" :changePlant="changeWikiPlant"></wiki-plant-entry>
+                            <wiki-entry v-for="plant in plantList" :key="plant.name" :class="{notification: notifications.hasPlantNotification(plant.name)}" :id="plant.elementName" :entry="plant" :controller=controller :activeEntry="wiki.plant" :change="changeWikiPlant"></wiki-entry>
                         </div>
                         <div class="border2 bg-generic col-span-2 p-1">
                             <div class="overflow-auto">
@@ -67,6 +68,10 @@
                         </div>
                     </div>
                 </nav-tab>
+                <!-- Farm Tab -->
+                <nav-tab :tabType="2" :activeTab="wikiTab">
+
+                </nav-tab>
             </div>
             <div class="modal-footer">
 
@@ -80,8 +85,6 @@ import Modal from "@/controls/modal/modal.vue";
 import { App } from "@/App.ts"
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '@/controls/utility/nav-tab.vue';
-import WikiBeanEntry from '@/controls/wiki/wiki-bean-entry.vue';
-import WikiPlantEntry from '@/controls/wiki/wiki-plant-entry.vue';
 import WikiGrowth from './wiki-growth.vue';
 
 import { BeanCategory } from "@/scripts/bean/BeanList";
@@ -89,6 +92,7 @@ import { PlantCategory } from "@/scripts/plant/PlantList";
 import GameText from '@/controls/utility/game-text.vue';
 import { TabType } from "@/scripts/GameController";
 import PlantUpgrade from '../prestige-view/plant-upgrade.vue';
+import WikiEntry from './wiki-entry.vue';
 
 export default {
     name: "wiki-modal",
@@ -107,11 +111,10 @@ export default {
         Modal,
         NavButton,
         NavTab,
-        WikiBeanEntry,
-        WikiPlantEntry,
         WikiGrowth,
         GameText,
         PlantUpgrade,
+        WikiEntry,
     },
     props: {
         show: {
@@ -134,6 +137,9 @@ export default {
         },
         changePlantDetailsTab: function(tab) {
             this.controller.changeTab(TabType.WikiPlantDetails, tab);
+        },
+        changeWikiBean: function(beanType) {
+            this.wiki.changeBean(beanType);
         },
         changeWikiPlant: function(plantType) {
             this.wiki.changePlant(plantType);
