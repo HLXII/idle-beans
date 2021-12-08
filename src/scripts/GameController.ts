@@ -9,6 +9,7 @@ import { PlantCategory, PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 import { Settings } from "./Settings";
 import Wiki from "./wiki/Wiki";
+import { WikiType } from "./wiki/WikiType";
 
 export enum ToolType {
     'Cursor' = 0,
@@ -249,11 +250,11 @@ export default class GameController extends IgtFeature {
         if (!ignoreSpecialUpdates) {
             switch(tabType) {
                 case TabType.WikiPlant: {
-                    this.wiki.changePlant(this.wiki.plantList[0].name as PlantType);
+                    this.wiki.changeEntry(WikiType.Plant, this.wiki.plantList[0].name as PlantType);
                     break;
                 }
                 case TabType.WikiBean: {
-                    this.wiki.changeBean(this.wiki.beanList[0].name as BeanType);
+                    this.wiki.changeEntry(WikiType.Bean, this.wiki.beanList[0].name as BeanType);
                     break;
                 }
                 case TabType.PrestigePlant: {

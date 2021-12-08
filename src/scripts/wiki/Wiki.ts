@@ -11,9 +11,9 @@ import { PlantType } from "../plant/PlantList";
 import Plants from "../plant/Plants";
 import { WikiType } from "./WikiType";
 
-
 export interface WikiEntry {
     type: WikiType;
+    name: string;
     category: number;
     visible: boolean;
     icon?: SVGData;
@@ -34,16 +34,27 @@ export default class Wiki extends IgtFeature {
     private controller!: GameController;
     private notifications!: Notifications;
 
-    /**Opened Bean */
+    /**Wiki Selectors */
     public bean: BeanType;
-    /**Opened Plant */
     public plant: PlantType;
+    public farmEntry: string;
+    public selectedEntry: {[key: number]: string};
+
+
+    public entries!: WikiEntry[];
 
     constructor() {
         super('wiki');
 
         this.bean = 'Bean';
         this.plant = 'Bean Bud';
+        this.farmEntry = 'Plains';
+
+        this.selectedEntry = {
+            [WikiType.Bean]: 'Bean',
+            [WikiType.Plant]: 'Bean Bud',
+            [WikiType.Farm]: 'Plains',
+        }
     }
 
     initialize(features: Features): void {
@@ -51,121 +62,53 @@ export default class Wiki extends IgtFeature {
         this.plants = features.plants;
         this.controller = features.controller;
         this.notifications = features.notifications;
+    
+        this.entries = [];
+        this.entries.push(...Object.values(this.beans.list));
+        this.entries.push(...Object.values(this.plants.list));
     }
     canAccess(): boolean {
         return true;
     }
 
-    changeBean(beanType: BeanType) {
-        this.bean = beanType;
+    changeEntry(wikiType: WikiType, entry: string) {
+        this.selectedEntry[wikiType] = entry;
 
-        this.notifications.notify(beanType);
-    }
+        console.log(this.selectedEntry);
 
-    changePlant(plantType: PlantType) {
-        this.plant = plantType;
+        this.notifications.notify(entry);
 
-        this.notifications.notify(plantType);
-
-        // Checking if we need to update the PlantDetailsTab
-        // TODO
-    }
-
-    openWiki(type: WikiType, id: string) {
-        switch(type) {
-            case WikiType.Bean: {
-                this.goToBean(id as BeanType);
-                break;
-            }
-            case WikiType.Plant: {
-                this.goToPlant(id as PlantType);
-                break;
-            }
-            default: {
-                console.error(`Error - Could not open invalid wiki - ${type}, ${id}.`);
-                break;
-            }
+        // Special Update Handling
+        if (wikiType === WikiType.Plant) {
+            // Checking if we need to update the PlantDetailsTab
+            // TODO
         }
     }
 
-    goToBean(beanType: BeanType) {
-        // Sanity Check
-        if (!beanType) {
-            console.error("Error - Cannot open empty Bean.");
-            return;
-        }
-        const bean = this.beans.list[beanType];
-        if (!bean) {
-            console.error("Error - Could not retrieve Bean from list.", beanType);
-            return;
-        }
-        if (!bean.unlocked) {
-            console.error("Error - Cannot open locked Bean.", beanType);
+    openWiki(type: WikiType, name: string) {
+        const entry = this.entries.find((entry) => entry.type === type && entry.name === name);
+
+        if (entry === undefined) {
+            console.error(`Error - Could not open invalid Wiki Entry - ${type}, ${name}.`);
             return;
         }
 
-        // Open Wiki modal
-        this.controller.openModal(ModalType.Wiki);
-
-        // Switch to Bean tab
-        this.controller.changeTab(TabType.Wiki, 0);
-
-        // Switching to correct category tab
-        this.controller.changeTab(TabType.WikiBean, this.beans.list[beanType].category, true);
-
-        // Open Bean
-        this.changeBean(beanType);
+        if (!entry.visible) {
+            console.error(`Error - Wiki Entry is not visible - ${type}, ${name}.`);
+            return;
+        }
         
-        /*
-        const beanElement = document.getElementById(bean.elementName);
-        if (!beanElement) {
-            console.error("Error - Could not find Bean element.", beanType);
-            return;
-        }
-
-        // Make sure Bean is visible
-        beanElement?.scrollIntoView(true);]
-        */
-    }
-
-    goToPlant(plantType: PlantType) {
-        // Sanity Check
-        if (!plantType) {
-            console.error("Error - Cannot open empty Plant.");
-            return;
-        }
-        const plant = this.plants.list[plantType];
-        if (!plant) {
-            console.error("Error - Could not retrieve Plant from list.", plantType);
-            return;
-        }
-        if (!plant.unlocked) {
-            console.error("Error - Cannot open locked Plant.", plantType);
-            return;
-        }
-
         // Open Wiki modal
         this.controller.openModal(ModalType.Wiki);
 
-        // Switch to Plant tab
-        this.controller.changeTab(TabType.Wiki, 1);
+        // Switch to WikiType tab
+        this.controller.changeTab(TabType.Wiki, type);
 
         // Switching to correct category tab
-        this.controller.changeTab(TabType.WikiPlant, this.plants.list[plantType].category, true);
+        this.controller.changeTab(TabType.WikiBean, entry.category, true);
 
         // Open Bean
-        this.changePlant(plantType);
-
-        /*
-        const plantElement = document.getElementById(plant.elementName);
-        if (!plantElement) {
-            console.error("Error - Could not find Plant element.", plantType);
-            return;
-        }
-
-        // Make sure Plant is visible
-        plantElement?.scrollIntoView(true);
-        */
+        this.changeEntry(type, name);
     }
 
     /**

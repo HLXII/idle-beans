@@ -82,7 +82,7 @@ export default class Notifications extends IgtFeature {
 
     //#endregion
 
-    notify(id: BeanType | PlantType) {
+    notify(id: string) {
         if (this.beans.list[id as BeanType] !== undefined) {
             this.beanNotification[id as BeanType] = true;
         } else if (this.plants.list[id as PlantType] !== undefined) {
