@@ -1,6 +1,6 @@
 import { App } from "@/App";
 import { Requirement } from "incremental-game-template";
-import { UpgradeId } from "./UpgradeList";
+import { UpgradeId } from "./UpgradeId";
 
 export default class UpgradePurchasedRequirement extends Requirement {
 

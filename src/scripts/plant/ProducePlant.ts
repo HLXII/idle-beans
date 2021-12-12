@@ -3,8 +3,6 @@ import ProducePlantState from './ProducePlantState';
 import { BeanAmount, BeanType } from '../bean/BeanList';
 import { GameText } from '../controls/GameText';
 import { App } from '@/App';
-import ModifierUpgrade from './upgrades/ModifierUpgrade';
-import { PlantEffectId } from './upgrades/PlantEffectId';
 
 export default abstract class ProducePlant extends Plant {
     public static state = ProducePlantState;
@@ -26,16 +24,9 @@ export default abstract class ProducePlant extends Plant {
      * @returns Amount of Beans produced per cycle
      */
     public produceAmount(state?: ProducePlantState) {
-        let produceAmount = this.baseProduceAmount;
+        const produceAmount = this.baseProduceAmount;
 
-        // Handle Upgrades
-        this.upgrades.filter((upgradeState) => upgradeState.purchased).map((upgradeState) => {
-            return App.game.features.plants.upgrades[upgradeState.id];
-        }).forEach((upgrade) => {
-            if (upgrade instanceof ModifierUpgrade) {
-                produceAmount = upgrade.applyEffect(produceAmount, PlantEffectId.RipeAmount);
-            }
-        });
+        // TODO: Handle Upgrades
 
         // TODO: Handle Statuses
 
@@ -54,16 +45,9 @@ export default abstract class ProducePlant extends Plant {
      * @returns Time required for a production cycle
      */
      public produceTime(state?: ProducePlantState) {
-        let produceTime = this.baseProduceTime;
+        const produceTime = this.baseProduceTime;
 
-        // Handle Upgrades
-        this.upgrades.filter((upgradeState) => upgradeState.purchased).map((upgradeState) => {
-            return App.game.features.plants.upgrades[upgradeState.id];
-        }).forEach((upgrade) => {
-            if (upgrade instanceof ModifierUpgrade) {
-                produceTime = upgrade.applyEffect(produceTime, PlantEffectId.RipeTime);
-            }
-        });
+        // TODO: Handle Upgrades
 
         // TODO: Handle Statuses
 
@@ -82,16 +66,9 @@ export default abstract class ProducePlant extends Plant {
      * @returns Maximum Beans that can be stored on the Plant
      */
      public storage(state?: ProducePlantState) {
-        let storage = this.baseStorage;
+        const storage = this.baseStorage;
 
-        // Handle Upgrades
-        this.upgrades.filter((upgradeState) => upgradeState.purchased).map((upgradeState) => {
-            return App.game.features.plants.upgrades[upgradeState.id];
-        }).forEach((upgrade) => {
-            if (upgrade instanceof ModifierUpgrade) {
-                storage = upgrade.applyEffect(storage, PlantEffectId.Storage);
-            }
-        });
+        // TODO: Handle Upgrades
 
         // TODO: Handle Statuses
 

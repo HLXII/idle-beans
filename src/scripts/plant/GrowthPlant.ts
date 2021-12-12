@@ -2,9 +2,6 @@ import GrowthPlantState from './GrowthPlantState';
 import Plant from './Plant';
 import { PlantType } from './PlantList';
 import Growth from './growths/Growth';
-import { App } from '@/App';
-import ModifierUpgrade from './upgrades/ModifierUpgrade';
-import { PlantEffectId } from './upgrades/PlantEffectId';
 import { GameText } from '../controls/GameText';
 
 export interface GrowthCheck {
@@ -27,16 +24,10 @@ export default abstract class GrowthPlant extends Plant {
      * @returns The Age (s) in which the Plant will grow.
      */
     growthTime(state?: GrowthPlantState): number {
-        let growthTime = this.baseGrowthTime;
+        const growthTime = this.baseGrowthTime;
 
-        // Handle Upgrades
-        this.upgrades.filter((upgradeState) => upgradeState.purchased).map((upgradeState) => {
-            return App.game.features.plants.upgrades[upgradeState.id];
-        }).forEach((upgrade) => {
-            if (upgrade instanceof ModifierUpgrade) {
-                growthTime = upgrade.applyEffect(growthTime, PlantEffectId.GrowthTime);
-            }
-        });
+        // TODO Handle Upgrades
+
         // TODO: Consider other upgrade types?
 
         // Handle Statuses

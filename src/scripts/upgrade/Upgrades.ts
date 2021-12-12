@@ -1,8 +1,8 @@
 import { Features } from "@/Features";
-import { IgtFeature, SaveData } from "incremental-game-template";
+import { IgtFeature, SaveData, UpgradeId } from "incremental-game-template";
 import Beans from "../bean/Beans";
 import Upgrade, { UpgradeSaveData } from "./Upgrade";
-import { UpgradeId, UpgradeList } from "./UpgradeList";
+import { UpgradeList } from "./UpgradeList";
 
 
 interface UpgradesSaveData extends SaveData {
@@ -55,7 +55,7 @@ export default class Upgrades extends IgtFeature {
     save(): UpgradesSaveData {
         const data: UpgradesSaveData = {};
         Object.values(this.list).map((upgrade) => {
-            data[upgrade.name] = upgrade.save();
+            data[upgrade.id] = upgrade.save();
         });
         return data;
     }

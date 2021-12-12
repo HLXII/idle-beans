@@ -3,7 +3,6 @@ import { BeanAmount, BeanType } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
 import EntityState, { EntityStateSaveData } from "../entity/EntityState";
 import FarmLocation from "../farm/FarmLocation";
-import Plot from "../farm/Plot";
 import GameHelper from "../GameHelper";
 import { EntryType } from "../log/Log";
 import Plant from "./Plant";

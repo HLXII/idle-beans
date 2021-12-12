@@ -2,17 +2,11 @@ import GrowthPlant from "../GrowthPlant";
 import Growth from "../growths/Growth";
 import DefaultRequirement from '../growths/DefaultRequirement';
 import { NearContainsRequirement } from "../growths/plot/PlotRequirements";
-import UpgradeState from "../upgrades/UpgradeState";
 
 export default class BeanVine extends GrowthPlant {
 
     baseDescription = [
         'A more robust Bean growth.',
-    ];
-
-    upgrades: UpgradeState[] = [
-        new UpgradeState('Root Depth', {'Sky Bean': 1}),
-        new UpgradeState('Root Hairs', {'Sky Bean': 2}),
     ];
 
     public baseGrowthTime: number = 300;

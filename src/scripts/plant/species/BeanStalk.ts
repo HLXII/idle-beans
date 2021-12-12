@@ -2,7 +2,6 @@ import { BeanAmount } from "@/scripts/bean/BeanList";
 import { GameText } from "@/scripts/controls/GameText";
 import BeanStalkPrestige from "@/scripts/prestige/BeanStalkPrestige";
 import Plant from "../Plant";
-import UpgradeState from "../upgrades/UpgradeState";
 import BeanStalkState from "./BeanStalkState";
 
 export default class BeanStalk extends Plant {
@@ -19,9 +18,6 @@ export default class BeanStalk extends Plant {
         ]
     }
 
-    upgrades: UpgradeState[] = [
-        // TODO: Add upgrades
-    ];
     get consumeCooldown(): number {
         // TODO: Handle upgrades
         return 2;

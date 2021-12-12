@@ -7,8 +7,6 @@ import { EntryType } from '../log/Log';
 import { PlantIcons, SVGData } from './PlantImages';
 import { PlantCategory, PlantType } from './PlantList';
 import PlantState from './PlantState';
-import { PlantUpgradeId } from './upgrades/PlantUpgrades';
-import UpgradeState from './upgrades/UpgradeState';
 import { WikiEntry } from "../wiki/Wiki";
 import { WikiType } from '../wiki/WikiType';
 
@@ -16,13 +14,8 @@ export interface PlantOptions {
     unlocked?: boolean;
 }
 
-interface PlantUpgradeSaveData extends SaveData {
-    [key: string]: boolean;
-}
-
 export interface PlantSaveData extends SaveData {
     unlocked: boolean;
-    upgrades: PlantUpgradeSaveData;
 }
 
 export default abstract class Plant implements Saveable, WikiEntry {
@@ -30,8 +23,6 @@ export default abstract class Plant implements Saveable, WikiEntry {
 
     public unlocked: boolean;
 
-    /**Available Plant Upgrades */
-    abstract upgrades: UpgradeState[];
     /**Base Plant Description */
     abstract baseDescription: GameText[];
     /**Plant Description */
@@ -62,41 +53,6 @@ export default abstract class Plant implements Saveable, WikiEntry {
 
     state(location?: FarmLocation): PlantState {
         return new (this.constructor as typeof Plant).state(this.name as PlantType, location);
-    }
-
-    purchaseUpgrade(upgradeId: PlantUpgradeId): boolean {
-        const upgradeState = this.upgrades.find((upgrade) => upgrade.id === upgradeId);
-        if (!upgradeState) {
-            console.error(`Error - Cannot find Plant Upgrade "${upgradeId}" on Plant ${this.name}`)
-            return false;
-        }
-        if (!upgradeState.visible(this)) {
-            console.error(`Error - Plant Upgrade ${upgradeId} is not purchaseable yet.`);
-            return false;
-        }
-        if (upgradeState.purchased) {
-            console.error(`Error - Plant ${this.name} already has Plant Upgrade ${upgradeId} purchased.`)
-            return false;
-        }
-        if (!App.game.features.beans.canAfford(upgradeState.cost)) {
-            console.error(`Error - Cannot afford Plant Upgrade ${upgradeId} on Plant ${this.name}.`);
-            return false;
-        }
-
-        App.game.features.beans.takeAmount(upgradeState.cost);
-        upgradeState.purchased = true;
-        return true;
-    }
-
-    purchasedUpgrade(upgradeId: PlantUpgradeId) {
-        return this.upgrades.find((upgrade) => upgrade.id === upgradeId)?.purchased;
-    }
-
-    /**
-     * Returns whether we have purchased all upgrades on this Plant
-     */
-    get purchasedAllUpgrades(): boolean {
-        return this.upgrades.every((upgrade) => upgrade.purchased);
     }
 
     /**
@@ -136,20 +92,12 @@ export default abstract class Plant implements Saveable, WikiEntry {
         return this.name;
     }
     save(): PlantSaveData {
-        const upgrades: PlantUpgradeSaveData = {};
-        this.upgrades.forEach((upgradeState) => {
-            upgrades[upgradeState.id] = upgradeState.purchased;
-        });
         return {
             unlocked: this.unlocked,
-            upgrades: upgrades,
         };
     }
     load(data: PlantSaveData): void {
         this.unlocked = data.unlocked ?? false;
-        this.upgrades.forEach((upgradeState) => {
-            upgradeState.load({ purchased: data.upgrades[upgradeState.id] });
-        });
     }
 
 }

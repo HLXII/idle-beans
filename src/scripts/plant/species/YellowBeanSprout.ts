@@ -5,7 +5,6 @@ import DefaultRequirement from "../growths/DefaultRequirement";
 import Growth from "../growths/Growth";
 import OriginBeanRequirement from "../growths/OriginBeanRequirement";
 import { NearContainsRequirement, OrthoContainsRequirement } from "../growths/plot/PlotRequirements";
-import UpgradeState from "../upgrades/UpgradeState";
 
 export default class YellowBeanSprout extends GrowthPlant {
 
@@ -13,11 +12,6 @@ export default class YellowBeanSprout extends GrowthPlant {
         'An uncommon yellow variant of the ',
         {text: 'Bean Sprout', type: WikiType.Plant, id: 'Bean Sprout'},
         '.',
-    ];
-
-    upgrades: UpgradeState[] = [
-        new UpgradeState('Root Depth', {'Sky Bean': 1}),
-        new UpgradeState('Root Hairs', {'Sky Bean': 2}),
     ];
     
     public baseGrowthTime: number = 120;
