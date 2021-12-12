@@ -72,9 +72,4 @@ html, body {
     @apply dark:bg-gray-900 dark:text-white;
 }
 
-.farmView {
-    margin: auto;
-    max-width: 1600px;
-    @apply grid grid-cols-4 dark:bg-gray-900;
-}
 </style>

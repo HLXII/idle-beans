@@ -1,34 +1,14 @@
 <template>
-    <div class="farmView grid grid-cols-2 md:grid-cols-4 dark:bg-gray-900">
-        <div id="left-column" class="order-2 md:order-1">
-            <div class="flex flex-col gap-1" style="height: 100%;">
+    <div class="grid grid-cols-10 lg:grid-cols-12 p-1 gap-1 dark:bg-gray-900" style="height: 100%;">
+        <div id="left-column" class="col-span-3 lg:col-span-2">
+            <div class="flex flex-col gap-1" style="height:100%;">
                 <div class="iconBox">
                     <!-- Tool Icons -->
                     <tool-icons></tool-icons>
                 </div>
                 <!-- Bean List -->
-                <bean-list class="farmBeanList" :list="game.features.controller.filteredBeanList" :useFilter="true" ></bean-list>
-            </div>
-        </div>
-        <div id="middle-column" class="col-span-2 justify-self-center px-2 order-first md:order-2" style="width:100%;">
-                <div class="border2" :style="farmStyle">
-                    <!-- Title -->
-                    <div style="height: 192px; pointer-events: none; margin: 0;">
-                        <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px;"/>
-                    </div>
-                    <!-- Farm -->
-                    <farm></farm>
-                </div>
-                <!-- Farm Info -->
-                <div class="mt-3">
-                    <farm-control></farm-control>
-                </div>
-                <!-- Dev Panel -->
-                <igt-developer-panel v-if="showDevPanel" :developerPanel="game.getDeveloperPanel()"/>
-        </div>
-        <div id="right-column" class="order-last">
-            <div class="flex flex-col gap-1" style="height: 100%;">
-                <div class="iconBox">
+                <bean-list class="farmBeanList flex-grow" :list="game.features.controller.filteredBeanList" :useFilter="true" ></bean-list>
+              <div class="iconBox">
                     <!-- Additional Icons -->
                     <div class="flex flex-wrap gap-1 justify-center">
                         <div class="btn" style="height:32px;" @click="openModal(ModalType.Wiki)">
@@ -63,6 +43,36 @@
                 </div>
                 <!-- Log -->
                 <log></log>
+            </div>
+        </div>
+        <div id="middle-column" class="col-span-7 lg:col-span-5">
+            <div class="flex flex-col gap-1" style="height:100%;">
+                <div class="border2 flex-shrink flex flex-col" :style="farmStyle">
+                    <!-- Title -->
+                    <div style="height: 192px; pointer-events: none;">
+                        <div style="max-width: 640px; margin:auto;">
+                            <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px 20px;"/>
+                        </div>
+                    </div>
+                    <!-- Farm -->
+                    <div class="mx-2 mb-2" style="min-height: 0;">
+                        <div style="aspect-ratio:1;max-width:100%;max-height:100%;margin: auto;">
+                            <farm></farm>
+                        </div>
+                    </div>
+                </div>
+                <!-- Farm Info -->
+                <div class="">
+                    <farm-control></farm-control>
+
+                </div>
+                <!-- Dev Panel -->
+                <igt-developer-panel v-if="showDevPanel" :developerPanel="game.getDeveloperPanel()"/>
+            </div>
+        </div>
+        <div id="right-column" class="col-span-10 lg:col-span-5">
+            <div class="flex flex-col gap-1" style="height: 100%;">
+
             </div>
         </div>
     </div>
@@ -119,6 +129,7 @@ export default {
                 'background-repeat': 'no-repeat',
                 'background-image': this.game.features.farms.getFarm().background,
                 'image-rendering': 'pixelated',
+                'height': '60vh',
             };
         }
     },
@@ -134,21 +145,17 @@ export default {
 </script>
 
 <style>
-.farmView {
-    margin: auto;
-    max-width: 1600px;
-}
 
 .iconBox {
     @apply flex flex-col-reverse;
 }
-
+/*
 @media (min-width: 768px) {
     .iconBox {
         height: 192px;
     }
 }
-
+*/
 .farmBeanList {
     flex-grow: 1;
     height: 0px;

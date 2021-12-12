@@ -1,5 +1,5 @@
 <template>
-    <div class="m-2 sm:m-4 md:m-6 lg:m-8" style="position: relative;">
+    <div style="position: relative;height:100%">
         <!-- Dirt Layer -->
         <div class="farm">
             <div class="farm-row flex" v-for="(row, yIdx) in plots" :key="yIdx">
@@ -18,8 +18,6 @@
                 :displayIcons="displayIcons"
                 :displayStatus="displayStatus"></entity>
         </div>
-        
-        <slot></slot>
     </div>
 </template>
 
@@ -61,6 +59,8 @@ export default {
     }
 }
 </script>
+
+
 
 <style scoped>
     .plot:hover {
