@@ -3,6 +3,7 @@ import VueApp from './App.vue'
 import {App} from "./App";
 
 import Notifications from "vt-notifications";
+import VueDragScroll from 'vue-dragscroll';
 
 import './VueFilters';
 
@@ -11,6 +12,7 @@ import "./index.css";
 Vue.config.productionTip = false
 
 Vue.use(Notifications);
+Vue.use(VueDragScroll);
 
 declare global {
     interface Window {

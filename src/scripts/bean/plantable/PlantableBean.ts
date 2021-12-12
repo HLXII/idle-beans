@@ -2,6 +2,7 @@ import { App } from "@/App";
 import EmptyEntityState from "@/scripts/entity/EmptyEntityState";
 import { FarmType } from "@/scripts/farm/FarmType";
 import { PlantType } from "@/scripts/plant/PlantList";
+import { UpgradeId } from "incremental-game-template";
 import Bean, { BeanOptions } from "../Bean";
 import { BeanCategory, BeanType } from "../BeanList";
 import NoPlantRequirement from "./NoPlantRequirement";
@@ -11,8 +12,8 @@ import PlantRequirement from "./PlantRequirement";
 
 export default class PlantableBean extends Bean implements Plantable {
     
-    constructor(name: string, description: string, category: BeanCategory, public plantType: PlantType = 'Bean Bud', public plantRequirement: PlantRequirement = new NoPlantRequirement(), option?: BeanOptions) {
-        super(name, description, category, option);
+    constructor(name: string, description: string, category: BeanCategory, baseUpgrade: UpgradeId, public plantType: PlantType = 'Bean Bud', public plantRequirement: PlantRequirement = new NoPlantRequirement(), option?: BeanOptions) {
+        super(name, description, category, baseUpgrade, option);
     }
 
     plant(farm: FarmType, row: number, col: number): boolean {

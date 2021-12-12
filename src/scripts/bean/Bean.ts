@@ -1,6 +1,6 @@
 
 import { App } from "@/App";
-import { SaveData, Saveable } from "incremental-game-template";
+import { SaveData, Saveable, UpgradeId } from "incremental-game-template";
 import { EntryType } from "../log/Log";
 import { WikiEntry } from "../wiki/Wiki";
 import { WikiType } from "../wiki/WikiType";
@@ -21,7 +21,7 @@ export default class Bean implements Saveable, WikiEntry {
     public unlocked: boolean;
     public amount: number;
 
-    constructor(public name: string, public description: string, public category: BeanCategory, option?: BeanOptions) {
+    constructor(public name: string, public description: string, public category: BeanCategory, public baseUpgrade: UpgradeId, option?: BeanOptions) {
         this.unlocked = option?.unlocked ?? false;
     
         this.amount = option?.amount ?? 0;

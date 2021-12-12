@@ -14,8 +14,6 @@ export class Settings extends IgtSettings {
 
         this.registerSetting(new BooleanSetting('displayPlantIcons', 'Display Plant Icons', false));
         this.registerSetting(new BooleanSetting('displayPlantStatus', 'Display Plant Status', true));
-
-        this.registerSetting(new BooleanSetting('displayPurchasedUpgrades', 'Display Purchased Upgrades', true));
     }
 
 }

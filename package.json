@@ -21,8 +21,10 @@
     "postcss": "^7.0.35",
     "strongly-typed-events": "^1.6.17",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
+    "treeflex": "^2.0.1",
     "vt-notifications": "^0.3.1",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-dragscroll": "^3.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.14",

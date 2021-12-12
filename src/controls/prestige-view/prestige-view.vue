@@ -24,6 +24,7 @@
                         <!-- Bean Trees Tab -->
                         <nav-tab :activeTab="shopTab" :tabType=1>
                             <!-- TODO: -->
+                            <bean-tree :beans="beans" :upgrades="upgrades" :selectedBean="beans.list['Bean']" />
                         </nav-tab>
                     </div>
                 </div>
@@ -76,6 +77,7 @@ import NavTab from '../utility/nav-tab.vue';
 import SeedCart from './seed-cart.vue';
 import { PlantCategory } from '@/scripts/plant/PlantList';
 import SeedPacket from './seed-packet.vue';
+import BeanTree from '../upgrades/bean-tree.vue';
 
 export default {
     components: {
@@ -86,6 +88,7 @@ export default {
         NavTab,
         SeedCart,
         SeedPacket,
+        BeanTree,
     },
     data() {
         return {

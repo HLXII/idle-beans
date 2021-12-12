@@ -261,12 +261,6 @@ export default class GameController extends IgtFeature {
                     this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
                     break;
                 }
-                case TabType.PrestigeShop: {
-                    if (tab === 2) {
-                        this.updatePrestigePlantTab();
-                    }
-                    break;
-                }
             }
         }
     }
@@ -275,11 +269,6 @@ export default class GameController extends IgtFeature {
     get prestigePlantList(): Plant[] {
         return this.plants.filter((plant: Plant) => {
             if (plant.category !== this.tabs[TabType.PrestigePlant]) {
-                return false;
-            }
-
-            // Checking if we should display the plant based on purchased upgrades
-            if (!this.settings.getSetting('displayPurchasedUpgrades')?.value && plant.purchasedAllUpgrades) {
                 return false;
             }
 
@@ -295,39 +284,12 @@ export default class GameController extends IgtFeature {
                 if (plant.category !== val) {
                     return false;
                 }
-                if (!this.settings.getSetting('displayPurchasedUpgrades')?.value && plant.purchasedAllUpgrades) {
-                    return false;
-                }
                 return plant.unlocked;
             }).length > 0;
         }).map((value) => +value);
     }
     changePrestigePlant(plant: PlantType) {
         this.prestigePlant = plant;
-    }
-    /**
-     * When purchasing Plant Upgrades, if the Display Purchased Upgrades setting is disabled,
-     * A Plant might 
-     */
-    updatePrestigePlantTab() {
-        // Only check for updates if this setting is disabled
-        if (this.settings.getSetting('displayPurchasedUpgrades')?.value) {
-            return;
-        }
-
-        // Purchased all upgrades, must switch to another Plant
-        if (this.plants.list[this.prestigePlant].purchasedAllUpgrades) {
-            // There are still plants in this category, switch to the first one
-            if (this.prestigePlantList.length) {
-                this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
-            // No plants left in this category, try to switch to another category
-            } else if (this.prestigePlantCats.length) {
-                this.changeTab(TabType.PrestigePlant, this.prestigePlantCats[0]);
-            // No more categories, clear and show completed tab
-            } else {
-                // Do nothing
-            }
-        }
     }
     //#endregion
 }
