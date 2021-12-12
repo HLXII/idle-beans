@@ -10,44 +10,20 @@
                 <div class="border2 bg-generic" style="min-height:560px;">
                     <div>
                         <nav class="flex gap-1 mb-1">
-                            <nav-button class="flex-1" tabName="General" :tabType=0 :changeTab="changeShopTab" :activeTab="shopTab"/>
-                            <nav-button class="flex-1" tabName="Bean Packets" :tabType=1 :changeTab="changeShopTab" :activeTab="shopTab"/>
-                            <nav-button class="flex-1" tabName="Plant Upgrades" :tabType=2 :changeTab="changeShopTab" :activeTab="shopTab"/>
+                            <nav-button class="flex-1" tabName="Bean Packets" :tabType=0 :changeTab="changeShopTab" :activeTab="shopTab"/>
+                            <nav-button class="flex-1" tabName="Bean Trees" :tabType=1 :changeTab="changeShopTab" :activeTab="shopTab"/>
                         </nav>
                     </div>
                     <div>
-                        <!-- General Tab -->
-                        <nav-tab :activeTab="shopTab" :tabType=0>
-                            <div class="flex flex-cols-4 gap-1 justify-center">
-                                <upgrade v-for="upgrade in upgradeList" :key="upgrade.name" :upgrade="upgrade" :upgrades="upgrades" :wiki="wiki" :beans="beans"/>
-                            </div>
-                            <div v-if="upgradeList.length == 0">
-                                All available Upgrades purchased!
-                            </div>
-                        </nav-tab>
                         <!-- Bean Packets Tab -->
-                        <nav-tab :activeTab="shopTab" :tabType=1>
+                        <nav-tab :activeTab="shopTab" :tabType=0>
                             <div class="flex flex-cols-4 gap-1 justify-center">
                                 <seed-packet v-for="packet in beanPackets" :key="packet.name" :packet="packet" :prestige="prestige" :wiki="wiki" :selected="prestige.selectedBeanPackets.includes(packet.name)"/>
                             </div>
                         </nav-tab>
-                        <!-- Plant Upgrades Tab -->
-                        <nav-tab :activeTab="shopTab" :tabType=2>
-                            <nav class="flex gap-1 mb-1" v-if="plantCats.length > 1">
-                                <nav-button class="flex-1" v-for="cat in plantCats" :key="cat" :tabName="PlantCategory[cat]" :tabType="cat" :changeTab="changePlantTab" :activeTab="plantTab"/>
-                            </nav>
-                            <div class="grid grid-cols-3 gap-2" style="height: 640px;" v-if="plantCats.length > 0">
-                                <div class="border2 bg-generic">
-                                    <wiki-entry v-for="plant in plantList" :key="plant.name" :id="plant.elementName" :entry=plant :controller=controller :activeEntry="controller.prestigePlant" :change="changePlant"></wiki-entry>
-                                </div>
-                                <div class="border2 bg-generic col-span-2 flex flex-col gap-1">
-                                    <plant-upgrade v-for="upgrade in plantUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade"
-                                        :controller="controller" :plants="plants" :beans="beans" :wiki="wiki"/>
-                                </div>
-                            </div>
-                            <div v-if="plantCats.length == 0">
-                                All available Plant Upgrades purchased!
-                            </div>
+                        <!-- Bean Trees Tab -->
+                        <nav-tab :activeTab="shopTab" :tabType=1>
+                            <!-- TODO: -->
                         </nav-tab>
                     </div>
                 </div>
@@ -97,12 +73,9 @@ import Icon from '@/controls/utility/icon.vue';
 import Tooltip from '@/controls/utility/tooltip.vue';
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '../utility/nav-tab.vue';
-import Upgrade from './upgrade.vue';
 import SeedCart from './seed-cart.vue';
 import { PlantCategory } from '@/scripts/plant/PlantList';
-import PlantUpgrade from './plant-upgrade.vue';
 import SeedPacket from './seed-packet.vue';
-import WikiEntry from '../wiki/wiki-entry.vue';
 
 export default {
     components: {
@@ -111,11 +84,8 @@ export default {
         Tooltip,
         NavButton,
         NavTab,
-        Upgrade,
         SeedCart,
-        PlantUpgrade,
         SeedPacket,
-        WikiEntry,
     },
     data() {
         return {
@@ -159,17 +129,6 @@ export default {
         plantTab() {
             return this.controller.tabs[TabType.PrestigePlant];
         },
-        upgradeList() {
-            return Object.values(this.upgrades.list).filter((upgrade) => {
-                if (!this.settings.getSetting('displayPurchasedUpgrades').value && upgrade.purchased) {
-                    return false;
-                }
-                if (!upgrade.visible) {
-                    return false;
-                }
-                return true;
-            });
-        },
         beanPackets() {
             return Object.values(this.prestige.beanPackets).filter((packet) => packet.requirement.isCompleted);
         },
@@ -181,15 +140,6 @@ export default {
         },
         plant() {
             return this.plants.list[this.controller.prestigePlant];
-        },
-        plantUpgrades() {
-            return this.plant.upgrades.filter((upgrade) => {
-                if (!this.settings.getSetting('displayPurchasedUpgrades').value && upgrade.purchased) {
-                    return false;
-                }
-
-                return upgrade.visible(this.plant);
-            });
         },
     },
     methods: {
