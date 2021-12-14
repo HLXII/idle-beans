@@ -12,6 +12,16 @@
                     :falseTooltip="`Light Mode`"></icon-toggle>
                 </div>
             </div>
+            <div class="grid grid-cols-2">
+                <div>Use Modals:</div>
+                <div class="flex">
+                    <icon-toggle :setting="useModal"
+                    :trueIcon="require(`@/assets/images/icons/Dark Mode Icon.png`)"
+                    :falseIcon="require(`@/assets/images/icons/Light Mode Icon.png`)"
+                    :trueTooltip="`Dark Mode`"
+                    :falseTooltip="`Light Mode`"></icon-toggle>
+                </div>
+            </div>
         </nav-tab>
         <!-- Prestige-->
         <nav-tab :tabType="1" :activeTab="settingsTab">
@@ -64,6 +74,9 @@ export default {
         },
         darkMode() {
             return this.settings.getSetting('darkMode');
+        },
+        useModal() {
+            return this.settings.getSetting('useModal');
         },
         displayPurchasedUpgrades() {
             return this.settings.getSetting('displayPurchasedUpgrades');

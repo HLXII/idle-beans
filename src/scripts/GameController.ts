@@ -220,9 +220,12 @@ export default class GameController extends IgtFeature {
     }
 
     openInfo(infoType: InfoType) {
-        // TODO Add Modal setting
+        if (this.settings.getSetting('useModal')?.value) {
+            this.openModal(infoType);
+        } else {
+            this.changeTab(TabType.Info, infoType);
 
-        this.changeTab(TabType.Info, infoType);
+        }
     }
 
     openModal(infoType: InfoType) {

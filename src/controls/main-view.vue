@@ -70,7 +70,7 @@
                 <igt-developer-panel v-if="showDevPanel" :developerPanel="game.getDeveloperPanel()"/>
             </div>
         </div>
-        <div id="right-column" class="col-span-10 lg:col-span-5">
+        <div id="right-column" class="col-span-10 lg:col-span-5" v-show="!useModal">
             <div class="flex flex-col gap-1" style="height: 100%;">
                 <info-view style="height: 100%;" 
                     :controller="controller" 
@@ -132,17 +132,10 @@ export default {
         darkMode() {
             return this.game.features.settings.getSetting('darkMode').value;
         },
-        farmStyle() {
-            return {
-                'background-size': 'cover',
-                'background-origin': 'border-box',
-                'background-repeat': 'no-repeat',
-                'background-image': this.game.features.farms.getFarm().background,
-                'image-rendering': 'pixelated',
-                'height': '60vh',
-            };
+        useModal() {
+            return this.game.features.settings.getSetting('useModal').value;
         },
-        
+
         //#region Features
         settings() {
             return this.game.features.settings;
@@ -170,8 +163,19 @@ export default {
         },
         notifications() {
             return this.game.features.notifications;
-        }
+        },
         //#endregion
+
+        farmStyle() {
+            return {
+                'background-size': 'cover',
+                'background-origin': 'border-box',
+                'background-repeat': 'no-repeat',
+                'background-image': this.game.features.farms.getFarm().background,
+                'image-rendering': 'pixelated',
+                //'height': '60vh',
+            };
+        },
     },
     methods: {
         openInfo(infoType) {
