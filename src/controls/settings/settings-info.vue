@@ -25,16 +25,7 @@
         </nav-tab>
         <!-- Prestige-->
         <nav-tab :tabType="1" :activeTab="settingsTab">
-            <div class="grid grid-cols-2">
-                <div>Display Purchased Upgrades:</div>
-                <div class="flex">
-                    <icon-toggle :setting="displayPurchasedUpgrades"
-                    :trueIcon="require(`@/assets/images/icons/Eye Icon.png`)"
-                    :falseIcon="require(`@/assets/images/icons/No Eye Icon.png`)"
-                    :trueTooltip="`Displaying Purchased Upgrades`"
-                    :falseTooltip="`Hiding Purchased Upgrades`"></icon-toggle>
-                </div>
-            </div>
+
         </nav-tab>
         <!-- Save -->
         <nav-tab :tabType="2" :activeTab="settingsTab">
@@ -77,9 +68,6 @@ export default {
         },
         useModal() {
             return this.settings.getSetting('useModal');
-        },
-        displayPurchasedUpgrades() {
-            return this.settings.getSetting('displayPurchasedUpgrades');
         },
     },
 }

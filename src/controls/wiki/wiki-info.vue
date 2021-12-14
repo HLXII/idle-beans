@@ -47,15 +47,10 @@
                     <div>
                         <nav class="flex gap-1 mb-1">
                             <nav-button class="flex-1" v-if="visibleGrowths.length > 0" tabName="Growths" :tabType=0 :changeTab="changePlantDetailsTab" :activeTab="plantDetailsTab"/>
-                            <nav-button class="flex-1" v-if="purchasedUpgrades.length > 0" tabName="Upgrades" :tabType=1 :changeTab="changePlantDetailsTab" :activeTab="plantDetailsTab"/>
                         </nav>
                     </div>
                     <nav-tab class="flex flex-col gap-1" :tabType="0" :activeTab="plantDetailsTab">
                         <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :wiki="wiki"/>
-                    </nav-tab>
-                    <nav-tab class="flex flex-col gap-1" :tabType="1" :activeTab="plantDetailsTab">
-                        <plant-upgrade v-for="upgrade in purchasedUpgrades" :key="upgrade.id" :plant="plant" :upgrade="upgrade" :displayOnly="true" 
-                            :controller="controller" :plants="plants" :beans="beans" :wiki="wiki"/>
                     </nav-tab>
                 </div>
             </div>
@@ -78,16 +73,13 @@
 </template>
 
 <script>
-import { App } from "@/App.ts"
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '@/controls/utility/nav-tab.vue';
 import WikiGrowth from './wiki-growth.vue';
-
 import { BeanCategory } from "@/scripts/bean/BeanList";
 import { PlantCategory } from "@/scripts/plant/PlantList";
 import GameText from '@/controls/utility/game-text.vue';
 import GameController, { TabType } from "@/scripts/GameController";
-import PlantUpgrade from '../prestige-view/plant-upgrade.vue';
 import WikiEntry from './wiki-entry.vue';
 import GameHelper from '@/scripts/GameHelper';
 import { FarmType } from '@/scripts/farm/FarmType';
@@ -111,7 +103,6 @@ export default {
         NavTab,
         WikiGrowth,
         GameText,
-        PlantUpgrade,
         WikiEntry,
     },
     props: {
@@ -233,12 +224,6 @@ export default {
         visibleGrowths() {
             if (this.plant.growths) {
                 return this.plant.growths.filter((growth) => growth.visible);
-            }
-            return [];
-        },
-        purchasedUpgrades() {
-            if (this.plant.upgrades) {
-                return this.plant.upgrades.filter((upgrade) => upgrade.purchased);
             }
             return [];
         },
