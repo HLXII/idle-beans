@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap gap-1 justify-center">
+    <div class="flex flex-col flex-wrap gap-1 justify-center">
         <tool-icon :toolType=ToolType.Cursor :controller=controller></tool-icon>
         <tool-icon :toolType=ToolType.Bean :controller=controller></tool-icon>
         <tool-icon :toolType=ToolType.Sickle :controller=controller></tool-icon>

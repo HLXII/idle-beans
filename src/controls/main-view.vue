@@ -2,45 +2,39 @@
     <div class="grid grid-cols-10 lg:grid-cols-12 p-1 gap-1 dark:bg-gray-900" style="height: 100%;">
         <div id="left-column" class="col-span-3 lg:col-span-2">
             <div class="flex flex-col gap-1" style="height:100%;">
-                <div class="iconBox">
-                    <!-- Tool Icons -->
-                    <tool-icons></tool-icons>
+                <!-- Additional Icons -->
+                <div class="flex flex-wrap gap-1 justify-center" v-show="useModal">
+                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
+                        <icon class="has-tooltip" :bg="game.features.notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
+                            <tooltip :interactable="false">
+                            <div class="text-center">Wiki</div>
+                            </tooltip>
+                        </icon>
+                    </div>
+                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
+                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
+                            <tooltip :interactable="false">
+                            <div class="text-center">Achievements</div>
+                            </tooltip>
+                        </icon>
+                    </div>
+                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Prestige)">
+                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
+                            <tooltip :interactable="false">
+                            <div class="text-center">Prestige</div>
+                            </tooltip>
+                        </icon>
+                    </div>
+                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
+                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
+                            <tooltip :interactable="false">
+                            <div class="text-center">Settings</div>
+                            </tooltip>
+                        </icon>
+                    </div>
                 </div>
                 <!-- Bean List -->
                 <bean-list class="farmBeanList flex-grow" :list="game.features.controller.filteredBeanList" :useFilter="true" ></bean-list>
-              <div class="iconBox">
-                    <!-- Additional Icons -->
-                    <div class="flex flex-wrap gap-1 justify-center">
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
-                            <icon class="has-tooltip" :bg="game.features.notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Wiki</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Achievements</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Prestige)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Prestige</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Settings</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                    </div>
-                </div>
                 <!-- Log -->
                 <log></log>
             </div>
@@ -51,7 +45,7 @@
                     <!-- Title -->
                     <div style="height: 192px; pointer-events: none;">
                         <div style="max-width: 640px; margin:auto;">
-                            <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px 20px;"/>
+                            <img :src="require(`@/assets/images/Title.png`)" style="width:100%;padding:0px 32px;"/>
                         </div>
                     </div>
                     <!-- Farm -->
@@ -59,6 +53,10 @@
                         <div style="aspect-ratio:1;max-width:100%;max-height:100%;margin: auto;">
                             <farm></farm>
                         </div>
+                    </div>
+                    <!-- Tool Icons -->
+                    <div class="position: absolute">
+                        <tool-icons></tool-icons>
                     </div>
                 </div>
                 <!-- Farm Info -->
@@ -173,7 +171,7 @@ export default {
                 'background-repeat': 'no-repeat',
                 'background-image': this.game.features.farms.getFarm().background,
                 'image-rendering': 'pixelated',
-                //'height': '60vh',
+                'height': '60vh',
             };
         },
     },
