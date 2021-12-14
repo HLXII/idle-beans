@@ -17,15 +17,6 @@ export enum ToolType {
     'Sickle',
 }
 
-export enum ModalType {
-    None = 0,
-    Plot,
-    Wiki,
-    Settings,
-    Achievements,
-    Prestige,
-}
-
 export enum TabType {
     Wiki = "Wiki",
     WikiPlant = "WikiPlant",
@@ -36,6 +27,16 @@ export enum TabType {
     Prestige = "Prestige",
     PrestigeShop = "PrestigeShop",
     PrestigePlant = "PrestigePlant",
+    Info = "Info",
+}
+
+export enum InfoType {
+    None = 0,
+    Plot,
+    Wiki,
+    Prestige,
+    Achievements,
+    Settings,
 }
 
 export interface GameControllerSaveData extends SaveData {
@@ -62,7 +63,7 @@ export default class GameController extends IgtFeature {
     //#endregion
 
     /**Modal handler */
-    public openedModal: ModalType;
+    public openedModal: InfoType;
 
     /**Bean List Search Filter */
     public beanListSearch: string;
@@ -87,7 +88,7 @@ export default class GameController extends IgtFeature {
         this.bean = 'Bean';
         this.plot = {row: 0, col: 0};
 
-        this.openedModal = ModalType.None;
+        this.openedModal = InfoType.None;
    
         this.beanListSearch = '';
 
@@ -103,6 +104,7 @@ export default class GameController extends IgtFeature {
             'Prestige': 0,
             'PrestigeShop': 0,
             'PrestigePlant': 0,
+            'Info': InfoType.Plot,
         };
     }
 
@@ -154,7 +156,7 @@ export default class GameController extends IgtFeature {
         switch(this.tool) {
             case ToolType.Cursor: {
                 this.plot = {row: row, col: col};
-                this.openModal(ModalType.Plot);
+                this.openInfo(InfoType.Plot);
                 break;
             }
             case ToolType.Bean: {
@@ -217,20 +219,29 @@ export default class GameController extends IgtFeature {
         };
     }
 
-    openModal(modalType: ModalType) {
+    openInfo(infoType: InfoType) {
+        if (this.settings.getSetting('useModal')?.value) {
+            this.openModal(infoType);
+        } else {
+            this.changeTab(TabType.Info, infoType);
+
+        }
+    }
+
+    openModal(infoType: InfoType) {
         // Closing other modals
         this.closeModal();
 
         // Opening modal
-        this.openedModal = modalType;
+        this.openedModal = infoType;
     }
 
-    closeModal(nextModal?: ModalType) {
+    closeModal(nextModal?: InfoType) {
         // If next modal to open is already opened, do nothing.
         if (this.openedModal == nextModal) {
             return;
         }
-        this.openedModal = ModalType.None;
+        this.openedModal = InfoType.None;
     }
 
     /**

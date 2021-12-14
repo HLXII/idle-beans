@@ -57,21 +57,21 @@
                 <div class="flex flex-col-reverse" style="height: 192px;">
                     <!-- Additional Icons -->
                     <div class="flex flex-wrap gap-1 justify-center">
-                        <div class="btn" style="height:32px;" @click="openModal(ModalType.Wiki)">
+                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
                             <icon class="has-tooltip" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
                                 <tooltip position="top-left" :interactable="false">
                                 <div class="text-center">Wiki</div>
                                 </tooltip>
                             </icon>
                         </div>
-                        <div class="btn" style="height:32px;" @click="openModal(ModalType.Achievements)">
+                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
                             <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
                                 <tooltip position="top-left" :interactable="false">
                                 <div class="text-center">Achievements</div>
                                 </tooltip>
                             </icon>
                         </div>
-                        <div class="btn" style="height:32px;" @click="openModal(ModalType.Settings)">
+                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
                             <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
                                 <tooltip position="top-left" :interactable="false">
                                 <div class="text-center">Settings</div>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { ModalType, TabType } from '@/scripts/GameController';
+import { InfoType, TabType } from '@/scripts/GameController';
 import { Game } from '@/Game';
 import BeanList from '../controller/beanlist/bean-list.vue';
 import Icon from '@/controls/utility/icon.vue';
@@ -119,7 +119,7 @@ export default {
     },
     data() {
         return {
-            ModalType,
+            InfoType,
             PlantCategory,
         }
     },
@@ -196,11 +196,8 @@ export default {
         startGame() {
             this.game.features.prestige.completePrestige();
         },
-        openModal(modalType) {
-            this.controller.openModal(modalType);
-        },
-        closeModal() {
-            this.controller.closeModal();
+        openInfo(infoType) {
+            this.controller.openInfo(infoType);
         },
         changeShopTab(tab) {
             this.controller.changeTab(TabType.PrestigeShop, tab);

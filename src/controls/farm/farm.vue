@@ -1,10 +1,11 @@
 <template>
-    <div class="m-2 sm:m-4 md:m-6 lg:m-8" style="position: relative;">
+    <div style="position: relative;height:100%">
         <!-- Dirt Layer -->
         <div class="farm">
             <div class="farm-row flex" v-for="(row, yIdx) in plots" :key="yIdx">
                 <div class="plot" div v-for="(plot, xIdx) in row" :key="xIdx"
                     v-bind:style="{width: width}"
+                    v-bind:class="{'selected': isSelectedPlot(yIdx, xIdx)}"
                     v-on:click="controller.clickDirt(yIdx, xIdx)">
                     <img :src="require(`@/assets/images/Dirt.png`)" width="100%"/>
                 </div>
@@ -18,14 +19,13 @@
                 :displayIcons="displayIcons"
                 :displayStatus="displayStatus"></entity>
         </div>
-        
-        <slot></slot>
     </div>
 </template>
 
 <script>
 import {App} from "@/App.ts"
 import Entity from "@/controls/farm/entity.vue";
+import { InfoType, TabType } from '@/scripts/GameController';
 
 export default {
     name: "farm",
@@ -58,12 +58,29 @@ export default {
         displayStatus() {
             return this.settings.getSetting('displayPlantStatus').value;
         },
-    }
+        selectedPlot() {
+            return this.controller.plot;
+        }
+    },
+    methods: {
+        isSelectedPlot(row, col) {
+            if (this.settings.getSetting('useModal').value || this.controller.tabs[TabType.Info] !== InfoType.Plot) {
+                return false;
+            } else {
+                return this.controller.plot.row == row && this.controller.plot.col == col;
+            }
+        },
+    },
 }
 </script>
 
 <style scoped>
     .plot:hover {
+        filter: brightness(.75);
+    }
+
+    .plot.selected {
         filter: brightness(.5);
     }
+
 </style>
