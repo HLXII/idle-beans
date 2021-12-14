@@ -148,7 +148,11 @@ export default abstract class Plant implements Saveable, WikiEntry {
     load(data: PlantSaveData): void {
         this.unlocked = data.unlocked ?? false;
         this.upgrades.forEach((upgradeState) => {
-            upgradeState.load({ purchased: data.upgrades[upgradeState.id] });
+            if (upgradeState && upgradeState.id && data.upgrades && data.upgrades[upgradeState.id]) {
+                upgradeState.load({ purchased: data.upgrades[upgradeState.id] });
+            } else {
+                console.error(`Error - Could not load upgrade ${upgradeState.id} from save.`);
+            }
         });
     }
 

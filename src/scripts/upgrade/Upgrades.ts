@@ -61,7 +61,11 @@ export default class Upgrades extends IgtFeature {
     }
     load(data: UpgradesSaveData): void {
         Object.entries(data).map(([upgradeId, upgradeData]) => {
-            this.list[upgradeId as UpgradeId].load(upgradeData);
+            if (this.list[upgradeId as UpgradeId]) {
+                this.list[upgradeId as UpgradeId].load(upgradeData);
+            } else {
+                console.error(`Error - Could not load upgrade ${upgradeId} from save.`);
+            }
         });
     }
 

@@ -3,7 +3,7 @@ import { SaveData, IgtFeature } from "incremental-game-template";
 import Bean from "../bean/Bean";
 import { BeanType } from "../bean/BeanList";
 import Beans from "../bean/Beans";
-import GameController, { ModalType, TabType } from "../GameController";
+import GameController, { InfoType, TabType } from "../GameController";
 import Notifications from "../notifications/Notifications";
 import Plant from "../plant/Plant";
 import { SVGData } from "../plant/PlantImages";
@@ -98,8 +98,8 @@ export default class Wiki extends IgtFeature {
             return;
         }
         
-        // Open Wiki modal
-        this.controller.openModal(ModalType.Wiki);
+        // Open Wiki
+        this.controller.openInfo(InfoType.Wiki);
 
         // Switch to WikiType tab
         this.controller.changeTab(TabType.Wiki, type);

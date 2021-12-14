@@ -1,27 +1,9 @@
 <template>
     <modal :show="show" @close="close">
         <div class="modal-content">
-            <div class="modal-header">
-                <nav class="flex gap-1 mb-1">
-                    <nav-button class="flex-1" tabName="Prestige" :tabType=0 :changeTab="changeTab" :activeTab="prestigeTab"/>
-                    <nav-button class="flex-1" tabName="Modifiers" :tabType=1 :changeTab="changeTab" :activeTab="prestigeTab"/>
-                </nav>
-            </div>
-            <div class="modal-body">
-                <!-- Prestiges -->
-                <nav-tab :activeTab="prestigeTab" :tabType=0>
-                    <div v-if="visiblePrestiges.length == 0">
-                        Currently no available prestiges.
-                    </div>
-                    <prestige v-for="(prestige, idx) in visiblePrestiges" :key="idx" :prestige="prestige" :wiki="wiki"/>
-                </nav-tab>
-                <!-- Prestige Modifiers -->
-                <nav-tab :activeTab="prestigeTab" :tabType=1>
-
-                </nav-tab>
-            </div>
-            <div class="modal-footer">
-            </div>
+            <prestige-nav class="modal-header" :controller="controller" />
+            <prestige-info class="modal-body" :controller="controller" :prestige="prestige" :wiki="wiki" />
+            <div class="modal-footer"></div>
         </div>
     </modal>
 </template>
@@ -29,10 +11,8 @@
 <script>
 import Modal from "@/controls/modal/modal.vue";
 import {App} from "@/App.ts"
-import Prestige from './prestige.vue';
-import NavButton from "@/controls/utility/nav-button.vue";
-import NavTab from '../utility/nav-tab.vue';
-import { TabType } from "@/scripts/GameController";
+import PrestigeNav from './prestige-nav.vue';
+import PrestigeInfo from './prestige-info.vue';
 
 export default {
     name: "prestige-modal",
@@ -45,9 +25,8 @@ export default {
     },
     components: {
         Modal,
-        Prestige,
-        NavButton,
-        NavTab,
+        PrestigeNav,
+        PrestigeInfo,
     },
     props: {
         show: {
@@ -59,17 +38,6 @@ export default {
         close: function() {
             this.$emit('close');
         },
-        changeTab: function(tab) {
-            this.controller.changeTab(TabType.Prestige, tab);
-        },
-    },
-    computed: {
-        prestigeTab() {
-            return this.controller.tabs[TabType.Prestige];
-        },
-        visiblePrestiges() {
-            return this.prestige.prestiges.filter((prestige) => prestige.visible);
-        }
     },
 }
 </script>
