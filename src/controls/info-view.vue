@@ -1,11 +1,11 @@
 <template>
     <div class="flex flex-col gap-1">
         <nav class="flex gap-1">
-            <nav-button tabName="Selected Plot" :tabType="InfoType.Plot" :activeTab="infoTab" :changeTab="changeTab"/>
-            <nav-button tabName="Wiki" :tabType="InfoType.Wiki" :activeTab="infoTab" :changeTab="changeTab"/>
-            <nav-button tabName="Prestige" :tabType="InfoType.Prestige" :activeTab="infoTab" :changeTab="changeTab"/>
-            <nav-button tabName="Achievements" :tabType="InfoType.Achievements" :activeTab="infoTab" :changeTab="changeTab"/>
-            <nav-button tabName="Settings" :tabType="InfoType.Settings" :activeTab="infoTab" :changeTab="changeTab"/>
+            <nav-button class="flex-1" tabName="Plot" :tabType="InfoType.Plot" :activeTab="infoTab" :changeTab="changeTab"/>
+            <nav-button class="flex-1" tabName="Wiki" :tabType="InfoType.Wiki" :activeTab="infoTab" :changeTab="changeTab"/>
+            <nav-button class="flex-1" tabName="Prestige" :tabType="InfoType.Prestige" :activeTab="infoTab" :changeTab="changeTab"/>
+            <nav-button class="flex-1" tabName="Achievements" :tabType="InfoType.Achievements" :activeTab="infoTab" :changeTab="changeTab"/>
+            <nav-button class="flex-1" tabName="Settings" :tabType="InfoType.Settings" :activeTab="infoTab" :changeTab="changeTab"/>
         </nav>
         <div class="border2 flex-1">
 
