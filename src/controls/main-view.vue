@@ -1,11 +1,11 @@
 <template>
-    <div class="grid grid-cols-10 lg:grid-cols-12 p-1 gap-1 dark:bg-gray-900" style="height: 100%;">
+    <div :class="mainViewClass" style="height: 100%;">
         <div id="left-column" class="col-span-3 lg:col-span-2">
             <div class="flex flex-col gap-1" style="height:100%;">
                 <!-- Additional Icons -->
                 <div class="flex flex-wrap gap-1 justify-center" v-show="useModal">
                     <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
-                        <icon class="has-tooltip" :bg="game.features.notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
+                        <icon class="has-tooltip" :bg="notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
                             <tooltip :interactable="false">
                             <div class="text-center">Wiki</div>
                             </tooltip>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <!-- Bean List -->
-                <bean-list class="farmBeanList flex-grow" :list="game.features.controller.filteredBeanList" :useFilter="true" ></bean-list>
+                <bean-list class="farmBeanList flex-grow" :list="controller.filteredBeanList" :useFilter="true" ></bean-list>
                 <!-- Log -->
                 <log></log>
             </div>
@@ -169,15 +169,23 @@ export default {
                 'background-size': 'cover',
                 'background-origin': 'border-box',
                 'background-repeat': 'no-repeat',
-                'background-image': this.game.features.farms.getFarm().background,
+                'background-image': this.farms.getFarm().background,
                 'image-rendering': 'pixelated',
                 'height': '60vh',
             };
         },
+
+        mainViewClass() {
+            if (this.useModal) {
+                return 'mainView lg:grid-cols-7';
+            } else {
+                return 'mainView lg:grid-cols-12';
+            }
+        },
     },
     methods: {
         openInfo(infoType) {
-            this.game.features.controller.openInfo(infoType);
+            this.controller.openInfo(infoType);
         },
     },
 }
@@ -185,19 +193,14 @@ export default {
 
 <style>
 
-.iconBox {
-    @apply flex flex-col-reverse;
+.mainView {
+    @apply grid grid-cols-10 p-1 gap-1 dark:bg-gray-900
 }
-/*
-@media (min-width: 768px) {
-    .iconBox {
-        height: 192px;
-    }
-}
-*/
+
 .farmBeanList {
     flex-grow: 1;
     height: 0px;
     min-height: 320px;
 }
+
 </style>
