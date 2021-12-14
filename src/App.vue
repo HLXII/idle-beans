@@ -16,7 +16,7 @@
 import {App} from "@/App.ts"
 import {InfoType} from '@/scripts/GameController';
 
-import PlotModal from '@/controls/farm/plot-modal/plot-modal.vue';
+import PlotModal from '@/controls/farm/plot/plot-modal.vue';
 import WikiModal from '@/controls/wiki/wiki-modal.vue';
 import SettingsModal from '@/controls/settings/settings-modal.vue';
 import AchievementsModal from './controls/achievements/achievements-modal.vue';

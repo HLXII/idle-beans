@@ -8,12 +8,9 @@
 </template>
 
 <script>
-import EmptyEntityState from "@/controls/farm/plot-modal/EmptyEntityState.vue";
-import PlantState from "@/controls/farm/plot-modal/PlantState.vue";
-import GrowthPlantState from "@/controls/farm/plot-modal/GrowthPlantState.vue";
-import ProducePlantState from "@/controls/farm/plot-modal/ProducePlantState.vue";
-import BeanStalkState from "@/controls/farm/plot-modal/BeanStalkState.vue";
-import LegumaPlantState from "@/controls/farm/plot-modal/LegumaPlantState.vue";
+import PlantState from "@/controls/farm/plot/entity-state/PlantState.vue";
+import ProducePlantState from "@/controls/farm/plot/entity-state/ProducePlantState.vue";
+import BeanStalkState from "@/controls/farm/plot/entity-state/BeanStalkState.vue";
 import PlotDetails from './plot-details.vue';
 import Plot from '@/scripts/farm/Plot';
 import GameController from '@/scripts/GameController';
@@ -21,12 +18,9 @@ import GameController from '@/scripts/GameController';
 export default {
     name: "plot-info",
     components: {
-        EmptyEntityState,
         PlantState,
-        GrowthPlantState,
         ProducePlantState,
         BeanStalkState,
-        LegumaPlantState,
         PlotDetails,
     },
     props: {

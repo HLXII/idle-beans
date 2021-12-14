@@ -86,6 +86,10 @@ export default class PlantState extends EntityState {
         return this.data.icon;
     }
 
+    get modalTemplate(): string {
+        return 'PlantState';
+    }
+
     //#region Save
     saveKey = '';
     save(): PlantStateSaveData {

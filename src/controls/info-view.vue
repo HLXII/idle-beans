@@ -46,7 +46,7 @@
 import GameController, { TabType } from '@/scripts/GameController'
 import NavButton from './utility/nav-button.vue'
 import NavTab from './utility/nav-tab.vue'
-import PlotInfo from './farm/plot-modal/plot-info.vue'
+import PlotInfo from './farm/plot/plot-info.vue'
 import WikiInfo from './wiki/wiki-info.vue'
 import Farms from '@/scripts/farm/Farms'
 import WikiNav from './wiki/wiki-nav.vue'

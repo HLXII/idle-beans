@@ -123,6 +123,10 @@ export default class BeanStalkState extends PlantState {
         return super.data as BeanStalk;
     }
 
+    get modalTemplate(): string {
+        return 'BeanStalkState';
+    }
+
     save(): BeanStalkStateSaveData {
         return {
             ...super.save(),
