@@ -25,8 +25,8 @@
 import Prestige from '@/scripts/prestige/Prestige'
 import GameText from '@/controls/utility/game-text.vue'
 import GameButton from '@/controls/utility/game-button.vue'
-import StatusTable from '@/controls/farm/plot-modal/status-table.vue'
-import Status from '@/controls/farm/plot-modal/status.vue'
+import StatusTable from '@/controls/farm/plot/status-table.vue'
+import Status from '@/controls/farm/plot/status.vue'
 import Tooltip from '@/controls/utility/tooltip.vue'
 import Wiki from '@/scripts/wiki/Wiki'
 

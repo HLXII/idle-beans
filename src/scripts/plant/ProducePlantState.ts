@@ -127,6 +127,10 @@ export default class ProducePlantState extends PlantState {
         }
     }
 
+    get modalTemplate(): string {
+        return 'ProducePlantState';
+    }
+
     save(): ProducePlantStateSaveData {
         return {
             ...super.save(),

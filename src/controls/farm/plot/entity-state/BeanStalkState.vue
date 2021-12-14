@@ -1,21 +1,24 @@
 <template>
     <div>
         <plant-details :plant=entity></plant-details>
+        <div class="flex">
+            <div class="col align-self-center"></div>
+        </div>
     </div>
 </template>
 
 <script>
-import PlantDetails from "@/controls/farm/plot-modal/plant-details.vue";
-import GrowthPlantState from "@/scripts/plant/GrowthPlantState";
+import PlantDetails from "@/controls/farm/plot/plant-details.vue";
+import BeanStalkState from "@/scripts/plant/species/BeanStalkState";
 
 export default {
-    name: "GrowthPlantState",
+    name: "BeanStalkState",
     components: {
         PlantDetails,
     },
     props: {
         entity: {
-            type: GrowthPlantState,
+            type: BeanStalkState,
             required: true,
         }
     },

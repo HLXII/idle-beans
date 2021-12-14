@@ -80,7 +80,7 @@ export default abstract class Plant implements Saveable, WikiEntry {
     get icon(): SVGData {
         return PlantIcons[this.name] ?? PlantIcons['Missing Plant'];
     }
-
+    
     /**
      * Element ID for the Wiki entry
      */

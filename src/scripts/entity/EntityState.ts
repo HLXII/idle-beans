@@ -76,7 +76,7 @@ export default abstract class EntityState implements Saveable, FarmLocation {
      * Returns the name for the component to display in the modal
      */
     get modalTemplate(): string {
-        return this.constructor.name;
+        return "";
     }
 
     //#region Save
