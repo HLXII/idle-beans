@@ -16,10 +16,10 @@
                 <div>Use Modals:</div>
                 <div class="flex">
                     <icon-toggle :setting="useModal"
-                    :trueIcon="require(`@/assets/images/icons/Dark Mode Icon.png`)"
-                    :falseIcon="require(`@/assets/images/icons/Light Mode Icon.png`)"
-                    :trueTooltip="`Dark Mode`"
-                    :falseTooltip="`Light Mode`"></icon-toggle>
+                    :trueIcon="require(`@/assets/images/icons/Modal Icon.png`)"
+                    :falseIcon="require(`@/assets/images/icons/Pane Icon.png`)"
+                    :trueTooltip="`Modals`"
+                    :falseTooltip="`Info Pane`"></icon-toggle>
                 </div>
             </div>
         </nav-tab>
