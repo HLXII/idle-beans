@@ -1,6 +1,7 @@
 import { Saveable, SaveData, UpgradeId } from "incremental-game-template";
 import { BeanAmount } from "../bean/BeanList";
 import { GameText } from "../controls/GameText";
+import { UpgradeImages } from "./UpgradeList";
 
 export interface UpgradeSaveData extends SaveData {
     purchased: boolean;
@@ -25,6 +26,10 @@ export default class Upgrade implements Saveable {
     get visible(): boolean {
         // TODO: Figure out this
         return true;
+    }
+
+    get image(): string {
+        return UpgradeImages[this.id];
     }
 
     get saveKey(): string {

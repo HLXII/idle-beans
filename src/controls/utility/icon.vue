@@ -1,6 +1,6 @@
 <template>
     <div style="display: inline-block; position: relative;" v-bind:style="{minWidth: sizeStyle}">
-        <div class="border2" v-bind:class="bg"
+        <div v-bind:class="[bg, borderClass]"
             v-bind:style="{width: borderSize, height: borderSize}" style="position: absolute;" />
         <img style="position: relative;" :style="{width: sizeStyle, height: sizeStyle}" :src="image"/>
         <slot></slot>
@@ -21,14 +21,29 @@ export default {
         size: {
             type: Number,
             default: 32,
+        },
+        border: {
+            type: Number,
+            default: 2,
         }
     },
     computed: {
         borderSize() {
-            return `${this.size - 4}px`;
+            if (this.border == 4) {
+                return `${this.size - 8}px`;
+            } else {
+                return `${this.size - 4}px`;
+            }
         },
         sizeStyle() {
             return `${this.size}px`;
+        },
+        borderClass() {
+            if (this.border == 4) {
+                return 'border4';
+            } else {
+                return 'border2';
+            }
         },
     }
 }

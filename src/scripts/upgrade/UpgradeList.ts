@@ -1,9 +1,15 @@
+import GameHelper from "../GameHelper";
 import Upgrade from "./Upgrade";
 import { UpgradeId } from "./UpgradeId";
 
 /**
- * Internal Upgrades List
- * Used to store all General Upgrades. This isn't typed so that we can pull the keys into UpgradeId
+ * Upgrade Icon Images
+ */
+ export const UpgradeImages = GameHelper.importImages(require.context('/src/assets/images/upgrades/', false, /\.(png|jpe?g|svg)$/));
+
+
+/**
+ * Upgrades List
  */
  export const UpgradeList: Record<UpgradeId, Upgrade> = {
     [UpgradeId.PlainsSize1]: new Upgrade(UpgradeId.PlainsSize1, 'Increase Plains Farm size to 7x7.', {'Sky Bean': 10}, [UpgradeId.PlainsSize2]),

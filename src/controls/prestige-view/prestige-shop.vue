@@ -15,7 +15,7 @@
             </nav-tab>
             <!-- Bean Trees Tab -->
             <nav-tab :activeTab="shopTab" :tabType=1 class="flex-grow">
-                <bean-tree :beans="beans" :upgrades="upgrades" :selectedBean="beans.list['Bean']" />
+                <bean-tree :beans="beans" :upgrades="upgrades" :wiki="wiki" :selectedBean="beans.list['Bean']" />
             </nav-tab>
         </div>
     </div>
