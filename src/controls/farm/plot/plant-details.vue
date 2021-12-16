@@ -2,21 +2,17 @@
     <div>
         <entity-details :entity="plant" :wiki="wiki" :farms="farms">
             <template v-slot:topRightContent>
-                <icon :image=originBean.image class="has-tooltip" >
-                    <tooltip position="bottom-left" :interactable="false" width=56>
-                        <div class="text-center">Planted using a {{plant.originBean}}</div>
-                    </tooltip>
-                </icon>
+                <icon :image=originBean.image v-tooltip.left-end="{content: `Planted using a ${plant.originBean}`}" />
             </template>
             <template v-slot:bottomRightContent>
-                <div class="has-tooltip" style="position:relative;">
-                    <button type="button" class="btn btn-red border2 has-tooltip" style="width: 84px;" v-on:click="remove">
+                <v-popover popoverClass="interact">
+                    <button type="button" class="btn btn-red border2" style="width: 84px;" v-on:click="remove">
                         Remove
                     </button>
-                    <tooltip position="bottom-left" :interactable="true">
+                    <div slot="popover">
                         <game-text class="whitespace-nowrap" :text="plant.removeGainMessage" :wiki="wiki"/>
-                    </tooltip>
-                </div>
+                    </div>
+                </v-popover>
             </template>
         </entity-details>
     </div>
@@ -26,7 +22,6 @@
 import {App} from "@/App.ts";
 import PlantState from "@/scripts/plant/PlantState";
 import Icon from '@/controls/utility/icon.vue';
-import Tooltip from "@/controls/utility/tooltip.vue";
 import GameText from '@/controls/utility/game-text.vue';
 import EntityDetails from './entity-details.vue';
 
@@ -40,7 +35,6 @@ export default {
     },
     components: {
         Icon,
-        Tooltip,
         GameText,
         EntityDetails,
     },
@@ -74,4 +68,5 @@ export default {
     align-content: center;
     flex-direction: column;
 }
+
 </style>

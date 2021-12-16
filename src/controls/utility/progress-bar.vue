@@ -1,22 +1,16 @@
 <template>
-  <div class="h-2 text-xs flex" :class="[bgClass, tooltip ? 'has-tooltip' : '']">
-    <tooltip v-if="tooltip" position="bottom-right" style="top: 100%;">
-        {{ tooltip }}
-    </tooltip>
+  <div class="h-2 text-xs flex" :class="bgClass" v-tooltip="{content: tooltip}">
     <div :style="{'width' : percentage * 100 + '%'}"
          class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center"
          :class="fgClass"></div>
-
   </div>
 </template>
 
 <script>
-import Tooltip from "@/controls/utility/tooltip.vue";
 
 export default {
   name: "progress-bar",
   components: {
-      Tooltip,
   },
   props: {
     percentage: {

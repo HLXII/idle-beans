@@ -55,30 +55,6 @@
         <div id="right-column">
             <div class="flex flex-col gap-1" style="height: 100%;">
                 <div class="flex flex-col-reverse" style="height: 192px;">
-                    <!-- Additional Icons -->
-                    <div class="flex flex-wrap gap-1 justify-center">
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Wiki</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Achievements</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
-                            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
-                                <tooltip position="top-left" :interactable="false">
-                                <div class="text-center">Settings</div>
-                                </tooltip>
-                            </icon>
-                        </div>
-                    </div>
                 </div>
                 <seed-cart/>
                 <button type="button" class="btn btn-red border2" v-on:click="startGame">
@@ -93,8 +69,6 @@
 import { InfoType, TabType } from '@/scripts/GameController';
 import { Game } from '@/Game';
 import BeanList from '../controller/beanlist/bean-list.vue';
-import Icon from '@/controls/utility/icon.vue';
-import Tooltip from '@/controls/utility/tooltip.vue';
 import NavButton from "@/controls/utility/nav-button.vue";
 import NavTab from '../utility/nav-tab.vue';
 import Upgrade from './upgrade.vue';
@@ -107,8 +81,6 @@ import WikiEntry from '../wiki/wiki-entry.vue';
 export default {
     components: {
         BeanList,
-        Icon,
-        Tooltip,
         NavButton,
         NavTab,
         Upgrade,
