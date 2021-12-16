@@ -1,39 +1,22 @@
 <template>
     <div class="flex flex-wrap gap-1 justify-center" v-show="useModal">
-        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
-            <icon class="has-tooltip" :bg="wikiNotification" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
-                <tooltip :interactable="false">
-                <div class="text-center">Wiki</div>
-                </tooltip>
-            </icon>
+        <div class="btn" v-tooltip="'Wiki'" style="height:32px;" @click="openInfo(InfoType.Wiki)">
+            <icon :bg="notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)" />
         </div>
-        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
-            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
-                <tooltip :interactable="false">
-                <div class="text-center">Achievements</div>
-                </tooltip>
-            </icon>
+        <div class="btn" v-tooltip="'Achievements'" style="height:32px;" @click="openInfo(InfoType.Achievements)">
+            <icon :image="require(`@/assets/images/icons/Achievement Icon.png`)" />
         </div>
-        <div class="btn" style="height:32px;" v-if="showPrestige" @click="openInfo(InfoType.Prestige)">
-            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
-                <tooltip :interactable="false">
-                <div class="text-center">Prestige</div>
-                </tooltip>
-            </icon>
+        <div class="btn" v-tooltip="'Prestige'" style="height:32px;" v-if="showPrestige" @click="openInfo(InfoType.Prestige)">
+            <icon :image="require(`@/assets/images/icons/Prestige Icon.png`)" />
         </div>
-        <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
-            <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
-                <tooltip :interactable="false">
-                <div class="text-center">Settings</div>
-                </tooltip>
-            </icon>
+        <div class="btn" v-tooltip="'Settings'" style="height:32px;" @click="openInfo(InfoType.Settings)">
+            <icon :image="require(`@/assets/images/icons/Settings Icon.png`)" />
         </div>
     </div>      
 </template>
 
 <script>
 import Icon from "@/controls/utility/icon.vue";
-import Tooltip from '@/controls/utility/tooltip.vue';
 import Notifications from '@/scripts/notifications/Notifications';
 import GameController, {InfoType} from '@/scripts/GameController';
 import { Settings } from '@/scripts/Settings';
@@ -41,7 +24,6 @@ import { Settings } from '@/scripts/Settings';
 export default {
     components: {
         Icon,
-        Tooltip,
     },
     data() {
         return {
