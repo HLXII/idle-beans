@@ -27,7 +27,7 @@
 @tailwind utilities;
 
 .bg-generic {
-    @apply bg-yellow-100 dark:bg-gray-800
+    @apply bg-yellow-100 dark:bg-gray-800;
 }
 
 .hover-highlight {
@@ -36,13 +36,61 @@
 
 /* Tooltips */
 .tooltip {
-    @apply hidden absolute;
+    display: block !important;
+    z-index: 10000;
 }
 
-.has-tooltip:hover .tooltip {
-    @apply block z-50
+.tooltip .tooltip-inner {
+    @apply border2 bg-generic;
 }
 
+.tooltip:not(.interact)[x-placement^="top"] {
+    margin-bottom: 5px;
+}
+
+.tooltip:not(.interact)[x-placement^="bottom"] {
+    margin-top: 5px;
+}
+
+
+.tooltip:not(.interact)[x-placement^="right"] {
+    margin-left: 5px;
+}
+
+
+.tooltip:not(.interact)[x-placement^="left"] {
+    margin-right: 5px;
+}
+
+.tooltip.interact[x-placement^="top"] > div {
+    margin-bottom: 5px;
+}
+
+.tooltip.interact[x-placement^="bottom"] > div {
+    margin-top: 5px;
+}
+
+
+.tooltip.interact[x-placement^="right"] > div {
+    margin-left: 5px;
+}
+
+
+.tooltip.interact[x-placement^="left"] > div {
+    margin-right: 5px;
+}
+
+.tooltip[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s, visibility .15s;
+}
+
+.tooltip[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s;
+}
 
 img {
     image-rendering: pixelated;

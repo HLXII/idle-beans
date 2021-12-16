@@ -1,22 +1,20 @@
 <template>
-  <div class="bpb-container" :class="{ 'has-tooltip' : tooltip }">
+  <div class="bpb-container" v-tooltip="tooltip">
     <div class="bpb-bar">
         <div class="flex flex-col text-center whitespace-nowrap text-white justify-center" :class="fgClass" :style="style">
             {{text}}
         </div>
     </div>
     <div class="bpb-border border2" :class="bgClass" />
-    <tooltip v-if="tooltip" position="bottom-right" style="top: 100%;">{{ tooltip }}</tooltip>
   </div>
 </template>
 
 <script>
-import Tooltip from "@/controls/utility/tooltip.vue";
 
 export default {
     name: "border-progress-bar",
     components: {
-        Tooltip,
+
     },
     props: {
         percentage: {

@@ -4,6 +4,7 @@ import {App} from "./App";
 
 import Notifications from "vt-notifications";
 import VueDragScroll from 'vue-dragscroll';
+import VTooltip from 'v-tooltip';
 
 import './VueFilters';
 
@@ -13,6 +14,15 @@ Vue.config.productionTip = false
 
 Vue.use(Notifications);
 Vue.use(VueDragScroll);
+
+const tooltipOptions = {
+    defaultHideOnTargetClick: false,
+    popover: {
+        defaultTrigger: 'hover focus',
+        defaultAutoHide: false,
+    }
+}
+Vue.use(VTooltip, tooltipOptions);
 
 declare global {
     interface Window {
