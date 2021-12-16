@@ -4,8 +4,7 @@ import Bean from "./bean/Bean";
 import { BeanType, BeanList } from "./bean/BeanList";
 import Beans from "./bean/Beans";
 import Farms from "./farm/Farms";
-import Plant from "./plant/Plant";
-import { PlantCategory, PlantType } from "./plant/PlantList";
+import { PlantType } from "./plant/PlantList";
 import Plants from "./plant/Plants";
 import { Settings } from "./Settings";
 import Wiki from "./wiki/Wiki";
@@ -26,7 +25,6 @@ export enum TabType {
     Settings = "Settings",
     Prestige = "Prestige",
     PrestigeShop = "PrestigeShop",
-    PrestigePlant = "PrestigePlant",
     Info = "Info",
 }
 
@@ -37,6 +35,7 @@ export enum InfoType {
     Prestige,
     Achievements,
     Settings,
+    PrestigeShop,
 }
 
 export interface GameControllerSaveData extends SaveData {
@@ -71,10 +70,6 @@ export default class GameController extends IgtFeature {
     /**Tab handler */
     public tabs: Record<TabType, number>;
 
-    //#region Prestige View properties
-    public prestigePlant: PlantType;
-    //#endregion
-
     //#region Modifier Key booleans
     public ctrlKey = false;
     public shiftKey = false;
@@ -92,8 +87,6 @@ export default class GameController extends IgtFeature {
    
         this.beanListSearch = '';
 
-        this.prestigePlant = 'Bean Bud';
-
         this.tabs = {
             'Wiki': 0,
             'WikiPlant': 0,
@@ -103,7 +96,6 @@ export default class GameController extends IgtFeature {
             'Settings': 0,
             'Prestige': 0,
             'PrestigeShop': 0,
-            'PrestigePlant': 0,
             'Info': InfoType.Plot,
         };
     }
@@ -268,39 +260,7 @@ export default class GameController extends IgtFeature {
                     this.wiki.changeEntry(WikiType.Bean, this.wiki.beanList[0].name as BeanType);
                     break;
                 }
-                case TabType.PrestigePlant: {
-                    this.changePrestigePlant(this.prestigePlantList[0].name as PlantType);
-                    break;
-                }
             }
         }
     }
-
-    //#region Prestige View
-    get prestigePlantList(): Plant[] {
-        return this.plants.filter((plant: Plant) => {
-            if (plant.category !== this.tabs[TabType.PrestigePlant]) {
-                return false;
-            }
-
-            return plant.unlocked;
-        }); 
-    }
-    get prestigePlantCats(): number[] {
-        return Object.values(PlantCategory).filter((val) => {
-            if (isNaN(+val)) {
-                return false;
-            }
-            return this.plants.filter((plant) => {
-                if (plant.category !== val) {
-                    return false;
-                }
-                return plant.unlocked;
-            }).length > 0;
-        }).map((value) => +value);
-    }
-    changePrestigePlant(plant: PlantType) {
-        this.prestigePlant = plant;
-    }
-    //#endregion
 }

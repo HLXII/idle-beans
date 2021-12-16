@@ -1,38 +1,9 @@
 <template>
-    <div :class="mainViewClass" style="height: 100%;">
+    <div :class="mainViewClass">
         <div id="left-column" class="col-span-3 lg:col-span-2">
-            <div class="flex flex-col gap-1" style="height:100%;">
-                <!-- Additional Icons -->
-                <div class="flex flex-wrap gap-1 justify-center" v-show="useModal">
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
-                        <icon class="has-tooltip" :bg="notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Wiki</div>
-                            </tooltip>
-                        </icon>
-                    </div>
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
-                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Achievements</div>
-                            </tooltip>
-                        </icon>
-                    </div>
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Prestige)">
-                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Prestige</div>
-                            </tooltip>
-                        </icon>
-                    </div>
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
-                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Settings</div>
-                            </tooltip>
-                        </icon>
-                    </div>
-                </div>
+            <div class="flex flex-col gap-1" style="height: 100%;">
+                <!-- Info Icons -->
+                <info-icons :controller="controller" :notifications="notifications" :settings="settings"/>
                 <!-- Bean List -->
                 <bean-list class="farmBeanList flex-grow" :list="controller.filteredBeanList" :useFilter="true" ></bean-list>
                 <!-- Log -->
@@ -70,7 +41,7 @@
         </div>
         <div id="right-column" class="col-span-10 lg:col-span-5" v-show="!useModal">
             <div class="flex flex-col gap-1" style="height: 100%;">
-                <info-view style="height: 100%;" 
+                <info-view 
                     :controller="controller" 
                     :farms="farms" 
                     :wiki="wiki" 
@@ -78,7 +49,8 @@
                     :settings="settings"
                     :beans="beans"
                     :plants="plants"
-                    :notifications="notifications" />
+                    :notifications="notifications"
+                    :upgrades="upgrades" />
             </div>
         </div>
     </div>
@@ -93,12 +65,11 @@ import ToolIcons from '@/controls/controller/tool-icons/tool-icons.vue';
 import BeanList from '@/controls/controller/beanlist/bean-list.vue';
 import Farm from '@/controls/farm/farm.vue';
 import Log from '@/controls/log/log.vue';
-import Icon from "@/controls/utility/icon.vue";
 import FarmControl from "@/controls/farm/farm-control.vue";
-import Tooltip from '@/controls/utility/tooltip.vue';
 import { Game } from '@/Game';
 import IgtDeveloperPanel from '@/components/developer-panel/igt-developer-panel.vue';
 import InfoView from './info-view.vue';
+import InfoIcons from './controller/info-icons.vue';
 
 export default {
     components: {
@@ -106,11 +77,10 @@ export default {
         BeanList,
         Farm,
         Log,
-        Icon,
         FarmControl,
-        Tooltip,
         IgtDeveloperPanel,
         InfoView,
+        InfoIcons,
     },
     data() {
         return {
@@ -194,7 +164,8 @@ export default {
 <style>
 
 .mainView {
-    @apply grid grid-cols-10 p-1 gap-1 dark:bg-gray-900
+    height: 100%;
+    @apply grid grid-cols-10 p-1 gap-1 dark:bg-gray-900;
 }
 
 .farmBeanList {
