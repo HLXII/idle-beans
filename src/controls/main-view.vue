@@ -4,33 +4,17 @@
             <div class="flex flex-col gap-1" style="height:100%;">
                 <!-- Additional Icons -->
                 <div class="flex flex-wrap gap-1 justify-center" v-show="useModal">
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Wiki)">
-                        <icon class="has-tooltip" :bg="notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Wiki</div>
-                            </tooltip>
-                        </icon>
+                    <div class="btn" v-tooltip="'Wiki'" style="height:32px;" @click="openInfo(InfoType.Wiki)">
+                        <icon :bg="notifications.hasWikiNotification ? 'bg-red-500' : 'bg-icon'" :image="require(`@/assets/images/icons/Wiki Icon.png`)" />
                     </div>
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Achievements)">
-                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Achievement Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Achievements</div>
-                            </tooltip>
-                        </icon>
+                    <div class="btn" v-tooltip="'Achievements'" style="height:32px;" @click="openInfo(InfoType.Achievements)">
+                        <icon :image="require(`@/assets/images/icons/Achievement Icon.png`)" />
                     </div>
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Prestige)">
-                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Prestige Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Prestige</div>
-                            </tooltip>
-                        </icon>
+                    <div class="btn" v-tooltip="'Prestige'" style="height:32px;" @click="openInfo(InfoType.Prestige)">
+                        <icon :image="require(`@/assets/images/icons/Prestige Icon.png`)" />
                     </div>
-                    <div class="btn" style="height:32px;" @click="openInfo(InfoType.Settings)">
-                        <icon class="has-tooltip" :image="require(`@/assets/images/icons/Settings Icon.png`)">
-                            <tooltip :interactable="false">
-                            <div class="text-center">Settings</div>
-                            </tooltip>
-                        </icon>
+                    <div class="btn" v-tooltip="'Settings'" style="height:32px;" @click="openInfo(InfoType.Settings)">
+                        <icon :image="require(`@/assets/images/icons/Settings Icon.png`)" />
                     </div>
                 </div>
                 <!-- Bean List -->
@@ -95,7 +79,6 @@ import Farm from '@/controls/farm/farm.vue';
 import Log from '@/controls/log/log.vue';
 import Icon from "@/controls/utility/icon.vue";
 import FarmControl from "@/controls/farm/farm-control.vue";
-import Tooltip from '@/controls/utility/tooltip.vue';
 import { Game } from '@/Game';
 import IgtDeveloperPanel from '@/components/developer-panel/igt-developer-panel.vue';
 import InfoView from './info-view.vue';
@@ -108,7 +91,6 @@ export default {
         Log,
         Icon,
         FarmControl,
-        Tooltip,
         IgtDeveloperPanel,
         InfoView,
     },

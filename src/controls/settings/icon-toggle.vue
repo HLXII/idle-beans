@@ -1,40 +1,34 @@
 <template>
     <div class="btn" @click="toggle">
-        <icon :image=icon v-bind:class="{'has-tooltip': 'hasTooltip'}" >
-            <tooltip v-if="hasTooltip" position="top-left" :interactable="false">
-                <div class="whitespace-nowrap">{{tooltip}}</div>
-            </tooltip>
-        </icon>
+        <icon :image=icon v-tooltip.left-end="{content: tooltip}" />
     </div>
 </template>
 
 <script>
 import {BooleanSetting} from "incremental-game-template";
 import Icon from '@/controls/utility/icon.vue';
-import Tooltip from '@/controls/utility/tooltip.vue';
 
 export default {
     name: "icon-toggle",
     components: {
         Icon,
-        Tooltip,
     },
     props: {
         setting: {
-        type: BooleanSetting,
-        required: true,
+            type: BooleanSetting,
+            required: true,
         },
         trueIcon: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
         },
         trueTooltip: {
             type: String,
             default: '',
         },
         falseIcon: {
-        type: String,
-        required: true,
+            type: String,
+            required: true,
         },
         falseTooltip: {
             type: String,
@@ -49,13 +43,6 @@ export default {
     computed: {
         icon() {
             return this.setting.value ? this.trueIcon : this.falseIcon;
-        },
-        hasTooltip() {
-            if (this.setting.value) {
-                return !!this.trueTooltip;
-            } else {
-                return !!this.falseTooltip;
-            }
         },
         tooltip() {
             if (this.setting.value) {

@@ -3,12 +3,12 @@
         <div>
             <!-- Add Floating Icon for Prestige -->
             <div class="float-right">
-                <div class="has-tooltip" style="position: relative;display:inline-block;">
+                <v-popover popoverClass="interact">
                     <game-button bg="bg-red-500" text="Prestige" :onClick="triggerPrestige" :enabled="prestige.canPrestige"/>
-                    <tooltip :interactable="true" position="bottom-left">
+                    <div slot="popover">
                         <game-text class="whitespace-nowrap" :text="prestige.rewardText" :wiki="wiki"/>
-                    </tooltip>
-                </div>
+                    </div>
+                </v-popover>
             </div>
             <div>{{prestige.name}}</div>
             <div><game-text :text="prestige.description" :wiki="wiki" /></div>
@@ -27,7 +27,6 @@ import GameText from '@/controls/utility/game-text.vue'
 import GameButton from '@/controls/utility/game-button.vue'
 import StatusTable from '@/controls/farm/plot/status-table.vue'
 import Status from '@/controls/farm/plot/status.vue'
-import Tooltip from '@/controls/utility/tooltip.vue'
 import Wiki from '@/scripts/wiki/Wiki'
 
 export default {
@@ -37,7 +36,6 @@ export default {
         GameButton,
         StatusTable,
         Status,
-        Tooltip,
     },
     props: {
         prestige: {
