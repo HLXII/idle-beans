@@ -1,12 +1,12 @@
 <template>
-    <div>
+    <div class="flex flex-col gap-1" style="height:100%;">
         <div>
             <nav class="flex gap-1 mb-1">
                 <nav-button class="flex-1" tabName="Bean Packets" :tabType=0 :changeTab="changeShopTab" :activeTab="shopTab"/>
                 <nav-button class="flex-1" tabName="Bean Trees" :tabType=1 :changeTab="changeShopTab" :activeTab="shopTab"/>
             </nav>
         </div>
-        <div>
+        <div class="flex flex-col gap-1 flex-grow">
             <!-- Bean Packets Tab -->
             <nav-tab :activeTab="shopTab" :tabType=0>
                 <div class="flex flex-cols-4 gap-1 justify-center">
@@ -14,8 +14,7 @@
                 </div>
             </nav-tab>
             <!-- Bean Trees Tab -->
-            <nav-tab :activeTab="shopTab" :tabType=1>
-                <!-- TODO: -->
+            <nav-tab :activeTab="shopTab" :tabType=1 class="flex-grow">
                 <bean-tree :beans="beans" :upgrades="upgrades" :selectedBean="beans.list['Bean']" />
             </nav-tab>
         </div>

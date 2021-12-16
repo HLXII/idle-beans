@@ -1,10 +1,10 @@
 <template>
-    <ul>
-        <li>
-            <span class="tf-nc">{{upgradeId}}</span>
+    <li>
+        <span class="tf-nc">{{upgradeId}}</span>
+        <ul v-if="upgrade.children.length">
             <bean-tree-node v-for="child in upgrade.children" :key="child" :upgrades="upgrades" :upgradeId="child" />
-        </li>
-    </ul>
+        </ul>
+    </li>
 </template>
 
 <script>

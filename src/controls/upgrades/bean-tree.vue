@@ -1,9 +1,9 @@
 <template>
-  <div v-dragscroll style="overflow:auto">
-      <div class="tf-tree">
-          <bean-tree-node :upgrades="upgrades" :upgradeId="selectedBean.baseUpgrade" />
-      </div>
-  </div>
+    <div v-dragscroll class="tf-tree tf-gap-sm" style="height: 100%;">
+        <ul>
+            <bean-tree-node :upgrades="upgrades" :upgradeId="selectedBean.baseUpgrade" />
+        </ul>
+    </div>
 </template>
 
 <script>
@@ -41,5 +41,16 @@ export default {
 </script>
 
 <style scoped>
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.tf-tree::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.tf-tree {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
 
 </style>

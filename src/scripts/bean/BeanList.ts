@@ -16,7 +16,7 @@ export enum BeanCategory {
  * Used to store all Bean data. This isn't typed so that we can pull the keys into BeanType
  */
 const InternalBeanList = {
-    'Bean': new PlantableBean('Bean', 'The quintessential Bean.', BeanCategory.Normal, UpgradeId.PlainsSize1, 'Bean Bud', undefined, { unlocked: true, amount: 1 }),
+    'Bean': new PlantableBean('Bean', 'The quintessential Bean.', BeanCategory.Normal, UpgradeId.BudSpeed1, 'Bean Bud', undefined, { unlocked: true, amount: 1 }),
     'Green Bean': new PlantableBean('Green Bean', 'A greener variety of Bean. Goes great in soups.', BeanCategory.Colored, UpgradeId.PlainsSize1),
     'Red Bean': new PlantableBean('Red Bean', 'It\'s vibrant color lends itself to stews.', BeanCategory.Colored, UpgradeId.PlainsSize1),
     'Yellow Bean': new PlantableBean('Yellow Bean', 'A more pale Bean variety. Ideally should be harvested young.', BeanCategory.Colored, UpgradeId.PlainsSize1),
