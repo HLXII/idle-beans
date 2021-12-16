@@ -19,7 +19,6 @@ export enum ToolType {
 export enum TabType {
     Wiki = "Wiki",
     WikiPlant = "WikiPlant",
-    WikiPlantDetails = 'WikiPlantDetails',
     WikiBean = "WikiBean",
     WikiFarm = "WikiFarm",
     Settings = "Settings",
@@ -90,7 +89,6 @@ export default class GameController extends IgtFeature {
         this.tabs = {
             'Wiki': 0,
             'WikiPlant': 0,
-            'WikiPlantDetails': 0,
             'WikiBean': 0,
             "WikiFarm": 0,
             'Settings': 0,

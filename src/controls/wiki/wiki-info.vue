@@ -44,14 +44,9 @@
                         <div class="plantName">{{plant.name}}</div>
                         <game-text :text="plant.description" :wiki="wiki"/>
                     </div>
-                    <div>
-                        <nav class="flex gap-1 mb-1">
-                            <nav-button class="flex-1" v-if="visibleGrowths.length > 0" tabName="Growths" :tabType=0 :changeTab="changePlantDetailsTab" :activeTab="plantDetailsTab"/>
-                        </nav>
-                    </div>
-                    <nav-tab class="flex flex-col gap-1" :tabType="0" :activeTab="plantDetailsTab">
+                    <div class="flex flex-col gap-1">
                         <wiki-growth v-for="growth in visibleGrowths" :key="`growth_${growth.plant}`" :growth="growth" :plants="plants" :wiki="wiki"/>
-                    </nav-tab>
+                    </div>
                 </div>
             </div>
         </nav-tab>
@@ -142,9 +137,6 @@ export default {
         changePlantTab: function(tab) {
             this.controller.changeTab(TabType.WikiPlant, tab);
         },
-        changePlantDetailsTab: function(tab) {
-            this.controller.changeTab(TabType.WikiPlantDetails, tab);
-        },
         changeFarmTab: function(tab) {
             this.controller.changeTab(TabType.WikiFarm, tab);
         },
@@ -217,9 +209,6 @@ export default {
         },
         plantTab() {
             return this.controller.tabs[TabType.WikiPlant];
-        },
-        plantDetailsTab() {
-            return this.controller.tabs[TabType.WikiPlantDetails];
         },
         visibleGrowths() {
             if (this.plant.growths) {

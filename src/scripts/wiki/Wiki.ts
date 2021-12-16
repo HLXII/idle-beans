@@ -74,14 +74,24 @@ export default class Wiki extends IgtFeature {
     changeEntry(wikiType: WikiType, entry: string) {
         this.selectedEntry[wikiType] = entry;
 
-        console.log(this.selectedEntry);
-
         this.notifications.notify(entry);
+    }
 
-        // Special Update Handling
-        if (wikiType === WikiType.Plant) {
-            // Checking if we need to update the PlantDetailsTab
-            // TODO
+    /**
+     * Maps the WikiType value to the associated Wiki category Tab
+     * @param wikiType 
+     */
+    private mapWikiCatTab(wikiType: WikiType): TabType {
+        switch(wikiType) {
+            case WikiType.Bean:
+                return TabType.WikiBean;
+            case WikiType.Plant:
+                return TabType.WikiPlant;
+            case WikiType.Farm:
+                return TabType.WikiFarm;
+            default:
+                console.error(`Error - Attempting to map unknown WikiType ${wikiType}.`);
+                return TabType.WikiBean;
         }
     }
 
@@ -105,7 +115,8 @@ export default class Wiki extends IgtFeature {
         this.controller.changeTab(TabType.Wiki, type);
 
         // Switching to correct category tab
-        this.controller.changeTab(TabType.WikiBean, entry.category, true);
+
+        this.controller.changeTab(this.mapWikiCatTab(type), entry.category, true);
 
         // Open Bean
         this.changeEntry(type, name);
