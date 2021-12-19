@@ -2,6 +2,7 @@ import { Features } from "@/Features";
 import { BeanAmount } from "../bean/BeanList";
 import Beans from "../bean/Beans";
 import { GameText } from "../controls/GameText";
+import Status from "../entity/Status";
 import GameHelper from "../GameHelper";
 import PrestigeHandler from "./PrestigeHandler";
 
@@ -36,6 +37,10 @@ export default abstract class Prestige {
         message.push('Prestige for:<br>');
         message.push(...GameHelper.beanAmount(this.reward));
         return message;
+    }
+
+    get status(): Status {
+        return new Status(this.label, this.percent, this.text, 'red');
     }
 
     applyModifiers(value: number) {

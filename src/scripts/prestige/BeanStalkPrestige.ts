@@ -77,7 +77,7 @@ export default class BeanStalkPrestige extends Prestige {
         return reward;
     }
     
-    label: string = 'Highest Bean Stalk:';
+    label: string = 'Highest Bean Stalk';
 
     get percent(): number {
         return Math.min(1, (this.highestBeanStalk?.height || 0) / BeanStalkPrestige.prestigeHeight);

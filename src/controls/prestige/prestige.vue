@@ -15,7 +15,7 @@
         </div>
         <div>
             <status-table>
-                <status :label="prestige.label" :percent="prestige.percent" :text="prestige.text"/>
+                <status :status="prestige.status" />
             </status-table>
         </div>
     </div>

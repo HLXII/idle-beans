@@ -27,28 +27,50 @@ export default class Upgrades extends IgtFeature {
         return true;
     }
 
-    purchaseUpgrade(upgradeId: UpgradeId) {
+    /**
+     * 
+     * @param upgradeId The UpgradeId
+     * @param debug Set to true if we want to print debug strings. Defaults to false.
+     * @returns True if the Upgrade can be purchased. False otherwise.
+     */
+    canPurchaseUpgrade(upgradeId: UpgradeId, debug: boolean = false) {
         const upgrade = this.list[upgradeId];
         if (!upgrade) {
-            console.error(`Error - Upgrade "${upgradeId}" not found.`);
-            return;
+            if (debug) { console.error(`Error - Upgrade "${upgradeId}" not found.`); }
+            return false;
         }
         if (!upgrade.visible) {
-            console.error(`Error - Upgrade "${upgradeId}" isn't purchaseable yet.`);
-            return;
+            if (debug) { console.error(`Error - Upgrade "${upgradeId}" isn't purchaseable yet.`); }
+            return false;
         }
         if (upgrade.purchased) {
-            console.error(`Error - Upgrade "${upgradeId}" was already purchased.`);
-            return;
+            if (debug) { console.error(`Error - Upgrade "${upgradeId}" was already purchased.`); }
+            return false;
         }
 
         if (!this.beans.canAfford(upgrade.cost)) {
-            console.error(`Error - Upgrade "${upgradeId}" cannot be purchased.`);
-            return;
+            if (debug) { console.error(`Error - Upgrade "${upgradeId}" cannot be purchased.`); }
+            return false;
         }
 
+        return true;
+    }
+
+    /**
+     * Attempts to purchase the Upgrade. Assumes the upgrade can already be purchased.
+     * @param upgradeId The UpgradeId
+     * @returns True if the upgrade was purchased successfully. False otherwise.
+     */
+    purchaseUpgrade(upgradeId: UpgradeId): boolean {
+        if (!this.canPurchaseUpgrade(upgradeId, true)) {
+            return false;
+        }
+
+        const upgrade = this.list[upgradeId];
         this.beans.takeAmount(upgrade.cost);
         upgrade.purchased = true;
+
+        return true;
     }
 
     saveKey = 'upgrades';

@@ -1,7 +1,7 @@
 <template>
     <div v-dragscroll class="tf-tree tf-gap-sm upgrade-tree" style="height: 100%;">
-        <ul>
-            <bean-tree-node :upgrades="upgrades" :wiki="wiki" :upgradeId="selectedBean.baseUpgrade" />
+        <ul class="tf-root">
+            <bean-tree-node :upgrades="upgrades" :wiki="wiki" :upgradeId="selectedBean.baseUpgrade" :parentPurchased="true" />
         </ul>
     </div>
 </template>
@@ -61,5 +61,12 @@ export default {
 .upgrade-tree { position: relative; }
 .upgrade-tree > ul { transform: rotateX(180deg); }
 .upgrade-tree li ul { margin-bottom: 1em; }
+
+.tf-root {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
 
 </style>

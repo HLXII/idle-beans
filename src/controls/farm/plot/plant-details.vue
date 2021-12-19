@@ -53,9 +53,6 @@ export default {
         remove() {
             this.farms.removeEntity(this.plant.row, this.plant.col);
         },
-        goToPlant() {
-            this.wiki.goToPlant(this.plant.data.name);
-        }
     }
 }
 </script>

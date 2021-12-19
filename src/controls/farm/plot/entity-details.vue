@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex">
-            <div class="border4 bg-icon mr-2" @click="goToEntity">
+            <div class="border4 bg-icon mr-2" @click="openWiki">
                 <svg width=64px xmlns="http://www.w3.org/2000/svg" :viewBox="entity.icon.viewBox" shape-rendering="crispEdges">
                     <metadata>Made with Pixels to Svg https://codepen.io/shshaw/pen/XbxvNj</metadata>
                     <path v-for="path in entity.icon.paths" v-bind:key="path.stroke" pointer-events="painted" :stroke="path.stroke" :d="path.d" />
@@ -66,9 +66,8 @@ export default {
         remove() {
             this.farms.removeEntity(this.entity.row, this.entity.col);
         },
-        goToEntity() {
-            // TODO: Handle non-Plant entities in wiki
-            this.wiki.goToPlant(this.entity.data.name);
+        openWiki() {
+            this.wiki.openWiki(this.entity.wikiType, this.entity.data.name);
         }
     }
 }

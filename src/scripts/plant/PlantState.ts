@@ -20,6 +20,7 @@ export default class PlantState extends EntityState {
 
     /** Type of Plant for this state */
     public type: PlantType;
+    public wikiType: WikiType = WikiType.Plant;
 
     /** Original Bean used to grow this Plant */
     public originBean: BeanType;

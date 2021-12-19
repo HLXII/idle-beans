@@ -4,6 +4,7 @@ import FarmLocation from "../farm/FarmLocation";
 import { FarmType } from "../farm/FarmType";
 import Plot from "../farm/Plot";
 import { SVGData } from "../plant/PlantImages";
+import { WikiType } from "../wiki/WikiType";
 import Status from "./Status";
 
 
@@ -16,6 +17,7 @@ export default abstract class EntityState implements Saveable, FarmLocation {
 
     /** Entity type. To be defined in children classes */
     public type!: string;
+    public wikiType: WikiType = WikiType.Entity;
 
     /** Position in the Farm */
     public farm!: FarmType;
